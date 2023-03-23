@@ -11,10 +11,6 @@ createApp({
 
     },
 
-    mounted(){
-        window.addEventListener('scroll', this.scrollFunction);
-    },
-
     methods: {
 
         scrollFunction() {
@@ -22,18 +18,15 @@ createApp({
             let nav = document.querySelector(".nav-landing-page");
             let fotos = document.querySelector(".fotos-landing");
             let icono = document.querySelector(".icono-landing");
-            console.log([fotos]);
-            console.log([nav]);
-            console.log(document.documentElement.scrollTop);
 
-            if (document.body.scrollTop > fotos.clientHeight - nav.clientHeight / 2 || document.documentElement.scrollTop > fotos.clientHeight - nav.clientHeight / 2|| window.pageYOffset > fotos.clientHeight - nav.clientHeight / 2) {
+            if (document.body.scrollTop > nav.height + fotos.height || document.documentElement.scrollTop > nav.height + fotos.height || window.pageYOffset > nav.height + fotos.height) {
                 nav.style.backgroundColor = "black";  
             } else {
                 nav.style.backgroundColor = "transparent";
             }
 
             if(icono.scrollTop == nav.scrollTop){
-                icono.position = "static";
+                icono.position = inline;
             }
         },
 
@@ -41,4 +34,4 @@ createApp({
     },
 
     
-}).mount("#app")
+})
