@@ -31,16 +31,9 @@
     color: var(--font-color4)
 }
 
-.red-color{
-    color: rgb(170, 1, 1);
-}
-
-.green-color{
-    color: rgb(41, 254, 41);
-}
-
-.white-color{
-    color: white;
+.backTransparente{
+    background: transparent;
+    border: none;
 }
 
 .fuente-poppins {
@@ -65,6 +58,14 @@
 
 .nav-landing-page a {
     color: white;
+}
+
+.nav-header-mb{
+    width: 15%;
+}
+
+.nav-offcanvas{
+    background-color: var(--font-color2);
 }
 
 .fotos-landing {
@@ -125,13 +126,33 @@
     text-align: center;
 }
 
+.icono-header{
+    height: 4rem;
+}
+
 .div-icono {
     position: sticky;
     top: 5rem;
 }
 
-.main-index{
-    
+.flexDesde768 {
+    display: none;
+}
+
+.flexHasta768 {
+    display: flex;
+}
+
+.inlineDesde768 {
+    display: none;
+}
+
+.inlineHasta768 {
+    display:inline;
+}
+
+.boton-menu{
+    height: 8vh;
 }
 
 /*****clase boton*******/
@@ -163,6 +184,22 @@
 .btn1:hover::before {
     width: 100%;
 }
-footer{
-    background-color: black;
+
+
+@media(min-width: 768px){
+    .flexDesde768 {
+        display: flex;
+    }
+    
+    .flexHasta768 {
+        display: none;
+    }
+
+    .inlineDesde768 {
+        display: inline;
+    }
+    
+    .inlineHasta768 {
+        display: none;
+    }
 }
