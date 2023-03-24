@@ -4,13 +4,59 @@
     margin: 0;
 }
 
+:root {
+    --font-color1 : white;
+    --font-color2: #f7ba24;
+    --font-color3: #ffeba7;
+    --font-color4:#06283D;
+}
+
+[v-cloak] {
+    display: none;
+}
+
+.font1-color{
+    color: var(--font-color1);
+}
+
+.font2-color{
+    color: var(--font-color2);
+}
+
+.font3-color{
+    color: var(--font-color3)
+}
+
+.font4-color{
+    color: var(--font-color4)
+}
+
+.red-color{
+    color: rgb(170, 1, 1);
+}
+
+.green-color{
+    color: rgb(41, 254, 41);
+}
+
+.white-color{
+    color: white;
+}
+
 .fuente-poppins {
     font-family: 'Poppins', sans-serif;
     height: 6rem;
 }
 
+.fuente-workSans {
+    font-family: 'Work Sans', sans-serif;
+    font-size: 2rem;
+    z-index: 2;
+}
+
 .nav-landing-page, .collapse-nav-lista{
     background-color: transparent;
+    transition: background-color 0.3s linear;
 }
 
 .nav-landing-page{
@@ -22,7 +68,7 @@
 }
 
 .fotos-landing {
-    background-image: url("../imagenes/IMG2.jpg");
+    background-image: url("../Imagenes/foto0.jpg");
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -40,8 +86,33 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: black;
+    background-color: rgb(0, 0, 0);
     opacity: 0.3;
+}
+
+.typing-container{
+    position: absolute;
+    left: 40px;
+    top: 150px;
+}
+
+.input-cursor {
+    display: inline-block;
+    width: 4px;
+    height: 25px;
+    background-color: var(--font-color1);
+    margin-left: 8px;
+}
+
+@keyframes blink {
+    0% {opacity: 1;}
+    40% {opacity: 1;}
+    60% {opacity: 0;}
+    100% {opacity: 0;}
+  }
+
+.input-cursor { 
+  animation: blink .6s linear infinite alternate;
 }
 
 .icono-landing {
@@ -57,6 +128,10 @@
 .div-icono {
     position: sticky;
     top: 5rem;
+}
+
+.main-index{
+    
 }
 
 /*****clase boton*******/
