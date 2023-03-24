@@ -9,8 +9,11 @@
     height: 6rem;
 }
 
-.nav-landing-page {
+.nav-landing-page, .collapse-nav-lista{
     background-color: transparent;
+}
+
+.nav-landing-page{
     position: fixed;
 }
 
@@ -44,7 +47,11 @@
 .icono-landing {
     top: -70px;
     height: 10rem;
-    left: 45%;
+    margin-left: auto;
+    margin-right: auto;
+    left: 39px;
+    right: 0;
+    text-align: center;
 }
 
 .div-icono {
@@ -72,7 +79,7 @@
     content: '';
     width: 0%;
     height: 2px;
-    background: rgb(222, 222, 34);
+    background: #f7ba24;
     display: block;
     transition: 0.5s;
 }
