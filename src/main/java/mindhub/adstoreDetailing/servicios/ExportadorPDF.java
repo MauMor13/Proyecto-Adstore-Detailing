@@ -1,4 +1,4 @@
-package mindhub.adstoreDetailing.utilidades;
+package mindhub.adstoreDetailing.servicios;
 
 import com.lowagie.text.*;
 import com.lowagie.text.Font;
@@ -18,7 +18,6 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Service
 public class ExportadorPDF {
    // private List<Transaction> transactionList;
