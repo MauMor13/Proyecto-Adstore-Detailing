@@ -30,6 +30,5 @@ import java.util.Set;
         @OneToMany(mappedBy = "comprador", fetch = FetchType.EAGER)
         Set<Compra> compras = new HashSet<>();
 
-
     }
 

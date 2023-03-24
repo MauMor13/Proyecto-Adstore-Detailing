@@ -1,4 +1,4 @@
-package mindhub.adstoreDetailing.utilidades;
+package mindhub.adstoreDetailing.servicios;
 
 import com.lowagie.text.*;
 import com.lowagie.text.Font;

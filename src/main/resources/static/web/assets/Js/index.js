@@ -1,6 +1,7 @@
 const {createApp} = Vue;
 
 createApp({
+    
     data(){
         return{
 
@@ -11,6 +12,10 @@ createApp({
 
     },
 
+    mounted(){
+        window.addEventListener('scroll', this.scrollFunction);
+    },
+
     methods: {
 
         scrollFunction() {
@@ -18,15 +23,19 @@ createApp({
             let nav = document.querySelector(".nav-landing-page");
             let fotos = document.querySelector(".fotos-landing");
             let icono = document.querySelector(".icono-landing");
+            let divNavLista = document.querySelector(".collapse-nav-lista")
 
-            if (document.body.scrollTop > nav.height + fotos.height || document.documentElement.scrollTop > nav.height + fotos.height || window.pageYOffset > nav.height + fotos.height) {
+
+            if (document.body.scrollTop > fotos.clientHeight - nav.clientHeight / 2 || document.documentElement.scrollTop > fotos.clientHeight - nav.clientHeight / 2|| window.pageYOffset > fotos.clientHeight - nav.clientHeight / 2) {
                 nav.style.backgroundColor = "black";  
+                divNavLista.style.backgroundColor = "black";
             } else {
                 nav.style.backgroundColor = "transparent";
+                divNavLista.style.backgroundColor = "transparent";
             }
 
             if(icono.scrollTop == nav.scrollTop){
-                icono.position = inline;
+                icono.position = "static";
             }
         },
 
@@ -34,4 +43,4 @@ createApp({
     },
 
     
-})
+}).mount("#app")
