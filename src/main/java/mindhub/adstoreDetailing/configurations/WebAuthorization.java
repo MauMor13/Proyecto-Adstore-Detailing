@@ -17,8 +17,7 @@ import javax.servlet.http.HttpSession;
 public class WebAuthorization {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
-        http.authorizeRequests()
-                .antMatchers("/**").permitAll();
+        http.authorizeRequests().anyRequest().permitAll();
         http.formLogin()
                 .usernameParameter("email")
                 .passwordParameter("password")
@@ -51,9 +50,7 @@ public class WebAuthorization {
     private void clearAuthenticationAttributes(HttpServletRequest request) {
 
         HttpSession session = request.getSession(false);
-
         if (session != null) {
-
             session.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
         }
     } }
