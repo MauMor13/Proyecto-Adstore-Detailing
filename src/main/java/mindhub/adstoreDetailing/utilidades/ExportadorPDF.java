@@ -18,7 +18,6 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Service
 public class ExportadorPDF {
    // private List<Transaction> transactionList;

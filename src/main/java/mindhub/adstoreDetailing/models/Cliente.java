@@ -6,8 +6,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
-    @Getter
+@Getter
     @Setter
     @NoArgsConstructor
     @AllArgsConstructor
@@ -25,6 +27,9 @@ import javax.persistence.*;
         private int telefono;
         @OneToOne(mappedBy = "cliente")
         CuentaMiembro cuentaMiembro;
+        @OneToMany(mappedBy = "comprador", fetch = FetchType.EAGER)
+        Set<Compra> compras = new HashSet<>();
+
 
     }
 
