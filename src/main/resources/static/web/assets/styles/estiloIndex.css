@@ -3,7 +3,9 @@
     padding: 0;
     margin: 0;
 }
-
+body{
+    background-color: black;
+}
 :root {
     --font-color1 : white;
     --font-color2: #f7ba24;
@@ -52,6 +54,11 @@
     font-family: 'Work Sans', sans-serif;
     font-size: 2rem;
     z-index: 2;
+    
+}
+
+.fuente-audiowide{
+    font-family: 'Audiowide', cursive;
 }
 
 .nav-landing-page, .collapse-nav-lista{
@@ -109,10 +116,10 @@
     40% {opacity: 1;}
     60% {opacity: 0;}
     100% {opacity: 0;}
-  }
+}
 
 .input-cursor { 
-  animation: blink .6s linear infinite alternate;
+    animation: blink .6s linear infinite alternate;
 }
 
 .icono-landing {
@@ -169,7 +176,6 @@ footer{
 .copyright{
     background-color:#f7ba24 ;
 }
-
 .link-contacto{
     font-size: 15px;
     color: #e1e1e1;
@@ -205,4 +211,10 @@ footer{
     transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
     transition-duration: 400ms;
     transition-property: width, left;
+}
+.aboutus{
+    background-image: linear-gradient(#f7bb24a8, #f7bb2487),url("../Imagenes/fondoAmarillo.jpg")!important;
+    background-size: 1300px 700px !important;
+    padding: 4rem;
+    width: 100%;
 }
