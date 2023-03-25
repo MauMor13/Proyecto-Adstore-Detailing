@@ -23,5 +23,4 @@ public class CompraProducto {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "producto_id")
     private Producto producto;
-
 }
