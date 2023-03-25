@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 @Getter
 @Setter
@@ -22,8 +23,8 @@ public class CompraServicio {
     private LocalDateTime fechaReserva;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "compra_id")
-    Set<Compra> compra;
+    private Compra compra;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "servicio_id")
-    Set<Servicio> servicio;
+    private Servicio servicio;
 }
