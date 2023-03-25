@@ -91,19 +91,18 @@
     </header>
 
     <main class="main-index d-flex flex-column gap-3 justify-content-center align-items-center">
-
       <!-- BANNER -->
-      
       <div class="fotos-landing">
         <div class="typing-container">
-          <span id="sentence" class="fuente-workSans sentence font3-color">UN LUGAR DISTINTO... </span>
+          <span id="sentence" class="fuente-audiowide sentence font3-color">UN LUGAR DISTINTO... </span>
           <div>
-              <span id="feature-text" class="fuente-workSans font1-color">{{textoDinamico}}</span>
+              <span id="feature-text" v-cloak class="fuente-audiowide font1-color">{{textoDinamico}}</span>
               <span class="input-cursor font1-color"></span>
           </div>
         </div>
         <!-- contenedor de imagenes entrada -->
       </div>
+      
       
       <!-- ICONO -->
       <div class="w-100 div-icono inlineDesde768">
@@ -113,11 +112,83 @@
       <!-- contenedor About US -->
       <div class="aboutus">
         <h3 class="fuente-audiowide">SOBRE NOSOTROS...</h3>
-        <P class="fuente-poppins ">Nos enorgullecemos de ofrecer todos los servicios de más alta calidad necesarios para mantener en las mejores condiciones tu vehículo. Con años de experiencia en la industria automotriz, nuestro equipo de mecánicos altamente capacitados y certificados tiene la habilidad y el conocimiento para manejar cualquier problema que su vehículo pueda tener.
+        <p class="fuente-poppins ">Nos enorgullecemos de ofrecer todos los servicios de más alta calidad necesarios para mantener en las mejores condiciones tu vehículo. Con años de experiencia en la industria automotriz, nuestro equipo de mecánicos altamente capacitados y certificados tiene la habilidad y el conocimiento para manejar cualquier problema que su vehículo pueda tener.
           Creemos en la importancia de la honestidad y la transparencia en cada interacción con nuestros clientes. Nos aseguramos de que cada cliente comprenda el proceso de reparación de su vehículo y se sienta cómodo con cada paso que tomamos.
           Además, nuestro equipo utiliza solo las herramientas y equipos de la más alta calidad, lo que garantiza que su vehículo reciba el mejor cuidado posible. Nos aseguramos de estar actualizados en las últimas tecnologías y técnicas de reparación, lo que nos permite ofrecer servicios de vanguardia en nuestro taller.
-        </P>
+        </p>
       </div>
+      <!--  Inicio carrusel experiencias -->
+      <div class="d-flex justify-content-center">
+        <div id="carouselExampleSlidesOnly" class="carousel col-lg-10 slide" data-bs-ride="carousel">
+          <div class="carousel-inner">
+
+            <div class="carousel-item active">
+              <div class="d-flex justify-content-evenly fondo-experiencia flex-wrap">
+                <div class="col-4 d-flex justify-content-center align-content-center align-items-center">
+                  <img src="./assets/Imagenes/experiencia1.jpg" class="d-block img-experiencia w-100" alt="...">
+                </div>
+                <div class="d-flex p-2 col-6 flex-column">
+                  <a href="" class="link-contacto text-decoration-none"> <h4>TU EXPERIENCIA...</h4> </a>
+                  <div>
+                    <div class="d-flex align-items-center m-0 align-content-center">
+                      <img src="./assets/Imagenes/usuario.png" class="usuario" alt="">
+                      <p class="mt-2">@Pablo23</p>
+                    </div>
+                    <p class="m-0">
+                      Recientemente tuve la oportunidad de llevar mi coche al taller de autos local y debo decir que quedé muy impresionado con el servicio. Desde el momento en que ingresé al taller, me sentí bienvenido y bien atendido por el personal
+                    </p>
+                    <img src="./assets/Imagenes/estrella.png" alt="">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="carousel-item">
+              <div class="d-flex justify-content-evenly fondo-experiencia flex-wrap">
+                <div class="col-4 d-flex justify-content-center align-content-center align-items-center">
+                  <img src="./assets/Imagenes/experiencia2.jpg" class="d-block img-experiencia w-100" alt="...">
+                </div>
+                <div class="d-flex p-2 col-6 flex-column">
+                  <a href="" class="link-contacto text-decoration-none"> <h4>TU EXPERIENCIA...</h4> </a>
+                  <div>
+                    <div class="d-flex align-items-center m-0 align-content-center">
+                      <img src="./assets/Imagenes/usuario.png" class="usuario" alt="">
+                      <p class="mt-2">@camila_r12</p>
+                    </div>
+                    <p class="m-0">
+                      Adstore ofrecía un ambiente limpio y ordenado, lo que me dio la sensación de que el equipo se preocupaba por su trabajo y su entorno. También noté que estaban utilizando tecnología moderna y herramientas de alta calidad, lo que me dio la confianza de que estaban bien equipados para manejar cualquier problema de mi coche.
+                    </p>
+                    <img src="./assets/Imagenes/estrella.png" alt="">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="carousel-item">
+              <div class="d-flex justify-content-evenly fondo-experiencia flex-wrap">
+                <div class="col-4 d-flex justify-content-center align-content-center align-items-center">
+                  <img src="./assets/Imagenes/experiencia3.jpeg" class="d-block img-experiencia w-100" alt="...">
+                </div>
+                <div class="d-flex p-2 col-6 flex-column">
+                  <a href="" class="link-contacto text-decoration-none"> <h4>TU EXPERIENCIA...</h4> </a>
+                  <div>
+                    <div class="d-flex align-items-center m-0 align-content-center">
+                      <img src="./assets/Imagenes/usuario.png" class="usuario" alt="">
+                      <p class="mt-2">@luispablo1</p>
+                    </div>
+                    <p class="m-0">
+                      La página web del Adstore fue muy útil para programar una cita, ya que ofrecía una variedad de opciones de servicio y me permitió reservar fácilmente una hora que me convenía. La página también incluía información útil sobre los diferentes servicios de reparación y mantenimiento que ofrecían, lo que me permitió saber exactamente qué esperar.
+                    </p>
+                    <img src="./assets/Imagenes/estrella.png" alt="">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <!--  Fin carrusel experiencias -->
 
       <img class="w-100" src="./assets/Imagenes/IMG4.jpg" alt="">
       <img class="w-100" src="./assets/Imagenes/IMG3.jpg" alt="">
