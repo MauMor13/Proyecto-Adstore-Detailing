@@ -234,12 +234,15 @@ footer{
     transition-duration: 400ms;
     transition-property: width, left;
 }
+
 .aboutus{
     background-image: linear-gradient(#f7bb24a8, #f7bb2487),url("../Imagenes/fondoAmarillo.jpg")!important;
     background-size: 1300px 700px !important;
     padding: 4rem;
     width: 100%;
 }
+
+
 
 @media(min-width: 768px){
     .flexDesde768 {
@@ -257,5 +260,6 @@ footer{
     .inlineHasta768 {
         display: none;
     }
+
 
 }
