@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -18,7 +19,17 @@ public class Compra {
     @SequenceGenerator(name = "compra_seq", sequenceName = "compra_id_seq", allocationSize = 1)
     private long id;
     private double montoTotal;
+
+
+
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "comprador_id")
+    @JoinColumn(name = "compra_id")
     private Cliente comprador;
+
+    @OneToMany(mappedBy = "compra", fetch = FetchType.EAGER)
+    Set<CompraProducto> compraProductos;
+
+    @OneToMany(mappedBy = "compra", fetch = FetchType.EAGER)
+    Set<CompraServicio> compraServicios;
+
 }

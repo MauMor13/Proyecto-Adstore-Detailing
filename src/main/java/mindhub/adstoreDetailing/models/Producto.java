@@ -24,4 +24,7 @@ public class Producto {
     private int descuento;
     private String imagenURL;
 
+    @OneToMany(mappedBy = "productos",fetch = FetchType.EAGER)
+    private CompraProducto compraProducto;
+
 }

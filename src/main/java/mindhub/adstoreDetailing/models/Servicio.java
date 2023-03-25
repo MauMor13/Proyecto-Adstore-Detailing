@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.Duration;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -24,5 +25,8 @@ public class Servicio {
     private int descuento;
     private Duration duracion;
     private String imagenURL;
+
+    @OneToMany(mappedBy = "servicios", fetch = FetchType.EAGER)
+    Set<CompraServicio> compraServicios;
 
 }
