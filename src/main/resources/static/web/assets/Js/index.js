@@ -114,24 +114,25 @@ createApp({
             let i = 1;
             let fotos = document.querySelector(".fotos-landing");
             console.log([fotos]);
-            while(i <= 3){
+            while(i <= 5){
                 await this.esperaPorMs(10000);
                 for(let j = 1; j > 0; j -= 0.1){
                     await this.esperaPorMs(25);
                     fotos.style.opacity = `${j}`;
                 }
-                if(i == 0){
-                    fotos.style.backgroundImage = `url(../web/assets/Imagenes/banner${i}.jpg)`
-                }
-                else{
-                    fotos.style.backgroundImage = `url(../web/assets/Imagenes/foto${i}.jpeg)`
-                }
+                fotos.style.backgroundImage = `url(../web/assets/Imagenes/banner${i}.jpg)`
+                // if(i == 0){
+                //     fotos.style.backgroundImage = `url(../web/assets/Imagenes/banner${i}.jpg)`
+                // }
+                // else{
+                //     fotos.style.backgroundImage = `url(../web/assets/Imagenes/foto${i}.jpeg)`
+                // }
                 for(let j = 0; j < 1; j += 0.1){
                     fotos.style.opacity = `${j}`;
                     await this.esperaPorMs(25);
                 }
                 i ++;
-                if(i == 3){
+                if(i == 6){
                     i = 0;
                 }
             }
