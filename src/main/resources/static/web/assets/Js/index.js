@@ -15,6 +15,7 @@ createApp({
 
     mounted(){
         window.addEventListener('scroll', this.scrollFunction);
+        this.controlCarrusel();
         this.administraAsincronas();
     },
 
@@ -40,6 +41,26 @@ createApp({
         administraAsincronas: function(){
             this.manejaAutoTyping();
             this.cambioDeFotos();
+        },
+
+        controlCarrusel: function(){
+            const miCarrusel = document.getElementById('carouselExampleSlidesOnly');
+            /*const botonesDireccion = [... document.querySelectorAll('.btn-carousel')];
+
+            myCarrusel.addEventListener('slide.bs.carousel', event => {
+                botonesDireccion[0].style.opacity = '0';
+                botonesDireccion[1].style.opacity = '0';
+            })
+
+            myCarrusel.addEventListener('slid.bs.carousel', event => {
+                botonesDireccion[0].style.opacity = '1';
+                botonesDireccion[1].style.opacity = '1';
+            })*/
+
+            const carousel = new bootstrap.Carousel(miCarrusel, {
+                interval: 7000,
+            })
+
         },
 
         //autotyping
@@ -115,6 +136,7 @@ createApp({
                 }
             }
         } 
+
 
 
     },
