@@ -18,7 +18,7 @@ public class TarjetaAd {
     @SequenceGenerator(name = "tarjetaMiembro_seq", sequenceName = "tarjetaMiembro_id_seq", allocationSize = 1)
     private long id;
     private String numeroTarjeta;
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="cuenta_id")
     private Cuenta cuenta;
 }
