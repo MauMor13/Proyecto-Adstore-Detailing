@@ -6,6 +6,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -17,8 +20,14 @@ public class Compra {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "compra_seq")
     @SequenceGenerator(name = "compra_seq", sequenceName = "compra_id_seq", allocationSize = 1)
     private long id;
-    private double montoTotal;
+    private double montoFinal;
+    private LocalDateTime fecha;
+    private int descuento;
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "comprador_id")
-    private Cliente comprador;
+    @JoinColumn(name = "cuenta_id")
+    private Cuenta cuenta;
+    @OneToMany(mappedBy = "compra",fetch = FetchType.EAGER)
+    private Set<CompraProducto> compraProducto = new HashSet<>();
+    @OneToMany(mappedBy = "compra",fetch = FetchType.EAGER)
+    private Set<CompraServicio> compraServicio = new HashSet<>();
 }

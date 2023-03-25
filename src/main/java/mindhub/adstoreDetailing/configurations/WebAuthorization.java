@@ -20,7 +20,7 @@ public class WebAuthorization {
         http.authorizeRequests().anyRequest().permitAll();
         http.formLogin()
                 .usernameParameter("email")
-                .passwordParameter("password")
+                .passwordParameter("claveIngreso")
                 .loginPage("/api/login");
 
         http.logout()
