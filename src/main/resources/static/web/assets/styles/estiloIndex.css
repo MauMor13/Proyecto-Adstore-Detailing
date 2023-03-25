@@ -269,8 +269,8 @@ footer{
 }
 
 .img-experiencia{
-    width: 200px;
-    height: 200px;
+
+    aspect-ratio: 1/0.85;
     border-radius: 10px;
     box-shadow: 2px 4px 5px rgba(0, 0, 0, 0.543); 
 }
@@ -279,6 +279,7 @@ footer{
     background-size: cover!important;
     background-position: bottom;
     color: white;
+    border-radius: 10px;
 }
 .usuario{
     width: 30px;
