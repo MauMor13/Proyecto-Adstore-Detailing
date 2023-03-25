@@ -3,6 +3,9 @@
     padding: 0;
     margin: 0;
 }
+[v-cloak] {
+    display: none;
+}
 body{
     background-color: black;
 }
@@ -52,6 +55,7 @@ body{
 
 .fuente-audiowide{
     font-family: 'Audiowide', cursive;
+    font-size: 2rem;
 }
 
 .nav-landing-page, .collapse-nav-lista{
@@ -239,7 +243,7 @@ footer{
 .aboutus{
     background-image: linear-gradient(#f7bb24a8, #f7bb2487),url("../Imagenes/fondoAmarillo.jpg")!important;
     background-size: 1300px 700px !important;
-    padding: 2rem;
+    padding: 4rem 2rem 2rem 2rem;
     width: 100%;
 }
 
@@ -262,4 +266,21 @@ footer{
     }
 
 
+}
+
+.img-experiencia{
+    width: 200px;
+    height: 200px;
+    border-radius: 10px;
+    box-shadow: 2px 4px 5px rgba(0, 0, 0, 0.543); 
+}
+.fondo-experiencia{
+    background-image: linear-gradient(#000000d5, #000000db),url("../Imagenes/fondoGris.jpg")!important;
+    background-size: cover!important;
+    background-position: bottom;
+    color: white;
+}
+.usuario{
+    width: 30px;
+    margin: 0.5rem;
 }
