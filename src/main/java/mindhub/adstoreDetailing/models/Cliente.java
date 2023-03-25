@@ -20,10 +20,10 @@ import javax.persistence.*;
         private String nombre;
         private String apellido;
         private String direccion;
+        private String email;
         private String contrasenia;
         private int telefono;
         @OneToOne(mappedBy = "cliente")
         CuentaMiembro cuentaMiembro;
-
     }
 
