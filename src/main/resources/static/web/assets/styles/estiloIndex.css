@@ -40,7 +40,7 @@ body{
 
 .fuente-poppins {
     font-family: 'Poppins', sans-serif;
-    height: 6rem;
+    min-height: 6rem;
 }
 
 .fuente-workSans {
@@ -239,7 +239,7 @@ footer{
 .aboutus{
     background-image: linear-gradient(#f7bb24a8, #f7bb2487),url("../Imagenes/fondoAmarillo.jpg")!important;
     background-size: 1300px 700px !important;
-    padding: 4rem;
+    padding: 2rem;
     width: 100%;
 }
 
