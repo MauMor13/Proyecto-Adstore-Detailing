@@ -195,6 +195,7 @@ body{
 footer{
     background-image: linear-gradient(rgba(176, 176, 202, 0), rgba(42, 104, 165, 0)),url("../Imagenes/footer.jpg")!important;
 }
+
 .copyright{
     background-color:#f7ba24 ;
 }
@@ -240,7 +241,7 @@ footer{
     background-size: 1300px 700px !important;
     padding: 4rem;
     width: 100%;
-
+}
 
 
 @media(min-width: 768px){
