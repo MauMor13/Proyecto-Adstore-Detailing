@@ -25,7 +25,7 @@ body{
 }
 
 .font2-color{
-    color: var(--font-color2);
+    color: var(--font-color2) !important;
 }
 
 .font3-color{
@@ -58,8 +58,8 @@ body{
     font-size: 2rem;
 }
 
-.w-20{
-    width: 20%;
+.w-15{
+    width: 15%;
 }
 
 .nav-landing-page, .collapse-nav-lista{
@@ -166,6 +166,10 @@ body{
     display:inline;
 }
 
+.inlineDesde1024 {
+    display: none;
+}
+
 .boton-menu{
     height: 8vh;
 }
@@ -251,6 +255,18 @@ footer{
     width: 100%;
 }
 
+.se-cliente{
+    background-image: linear-gradient(#000000d5, #000000db),url("../Imagenes/fondoGris.jpg");
+    background-size: cover!important;
+    background-position: bottom;
+    width: 90%;
+    font-family: 'Poppins', sans-serif;
+    border-radius: 10px;
+}
+
+.carrusel-exp{
+    width: 90%;
+}
 
 .img-experiencia{
 
@@ -299,4 +315,11 @@ footer{
     }
 
 
+}
+
+@media(min-width: 1024px){
+
+    .inlineDesde1024 {
+        display: inline;
+    }
 }
