@@ -42,6 +42,21 @@ createApp({
             this.cambioDeFotos();
         },
 
+        controlCarrusel: function(){
+            const myCarrusel = document.getElementById('carousel1');
+            const botonesDireccion = [... document.querySelectorAll('.btn-carousel')];
+
+            myCarrusel.addEventListener('slide.bs.carousel', event => {
+                botonesDireccion[0].style.opacity = '0';
+                botonesDireccion[1].style.opacity = '0';
+            })
+
+            myCarrusel.addEventListener('slid.bs.carousel', event => {
+                botonesDireccion[0].style.opacity = '1';
+                botonesDireccion[1].style.opacity = '1';
+            })
+        },
+
         //autotyping
 
         async manejaAutoTyping(){
@@ -115,6 +130,7 @@ createApp({
                 }
             }
         } 
+
 
 
     },
