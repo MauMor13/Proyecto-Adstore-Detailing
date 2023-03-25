@@ -23,11 +23,9 @@ import java.util.Set;
         private String apellido;
         private String direccion;
         private String email;
-        private String contrasenia;
+        private String claveIngreso;
         private int telefono;
         @OneToOne(mappedBy = "cliente")
-        CuentaMiembro cuentaMiembro;
-        @OneToMany(mappedBy = "comprador", fetch = FetchType.EAGER)
-        Set<Compra> compras = new HashSet<>();
+        Cuenta cuenta;
     }
 

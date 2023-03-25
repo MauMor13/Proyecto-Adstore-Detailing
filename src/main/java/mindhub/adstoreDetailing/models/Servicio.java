@@ -4,9 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import javax.persistence.*;
 import java.time.Duration;
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -19,12 +19,13 @@ public class Servicio {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "servicio_seq")
     @SequenceGenerator(name = "servicio_seq", sequenceName = "servicio_id_seq", allocationSize = 1)
     private long id;
-    private String nombreServicio;
+    private String nombre;
     private String descripcion;
     private double precio;
-    private int descuento;
     private Duration duracion;
     private String imagenURL;
+    @OneToMany(mappedBy = "servicio",fetch = FetchType.EAGER)
+    private Set<CompraServicio> compraServicio = new HashSet<>();
 
     @OneToMany(mappedBy = "servicios", fetch = FetchType.EAGER)
     Set<CompraServicio> compraServicios;

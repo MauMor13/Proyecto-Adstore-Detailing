@@ -12,14 +12,13 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class TarjetaMiembro {
+public class TarjetaAd {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tarjetaMiembro_seq")
     @SequenceGenerator(name = "tarjetaMiembro_seq", sequenceName = "tarjetaMiembro_id_seq", allocationSize = 1)
     private long id;
-    private String digitos;
-    private String nombreMiembro;
-    @OneToOne
-    @JoinColumn(name="cuentaMiembro_id")
-    private CuentaMiembro cuentaMiembro;
+    private String numeroTarjeta;
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="cuenta_id")
+    private Cuenta cuenta;
 }
