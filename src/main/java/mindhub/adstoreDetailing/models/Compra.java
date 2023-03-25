@@ -18,4 +18,7 @@ public class Compra {
     @SequenceGenerator(name = "compra_seq", sequenceName = "compra_id_seq", allocationSize = 1)
     private long id;
     private double montoTotal;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "comprador_id")
+    private Cliente comprador;
 }
