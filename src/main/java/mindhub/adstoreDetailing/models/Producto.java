@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -17,11 +19,12 @@ public class Producto {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "producto_seq")
     @SequenceGenerator(name = "producto_seq", sequenceName = "producto_id_seq", allocationSize = 1)
     private long id;
-    private String productoNombre;
+    private String nombre;
     private double precio;
     private int stock;
     private String descripcion;
-    private int descuento;
-    private String imagenURL;
-
+    private String imagenUrl;
+    private Categoria categoria;
+    @OneToMany(mappedBy = "producto",fetch = FetchType.EAGER)
+    private Set<CompraProducto> compraProducto = new HashSet<>();
 }
