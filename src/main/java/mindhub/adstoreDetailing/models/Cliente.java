@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
     @Getter
     @Setter
@@ -21,9 +23,9 @@ import javax.persistence.*;
         private String apellido;
         private String direccion;
         private String email;
-        private String contrasenia;
+        private String claveIngreso;
         private int telefono;
         @OneToOne(mappedBy = "cliente")
-        CuentaMiembro cuentaMiembro;
+        Cuenta cuenta;
     }
 
