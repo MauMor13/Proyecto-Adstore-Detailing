@@ -27,5 +27,5 @@ public class Cuenta {
     @OneToOne(mappedBy = "cuenta", fetch = FetchType.EAGER)
     private TarjetaAd tarjetaAd;
     @OneToMany(mappedBy = "cuenta", fetch = FetchType.EAGER)
-    Set<Compra> compras = new HashSet<>();
+    private Set<Compra> compras = new HashSet<>();
 }
