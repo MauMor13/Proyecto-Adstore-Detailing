@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.*;
 import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.time.LocalDateTime;
 
@@ -59,6 +60,18 @@ public class ExportadorPDF {
 //            table.addCell(String.valueOf(transaction.getSender() == null ? "N/A" : String.valueOf(transaction.getSender())));
 //            table.addCell(String.valueOf(transaction.getRemainingBalance()));
 //        }
+    }
+
+    public void generarPdf() {
+        try {
+            Document document = new Document();
+            PdfWriter.getInstance(document, new FileOutputStream("sample.pdf"));
+            document.open();
+            document.add(new Paragraph("Hello, World!"));
+            document.close();
+        } catch (IOException | DocumentException e) {
+            e.printStackTrace();
+        }
     }
     public void export(HttpServletResponse response,  LocalDateTime fromDate, LocalDateTime toDate) throws IOException {
         Document document = new Document(PageSize.A4);
