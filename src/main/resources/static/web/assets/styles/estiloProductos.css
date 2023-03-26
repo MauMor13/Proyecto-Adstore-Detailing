@@ -1,0 +1,126 @@
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+[v-cloak] {
+    display: none;
+}
+body{
+    background-color: black;
+}
+.icono-landing {
+    top: -70px;
+    height: 7rem;
+    margin-left: auto;
+    margin-right: auto;
+    left: 39px;
+    right: 0;
+    text-align: center;
+}
+
+.icono-header{
+    height: 4rem;
+}
+
+@media(min-width: 768px){
+    .flexDesde768 {
+        display: flex;
+    }
+    
+    .flexHasta768 {
+        display: none;
+    }
+
+    .inlineDesde768 {
+        display: inline;
+    }
+    
+    .inlineHasta768 {
+        display: none;
+    }
+
+
+}
+.boton-menu{
+    height: 8vh;
+}
+
+/*****clase boton*******/
+.btn1 {
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+    border: none;
+    background: none;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+}
+
+.btn1::before {
+    margin-left: auto;
+}
+
+.btn1::after,
+.btn1::before {
+    content: '';
+    width: 0%;
+    height: 2px;
+    background: #f7ba24;
+    display: block;
+    transition: 0.5s;
+}
+
+.btn1:hover::after,
+.btn1:hover::before {
+    width: 100%;
+}
+footer{
+    background-image: linear-gradient(rgba(176, 176, 202, 0), rgba(42, 104, 165, 0)),url("../Imagenes/footer.jpg")!important;
+}
+
+.copyright{
+    background-color:#f7ba24 ;
+}
+.link-contacto{
+    font-size: 15px;
+    color: #e1e1e1;
+    font-family: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    position: relative;
+    border: none;
+    background: none;
+    text-transform: uppercase;
+    transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition-duration: 400ms;
+    transition-property: color;
+}
+.link-contacto:focus,
+.link-contacto:hover {
+    color: #fff;
+}
+.link-contacto:focus:after,
+.link-contacto:hover:after {
+    width: 100%;
+    left: 0%;
+}
+.link-contacto:after {
+    content: "";
+    pointer-events: none;
+    bottom: -2px;
+    left: 50%;
+    position: absolute;
+    width: 0%;
+    height: 2px;
+    background-color: #fff;
+    transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition-duration: 400ms;
+    transition-property: width, left;
+}
+.fondoProductos{
+    background-image: linear-gradient(#f7bb24a8, #f7bb2487),url("../Imagenes/fondoAmarillo.jpg")!important;
+    background-size: 1300px 700px !important;
+    padding: 4rem 2rem 2rem 2rem;
+    width: 100%;
+}
