@@ -18,7 +18,6 @@ public class CompraProducto {
     private double precio;
     private double montoTotal;
     private int cantidad;
-    
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "compra_id")
     private Compra compra;
