@@ -16,7 +16,6 @@ body{
 .fuente-poppins {
     font-family: 'Poppins', sans-serif;
     min-height: 6rem;
-    font-size: 1.3rem;
 }
 .icono-landing {
     top: -70px;
@@ -131,8 +130,8 @@ footer{
     margin: 0;
     background-image: linear-gradient(#f7bb24a8, #f7bb2487),url("../Imagenes/fondoAmarillo.jpg")!important;
     background-size: 1300px 700px !important;
-    padding: 2rem 2rem 1rem 2rem;
     width: 100%;
+    padding: 0.5px;
 }
 .img-comboProductos{
     width: 300px;
@@ -166,4 +165,35 @@ footer{
 }
 .texto-intro{
     font-size: 1.4rem;
+}
+.datos-cliente{
+    width: 95%;
+    border-radius: 20px;
+
+}
+.categoria{
+    text-decoration: none;
+    padding: 4px 6px;
+    color: rgb(255, 255, 255);
+    margin: 0 1.7rem;
+}
+.categoria:hover{
+    text-decoration: none;
+    padding: 4px 6px;
+    color: black;
+    background-image: linear-gradient(#f7bb2471, #f7bb246f),url("../Imagenes/fondoAmarillo.jpg")!important;
+    background-size: cover!important;
+    background-position: top;
+    margin: 0 2rem;
+}
+.filtro-productos{
+    padding: 0;
+    margin: 0;
+    border-bottom: 2px solid  #f7ba24 ;
+}
+.carrito{
+    width: 50px;
+}
+.card-text{
+    color: black;
 }
