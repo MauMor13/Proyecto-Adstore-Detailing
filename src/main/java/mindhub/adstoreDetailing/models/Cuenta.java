@@ -12,7 +12,6 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 public class Cuenta {
     @Id
@@ -28,4 +27,8 @@ public class Cuenta {
     private TarjetaAd tarjetaAd;
     @OneToMany(mappedBy = "cuenta", fetch = FetchType.EAGER)
     Set<Compra> compras = new HashSet<>();
+    public Cuenta(String numeroCuenta, double saldo) {
+        this.numeroCuenta = numeroCuenta;
+        this.saldo = saldo;
+    }
 }

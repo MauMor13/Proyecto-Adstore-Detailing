@@ -6,13 +6,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
-    @Getter
+@Getter
     @Setter
     @NoArgsConstructor
-    @AllArgsConstructor
     @Entity
     public class Cliente {
         @Id
@@ -27,5 +24,14 @@ import java.util.Set;
         private int telefono;
         @OneToOne(mappedBy = "cliente")
         Cuenta cuenta;
+    public Cliente(String nombre, String apellido, String direccion, String email, String claveIngreso, int telefono) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.direccion = direccion;
+        this.email = email;
+        this.claveIngreso = claveIngreso;
+        this.telefono = telefono;
     }
+
+}
 
