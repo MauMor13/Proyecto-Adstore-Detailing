@@ -12,7 +12,6 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 public class Servicio {
     @Id
@@ -27,5 +26,11 @@ public class Servicio {
     @OneToMany(mappedBy = "servicio",fetch = FetchType.EAGER)
     private Set<CompraServicio> compraServicio = new HashSet<>();
 
-
+    public Servicio(String nombre, String descripcion, double precio, Duration duracion, String imagenURL) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.precio = precio;
+        this.duracion = duracion;
+        this.imagenURL = imagenURL;
+    }
 }

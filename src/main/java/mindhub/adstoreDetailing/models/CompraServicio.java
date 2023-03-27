@@ -13,7 +13,6 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 public class CompraServicio {
     @Id
@@ -30,4 +29,11 @@ public class CompraServicio {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "servicio_id")
     private Servicio servicio;
+
+    public CompraServicio(Double precio, Integer cantidad, double montoTotal, LocalDateTime fechaReserva) {
+        this.precio = precio;
+        this.cantidad = cantidad;
+        this.montoTotal = montoTotal;
+        this.fechaReserva = fechaReserva;
+    }
 }
