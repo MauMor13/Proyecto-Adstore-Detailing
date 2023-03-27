@@ -7,6 +7,9 @@ import mindhub.adstoreDetailing.servicios.ServicioCliente;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 @Service
 public class ServicioClienteImpl implements ServicioCliente{
     private final RepositorioCliente repositorioCliente;
@@ -22,9 +25,25 @@ public class ServicioClienteImpl implements ServicioCliente{
     }
     @Override
     public void registrarCliente(Cliente cliente){
+        this.encriptarClave(cliente);
         this.repositorioCliente.save(cliente);
+    }
+    @Override
+    public Cliente findByEmail(String email){
+        return this.repositorioCliente.findByEmail(email);
+    }
+    @Override
+    public boolean emailEsValido(String email) {
+        String regex = "^(.+)@(.+)$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
     }
     private ClienteDTO generarAccountDTO(Cliente cliente){
         return new ClienteDTO(cliente);
     }
+    private void encriptarClave(Cliente cliente){
+        cliente.setClaveIngreso(pwdEncoder.encode(cliente.getClaveIngreso()));
+    }
+
 }
