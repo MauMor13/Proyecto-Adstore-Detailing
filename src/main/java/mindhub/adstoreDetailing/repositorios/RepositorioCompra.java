@@ -1,8 +1,7 @@
 package mindhub.adstoreDetailing.repositorios;
-import mindhub.adstoreDetailing.models.CompraProducto;
+import mindhub.adstoreDetailing.models.Compra;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
-
 @RepositoryRestResource
-public interface RepositorioCompraProducto extends JpaRepository <CompraProducto, Long> {
+public interface RepositorioCompra extends JpaRepository <Compra, Long> {
 }

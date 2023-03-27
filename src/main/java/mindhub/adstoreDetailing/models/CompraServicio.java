@@ -19,9 +19,8 @@ public class CompraServicio {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "compra_servicio_seq")
     @SequenceGenerator(name = "compra_servicio_seq", sequenceName = "compra_servicio_id_seq", allocationSize = 1)
     private Long id;
-    private Double precio;
+    private double precio;
     private Integer cantidad;
-    private double montoTotal;
     private LocalDateTime fechaReserva;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "compra_id")
@@ -30,10 +29,10 @@ public class CompraServicio {
     @JoinColumn(name = "servicio_id")
     private Servicio servicio;
 
-    public CompraServicio(Double precio, Integer cantidad, double montoTotal, LocalDateTime fechaReserva) {
-        this.precio = precio;
-        this.cantidad = cantidad;
-        this.montoTotal = montoTotal;
+    public CompraServicio(Compra compra, Servicio servicio, LocalDateTime fechaReserva) {
+        this.precio = servicio.getPrecio();
         this.fechaReserva = fechaReserva;
+        this.compra = compra;
+        this.servicio = servicio;
     }
 }

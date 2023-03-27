@@ -5,6 +5,7 @@ import mindhub.adstoreDetailing.models.CompraProducto;
 import mindhub.adstoreDetailing.models.Producto;
 
 import javax.persistence.FetchType;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import java.util.HashSet;
 import java.util.Set;
@@ -15,10 +16,10 @@ public class ProductoDTO {
     private String nombre;
     private double precio;
     private int stock;
+    @Lob
     private String descripcion;
     private String imagenUrl;
     private Categoria categoria;
-    private Set<CompraProductoDTO> compraProducto;
     public ProductoDTO(Producto producto){
         this.id= producto.getId();
         this.nombre= producto.getNombre();
@@ -27,6 +28,5 @@ public class ProductoDTO {
         this.descripcion= producto.getDescripcion();
         this.imagenUrl= producto.getImagenUrl();
         this.categoria=producto.getCategoria();
-        this.compraProducto=producto.getCompraProducto().stream().map(CompraProductoDTO::new).collect(Collectors.toSet());
     }
 }

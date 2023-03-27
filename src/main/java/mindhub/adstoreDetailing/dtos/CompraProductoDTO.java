@@ -13,13 +13,13 @@ public class CompraProductoDTO {
     private double precio;
     private double montoTotal;
     private int cantidad;
-    private Compra compra;
-    private Producto producto;
+    private String nombreProducto;
     public CompraProductoDTO(CompraProducto compraProducto){
         this.id=compraProducto.getId();
         this.precio= compraProducto.getPrecio();
         this.montoTotal= compraProducto.getMontoTotal();
         this.cantidad= compraProducto.getCantidad();
-        this.producto=compraProducto.getProducto();
+        this.nombreProducto= compraProducto.getProducto().getNombre();
+
     }
 }
