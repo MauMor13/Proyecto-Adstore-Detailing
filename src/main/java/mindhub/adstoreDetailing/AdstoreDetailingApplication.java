@@ -10,10 +10,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import static mindhub.adstoreDetailing.models.Categoria.*;
-import static mindhub.adstoreDetailing.utilidades.Utilidad.generarNumeroCuenta;
-import static mindhub.adstoreDetailing.utilidades.Utilidad.generarNumeroTarjetaAd;
+import static mindhub.adstoreDetailing.utilidades.Utilidad.*;
 
 @SpringBootApplication
 public class AdstoreDetailingApplication {
@@ -28,7 +31,10 @@ public class AdstoreDetailingApplication {
 									  RepositorioTarjetaAd repositorioTarjetaAd,
 									  RepositorioCliente repositorioCliente,
 									  RepositorioProducto repositorioProducto,
-									  RepositorioServicio repositorioServicio) {
+									  RepositorioServicio repositorioServicio,
+									  RepositorioCompraProducto repositorioCompraProducto,
+									  RepositorioCompraServicio repositorioCompraServicio,
+									  RepositorioCompra repositorioCompra) {
 		return (args) -> {
 			//crear cliente, cuenta y tarjeta
 			Cliente cliente1 = new Cliente("Marcelo", "Rodriguez", "rioja 36 ,Cordoba,Argentina", "marcelo21@gmail.com", "marce12345", 35245789);
@@ -74,8 +80,6 @@ public class AdstoreDetailingApplication {
 			Servicio servicio1 = new Servicio("Lavado Basico", "Detallado de interior, aspirado al detalle, lavado de carrocería al detalle, terminación con cera en spray.", 5000, Duration.ofMinutes(90), "imagen");
 			Servicio servicio2 = new Servicio("Servicio premium de lavado", "Interior detallado con un acondicionador para los plásticos, aspirado al detalle, acondicionado de alfombras de goma. Lavado de carrocería y llantas al detalle con productos ferricos, para una mayor limpieza con una terminación de cera en pasta", 7000, Duration.ofMinutes(120), "imagen");
 			Servicio servicio3 = new Servicio("Tratamiento cerramiento", "Brindamos distintos tipos de tratamientos cerámicos que varían solo en el sellador a utilizar, con una durabilidad de entre 3 a 5 años. El sellador le da una protección a la laca del vehículo, con esto los lavados serán más duraderos y no se le pegara tanto la tierra. También podrás observar cuando me moje las gotas de agua estarán bien definidas y de deslizan mas rápido. A continuación se le detallará el proceso para la realización.", 9000, Duration.ofMinutes(180), "imagen");
-			//crear compra
-			Compra compraCliente1 = new Compra();
 
 			//guardado en repositorio
 
@@ -103,11 +107,18 @@ public class AdstoreDetailingApplication {
 			repositorioServicio.save(servicio1);
 			repositorioServicio.save(servicio2);
 			repositorioServicio.save(servicio3);
+			//crear compra
+			Compra compraCliente1 = new Compra(12000, LocalDateTime.now(),0);
+			cuentaCliente1.sumarCompra(compraCliente1);
+			repositorioCompra.save(compraCliente1);
+			crearCompraPoducto(compraCliente1, new ArrayList<Producto>(Arrays.asList(producto3,producto4,producto7,producto2)), repositorioCompraProducto,repositorioCompra);
+			crearCompraServicio(compraCliente1,new ArrayList<Servicio>(Arrays.asList(servicio1,servicio2)),repositorioCompraServicio,repositorioCompra);
 
 			// guardar las entidades en la base de datos
 			repositorioCuenta.save(cuentaCliente1);
 			repositorioTarjetaAd.save(tarjetaCliente1);
 			repositorioCliente.save(cliente1);
-		};
+
+			};
 	}
 }

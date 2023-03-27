@@ -31,4 +31,8 @@ public class Cuenta {
         this.numeroCuenta = numeroCuenta;
         this.saldo = saldo;
     }
+    public void sumarCompra(Compra compra){
+        compra.setCuenta(this);
+        compras.add(compra);
+    }
 }

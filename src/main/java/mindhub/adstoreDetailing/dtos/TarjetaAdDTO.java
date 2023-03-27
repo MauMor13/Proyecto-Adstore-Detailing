@@ -11,7 +11,6 @@ import javax.persistence.SequenceGenerator;
 public class TarjetaAdDTO {
     private long id;
     private int numeroTarjeta;
-   // private Cuenta cuenta;
     public TarjetaAdDTO(TarjetaAd tarjetaAd){
         this.id = tarjetaAd.getId();
         this.numeroTarjeta = tarjetaAd.getNumeroTarjeta();
