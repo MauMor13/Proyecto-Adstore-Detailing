@@ -34,6 +34,11 @@ public class AdstoreDetailingApplication {
 			Cliente cliente1 = new Cliente("Marcelo", "Rodriguez", "rioja 36 ,Cordoba,Argentina", "marcelo21@gmail.com", "marce12345", 35245789);
 			Cuenta cuentaCliente1 = new Cuenta(generarNumeroCuenta(repositorioCuenta), 50000);
 			TarjetaAd tarjetaCliente1 = new TarjetaAd(generarNumeroTarjetaAd(repositorioTarjetaAd));
+
+			repositorioCuenta.save(cuentaCliente1);
+			repositorioTarjetaAd.save(tarjetaCliente1);
+			repositorioCliente.save(cliente1);
+
 			// establecer la relación entre Cliente y Cuenta
 			cliente1.setCuenta(cuentaCliente1);
 			cuentaCliente1.setCliente(cliente1);
@@ -41,6 +46,7 @@ public class AdstoreDetailingApplication {
 			// establecer la relación entre Cuenta y TarjetaAd
 			cuentaCliente1.setTarjetaAd(tarjetaCliente1);
 			tarjetaCliente1.setCuenta(cuentaCliente1);
+
 
 			//lista de productos
 			Producto producto1 = new Producto("Guante de Lavado", 4650, 11, "Guante de lavado cómodo con agarre en la muñeca.Remueve fácil y suavemente suciedad, grasa y polvo sin generar rayas. Tamaño: 20,3cm x 25,4cm", "imagen", ACCESORIOS);
@@ -99,9 +105,9 @@ public class AdstoreDetailingApplication {
 			repositorioServicio.save(servicio3);
 
 			// guardar las entidades en la base de datos
-			repositorioCliente.save(cliente1);
-			//repositorioCuenta.save(cuentaCliente1);
+			repositorioCuenta.save(cuentaCliente1);
 			repositorioTarjetaAd.save(tarjetaCliente1);
+			repositorioCliente.save(cliente1);
 		};
 	}
 }

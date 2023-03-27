@@ -20,8 +20,8 @@ public class Cuenta {
     private long id;
     private String numeroCuenta;
     private double saldo;
-//    @OneToOne(fetch = FetchType.EAGER)
-//    @JoinColumn(name = "cliente_id")
+   @OneToOne(fetch = FetchType.EAGER)
+   @JoinColumn(name = "cliente_id")
     private Cliente cliente;
     @OneToOne(mappedBy = "cuenta", fetch = FetchType.EAGER)
     private TarjetaAd tarjetaAd;
