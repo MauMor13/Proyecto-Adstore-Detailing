@@ -4,11 +4,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import javax.persistence.*;
-
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 public class CompraProducto {
     @Id
@@ -24,4 +22,9 @@ public class CompraProducto {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "producto_id")
     private Producto producto;
+    public CompraProducto(double precio, double montoTotal, int cantidad) {
+        this.precio = precio;
+        this.montoTotal = montoTotal;
+        this.cantidad = cantidad;
+    }
 }
