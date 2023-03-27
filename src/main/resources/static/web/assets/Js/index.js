@@ -50,8 +50,12 @@ createApp({
 
             if (document.body.scrollTop > fotos.clientHeight - nav.clientHeight / 2 || document.documentElement.scrollTop > fotos.clientHeight - nav.clientHeight / 2|| window.pageYOffset > fotos.clientHeight - nav.clientHeight / 2) {
                 nav.style.backgroundColor = "black";  
+                icono.style.height = "5rem";
+                icono.src = "../web/assets/Imagenes/iconoFondoNegroPNG.png"
             } else {
                 nav.style.backgroundColor = "transparent";
+                icono.style.height = "10rem"
+                icono.src = "../web/assets/Imagenes/PNG9.png"
             }
 
             if(icono.scrollTop == nav.scrollTop){
