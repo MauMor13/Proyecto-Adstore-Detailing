@@ -111,6 +111,22 @@
     width: 100%;
 }
 
+.categoria{
+    text-decoration: none;
+    padding: 4px 6px;
+    color: rgb(255, 255, 255);
+    margin: 0 1.7rem;
+}
+.categoria:hover{
+    text-decoration: none;
+    padding: 4px 6px;
+    color: #f7ba24;
+    background-image: linear-gradient(#000000d5, #000000db),url("../Imagenes/fondoGris.jpg");
+    background-size: cover!important;
+    background-position: bottom;
+    margin: 0 2rem;
+}
+
 footer{
     background-image: linear-gradient(rgba(176, 176, 202, 0), rgba(42, 104, 165, 0)),url("../Imagenes/footer.jpg")!important;
 }
