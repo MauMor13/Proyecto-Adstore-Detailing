@@ -20,7 +20,8 @@ public class Cuenta {
     private long id;
     private String numeroCuenta;
     private double saldo;
-    @OneToOne(mappedBy = "cuenta", fetch = FetchType.EAGER)
+   @OneToOne(fetch = FetchType.EAGER)
+   @JoinColumn(name = "cliente_id")
     private Cliente cliente;
     @OneToOne(mappedBy = "cuenta", fetch = FetchType.EAGER)
     private TarjetaAd tarjetaAd;
@@ -29,5 +30,9 @@ public class Cuenta {
     public Cuenta(String numeroCuenta, double saldo) {
         this.numeroCuenta = numeroCuenta;
         this.saldo = saldo;
+    }
+    public void sumarCompra(Compra compra){
+        compra.setCuenta(this);
+        compras.add(compra);
     }
 }

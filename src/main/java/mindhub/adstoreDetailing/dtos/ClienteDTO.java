@@ -17,11 +17,12 @@ public class ClienteDTO {
     private int telefono;
     CuentaDTO cuenta;
     public ClienteDTO(Cliente cliente){
-        this.id=cliente.getId();
-        this.nombre= cliente.getNombre();
-        this.apellido= cliente.getApellido();
-        this.direccion= cliente.getDireccion();
-        this.email=cliente.getEmail();
-        this.telefono= cliente.getTelefono();
+        this.id =cliente.getId();
+        this.nombre = cliente.getNombre();
+        this.apellido = cliente.getApellido();
+        this.direccion = cliente.getDireccion();
+        this.email =cliente.getEmail();
+        this.telefono = cliente.getTelefono();
+        this.cuenta = new CuentaDTO(cliente.getCuenta());
     }
 }
