@@ -90,6 +90,7 @@ body{
     right: 0;
     text-align: center;
     z-index: 10;
+    transition: all 1s;
 }
 
 .icono-header{
@@ -179,6 +180,7 @@ body{
 .prod-index:hover img, .prod-index:hover p {
     scale: 0.8;
     translate: 0 -13%;
+    color: white;
 }
 
 .texto-intro{
