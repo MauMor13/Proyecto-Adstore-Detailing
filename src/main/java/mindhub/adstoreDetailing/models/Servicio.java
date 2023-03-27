@@ -26,9 +26,6 @@ public class Servicio {
     @OneToMany(mappedBy = "servicio",fetch = FetchType.EAGER)
     private Set<CompraServicio> compraServicio = new HashSet<>();
 
-    @OneToMany(mappedBy = "servicios", fetch = FetchType.EAGER)
-    Set<CompraServicio> compraServicios;
-
     public Servicio(String nombre, String descripcion, double precio, Duration duracion, String imagenURL) {
         this.nombre = nombre;
         this.descripcion = descripcion;
