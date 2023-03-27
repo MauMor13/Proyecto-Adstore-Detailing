@@ -14,12 +14,14 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Work+Sans&display=swap" rel="stylesheet">
   <link href="https://unpkg.com/vue-cal/dist/vuecal.css" rel="stylesheet">
+  <link rel="stylesheet" href="./assets/styles/estiloGeneral.css">
+  <link rel="stylesheet" href="./assets/styles/estiloLogin.css">
   <link rel="stylesheet" href="./assets/styles/estiloIndex.css" />
 </head>
 
 <body>
 
-  <div id="app">
+  <div id="app" v-cloak>
     <header>
       <!-- NAV-DESKTOP -->
       <nav class="navbar navbar-expand-sm nav-landing-page container-fluid fuente-poppins flexDesde768">
@@ -55,11 +57,11 @@
       </nav>
       <!-- HEADER MOBILE -->
       <section class="flexHasta768 justify-content-between align-items-center bg-black">
-        <img src="./assets/Imagenes/PNG8.png" alt="logo" class="icono-header me-1">
+        <img src="./assets/Imagenes/PNG8.png" alt="logo" class="icono-header ms-2">
         <h3 class="font1-color">AdStore Detailing</h3>
         <nav class="navbar navbar-expand-md container-fluid fuente-poppins flexHasta768 justify-content-center nav-header-mb m-0">
-          <div class="">
-            <button class="backTransparente" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+          <div>
+            <button class="backTransparente me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
               <img class="boton-menu" src="./assets/Imagenes/menuIcono.png" alt="menu">
             </button>
   
@@ -105,24 +107,21 @@
         </div>
         <!-- contenedor de imagenes entrada -->
       </div>
-      
+      <div id="aboutUs"></div>
       <!-- ICONO -->
       <div class="w-100 div-icono inlineDesde768">
         <img src="./assets/Imagenes/PNG9.png" alt="logo" class="icono-landing position-absolute">
       </div>
 
       <!-- contenedor About US -->
-      <div id="aboutUs" class="aboutus mb-5">
+      <div  class="aboutus mb-lg-5">
         <h3 class="fuente-audiowide">SOBRE NOSOTROS...</h3>
-        <p class="fuente-poppins ">Nos enorgullecemos de ofrecer todos los servicios de más alta calidad necesarios para mantener en las mejores condiciones tu vehículo. Con años de experiencia en la industria automotriz, nuestro equipo de mecánicos altamente capacitados y certificados tiene la habilidad y el conocimiento para manejar cualquier problema que su vehículo pueda tener.
-          Creemos en la importancia de la honestidad y la transparencia en cada interacción con nuestros clientes. Nos aseguramos de que cada cliente comprenda el proceso de reparación de su vehículo y se sienta cómodo con cada paso que tomamos.
-          Además, nuestro equipo utiliza solo las herramientas y equipos de la más alta calidad, lo que garantiza que su vehículo reciba el mejor cuidado posible. Nos aseguramos de estar actualizados en las últimas tecnologías y técnicas de reparación, lo que nos permite ofrecer servicios de vanguardia en nuestro taller.
-        </p>
+        <p class="fuente-poppins ">AdStore Detailing nació de un grupo de amigos apasionados por los vehículos. Tenemos un firme convencimiento de que tu auto es más que un simple medio de transporte. Es una expresión de tu estilo personal y tu pasión por la conducción. Es por eso que ofrecemos servicios de primera categoría para mejorar la apariencia de tu vehículo y hacer que se vea como nuevo. Nos enorgullecemos de brindar los productos de más alta calidad necesarios para mantener en las mejores condiciones ese auto que tanto quieres. Te invitamos a que... ¡Vivas la experiencia!</p>
       </div>
 
       <!--  Inicio contenedor ser cliente -->
-      <section class="se-cliente d-flex flex-column justify-content-between align-items-center font1-color my-5">
-        <h3 class="fuente-audiowide my-4 text-center">¡Resgistrate como cliente!</h3>
+      <section class="se-cliente d-flex flex-column justify-content-between align-items-center font1-color my-lg-5">
+        <h3 class="fuente-audiowide my-lg-4 text-center">¡Resgistrate como cliente!</h3>
         <div class="w-100 d-flex justify-content-center flex-wrap row">
           <div class="col-10 col-md-6 d-flex flex-column justify-content-between h-100">
             <ul>
@@ -139,16 +138,16 @@
           <img class="col-10 col-md-4" src="./assets/Imagenes/tarjetAddStore.png" alt="tarjeta">
         </div>
         
-        <div class="d-flex justify-content-between my-4 w-75 flex-wrap">
+        <div class="d-flex justify-content-between my-lg-4 w-75 flex-wrap">
           <span class="me-5 pb-0">¡Comienza a ser VIP! <i class="fa-solid fa-right-long fa-lg" style="color: #f7ba24;"></i></span>
           <span class="me-5">
             Clic en
-            <button class="btn1 font2-color">Registrate</button>
+            <button @click="loginRegistro('registro')" class="btn1 font2-color" type="button" class="btn btn-primary bigger" data-bs-toggle="modal" data-bs-target="#modalSign">Registrate</button>
             si no eres cliente.
           </span>
           <span>
             CLic en
-            <button class="btn1 font2-color">Logueate</button>
+            <button @click="loginRegistro('login')" class="btn1 font2-color" type="button" class="btn btn-primary bigger" data-bs-toggle="modal" data-bs-target="#modalSign">Logueate</button>
             si ya lo eres y accede a tu perfil.
         </div>
         <div>
@@ -157,8 +156,37 @@
       </section>
       <!--  Fin contenedor ser cliente -->
 
+      <div class="d-flex justify-content-evenly productos align-items-center p-lg-3 row">
+        <div class="col-12 col-lg-6 col-xl-4 pt-3">
+          <img class="w-100" src="./assets/Imagenes/PNG3.png" alt="logo">
+          <p class=" fuente-audiowide texto-intro ">Sabemos que vos solo queres lo mejor de lo mejor para tu vehículo. Es por eso que te brindamos los productos de más alta calidad, de modod que puedas mantener en las mejores condiciones ese automovil que tanto queres...</p>
+        </div>
+        <div class="d-flex flex-wrap col-12 col-lg-6 col-xl-7 justify-content-center p-3">
+          <div class="my-3 col-10 col-md-5 m-md-2 d-flex align-items-center justify-content-end flex-column prod-index">
+            <img class="w-100 otros-elem-div" src="./assets/Imagenes/otrosProd.png" alt="otros">
+            <p class="my-2 otros-elem-div">Otros productos</p>
+            <a class="prod-comprar" href="./productos.html"><button class="btn1 fuente-audiowide">Comprar</button></a>
+          </div>
+          <div class="my-3 col-10 col-md-5 m-md-2 d-flex align-items-center justify-content-end flex-column prod-index">
+            <img class="w-100 otros-elem-div" src="./assets/Imagenes/prodInterior.png" alt="interior">
+            <p class="my-2 otros-elem-div">Productos de interior</p>
+            <a class="prod-comprar" href="./productos.html"><button class="btn1 fuente-audiowide">Comprar</button></a>
+          </div>
+          <div class="my-3 col-10 col-md-5 m-md-2 d-flex align-items-center justify-content-end flex-column prod-index">
+            <img class="w-100 otros-elem-div" src="./assets/Imagenes/prodLavado.png" alt="lavado">
+            <p class="my-2 otros-elem-div">Productos de lavado</p>
+            <a class="prod-comprar" href="./productos.html"><button class="btn1 fuente-audiowide">Comprar</button></a>
+          </div>
+          <div class="my-3 col-10 col-md-5 m-md-2 d-flex align-items-center justify-content-end flex-column prod-index">
+            <img class="w-100 otros-elem-div" src="./assets/Imagenes/prodPulido.png" alt="pulido">
+            <p class="my-2 otros-elem-div">Pulido y sellado</p>
+            <a class="prod-comprar" href="./productos.html"><button class="btn1 fuente-audiowide">Comprar</button></a>
+          </div>
+        </div>
+      </div>
+
       <!--  Inicio div marcas -->
-      <section class="z-n1 d-flex flex-column justify-content-center align-items-center flex-wrap marcas-index my-5 p-2">
+      <section class="z-n1 d-flex flex-column justify-content-center align-items-center flex-wrap marcas-index my-lg-5 p-2">
         <h2 class="font2-color fuente-audiowide text-uppercase">Nuestras marcas, satisfacción garantizada</h2>
         <p class="font1-color" style="font-family: 'Poppins', sans-serif;">Utilizamos solo los mejores productos para tu vehículo. Utilizamos marcas avaladas por una larga trayectoria y una intachable reputación.</p>
         <div class="w-100 justify-content-around d-flex align-items-center gap-3">
@@ -171,8 +199,8 @@
       <!--  Fin div marcas -->
 
       <!--  Inicio carrusel experiencias -->
-      <div class="carrusel-exp d-flex justify-content-center z-n1 my-4">
-        <div id="carouselExampleSlidesOnly" class="carousel col-lg-10 slide" data-bs-ride="carousel">
+      <div class="carrusel-exp d-flex justify-content-center z-n1 my-lg-5">
+        <div id="carouselExampleSlidesOnly" class="carousel col-lg-10 slide w-100" data-bs-ride="carousel">
           <div class="carousel-inner">
 
             <div class="carousel-item active">
@@ -243,7 +271,96 @@
       </div>
       <!--  Fin carrusel experiencias -->
 
-
+      <!-- Inicio formulario de login-->
+      <div div class="modal fade" id="modalSign" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content modal-login">
+            <div class="modal-header header-login font2-color">
+                <h2 class="fuente-audiowide text-uppercase">Bienvenido</h2>
+                <button type="button" class="btn-close close-modal" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body d-flex align-items-center justify-content-center flex-column">
+              <div class="d-flex align-items-center justify-content-center font2-color">
+                <div class="section mb-3">
+                    <div class="container">
+                        <div class="row full-height justify-content-center">
+                            <div class="col-12 text-center align-self-center">
+                                <div class="section pt-sm-2 text-center">
+                                    <p class="font1-color m-0">Si aún no eres cliente registrate. De lo contrario inicia sesión.</p>
+                                    <div class="d-flex justify-content-evenly w-100 flex-wrap">
+                                      <button @click="loginRegistro('registro')" class="btn btn1 p-2">Ver formulario de Registro</button>
+                                      <button @click="loginRegistro('login')" class="btn btn1 mb-3 p-2">Ver formulario de inicio de sesión</button> 
+                                    </div>
+                                    <div class="card-3d-wrap mx-auto">
+                                        <div class="card-3d-wrapper">
+                                            <div class="card-frente">
+                                                <div class="center-wrap">
+                                                    <div class="section text-center">
+                                                        <h4 class="mb-4 pb-3 titulo-log-in fuente-audiowide">Inicio de Sesión</h4>
+                                                        <div class="form-group form">
+                                                            <input type="email" name="logemail" class="form-style" placeholder="Email" id="logemail" autocomplete="off" v-model="emailLog" required>
+                                                            <i class="input-icon uil uil-at"></i>
+                                                        </div>	
+                                                        <div class="form-group mt-2">
+                                                            <input type="password" name="logpass" class="form-style" placeholder="Contraseña" id="logpass" autocomplete="off" v-model="passwordLog" @keyup.enter="loginWithEnter()" required>
+                                                            <i class="input-icon uil uil-lock-alt"></i>
+                                                        </div>
+                                                        <span @click="login()" class="submit btn mt-4 categoria font1-color">Enviar</span>
+                                                        <p v-if="errorEncontrado" class="mb-0 mt-4 text-center red-color">⋆ El email o la contraseña no son correctos</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div v-if="!registrado" class="card-dorso">
+                                                <div class="center-wrap">
+                                                    <div class="section text-center">
+                                                        <h4 class="mb-4 pb-3 titulo-log-in fuente-audiowide">Registro</h4>
+                                                        <div class="form-group form">
+                                                            <input type="text" name="logfirstname" class="form-style form-style-signup" placeholder="Nombre" id="logfirstname" autocomplete="off" v-model="nombre" required>
+                                                            <i class="input-icon uil uil-user"></i>
+                                                        </div>	
+                                                        <div class="form-group mt-2">
+                                                            <input type="text" name="loglastname" class="form-style form-style-signup" placeholder="Apellido" id="loglastname" autocomplete="off" v-model="apellido" required>
+                                                            <i class="input-icon uil uil-user"></i>
+                                                        </div>	
+                                                        <div class="form-group mt-2">
+                                                            <input type="email" name="logemail" class="form-style form-style-signup" placeholder="Email" id="signmail" autocomplete="off" v-model="email" required>
+                                                            <i class="input-icon uil uil-at"></i>
+                                                        </div>	
+                                                        <div class="form-group mt-2">
+                                                            <input type="password" name="logpass" class="form-style form-style-signup" placeholder="Contraseña" id="signpass" autocomplete="off" v-model="contra" required>
+                                                            <i class="input-icon uil uil-lock-alt"></i>
+                                                        </div>
+                                                        <div class="form-group mt-2">
+                                                          <input type="text" name="logpass" class="form-style form-style-signup" placeholder="Dirección" id="signDirecc" autocomplete="off" v-model="direccion" required>
+                                                          <i class="input-icon uil uil-lock-alt"></i>
+                                                        </div>
+                                                        <div class="form-group mt-2">
+                                                          <input type="text" name="logpass" class="form-style form-style-signup" placeholder="Teléfono" id="signtel" autocomplete="off" v-model="telefono" required>
+                                                          <i class="input-icon uil uil-lock-alt"></i>
+                                                        </div>
+                                                        <p @click="signIn()" class="submit btn categoria mt-4">Enviar</p>
+                                                        <p v-show="errorEncontrado" class="mb-0 mt-2 text-center red-color signin-error-message"></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div v-else class="card-dorso d-flex justify-content-center align-items-center">
+                                                <div class="registered-view">
+                                                    <h2 class="font2-color">¡Cliente registrado!</h2>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Fin formulario de login-->
 
 
       
@@ -251,7 +368,7 @@
       
     <!--Footer-->
     
-    <footer class="d-lg-flex container-fluid pt-3 pb-3 text-white justify-content-evenly pb-1">
+    <footer class="d-lg-flex container-fluid pt-3 pb-3 text-white justify-content-evenly pb-1 mt-5">
 
       <div class="d-sm-flex col-lg-3 logo-footer align-items-md-center">
         <img class="container-fluid me-lg-3" src="./assets/Imagenes/PNG1.png" alt="logo" >
