@@ -22,8 +22,9 @@ import javax.persistence.*;
         private String email;
         private String claveIngreso;
         private int telefono;
-        @OneToOne(mappedBy = "cliente")
-        Cuenta cuenta;
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "cuenta_id")
+    private Cuenta cuenta;
     public Cliente(String nombre, String apellido, String direccion, String email, String claveIngreso, int telefono) {
         this.nombre = nombre;
         this.apellido = apellido;
@@ -32,6 +33,5 @@ import javax.persistence.*;
         this.claveIngreso = claveIngreso;
         this.telefono = telefono;
     }
-
 }
 

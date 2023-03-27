@@ -6,5 +6,5 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 @RepositoryRestResource
 public interface RepositorioTarjetaAd extends JpaRepository <TarjetaAd, Long> {
-    boolean existsTarjetaByNumero(int numeroTarjeta);
+    boolean existsTarjetaByNumeroTarjeta(int numeroTarjeta);
 }
