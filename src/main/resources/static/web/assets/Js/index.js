@@ -6,6 +6,17 @@ createApp({
         return{
             mensajes: [" UN SERVICIO DE CALIDAD...", "VOS Y TU VEHICULO LO MERECEN...", " VIVI LA EXPERCIENCIA ! !"],
             textoDinamico: "",
+            errorEncontrado: false,
+            registrado: false,
+            nombre: "",
+            apellido: "",
+            email: "",
+            contra: "",
+            direccion: "",
+            telefono: "",
+            emailLog: undefined,
+            passwordLog: undefined,
+
         }
     },
 
@@ -20,6 +31,16 @@ createApp({
     },
 
     methods: {
+
+        loginRegistro: function (value) {
+            let form = document.querySelector('.card-3d-wrapper');
+            if (value == 'registro') {
+                form.classList.add('girarLogin');
+            }
+            else if (value == 'login') {
+                form.classList.remove('girarLogin');
+            }
+        },
 
         scrollFunction() {
 
