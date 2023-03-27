@@ -13,7 +13,6 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 public class Compra {
     @Id
@@ -30,4 +29,10 @@ public class Compra {
     private Set<CompraProducto> compraProducto = new HashSet<>();
     @OneToMany(mappedBy = "compra",fetch = FetchType.EAGER)
     private Set<CompraServicio> compraServicio = new HashSet<>();
+
+    public Compra(double montoFinal, LocalDateTime fecha, int descuento) {
+        this.montoFinal = montoFinal;
+        this.fecha = fecha;
+        this.descuento = descuento;
+    }
 }
