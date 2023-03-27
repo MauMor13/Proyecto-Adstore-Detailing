@@ -19,6 +19,7 @@ public class Servicio {
     @SequenceGenerator(name = "servicio_seq", sequenceName = "servicio_id_seq", allocationSize = 1)
     private long id;
     private String nombre;
+    @Lob
     private String descripcion;
     private double precio;
     private Duration duracion;
