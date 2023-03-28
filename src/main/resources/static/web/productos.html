@@ -106,25 +106,22 @@
       <!--filtro categorias Productos-->
       <div class="filtro-productos fuente-poppins d-flex justify-content-around align-content-center flex-wrap">
         <div class="d-flex align-content-center flex-wrap align-items-center m-0 mb-3 p-0 gap-3 categorias justify-content-center">
-          <input type="checkbox" class="btn-check" id="check-lavado"  autocomplete="off" value="lavado" checked>
-          <label class="btn btn-primary" for="check-lavado">LAVADO</label>
-          <input type="checkbox" class="btn-check" id="check-pulido"  autocomplete="off" value="pulido" checked>
-          <label class="btn btn-primary" for="check-pulido">PULIDO Y ENCERADO</label>
-          <input type="checkbox" class="btn-check" id="check-interiores"  autocomplete="off" value="interiores" checked>
-          <label class="btn btn-primary" for="check-interiores">INTERIORES</label>
-          <input type="checkbox" class="btn-check" id="check-accesorios"  autocomplete="off" value="accesorios" checked>
-          <label class="btn btn-primary" for="check-accesorios">ACCESORIOS</label>
+          <div class="check m-3"  id="checkCategory">
+            <label v-if="categorias" class="btn ms-3 me-2 btn-warning" v-for="categoria of categorias">
+              <input type="checkbox"  v-model="checked" class="btn-check" autocomplete="off" @change="busquedaCruzada" :value="categoria" autocomplete="off"> {{categoria}}
+            </label>
+          </div>
         </div>
         <nav class="navbar ms-2 mb-3 p-0">
             <form class="d-flex justify-content-around align-items-center" role="search">
-              <input class="form-control " type="search" placeholder="Busqueda" aria-label="Search">
-              <button class="btn btn-outline-warning ms-2" type="submit">Buscar</button>
+              <input class="form-control " type="search" v-model="inputBusqueda" @input="busquedaCruzada" placeholder="Busqueda" aria-label="Search">
+              <button class="btn btn-outline-warning ms-2"  type="submit">Buscar</button>
             </form>
         </nav>
       </div>
 
       <div  class="fondo-categorias   pb-2  mb-2 d-flex justify-content-center flex-wrap">
-        <div v-for="producto of productos" class="flip-card ">
+        <div v-for="producto of productosFiltrados" class="flip-card ">
           <div class="flip-card-inner  card  m-2 "  style="width: 15rem;">
               <div class="flip-card-front">
                 <div class="fondo-producto m-0 p-0">
