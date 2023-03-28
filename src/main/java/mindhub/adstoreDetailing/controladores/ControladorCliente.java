@@ -17,13 +17,13 @@ import java.util.List;
 import static java.util.stream.Collectors.toList;
 @RestController
 @RequestMapping("/api")
-public class ControladorClientes {
+public class ControladorCliente {
     @Autowired
     RepositorioCuenta repositorioCuenta;
     @Autowired
     RepositorioTarjetaAd repositorioTarjetaAd;
     private final ServicioCliente servicioCliente;
-    public ControladorClientes(ServicioCliente servicioCliente) {
+    public ControladorCliente(ServicioCliente servicioCliente) {
         this.servicioCliente = servicioCliente;
     }
 
@@ -33,7 +33,7 @@ public class ControladorClientes {
     }
     @GetMapping("/clientes")
     public List<ClienteDTO> traerClientes(){
-        return servicioCliente.findAllCliente().stream().map(ClienteDTO::new).collect(toList());
+        return servicioCliente.findAllClienteDTO();
     }
     @PostMapping("/registrar")
     public ResponseEntity<Object> registrar(@RequestBody RegistroClienteDTO registroClienteDTO) {
@@ -50,7 +50,7 @@ public class ControladorClientes {
         else if (registroClienteDTO.getEmail().endsWith("@admin.adstore") || !servicioCliente.emailEsValido(registroClienteDTO.getEmail())) {
             return new ResponseEntity<>("Email Inválido", HttpStatus.BAD_REQUEST);
         }
-        if (registroClienteDTO.getClaveIngreso().isEmpty() ) {
+        if (registroClienteDTO.getClaveIngreso().isEmpty()) {
             return new ResponseEntity<>("Ingrese Contraseña", HttpStatus.BAD_REQUEST);
         }
         if(registroClienteDTO.getDireccion()==null){
@@ -89,6 +89,4 @@ public class ControladorClientes {
         repositorioTarjetaAd.save(nuevaTarjeta);
         return new ResponseEntity<>(nuevoCliente,HttpStatus.CREATED);
     }
-
-
 }

@@ -5,8 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import mindhub.adstoreDetailing.models.Categoria;
 
-import javax.persistence.Lob;
-
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
