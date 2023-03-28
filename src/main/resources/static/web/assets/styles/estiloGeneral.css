@@ -172,6 +172,13 @@ footer{
     transition-property: width, left;
 }
 
+.modal-sweet-alert{
+    background: black !important;
+    border: 2px solid #f7ba24 !important;
+    border-radius: 10px !important;
+    color: white !important;
+}
+
 
 @media(min-width: 768px){
     .flexDesde768 {

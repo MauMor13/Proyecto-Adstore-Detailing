@@ -19,7 +19,7 @@
 
 <body>
 
-  <div id="app">
+  <div id="app" v-cloak>
     <header>
       <!-- NAV-DESKTOP -->
       <nav class="navbar navbar-expand-sm nav-landing-page container-fluid fuente-poppins flexDesde768">
@@ -122,6 +122,7 @@
             </form>
         </nav>
       </div>
+
 
       <div  class="fondo-categorias   pb-2  mb-2 d-flex justify-content-center flex-wrap">
         <div v-for="producto of productos" class="flip-card ">
