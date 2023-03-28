@@ -1,12 +1,11 @@
 package mindhub.adstoreDetailing.servicios.impl;
-
 import mindhub.adstoreDetailing.dtos.ClienteDTO;
 import mindhub.adstoreDetailing.models.Cliente;
 import mindhub.adstoreDetailing.repositorios.RepositorioCliente;
 import mindhub.adstoreDetailing.servicios.ServicioCliente;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -39,6 +38,12 @@ public class ServicioClienteImpl implements ServicioCliente{
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
     }
+
+    @Override
+    public List<Cliente> findAllCliente() {
+        return repositorioCliente.findAll();
+    }
+
     private ClienteDTO generarAccountDTO(Cliente cliente){
         return new ClienteDTO(cliente);
     }
