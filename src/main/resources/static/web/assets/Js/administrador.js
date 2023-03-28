@@ -3,6 +3,7 @@ const {createApp} = Vue;
 createApp({
     data(){
         return{
+            cliente: undefined,
             clientes: [],
             productos: [],
             servicios: [],
@@ -24,7 +25,35 @@ createApp({
             moduloPaginadoActualCli: 0,
             moduloPaginadoActualPro: 0,
             moduloPaginadoActualSer: 0,
-            numbersModulus: undefined,
+            clienteModif: undefined,
+            productoModif: undefined,
+            servicioModif: undefined,
+            clienteFinal: undefined,
+            productoFinal: undefined,
+            servicioFinal: undefined,
+            clienteNuevo: {
+                nombre: "",
+                apellido: "",
+                direccion: "",
+                email: "",
+                telefono: "",
+            },
+            productoNuevo: {
+                nombre: "",
+                precio: undefined,
+                stock: undefined,
+                descripcion: "",
+                imagenUrl: "",
+                categoria: "",
+            },
+            servicioNuevo: {
+                nombre: "",
+                descripcion: "",
+                precio: undefined,
+                duracion: "",
+                imagenURL: "",
+            },
+            sinError: true,
         }
     },
 
@@ -46,9 +75,422 @@ createApp({
                         this.clientes = respuesta[0].data.map(cliente => ({...cliente})).sort((c1, c2) => c1.id - c2.id);
                         this.productos = respuesta[1].data.map(producto => ({... producto})).sort((p1, p2) => p1.id - p2.id);
                         this.servicios = respuesta[2].data.map(servicio => ({... servicio})).sort((s1, s2)=> s1.id - s2.id);
+
+                        this.administrarDatos();
                     })
 
         },
+
+        administrarDatos: function(){
+            this.renderClientes();
+            this.renderProductos();
+            this.renderServicios();
+        },
+
+        //FUNCIONES CRUD
+
+        crearCliente(){
+            this.clienteNuevo = undefined;
+            this.sinError = true;
+            console.log(this.clienteNuevo);
+            if(!this.clienteNuevo.nombre || !this.clienteNuevo.apellido || !this.clienteNuevo.direccion || !this.clienteNuevo.telefono || !this.clienteNuevo.email){
+                this.sinError = false;
+            }
+            else {
+
+            /*    Swal.fire({
+                    customClass: 'modal-sweet-alert',
+                    title: 'Por favor confirme la creación del cliente',
+                    text: "Si acepta se procederá a la creación del cliente. Si quiere anular la petición, solo haga clic en el boton 'Cerrar'.",
+                    icon: 'warning',
+                    showCancelButton: true,          
+                    cancelButtonColor: '#d33',
+                    cancelButtonText: 'Cerrar',
+                    confirmButtonText: 'Aceptar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        axios.post('/api/clientes',`cardType=${this.type}&cardColor=${this.color}`,{headers:{'content-type':'application/x-www-form-urlencoded'}})
+                        .then(response => {
+                            
+                            Swal.fire({
+                                customClass: 'modal-sweet-alert',
+                                text: "Cliente creado!",
+                                icon: 'success',
+                                confirmButtonText: 'Aceptar'
+                            }).then((result) => {
+                                location.reload(); 
+                            })
+                        })
+                        .catch(err =>{
+                           console.log([err])
+               
+                           Swal.fire({
+                               customClass: 'modal-sweet-alert',
+                               icon: 'error',
+                               title: 'Ups...',
+                               text: err.message.includes('403')? err.response.data: "Hubo un error inesperado",
+                           })
+                        })
+                    }
+                  })*/
+            }            
+        },
+
+        crearProducto(){
+            this.clienteNuevo = undefined;
+            this.sinError = true;
+            console.log(this.clienteNuevo);
+            if(!this.clienteNuevo.nombre || !this.clienteNuevo.apellido || !this.clienteNuevo.direccion || !this.clienteNuevo.telefono || !this.clienteNuevo.email){
+                this.sinError = false;
+            }
+            else {
+
+            /*    Swal.fire({
+                    customClass: 'modal-sweet-alert',
+                    title: 'Por favor confirme la creación del producto',
+                    text: "Si acepta se procederá a la creación del producto. Si quiere anular la petición, solo haga clic en el boton 'Cerrar'.",
+                    icon: 'warning',
+                    showCancelButton: true,          
+                    cancelButtonColor: '#d33',
+                    cancelButtonText: 'Cerrar',
+                    confirmButtonText: 'Aceptar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        axios.post('/api/clientes',`cardType=${this.type}&cardColor=${this.color}`,{headers:{'content-type':'application/x-www-form-urlencoded'}})
+                        .then(response => {
+                            
+                            Swal.fire({
+                                customClass: 'modal-sweet-alert',
+                                text: "Producto creado!",
+                                icon: 'success',
+                                confirmButtonText: 'Aceptar'
+                            }).then((result) => {
+                                location.reload(); 
+                            })
+                        })
+                        .catch(err =>{
+                           console.log([err])
+               
+                           Swal.fire({
+                               customClass: 'modal-sweet-alert',
+                               icon: 'error',
+                               title: 'Ups...',
+                               text: err.message.includes('403')? err.response.data: "Hubo un error inesperado",
+                           })
+                        })
+                    }
+                  })*/
+            }        
+        },
+
+        crearServicio(){
+            this.clienteNuevo = undefined;
+            this.sinError = true;
+            console.log(this.clienteNuevo);
+            if(!this.clienteNuevo.nombre || !this.clienteNuevo.apellido || !this.clienteNuevo.direccion || !this.clienteNuevo.telefono || !this.clienteNuevo.email){
+                this.sinError = false;
+            }
+            else {
+
+            /*    Swal.fire({
+                    customClass: 'modal-sweet-alert',
+                    title: 'Por favor confirme la creación del servicio',
+                    text: "Si acepta se procederá a la creación del servicio. Si quiere anular la petición, solo haga clic en el boton 'Cerrar'.",
+                    icon: 'warning',
+                    showCancelButton: true,          
+                    cancelButtonColor: '#d33',
+                    cancelButtonText: 'Cerrar',
+                    confirmButtonText: 'Aceptar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        axios.post('/api/clientes',`cardType=${this.type}&cardColor=${this.color}`,{headers:{'content-type':'application/x-www-form-urlencoded'}})
+                        .then(response => {
+                            
+                            Swal.fire({
+                                customClass: 'modal-sweet-alert',
+                                text: "Servicio creado!",
+                                icon: 'success',
+                                confirmButtonText: 'Aceptar'
+                            }).then((result) => {
+                                location.reload(); 
+                            })
+                        })
+                        .catch(err =>{
+                           console.log([err])
+               
+                           Swal.fire({
+                               customClass: 'modal-sweet-alert',
+                               icon: 'error',
+                               title: 'Ups...',
+                               text: err.message.includes('403')? err.response.data: "Hubo un error inesperado",
+                           })
+                        })
+                    }
+                  })*/
+            }        
+        },
+
+        modifCliente(){
+
+            this.clienteFinal = undefined;
+            this.sinError = true;
+            console.log(this.clienteModif);
+            if(!this.clienteModif.nombre || !this.clienteModif.apellido || !this.clienteModif.direccion || !this.clienteModif.telefono || !this.clienteModif.email){
+                this.sinError = false;
+            }
+            else {
+                this.clienteFinal = {... this.clienteModif};
+
+            /*    Swal.fire({
+                    customClass: 'modal-sweet-alert',
+                    title: 'Por favor confirme la modificacion del cliente',
+                    text: "Si acepta se procederá a la modificación del cliente. Si quiere anular la petición, solo haga clic en el boton 'Cerrar'.",
+                    icon: 'warning',
+                    showCancelButton: true,          
+                    cancelButtonColor: '#d33',
+                    cancelButtonText: 'Cerrar',
+                    confirmButtonText: 'Aceptar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        axios.post('/api/clientes',`cardType=${this.type}&cardColor=${this.color}`,{headers:{'content-type':'application/x-www-form-urlencoded'}})
+                        .then(response => {
+                            
+                            Swal.fire({
+                                customClass: 'modal-sweet-alert',
+                                text: "Cliente modificado!",
+                                icon: 'success',
+                                confirmButtonText: 'Aceptar'
+                            }).then((result) => {
+                                location.reload(); 
+                            })
+                        })
+                        .catch(err =>{
+                           console.log([err])
+               
+                           Swal.fire({
+                               customClass: 'modal-sweet-alert',
+                               icon: 'error',
+                               title: 'Ups...',
+                               text: err.message.includes('403')? err.response.data: "Hubo un error inesperado",
+                           })
+                        })
+                    }
+                  })*/
+            }
+        },
+
+
+        modifProd(){
+            this.productoFinal = undefined;
+            this.sinError = true;
+            console.log(this.productoModif);
+            if(!this.productoModif.categoria || !this.productoModif.descripcion || !this.productoModif.imagenUrl || !this.productoModif.nombre || !this.productoModif.precio || !this.productoModif.stock){
+                this.sinError = false;
+            }
+            else {
+                this.productoFinal = {... this.productoModif};
+
+            /*    Swal.fire({
+                    customClass: 'modal-sweet-alert',
+                    title: 'Por favor confirme la modificacion del producto',
+                    text: "Si acepta se procederá a la modificación del producto. Si quiere anular la petición, solo haga clic en el boton 'Cerrar'.",
+                    icon: 'warning',
+                    showCancelButton: true,          
+                    cancelButtonColor: '#d33',
+                    cancelButtonText: 'Cerrar',
+                    confirmButtonText: 'Aceptar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        axios.post('/api/clientes',`cardType=${this.type}&cardColor=${this.color}`,{headers:{'content-type':'application/x-www-form-urlencoded'}})
+                        .then(response => {
+                            
+                            Swal.fire({
+                                customClass: 'modal-sweet-alert',
+                                text: "Producto modificado!",
+                                icon: 'success',
+                                confirmButtonText: 'Aceptar'
+                            }).then((result) => {
+                                location.reload(); 
+                            })
+                        })
+                        .catch(err =>{
+                           console.log([err])
+               
+                           Swal.fire({
+                               customClass: 'modal-sweet-alert',
+                               icon: 'error',
+                               title: 'Ups...',
+                               text: err.message.includes('403')? err.response.data: "Hubo un error inesperado",
+                           })
+                        })
+                    }
+                  })*/
+            }
+        },
+
+        modifServicio(){
+            this.servicioFinal = undefined;
+            this.sinError = true;
+            console.log(this.servicioModif);
+            if(!this.servicioModif.descripcion || !this.servicioModif.duracion || !this.servicioModif.imagenURL || !this.servicioModif.nombre || !this.servicioModif.precio){
+                this.sinError = false;
+            }
+            else {
+                this.servicioFinal = {... this.servicioModif};
+
+            /*    Swal.fire({
+                    customClass: 'modal-sweet-alert',
+                    title: 'Por favor confirme la modificacion del servicio',
+                    text: "Si acepta se procederá a la modificación del servicio. Si quiere anular la petición, solo haga clic en el boton 'Cerrar'.",
+                    icon: 'warning',
+                    showCancelButton: true,          
+                    cancelButtonColor: '#d33',
+                    cancelButtonText: 'Cerrar',
+                    confirmButtonText: 'Aceptar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        axios.post('/api/clientes',`cardType=${this.type}&cardColor=${this.color}`,{headers:{'content-type':'application/x-www-form-urlencoded'}})
+                        .then(response => {
+                            
+                            Swal.fire({
+                                customClass: 'modal-sweet-alert',
+                                text: "Servicio modificado!",
+                                icon: 'success',
+                                confirmButtonText: 'Aceptar'
+                            }).then((result) => {
+                                location.reload(); 
+                            })
+                        })
+                        .catch(err =>{
+                           console.log([err])
+               
+                           Swal.fire({
+                               customClass: 'modal-sweet-alert',
+                               icon: 'error',
+                               title: 'Ups...',
+                               text: err.message.includes('403')? err.response.data: "Hubo un error inesperado",
+                           })
+                        })
+                    }
+                  }) */
+            }
+        },
+
+        borrarCliente(cliente){
+            Swal.fire({
+                customClass: 'modal-sweet-alert',
+                title: 'Por favor confirmar la cancelación del cliente',
+                text: `Si acepta, el cliente ${cliente.nombre + cliente.apellido} será cancelado. El cliente no podrá acceder a su usario y sus recursos. Si desea cancelar la petición, solo haga clic en el boton 'Cerrar'.`,
+                icon: 'warning',
+                showCancelButton: true,          
+                cancelButtonColor: '#d33',
+                cancelButtonText: 'Cerrar',
+                confirmButtonText: 'Aceptar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    cliente.activo = false;
+                    axios.patch('/api/clientes',`number=${account.number}`,{headers:{'content-type':'application/x-www-form-urlencoded'}})
+                    .then(response => {
+                        Swal.fire({
+                            customClass: 'modal-sweet-alert',
+                            text: "Cliente cancelado",
+                            icon: 'success',
+                            confirmButtonText: 'Aceptar'
+                        }).then((result) => {
+                            location.reload(); 
+                        })
+                    })
+                    .catch(err =>{
+                       console.log([err])
+           
+                       Swal.fire({
+                           customClass: 'modal-sweet-alert',
+                           icon: 'error',
+                           title: 'Ups...',
+                           text: err.message.includes('403')? err.response.data: "Ha surgido un error imprevisto.",
+                       })
+                    })
+                }
+              })
+        },
+
+        borrarProducto(producto){
+            Swal.fire({
+                customClass: 'modal-sweet-alert',
+                title: 'Por favor confirmar la cancelación del producto',
+                text: `Si acepta, el producto ${producto.nombre} será cancelado. El mismo no podrá ser accedido en futuras transacciones. Si desea cancelar la petición, solo haga clic en el boton 'Cerrar'.`,
+                icon: 'warning',
+                showCancelButton: true,          
+                cancelButtonColor: '#d33',
+                cancelButtonText: 'Cerrar',
+                confirmButtonText: 'Aceptar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    producto.activo = false;
+                    axios.patch('/api/productos',`number=${account.number}`,{headers:{'content-type':'application/x-www-form-urlencoded'}})
+                    .then(response => {
+                        Swal.fire({
+                            customClass: 'modal-sweet-alert',
+                            text: "Producto cancelado",
+                            icon: 'success',
+                            confirmButtonText: 'Aceptar'
+                        }).then((result) => {
+                            location.reload(); 
+                        })
+                    })
+                    .catch(err =>{
+                       console.log([err])
+           
+                       Swal.fire({
+                           customClass: 'modal-sweet-alert',
+                           icon: 'error',
+                           title: 'Ups...',
+                           text: err.message.includes('403')? err.response.data: "Ha surgido un error imprevisto.",
+                       })
+                    })
+                }
+              })
+        },
+
+        borrarServicio(servicio){
+            Swal.fire({
+                customClass: 'modal-sweet-alert',
+                title: 'Por favor confirmar la cancelación del servicio',
+                text: `Si acepta, el servicio ${servicios.nombre} será cancelado. El servicio no podrá ser accedido en futuras transacciones. Si desea cancelar la petición, solo haga clic en el boton 'Cerrar'.`,
+                icon: 'warning',
+                showCancelButton: true,          
+                cancelButtonColor: '#d33',
+                cancelButtonText: 'Cerrar',
+                confirmButtonText: 'Aceptar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    servicio.activo = false;
+                    axios.patch('/api/servicios',`number=${account.number}`,{headers:{'content-type':'application/x-www-form-urlencoded'}})
+                    .then(response => {
+                        Swal.fire({
+                            customClass: 'modal-sweet-alert',
+                            text: "Servicio cancelado",
+                            icon: 'success',
+                            confirmButtonText: 'Aceptar'
+                        }).then((result) => {
+                            location.reload(); 
+                        })
+                    })
+                    .catch(err =>{
+                       console.log([err])
+           
+                       Swal.fire({
+                           customClass: 'modal-sweet-alert',
+                           icon: 'error',
+                           title: 'Ups...',
+                           text: err.message.includes('403')? err.response.data: "Ha surgido un error imprevisto.",
+                       })
+                    })
+                }
+              })
+        },
+
+
 
         renderClientes: function(){
 
