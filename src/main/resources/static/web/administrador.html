@@ -46,19 +46,19 @@
         <div id="accordionExample" class="accordion fondo-amarillo d-flex justify-content-between align-items-center flex-wrap">
             <div class="d-flex justify-content-center align-items-center flex-column accordion-header">
                 <h3 class="font1-color">Clientes</h3>
-                <input @click="renderClientes()" type="checkbox" class="btn-check" id="check-clientes"  autocomplete="off" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" checked>
+                <input value="clientes" @click="renderClientes()" type="checkbox" class="btn-check" id="check-clientes"  autocomplete="off" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" checked>
                 <label class="btn btn-primary" for="check-clientes">Administrar Clientes</label>
             </div>       
 
             <div class="d-flex justify-content-center align-items-center flex-column accordion-header">
                 <h3 class="font1-color">Productos</h3>
-                <input @click="renderProductos()" type="checkbox" class="btn-check" id="check-productos"  autocomplete="off" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo" checked>
+                <input value="productos" @click="renderProductos()" type="checkbox" class="btn-check" id="check-productos"  autocomplete="off" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo" checked>
                 <label class="btn btn-primary" for="check-productos">Administrar Productos</label>
             </div>
 
             <div class="d-flex justify-content-center align-items-center flex-column accordion-header">
                 <h3 class="font1-color">Servicios</h3>
-                <input @click="renderServicios()" type="checkbox" class="btn-check" id="check-lavado"  autocomplete="off" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree" checked>
+                <input value="servicios" @click="renderServicios()" type="checkbox" class="btn-check" id="check-lavado"  autocomplete="off" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree" checked>
                 <label class="btn btn-primary" for="check-lavado">Administrar Servicios</label>
             </div>
         </div>
@@ -334,6 +334,10 @@
                 </div>
             </div>
             <!-- FIN TABLAS -->
+        </div>
+
+        <div v-if="!vistas || !vistas.length">
+            <img class="w-100" src="./assets/Imagenes/PNG1.png" alt="logo">
         </div>
 
         <!-- MODALES -->

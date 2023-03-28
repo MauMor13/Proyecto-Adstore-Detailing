@@ -54,6 +54,7 @@ createApp({
                 imagenURL: "",
             },
             sinError: true,
+            vistas: [],
         }
     },
 
@@ -90,7 +91,6 @@ createApp({
         //FUNCIONES CRUD
 
         crearCliente(){
-            this.clienteNuevo = undefined;
             this.sinError = true;
             console.log(this.clienteNuevo);
             if(!this.clienteNuevo.nombre || !this.clienteNuevo.apellido || !this.clienteNuevo.direccion || !this.clienteNuevo.telefono || !this.clienteNuevo.email){
@@ -98,13 +98,14 @@ createApp({
             }
             else {
 
-            /*    Swal.fire({
+                Swal.fire({
                     customClass: 'modal-sweet-alert',
                     title: 'Por favor confirme la creación del cliente',
                     text: "Si acepta se procederá a la creación del cliente. Si quiere anular la petición, solo haga clic en el boton 'Cerrar'.",
                     icon: 'warning',
                     showCancelButton: true,          
                     cancelButtonColor: '#d33',
+                    confirmButtonColor: '#f7ba24',
                     cancelButtonText: 'Cerrar',
                     confirmButtonText: 'Aceptar'
                 }).then((result) => {
@@ -132,7 +133,7 @@ createApp({
                            })
                         })
                     }
-                  })*/
+                  })
             }            
         },
 
@@ -150,7 +151,8 @@ createApp({
                     title: 'Por favor confirme la creación del producto',
                     text: "Si acepta se procederá a la creación del producto. Si quiere anular la petición, solo haga clic en el boton 'Cerrar'.",
                     icon: 'warning',
-                    showCancelButton: true,          
+                    showCancelButton: true,
+                    confirmButtonColor: '#f7ba24',          
                     cancelButtonColor: '#d33',
                     cancelButtonText: 'Cerrar',
                     confirmButtonText: 'Aceptar'
@@ -197,7 +199,8 @@ createApp({
                     title: 'Por favor confirme la creación del servicio',
                     text: "Si acepta se procederá a la creación del servicio. Si quiere anular la petición, solo haga clic en el boton 'Cerrar'.",
                     icon: 'warning',
-                    showCancelButton: true,          
+                    showCancelButton: true, 
+                    confirmButtonColor: '#f7ba24',         
                     cancelButtonColor: '#d33',
                     cancelButtonText: 'Cerrar',
                     confirmButtonText: 'Aceptar'
@@ -248,6 +251,7 @@ createApp({
                     icon: 'warning',
                     showCancelButton: true,          
                     cancelButtonColor: '#d33',
+                    confirmButtonColor: '#f7ba24',
                     cancelButtonText: 'Cerrar',
                     confirmButtonText: 'Aceptar'
                 }).then((result) => {
@@ -297,6 +301,7 @@ createApp({
                     icon: 'warning',
                     showCancelButton: true,          
                     cancelButtonColor: '#d33',
+                    confirmButtonColor: '#f7ba24',
                     cancelButtonText: 'Cerrar',
                     confirmButtonText: 'Aceptar'
                 }).then((result) => {
@@ -345,6 +350,7 @@ createApp({
                     icon: 'warning',
                     showCancelButton: true,          
                     cancelButtonColor: '#d33',
+                    confirmButtonColor: '#f7ba24',
                     cancelButtonText: 'Cerrar',
                     confirmButtonText: 'Aceptar'
                 }).then((result) => {
@@ -384,6 +390,7 @@ createApp({
                 icon: 'warning',
                 showCancelButton: true,          
                 cancelButtonColor: '#d33',
+                confirmButtonColor: '#f7ba24',
                 cancelButtonText: 'Cerrar',
                 confirmButtonText: 'Aceptar'
             }).then((result) => {
@@ -422,6 +429,7 @@ createApp({
                 icon: 'warning',
                 showCancelButton: true,          
                 cancelButtonColor: '#d33',
+                confirmButtonColor: '#f7ba24',
                 cancelButtonText: 'Cerrar',
                 confirmButtonText: 'Aceptar'
             }).then((result) => {
@@ -460,6 +468,7 @@ createApp({
                 icon: 'warning',
                 showCancelButton: true,          
                 cancelButtonColor: '#d33',
+                confirmButtonColor: '#f7ba24',
                 cancelButtonText: 'Cerrar',
                 confirmButtonText: 'Aceptar'
             }).then((result) => {
