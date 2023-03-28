@@ -15,12 +15,10 @@ import java.time.LocalDateTime;
 public class CompraServicioDTO {
     private Long id;
     private Double precio;
-    private Integer cantidad;
     private LocalDateTime fechaReserva;
     public CompraServicioDTO(CompraServicio compraServicio){
         this.id= compraServicio.getId();
         this.precio= compraServicio.getPrecio();
-        this.cantidad= compraServicio.getCantidad();
         this.fechaReserva=compraServicio.getFechaReserva();
     }
 }
