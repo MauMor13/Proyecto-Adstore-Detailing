@@ -9,6 +9,7 @@
   <script src="https://kit.fontawesome.com/e7963be4ed.js" crossorigin="anonymous"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous" />
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -94,14 +95,14 @@
     </header>
 
 
-    <main class="main-index d-flex flex-column gap-4 justify-content-center align-items-center">
+    <main class="main-index d-flex flex-column gap-4 gap-md-2 justify-content-center align-items-center">
       <!-- BANNER -->
       <div  class="fotos-landing">
 
         <div class="typing-container">
-          <span id="sentence" class="fuente-workSans sentence font3-color">UN LUGAR DISTINTO... </span>
+          <span id="sentence" class="fuente-audiowide sentence font3-color">UN LUGAR DISTINTO... </span>
           <div>
-              <span id="feature-text" class="fuente-workSans font1-color">{{textoDinamico}}</span>
+              <span id="feature-text" class="fuente-audiowide font1-color">{{textoDinamico}}</span>
               <span class="input-cursor font1-color"></span>
           </div>
         </div>
@@ -114,9 +115,10 @@
       </div>
 
       <!-- contenedor About US -->
-      <div  class="aboutus mb-lg-5">
+      <div  class="aboutus mb-lg-5 fuente-poppins">
         <h3 class="fuente-audiowide">SOBRE NOSOTROS...</h3>
-        <p class="fuente-poppins ">AdStore Detailing nació de un grupo de amigos apasionados por los vehículos. Tenemos un firme convencimiento de que tu auto es más que un simple medio de transporte. Es una expresión de tu estilo personal y tu pasión por la conducción. Es por eso que ofrecemos servicios de primera categoría para mejorar la apariencia de tu vehículo y hacer que se vea como nuevo. Nos enorgullecemos de brindar los productos de más alta calidad necesarios para mantener en las mejores condiciones ese auto que tanto quieres. Te invitamos a que... ¡Vivas la experiencia!</p>
+        <p>AdStore Detailing nació de un grupo de amigos apasionados por los vehículos. Tenemos un firme convencimiento de que tu auto es más que un simple medio de transporte. Es una expresión de tu estilo personal y tu pasión por la conducción. Es por eso que ofrecemos servicios de primera categoría para mejorar la apariencia de tu vehículo y hacer que se vea como nuevo. Nos enorgullecemos de brindar los productos de más alta calidad necesarios para mantener en las mejores condiciones ese auto que tanto quieres.</p>
+        <p class="fuente-poppins">Somos mucho mas que un simple lavadero de autos. Somos AdStore Detailing y te invitamos a que... ¡Vivas la experiencia!</p>
       </div>
 
       <!--  Inicio contenedor ser cliente -->
@@ -142,13 +144,14 @@
           <span class="me-5 pb-0">¡Comienza a ser VIP! <i class="fa-solid fa-right-long fa-lg" style="color: #f7ba24;"></i></span>
           <span class="me-5">
             Clic en
-            <button @click="loginRegistro('registro')" class="btn1 font2-color" type="button" class="btn btn-primary bigger" data-bs-toggle="modal" data-bs-target="#modalSign">Registrate</button>
+            <button @click="loginRegistro('registro')" class="btn1 font2-color btn btn-primary bigger" type="button" data-bs-toggle="modal" data-bs-target="#modalSign">Registrate</button>
             si no eres cliente.
           </span>
           <span>
             CLic en
-            <button @click="loginRegistro('login')" class="btn1 font2-color" type="button" class="btn btn-primary bigger" data-bs-toggle="modal" data-bs-target="#modalSign">Logueate</button>
+            <button @click="loginRegistro('login')" class="btn1 font2-color btn btn-primary bigger" type="button" data-bs-toggle="modal" data-bs-target="#modalSign">Logueate</button>
             si ya lo eres y accede a tu perfil.
+          </span>
         </div>
         <div>
 
@@ -156,6 +159,7 @@
       </section>
       <!--  Fin contenedor ser cliente -->
 
+      <!--  Inicio contenedor productos -->
       <div class="d-flex justify-content-evenly productos align-items-center p-lg-3 row">
         <div class="col-12 col-lg-6 col-xl-4 pt-3">
           <img class="w-100" src="./assets/Imagenes/PNG3.png" alt="logo">
@@ -184,9 +188,45 @@
           </div>
         </div>
       </div>
+      <!--  fin contenedor productos -->
+      <!--  inicio contenedor servicios -->
+      <div class="contenedor-servicios d-flex">
+        <div class="d-flex flex-column flex-lg-row">
+          <div>
+            <h1 class="titulo-servicio"> CONOCE NUESTROS SERVICIOS</h1>
+            <p class="font1-color"  style="font-family: 'Poppins', sans-serif;" >Tu vehículo merece estar en las mejores manos, con personal altamente capacitado, con los materiales de mejor calidad y a la valocidad que siempre soñaste.
+            </p>
+            
+            <div class="d-flex justify-content-around align-items-end align-content-end mt-4">
+              <div class="d-flex flex-column justify-content-center align-content-center align-items-center">
+                <h2 class="up-title">LAVADO</h2>
+                <h2 class="down-title">Premium</h2>
+              </div>
+              <div class="d-flex flex-column justify-content-center align-content-center align-items-center">
+                <h2 class="up-title">LAVADO</h2>
+                <h2 class="down-title">Básico</h2>
+              </div>
+              <div class="d-flex flex-column justify-content-center align-content-center align-items-center">
+                <h2 class="up-title">TRAMATAMIENTO</h2>
+                <h2 class="down-title">Cerámico</h2>
+              </div>
+              <div class="d-flex flex-column justify-content-center align-content-center align-items-center">
+                <h2 class="up-title">TRAMATAMIENTO</h2>
+                <h2 class="down-title">Acrilico</h2>
+              </div>
+            </div>
+          </div>
+          <div>
+            <img src="./assets/Imagenes/servicios.png" class="img-servicio" alt="">
+          </div>
+        </div>
+        
+
+
+      </div>
 
       <!--  Inicio div marcas -->
-      <section class="z-n1 d-flex flex-column justify-content-center align-items-center flex-wrap marcas-index my-lg-5 p-2">
+      <section class="z-0 d-flex flex-column justify-content-center align-items-center flex-wrap marcas-index my-lg-5 p-2">
         <h2 class="font2-color fuente-audiowide text-uppercase">Nuestras marcas, satisfacción garantizada</h2>
         <p class="font1-color" style="font-family: 'Poppins', sans-serif;">Utilizamos solo los mejores productos para tu vehículo. Utilizamos marcas avaladas por una larga trayectoria y una intachable reputación.</p>
         <div class="w-100 justify-content-around d-flex align-items-center gap-3">
@@ -198,8 +238,10 @@
       </section>
       <!--  Fin div marcas -->
 
+
+
       <!--  Inicio carrusel experiencias -->
-      <div class="carrusel-exp d-flex justify-content-center z-n1 my-lg-5">
+      <div class="carrusel-exp d-flex justify-content-center z-0 my-lg-5">
         <div id="carouselExampleSlidesOnly" class="carousel col-lg-10 slide w-100" data-bs-ride="carousel">
           <div class="carousel-inner">
 
@@ -414,7 +456,7 @@
 
     </footer>
     <section class=" d-flex justify-content-center copyright mb-0">
-      <p class=""><i class="fas align-items-center mt-3 fa-copyright"></i> <strong>&nbsp;2023-Copyright Adstore-Cohorte 41</strong></p>
+      <p class="fuente-poppins"><i class="fas align-items-center mt-3 fa-copyright"></i> <strong>&nbsp;2023-Copyright Adstore-Cohorte 41</strong></p>
     </section>
   </div>
 
@@ -422,6 +464,8 @@
     integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
     crossorigin="anonymous"></script>
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="https://unpkg.com/vue-cal"></script>
   <script src="./assets/Js/index.js"></script>
 </body>

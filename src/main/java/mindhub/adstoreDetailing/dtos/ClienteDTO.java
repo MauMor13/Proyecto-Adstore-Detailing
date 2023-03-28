@@ -16,7 +16,7 @@ public class ClienteDTO {
     private String apellido;
     private String direccion;
     private String email;
-    private int telefono;
+    private String telefono;
     CuentaDTO cuenta;
 
     public ClienteDTO(Cliente cliente) {

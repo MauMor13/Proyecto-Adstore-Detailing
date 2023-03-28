@@ -38,12 +38,14 @@ public class ServicioClienteImpl implements ServicioCliente{
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
     }
-
+    @Override
+    public void guardar(Cliente cliente){
+        this.repositorioCliente.save(cliente);
+    }
     @Override
     public List<Cliente> findAllCliente() {
         return repositorioCliente.findAll();
     }
-
     private ClienteDTO generarAccountDTO(Cliente cliente){
         return new ClienteDTO(cliente);
     }

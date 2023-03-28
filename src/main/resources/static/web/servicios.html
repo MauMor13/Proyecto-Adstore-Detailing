@@ -106,60 +106,188 @@
 
 
       <!--cards servicios-->
-      <div class=" d-flex ">
+      <div class=" d-flex flex-column">
 
-        
+        <div class="d-flex contenedor-servicios1 justify-content-center align-items-center  flex-wrap col-12 ">
+          <!--  inicio servicio 1 -->
+          <div class="flip-card1  fondo-categorias flex-wrap d-flex col-12  col-lg-5 m-3">
+            <div class="flip-card-inner1">
+              <div class="flip-card-front">
+                <div class="d-flex  flex-wrap">
+                  <div class="col-lg-6 col-12">
+                      <img src="./assets/Imagenes/IMG5.jpg" class="img-servicio"alt="">
+                    </div>
+                    <div class=" col-lg-6 col-12  p-2">
+                      <div class="d-flex flex-column justify-content-center align-content-center align-items-center">
+                        <h2 class="up-title">TRAMATAMIENTO</h2>
+                        <h2 class="down-title">Cerámico</h2>
+                      </div>
+                      <div class="p-3 texto-servicio">
+                          <p> <img src="./assets/Imagenes/checked.png" class="lista" alt=""> Distintos tipos de tratamientos cerámicos que varían solo en el sellador a utilizar, con una durabilidad de entre 1 a 3 años.
+                          </p>
+                          <p><img src="./assets/Imagenes/checked.png" class="lista" alt="">  Lavado detallado del vehiculo.</p>
+                      </div>
+                      <div>
+                        <button @click="verDetallesServicio1('front')" class="btn btn1 p-2">Ver detalles</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
-        <div class="d-flex">
-          <div>
-            <img src="./assets/Imagenes/IMG5.jpg" class="img-servicio"alt="">
-          </div>
-          <div class="fondo-categorias p-2">
-            <div class="d-flex flex-column justify-content-center align-content-center align-items-center">
-              <h2 class="up-title">TRAMATAMIENTO</h2>
-              <h2 class="down-title">Cerámico</h2>
+                <div class="flip-card-back">
+                  <div class="d-flex flex-column justify-content-center align-content-center align-items-center">
+                    <h2 class="up-title">TRAMATAMIENTO</h2>
+                    <h2 class="down-title">Cerámico</h2>
+                  </div>
+                  <div class="p-3 texto-servicio ">
+                    <p class="texto-servicio"> <img src="./assets/Imagenes/checked.png" class="lista" alt=""> Distintos tipos de tratamientos cerámicos que varían solo en el sellador a utilizar, con una durabilidad de entre 3 a 5 años.
+                    </p>
+                    <p class="texto-servicio"><img src="./assets/Imagenes/checked.png" class="lista" alt="">  Pulido de la carrocería, para quitar todo tipo de imperfecciones, cómo rayas o swirls estas son las micros rayas circulares que suelen tener.</p>
+                </div>
+                <div>
+                  <img src="./assets/Imagenes/carrito.png" class="carrito" alt="">
+                  <a href="" class="link-contacto text-decoration-none">AGENDAR SERVICIO</a>
+                </div>
+                <button @click="verDetallesServicio1('back')" class="btn btn1 p-2">Volver</button>
+                </div>
+              </div>
             </div>
-            <div class="p-3">
-                <p> <img src="./assets/Imagenes/checked.png" class="lista" alt=""> Distintos tipos de tratamientos cerámicos que varían solo en el sellador a utilizar, con una durabilidad de entre 3 a 5 años.
-                </p>
-                <p><img src="./assets/Imagenes/checked.png" class="lista" alt="">  Pulido de la carrocería, para quitar todo tipo de imperfecciones, cómo rayas o swirls estas son las micros rayas circulares que suelen tener.</p>
+            <!-- fin servicio 1 -->
+            <!--  inicio servicio 2 -->
+            <div class="flip-card2 fondo-categorias flex-wrap d-flex col-12  col-lg-5 m-3">
+              <div class="flip-card-inner2">
+                <div class="flip-card-front">
+                  <div class="d-flex  flex-wrap">
+                    <div class="col-lg-6 col-12">
+                      <img src="./assets/Imagenes/IMG4.jpg" class="img-servicio"alt="">
+                    </div>
+                    <div class=" col-lg-6 col-12  p-2">
+                      <div class="d-flex flex-column justify-content-center align-content-center align-items-center">
+                        <h2 class="up-title">LAVADO</h2>
+                        <h2 class="down-title">Premium</h2>
+                      </div>
+                      <div class="ps-3 pe-3 pt-3 texto-servicio">
+                          <p> <img src="./assets/Imagenes/checked.png" class="lista" alt=""> Interior detallado con un acondicionador para los plásticos 
+                          </p>
+                          <p><img src="./assets/Imagenes/checked.png" class="lista" alt=""> lavado de llantas al detalle con productos ferricos, para una mayor limpieza. </p>
+                          
+                      </div>
+                      <div>
+                        <button @click="verDetallesServicio2('front')" class="btn btn1 p-2">Ver detalles</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="flip-card-back">
+                  <div class="d-flex flex-column justify-content-center align-content-center align-items-center">
+                    <h2 class="up-title">LAVADO</h2>
+                    <h2 class="down-title">Premium</h2>
+                  </div>
+                  <div class="p-3 texto-servicio ">
+                    <p><img src="./assets/Imagenes/checked.png" class="lista" alt=""> Acondicionado de alfombras de goma.</p>
+                    <p class="texto-servicio"><img src="./assets/Imagenes/checked.png" class="lista" alt="">  Pulido de la carrocería, para quitar todo tipo de imperfecciones, cómo rayas o swirls estas son las micros rayas circulares que suelen tener.</p>
+                </div>
+                <div>
+                  <img src="./assets/Imagenes/carrito.png" class="carrito" alt="">
+                  <a href="" class="link-contacto text-decoration-none">AGENDAR SERVICIO</a>
+                </div>
+                <button @click="verDetallesServicio2('back')" class="btn btn1 p-2">Volver</button>
+                </div>
+              </div>
             </div>
-            <div>
-              <img src="./assets/Imagenes/carrito.png" class="carrito" alt="">
-              <a href="" class="link-contacto text-decoration-none">AGENDAR SERVICIO</a>
-            </div>
-          </div>
+            <!-- fin servicio 2 -->
         </div>
 
-        <div class="d-flex">
-          <div>
-            <img src="./assets/Imagenes/IMG4.jpg" class="img-servicio"alt="">
+        <div class="d-flex flex-wrap contenedor-servicios2 justify-content-center align-items-center">
+          <!--  inicio servicio 3 -->
+          <div class="flip-card3 fondo-categorias flex-wrap  col-lg-5 m-3">
+            <div class="flip-card-inner3">
+              <div class="flip-card-front">
+                <div class="d-flex  flex-wrap">
+                  <div class="col-lg-6 col-12">
+                    <img src="./assets/Imagenes/IMG3.jpg" class="img-servicio"alt="">
+                  </div>
+                  <div class="col-lg-6 col-12 p-2">
+                    <div class="d-flex flex-column justify-content-center align-content-center align-items-center">
+                      <h2 class="up-title">TRAMATAMIENTO</h2>
+                      <h2 class="down-title"> Acrilico</h2>
+                    </div>
+                    <div class="p-3 texto-servicio">
+                        <p> <img src="./assets/Imagenes/checked.png" class="lista" alt=""> Distintos tipos de tratamientos cerámicos que varían solo en el sellador a utilizar, con una durabilidad de entre 3 a 5 años.
+                        </p>
+                        <p><img src="./assets/Imagenes/checked.png" class="lista" alt="">  Lavado detallado del vehiculo.</p>
+                    </div>
+                    <div>
+                      <button @click="verDetallesServicio3('front')" class="btn btn1 p-2">Ver detalles</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flip-card-back">
+                <div class="d-flex flex-column justify-content-center align-content-center align-items-center">
+                  <h2 class="up-title">TRAMATAMIENTO</h2>
+                  <h2 class="down-title">Acrilico</h2>
+                </div>
+                <div class="p-3 texto-servicio ">
+                  <p class="texto-servicio"> <img src="./assets/Imagenes/checked.png" class="lista" alt=""> Distintos tipos de tratamientos cerámicos que varían solo en el sellador a utilizar, con una durabilidad de entre 3 a 5 años.
+                  </p>
+                  <p class="texto-servicio"><img src="./assets/Imagenes/checked.png" class="lista" alt="">  Pulido de la carrocería, para quitar todo tipo de imperfecciones, cómo rayas o swirls estas son las micros rayas circulares que suelen tener.</p>
+              </div>
+              <div>
+                <img src="./assets/Imagenes/carrito.png" class="carrito" alt="">
+                <a href="" class="link-contacto text-decoration-none">AGENDAR SERVICIO</a>
+              </div>
+              <button @click="verDetallesServicio3('back')" class="btn btn1 p-2">Volver</button>
+              </div>
+            </div>
           </div>
-          <div class="fondo-categorias p-2">
-            <div class="d-flex flex-column justify-content-center align-content-center align-items-center">
-              <h2 class="up-title">LAVADO</h2>
-              <h2 class="down-title">Premium</h2>
-            </div>
-            <div class="p-3">
-                <p> <img src="./assets/Imagenes/checked.png" class="lista" alt=""> Distintos tipos de tratamientos cerámicos que varían solo en el sellador a utilizar, con una durabilidad de entre 3 a 5 años.
-                </p>
-                <p><img src="./assets/Imagenes/checked.png" class="lista" alt="">  Pulido de la carrocería, para quitar todo tipo de imperfecciones, cómo rayas o swirls estas son las micros rayas circulares que suelen tener.</p>
-            </div>
-            <div>
-              <img src="./assets/Imagenes/carrito.png" class="carrito" alt="">
-              <a href="" class="link-contacto text-decoration-none">AGENDAR SERVICIO</a>
+          <!-- fin servicio 3 -->
+          <!--  inicio servicio 4 -->
+          <div class="flip-card4 fondo-categorias flex-wrap  col-lg-5 m-3">
+            <div class="flip-card-inner4">
+              <div class="flip-card-front">
+                <div class="d-flex  flex-wrap">
+                  <div class="col-lg-6 col-12">
+                    <img src="./assets/Imagenes/foto2.jpeg" class="img-servicio"alt="">
+                  </div>
+                  <div class="col-lg-6 col-12 p-2">
+                    <div class="d-flex flex-column justify-content-center align-content-center align-items-center">
+                      <h2 class="up-title">LAVADO</h2>
+                      <h2 class="down-title">Básico</h2>
+                    </div>
+                    <div class="ps-3 pe-3 pt-3 texto-servicio">
+                        <p> <img src="./assets/Imagenes/checked.png" class="lista" alt=""> Detallado de interior, aspirado al detalle, lavado de carrocería al detalle, terminación con cera en spray.</p>
+                    </div>
+                    <div>
+                      <button @click="verDetallesServicio4('front')" class="btn btn1 p-2">Ver detalles</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flip-card-back">
+                <div class="d-flex flex-column justify-content-center align-content-center align-items-center">
+                  <h2 class="up-title">LAVADO</h2>
+                  <h2 class="down-title">Básico</h2>
+                </div>
+                <div class="p-3 texto-servicio ">
+                  <p><img src="./assets/Imagenes/checked.png" class="lista" alt=""> Acondicionado de alfombras de goma.</p>
+                  <p class="texto-servicio"><img src="./assets/Imagenes/checked.png" class="lista" alt="">  Pulido de la carrocería, para quitar todo tipo de imperfecciones, cómo rayas o swirls estas son las micros rayas circulares que suelen tener.</p>
+              </div>
+              <div>
+                <img src="./assets/Imagenes/carrito.png" class="carrito" alt="">
+                <a href="" class="link-contacto text-decoration-none">AGENDAR SERVICIO</a>
+              </div>
+              <button @click="verDetallesServicio4('back')" class="btn btn1 p-2">Volver</button>
+              </div>
             </div>
           </div>
+          <!-- fin servicio 4 -->
         </div>
-
-        
-
 
       </div>
-
-
-      
-
       
     </main>
       
@@ -211,17 +339,17 @@
 
     </footer>
     <section class=" d-flex justify-content-center copyright mb-0">
-      <p class=""><i class="fas align-items-center mt-3 fa-copyright"></i> <strong>&nbsp;2023-Copyright Adstore-Cohorte 41</strong></p>
+      <p class="fuente-poppins"><i class="fas align-items-center mt-3 fa-copyright"></i> <strong>&nbsp;2023-Copyright Adstore-Cohorte 41</strong></p>
     </section>
   </div>
 
-  <script src="https://unpkg.com/vue"></script>
-  <script src="https://unpkg.com/vue-cal"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
     crossorigin="anonymous"></script>
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-  <script src="./assets/Js/index.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="./assets/Js/servicios.js"></script>
 </body>
 
 </html>
