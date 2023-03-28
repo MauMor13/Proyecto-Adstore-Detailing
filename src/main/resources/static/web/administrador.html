@@ -47,22 +47,25 @@
             <div class="d-flex justify-content-center align-items-center flex-column accordion-header">
                 <h3 class="font1-color">Clientes</h3>
                 <button class="btn categoria" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">Administrar Clientes</button>
+                <input @click="renderClientes()" type="checkbox" class="btn-check" id="btn-check" autocomplete="off">
+                <label class="btn btn-primary" for="btn-check">Single toggle</label>
             </div>       
 
             <div class="d-flex justify-content-center align-items-center flex-column accordion-header">
                 <h3 class="font1-color">Productos</h3>
-                <button class="btn categoria" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseOne">Administrar Productos</button>
+                <button @click="renderProductos()" class="btn categoria" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseOne">Administrar Productos</button>
             </div>
 
             <div class="d-flex justify-content-center align-items-center flex-column accordion-header">
                 <h3 class="font1-color">Servicios</h3>
-                <button class="btn categoria" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseOne">Administrar Servicios</button>
+                <button @click="renderServicios()" class="btn categoria" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseOne">Administrar Servicios</button>
             </div>
         </div>
         <div class="w-100 d-flex justify-content-center flex-wrap">
+            <!-- TABLAS -->
             <div id="collapseOne" class="accordion-collapse collapse w-100 mb-4" data-bs-parent="#accordionExample">
                 <div class="accordion-body d-flex justify-content-center">
-                    <div class="d-flex justify-content-between align-items-start tree-and-loan"><!-- v-if="clientes.length" -->
+                    <div class="d-flex justify-content-between align-items-start tree-and-loan" v-if="clientes.length">
                         <div class="container table-loan">
                         <div class="row d-flex justify-content-center">
                             <div class="col-12">
@@ -84,10 +87,11 @@
                                             </div> -->
                                         </div>
                                     </div>
-                                    <div class="panel-cuerpo table-responsive"> <!--v-if="elementosVisibles.length"-->
-                                        <table class="table">
+                                    <div class="panel-cuerpo table-responsive">
+                                        <table class="table" v-if="clientesVisibles.length">
                                             <thead>
                                                 <tr class="titulo">
+                                                    <th>Id</th>
                                                     <th>Nombre</th>
                                                     <th>Apellido</th>
                                                     <th>Email</th>
@@ -97,11 +101,12 @@
                                             </thead>
                                             <tbody>
                                                 <tr v-for="cliente of clientesVisibles" class="renglon-info">                        
+                                                    <td>{{cliente.id}}</td>
                                                     <td>{{cliente.nombre}}</td>
                                                     <td>{{cliente.apellido}}</td>
                                                     <td>{{cliente.email}}</td>  
-                                                    <td><i class="fa-sharp fa-light fa-file-pen" style="color: #000000;"></i></td> 
-                                                    <td></td> 
+                                                    <td><i class="fa-sharp fa-solid fa-file-pen" style="color: #000000;"></i></td> 
+                                                    <td><i class="fa-solid fa-trash-can" style="color: #000000;"></i></td> 
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -112,28 +117,28 @@
                                     <div class="panel-footer">
                                         <div class="row">
                                             <div class="col-6 col-sm-6 col-xs-6 float-start">
-                                                <span class="float-start">mostrando {{paginaNumero}} de {{totalPaginas}} páginas</span>
+                                                <span class="float-start">mostrando {{paginaNumeroCli}} de {{totalPaginasCli}} páginas</span>
                                             </div>
                                             <div class="col-6 col-sm-6 col-xs-6 float-end">
                                                 <div class="flex-column align-items-end flexDesde768">
                                                 <div class="d-flex justify-content-end align-items-center page-transactions">
-                                                    <i v-if="paginaNumero > 1" @click="cambiarPagina(-1)" class="fa-solid fa-chevron-left fa-white me-2 chevron-page-transaction"></i>                          
+                                                    <i v-if="paginaNumeroCli > 1" @click="cambiarPaginaCli(-1)" class="fa-solid fa-chevron-left fa-white me-2 chevron-page-transaction"></i>                          
                                                     <i v-else class="fa-solid fa-chevron-left fa-grey me-2"></i>
                                                     <ul class="pagination">
-                                                    <template v-for="numero of numPaginasVisible">
-                                                        <li :class="paginaNumero == numero? 'active': 'disabled'" @click="irAPagina(numero)"><a href="#">{{numero}}</a></li>
+                                                    <template v-for="numero of numPaginasVisibleCli">
+                                                        <li :class="paginaNumeroCli == numero? 'active': 'disabled'" @click="irAPaginaCli(numero)"><a href="#">{{numero}}</a></li>
                                                     </template>
                                                     </ul>                       
-                                                    <i v-if="totalPaginas > paginaNumero" @click="cambiarPagina(1)" class="fa-solid fa-chevron-right fa-white ms-2 chevron-page-transaction"></i>                          
+                                                    <i v-if="totalPaginasCli > paginaNumeroCli" @click="cambiarPaginaCli(1)" class="fa-solid fa-chevron-right fa-white ms-2 chevron-page-transaction"></i>                          
                                                     <i v-else class="fa-solid fa-chevron-right fa-grey ms-2"></i>
                                                 </div>
                                                 
                                                 </div>
                                                 <div class="align-items-end justify-content-end flexHasta768">
-                                                <i v-if="paginaNumero > 1" @click="cambiarPagina(-1)" class="fa-solid fa-chevron-left fa-white me-2 chevron-page-transaction"></i>                          
+                                                <i v-if="paginaNumeroCli > 1" @click="cambiarPaginaCli(-1)" class="fa-solid fa-chevron-left fa-white me-2 chevron-page-transaction"></i>                          
                                                 <i v-else class="fa-solid fa-chevron-left fa-grey me-2"></i>
                             
-                                                <i v-if="totalPaginas > paginaNumero" @click="cambiarPagina(1)" class="fa-solid fa-chevron-right fa-white ms-2 chevron-page-transaction"></i>                          
+                                                <i v-if="totalPaginasCli > paginaNumeroCli" @click="cambiarPaginaCli(1)" class="fa-solid fa-chevron-right fa-white ms-2 chevron-page-transaction"></i>                          
                                                 <i v-else class="fa-solid fa-chevron-right fa-grey ms-2"></i>
                                                 </div>
                                                 
@@ -150,7 +155,7 @@
 
             <div id="collapseTwo" class="accordion-collapse collapse w-100 mb-4" data-bs-parent="#accordionExample">
                 <div class="accordion-body d-flex justify-content-center">
-                    <div class="d-flex justify-content-between align-items-start tree-and-loan"><!-- v-if="clientes.length" -->
+                    <div class="d-flex justify-content-between align-items-start tree-and-loan" v-if="productos.length"><!-- v-if="clientes.length" -->
                         <div class="container table-loan">
                         <div class="row d-flex justify-content-center">
                             <div class="col-12">
@@ -158,11 +163,11 @@
                                     <div class="panel-encabezado">
                                         <div class="row d-flex justify-content-center p-3">
                                             <div class="col col-sm-6 col-xs-12">
-                                                <h4 class="title">Clientes <span>activos</span></h4>
+                                                <h4 class="title">Productos <span>activos</span></h4>
                                             </div>
                                             <div class="col-sm-6 col-xs-12">
                                                 <div class="btn_group">
-                                                    <button class="btn btn-default">Crear Cliente</button>
+                                                    <button class="btn btn-default">Crear Producto</button>
                                                 </div>
                                             </div>
                                             <!-- <div class="col-sm-9 col-xs-12 text-end">
@@ -172,56 +177,58 @@
                                             </div> -->
                                         </div>
                                     </div>
-                                    <div class="panel-cuerpo table-responsive"> <!--v-if="elementosVisibles.length"-->
-                                        <table class="table">
+                                    <div class="panel-cuerpo table-responsive">
+                                        <table class="table" v-if="productosVisibles.length">
                                             <thead>
                                                 <tr class="titulo">
+                                                    <th>Id</th>
                                                     <th>Nombre</th>
-                                                    <th>Apellido</th>
-                                                    <th>Email</th>
+                                                    <th>Precio</th>
+                                                    <th>Stock</th>
                                                     <th>Modificar</th>
                                                     <th>Elminar</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr v-for="cliente of clientesVisibles" class="renglon-info">                        
-                                                    <td>{{cliente.nombre}}</td>
-                                                    <td>{{cliente.apellido}}</td>
-                                                    <td>{{cliente.email}}</td>  
-                                                    <td><i class="fa-sharp fa-light fa-file-pen" style="color: #000000;"></i></td> 
-                                                    <td></td> 
+                                                <tr v-for="producto of productosVisibles" class="renglon-info">                        
+                                                    <td>{{producto.id}}</td>
+                                                    <td>{{producto.nombre}}</td>
+                                                    <td>{{producto.precio}}</td>
+                                                    <td>{{producto.stock}}</td>  
+                                                    <td><i class="fa-sharp fa-solid fa-file-pen" style="color: #000000;"></i></td> 
+                                                    <td><i class="fa-solid fa-trash-can" style="color: #000000;"></i></td> 
                                                 </tr>
                                             </tbody>
                                         </table>
                                         <div v-else class="d-flex align-items-center">
-                                            <h2 class="w-75">Actualmente no hay clientes para mostrar.</h2>
+                                            <h2 class="w-75">Actualmente no hay productos para mostrar.</h2>
                                         </div>
                                     </div>
                                     <div class="panel-footer">
                                         <div class="row">
                                             <div class="col-6 col-sm-6 col-xs-6 float-start">
-                                                <span class="float-start">mostrando {{paginaNumero}} de {{totalPaginas}} páginas</span>
+                                                <span class="float-start">mostrando {{paginaNumeroPro}} de {{totalPaginasPro}} páginas</span>
                                             </div>
                                             <div class="col-6 col-sm-6 col-xs-6 float-end">
                                                 <div class="flex-column align-items-end flexDesde768">
                                                 <div class="d-flex justify-content-end align-items-center page-transactions">
-                                                    <i v-if="paginaNumero > 1" @click="cambiarPagina(-1)" class="fa-solid fa-chevron-left fa-white me-2 chevron-page-transaction"></i>                          
+                                                    <i v-if="paginaNumeroPro > 1" @click="cambiarPaginaPro(-1)" class="fa-solid fa-chevron-left fa-white me-2 chevron-page-transaction"></i>                          
                                                     <i v-else class="fa-solid fa-chevron-left fa-grey me-2"></i>
                                                     <ul class="pagination">
-                                                    <template v-for="numero of numPaginasVisible">
-                                                        <li :class="paginaNumero == numero? 'active': 'disabled'" @click="irAPagina(numero)"><a href="#">{{numero}}</a></li>
+                                                    <template v-for="numero of numPaginasVisiblePro">
+                                                        <li :class="paginaNumeroPro == numero? 'active': 'disabled'" @click="irAPaginaPro(numero)"><a href="#">{{numero}}</a></li>
                                                     </template>
                                                     </ul>                       
-                                                    <i v-if="totalPaginas > paginaNumero" @click="cambiarPagina(1)" class="fa-solid fa-chevron-right fa-white ms-2 chevron-page-transaction"></i>                          
+                                                    <i v-if="totalPaginasPro > paginaNumeroPro" @click="cambiarPaginaPro(1)" class="fa-solid fa-chevron-right fa-white ms-2 chevron-page-transaction"></i>                          
                                                     <i v-else class="fa-solid fa-chevron-right fa-grey ms-2"></i>
                                                 </div>
                                                 
                                                 </div>
                                                 <div class="align-items-end justify-content-end flexHasta768">
-                                                <i v-if="paginaNumero > 1" @click="cambiarPagina(-1)" class="fa-solid fa-chevron-left fa-white me-2 chevron-page-transaction"></i>                          
+                                                <i v-if="paginaNumeroPro > 1" @click="cambiarPaginaPro(-1)" class="fa-solid fa-chevron-left fa-white me-2 chevron-page-transaction"></i>                          
                                                 <i v-else class="fa-solid fa-chevron-left fa-grey me-2"></i>
                             
-                                                <i v-if="totalPaginas > paginaNumero" @click="cambiarPagina(1)" class="fa-solid fa-chevron-right fa-white ms-2 chevron-page-transaction"></i>                          
+                                                <i v-if="totalPaginasPro > paginaNumeroPro" @click="cambiarPaginaPro(1)" class="fa-solid fa-chevron-right fa-white ms-2 chevron-page-transaction"></i>                          
                                                 <i v-else class="fa-solid fa-chevron-right fa-grey ms-2"></i>
                                                 </div>
                                                 
@@ -238,7 +245,7 @@
 
             <div id="collapseThree" class="accordion-collapse collapse w-100 mb-4" data-bs-parent="#accordionExample">
                 <div class="accordion-body d-flex justify-content-center">
-                    <div class="d-flex justify-content-between align-items-start tree-and-loan"><!-- v-if="clientes.length" -->
+                    <div class="d-flex justify-content-between align-items-start tree-and-loan" v-if="servicios.length">
                         <div class="container table-loan">
                         <div class="row d-flex justify-content-center">
                             <div class="col-12">
@@ -246,11 +253,11 @@
                                     <div class="panel-encabezado">
                                         <div class="row d-flex justify-content-center p-3">
                                             <div class="col col-sm-6 col-xs-12">
-                                                <h4 class="title">Clientes <span>activos</span></h4>
+                                                <h4 class="title">Servicios <span>activos</span></h4>
                                             </div>
                                             <div class="col-sm-6 col-xs-12">
                                                 <div class="btn_group">
-                                                    <button class="btn btn-default">Crear Cliente</button>
+                                                    <button class="btn btn-default">Crear Servicio</button>
                                                 </div>
                                             </div>
                                             <!-- <div class="col-sm-9 col-xs-12 text-end">
@@ -260,56 +267,58 @@
                                             </div> -->
                                         </div>
                                     </div>
-                                    <div class="panel-cuerpo table-responsive"> <!--v-if="elementosVisibles.length"-->
-                                        <table class="table">
+                                    <div class="panel-cuerpo table-responsive">
+                                        <table class="table" v-if="serviciosVisibles.length">
                                             <thead>
                                                 <tr class="titulo">
+                                                    <th>Id</th>
                                                     <th>Nombre</th>
-                                                    <th>Apellido</th>
-                                                    <th>Email</th>
+                                                    <th>Precio</th>
+                                                    <th>Duracion</th>
                                                     <th>Modificar</th>
                                                     <th>Elminar</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr v-for="cliente of clientesVisibles" class="renglon-info">                        
-                                                    <td>{{cliente.nombre}}</td>
-                                                    <td>{{cliente.apellido}}</td>
-                                                    <td>{{cliente.email}}</td>  
-                                                    <td><i class="fa-sharp fa-light fa-file-pen" style="color: #000000;"></i></td> 
-                                                    <td></td> 
+                                                <tr v-for="servicio of serviciosVisibles" class="renglon-info">                        
+                                                    <td>{{servicio.id}}</td>
+                                                    <td>{{servicio.nombre}}</td>
+                                                    <td>{{servicio.precio}}</td>  
+                                                    <td>{{servicio.duracion}}</td>  
+                                                    <td><i class="fa-sharp fa-solid fa-file-pen" style="color: #000000;"></i></td> 
+                                                    <td><i class="fa-solid fa-trash-can" style="color: #000000;"></i></td> 
                                                 </tr>
                                             </tbody>
                                         </table>
                                         <div v-else class="d-flex align-items-center">
-                                            <h2 class="w-75">Actualmente no hay clientes para mostrar.</h2>
+                                            <h2 class="w-75">Actualmente no hay servicios para mostrar.</h2>
                                         </div>
                                     </div>
                                     <div class="panel-footer">
                                         <div class="row">
                                             <div class="col-6 col-sm-6 col-xs-6 float-start">
-                                                <span class="float-start">mostrando {{paginaNumero}} de {{totalPaginas}} páginas</span>
+                                                <span class="float-start">mostrando {{paginaNumeroSer}} de {{totalPaginasSer}} páginas</span>
                                             </div>
                                             <div class="col-6 col-sm-6 col-xs-6 float-end">
                                                 <div class="flex-column align-items-end flexDesde768">
                                                 <div class="d-flex justify-content-end align-items-center page-transactions">
-                                                    <i v-if="paginaNumero > 1" @click="cambiarPagina(-1)" class="fa-solid fa-chevron-left fa-white me-2 chevron-page-transaction"></i>                          
+                                                    <i v-if="paginaNumeroSer > 1" @click="cambiarPaginaSer(-1)" class="fa-solid fa-chevron-left fa-white me-2 chevron-page-transaction"></i>                          
                                                     <i v-else class="fa-solid fa-chevron-left fa-grey me-2"></i>
                                                     <ul class="pagination">
-                                                    <template v-for="numero of numPaginasVisible">
-                                                        <li :class="paginaNumero == numero? 'active': 'disabled'" @click="irAPagina(numero)"><a href="#">{{numero}}</a></li>
+                                                    <template v-for="numero of numPaginasVisibleSer">
+                                                        <li :class="paginaNumeroSer == numero? 'active': 'disabled'" @click="irAPaginaSer(numero)"><a href="#">{{numero}}</a></li>
                                                     </template>
                                                     </ul>                       
-                                                    <i v-if="totalPaginas > paginaNumero" @click="cambiarPagina(1)" class="fa-solid fa-chevron-right fa-white ms-2 chevron-page-transaction"></i>                          
+                                                    <i v-if="totalPaginasSer > paginaNumeroSer" @click="cambiarPaginaSer(1)" class="fa-solid fa-chevron-right fa-white ms-2 chevron-page-transaction"></i>                          
                                                     <i v-else class="fa-solid fa-chevron-right fa-grey ms-2"></i>
                                                 </div>
                                                 
                                                 </div>
                                                 <div class="align-items-end justify-content-end flexHasta768">
-                                                <i v-if="paginaNumero > 1" @click="cambiarPagina(-1)" class="fa-solid fa-chevron-left fa-white me-2 chevron-page-transaction"></i>                          
+                                                <i v-if="paginaNumeroSer > 1" @click="cambiarPaginaSer(-1)" class="fa-solid fa-chevron-left fa-white me-2 chevron-page-transaction"></i>                          
                                                 <i v-else class="fa-solid fa-chevron-left fa-grey me-2"></i>
                             
-                                                <i v-if="totalPaginas > paginaNumero" @click="cambiarPagina(1)" class="fa-solid fa-chevron-right fa-white ms-2 chevron-page-transaction"></i>                          
+                                                <i v-if="totalPaginasSer > paginaNumeroSer" @click="cambiarPaginaSer(1)" class="fa-solid fa-chevron-right fa-white ms-2 chevron-page-transaction"></i>                          
                                                 <i v-else class="fa-solid fa-chevron-right fa-grey ms-2"></i>
                                                 </div>
                                                 
@@ -323,6 +332,7 @@
                     </div>
                 </div>
             </div>
+            <!-- FIN TABLAS -->
         </div>
 
        
