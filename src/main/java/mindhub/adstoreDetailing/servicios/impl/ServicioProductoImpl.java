@@ -31,7 +31,6 @@ public class ServicioProductoImpl implements ServicioProducto {
     public Optional<Producto> findById(Long id){
        return this.repositorioProducto.findById(id);
     }
-
     private List<ProductoDTO>mapListToDTOs(List<Producto> listaProducto){
         return listaProducto.stream().map(ProductoDTO::new).collect(Collectors.toList());
 

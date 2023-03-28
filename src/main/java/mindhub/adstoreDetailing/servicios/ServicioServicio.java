@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface ServicioServicio {
 
-    List<ServicioDTO> findAllDTOs();
+    List<ServicioDTO> findAllServicioDTO();
     Optional<Servicio> findById(Long id);
 
 }
