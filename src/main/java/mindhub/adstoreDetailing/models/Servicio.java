@@ -24,6 +24,7 @@ public class Servicio {
     private double precio;
     private Duration duracion;
     private String imagenURL;
+    private boolean activo;
     @OneToMany(mappedBy = "servicio",fetch = FetchType.EAGER)
     private Set<CompraServicio> compraServicio = new HashSet<>();
 
@@ -33,5 +34,6 @@ public class Servicio {
         this.precio = precio;
         this.duracion = duracion;
         this.imagenURL = imagenURL;
+        this.activo = true;
     }
 }

@@ -25,6 +25,7 @@ public class Producto {
     private String descripcion;
     private String imagenUrl;
     private Categoria categoria;
+    private boolean activo;
     @OneToMany(mappedBy = "producto",fetch = FetchType.EAGER)
     private Set<CompraProducto> compraProducto = new HashSet<>();
 
@@ -35,5 +36,6 @@ public class Producto {
         this.descripcion = descripcion;
         this.imagenUrl = imagenUrl;
         this.categoria = categoria;
+        this.activo = true;
     }
 }

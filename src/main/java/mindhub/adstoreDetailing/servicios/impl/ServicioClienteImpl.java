@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static java.util.stream.Collectors.toList;
+
 @Service
 public class ServicioClienteImpl implements ServicioCliente{
     private final RepositorioCliente repositorioCliente;
@@ -39,9 +41,8 @@ public class ServicioClienteImpl implements ServicioCliente{
         return matcher.matches();
     }
 
-    @Override
-    public List<Cliente> findAllCliente() {
-        return repositorioCliente.findAll();
+    public List<ClienteDTO> findAllClienteDTO() {
+        return repositorioCliente.findAll().stream().map(ClienteDTO::new).collect(toList());
     }
 
     private ClienteDTO generarAccountDTO(Cliente cliente){

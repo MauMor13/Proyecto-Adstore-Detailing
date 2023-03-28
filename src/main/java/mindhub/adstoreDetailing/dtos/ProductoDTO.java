@@ -24,6 +24,7 @@ public class ProductoDTO {
     private String descripcion;
     private String imagenUrl;
     private Categoria categoria;
+    private boolean activo;
 
     public ProductoDTO(Producto producto) {
         this.id = producto.getId();
@@ -33,5 +34,6 @@ public class ProductoDTO {
         this.descripcion = producto.getDescripcion();
         this.imagenUrl = producto.getImagenUrl();
         this.categoria = producto.getCategoria();
+        this.activo = producto.isActivo();
     }
 }

@@ -7,6 +7,6 @@ public interface ServicioCliente {
    Cliente findByEmail(String email);
    void registrarCliente(Cliente cliente);
    boolean emailEsValido(String email);
-   List<Cliente> findAllCliente();
+   List<ClienteDTO> findAllClienteDTO();
 
 }

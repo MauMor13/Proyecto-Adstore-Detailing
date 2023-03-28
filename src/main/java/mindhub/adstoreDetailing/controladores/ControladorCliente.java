@@ -10,9 +10,9 @@ import java.util.List;
 import static java.util.stream.Collectors.toList;
 @RestController
 @RequestMapping("/api")
-public class ControladorClientes {
+public class ControladorCliente {
     private final ServicioCliente servicioCliente;
-    public ControladorClientes(ServicioCliente servicioCliente) {
+    public ControladorCliente(ServicioCliente servicioCliente) {
         this.servicioCliente = servicioCliente;
     }
 
@@ -22,7 +22,7 @@ public class ControladorClientes {
     }
     @GetMapping("/clientes")
     public List<ClienteDTO> traerClientes(){
-        return servicioCliente.findAllCliente().stream().map(ClienteDTO::new).collect(toList());
+        return servicioCliente.findAllClienteDTO();
     }
 
     @PostMapping("/registrar")
