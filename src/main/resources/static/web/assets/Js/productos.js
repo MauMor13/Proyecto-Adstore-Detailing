@@ -27,6 +27,16 @@ createApp({
                     this.categorias =[... new Set(this.productos.map(producto => producto.categoria))];
                     console.log(this.productos);
                 })
+        },
+
+        verDetallesProducto: function (value) {
+            let form = document.querySelector('.flip-card .flip-card-inner');
+            if (value == 'front') {
+                form.classList.add('girarproducto');
+            }
+            else if (value == 'back') {
+                form.classList.remove('girarproducto');
+            }
         }
     },
 
