@@ -13,7 +13,6 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 public class Compra {
     @Id
@@ -27,7 +26,21 @@ public class Compra {
     @JoinColumn(name = "cuenta_id")
     private Cuenta cuenta;
     @OneToMany(mappedBy = "compra",fetch = FetchType.EAGER)
-    private Set<CompraProducto> compraProducto = new HashSet<>();
+    private Set<CompraProducto> compraProductos = new HashSet<>();
     @OneToMany(mappedBy = "compra",fetch = FetchType.EAGER)
-    private Set<CompraServicio> compraServicio = new HashSet<>();
+    private Set<CompraServicio> compraServicios = new HashSet<>();
+
+    public Compra(double montoFinal, LocalDateTime fecha, int descuento) {
+        this.montoFinal = montoFinal;
+        this.fecha = fecha;
+        this.descuento = descuento;
+    }
+    public void sumarCompraProducto(CompraProducto compraProducto){
+        compraProducto.setCompra(this);
+        compraProductos.add(compraProducto);
+    }
+    public void sumarCompraServicio(CompraServicio compraServicio){
+        compraServicio.setCompra(this);
+        compraServicios.add(compraServicio);
+    }
 }
