@@ -22,6 +22,7 @@ import static mindhub.adstoreDetailing.utilidades.Utilidad.*;
 public class AdstoreDetailingApplication {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+
 	public static void main(String[] args) {
 		SpringApplication.run(AdstoreDetailingApplication.class, args);
 	}
@@ -37,7 +38,7 @@ public class AdstoreDetailingApplication {
 									  RepositorioCompra repositorioCompra) {
 		return (args) -> {
 			//crear cliente, cuenta y tarjeta
-			Cliente cliente1 = new Cliente("Marcelo", "Rodriguez", "rioja 36 ,Cordoba,Argentina", "marcelo21@gmail.com", "marce12345", 35245789);
+			Cliente cliente1 = new Cliente("Marcelo", "Rodriguez", "rioja 36 ,Cordoba,Argentina", "marcelo21@gmail.com", passwordEncoder.encode("marce12345"), 35245789);
 			Cuenta cuentaCliente1 = new Cuenta(generarNumeroCuenta(repositorioCuenta), 50000);
 			TarjetaAd tarjetaCliente1 = new TarjetaAd(generarNumeroTarjetaAd(repositorioTarjetaAd));
 
