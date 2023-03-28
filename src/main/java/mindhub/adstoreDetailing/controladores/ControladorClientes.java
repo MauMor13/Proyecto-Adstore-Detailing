@@ -50,7 +50,7 @@ public class ControladorClientes {
         else if (registroClienteDTO.getEmail().endsWith("@admin.adstore") || !servicioCliente.emailEsValido(registroClienteDTO.getEmail())) {
             return new ResponseEntity<>("Email Inválido", HttpStatus.BAD_REQUEST);
         }
-        if (registroClienteDTO.getClaveIngreso().isEmpty() ) {
+        if (registroClienteDTO.getClaveIngreso().isEmpty()) {
             return new ResponseEntity<>("Ingrese Contraseña", HttpStatus.BAD_REQUEST);
         }
         if(registroClienteDTO.getDireccion()==null){

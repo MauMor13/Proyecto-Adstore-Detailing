@@ -2,6 +2,7 @@ package mindhub.adstoreDetailing.controladores;
 
 import mindhub.adstoreDetailing.dtos.ProductoACrearDTO;
 import mindhub.adstoreDetailing.dtos.ProductoDTO;
+import mindhub.adstoreDetailing.models.Categoria;
 import mindhub.adstoreDetailing.models.Producto;
 import mindhub.adstoreDetailing.servicios.ServicioProducto;
 import org.springframework.http.HttpStatus;
@@ -9,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -80,8 +82,8 @@ public class ControladorProductos {
         if (productoACrear.getStock()<0){
             return new ResponseEntity<>("Ingrese Descripción", HttpStatus.BAD_REQUEST);
         }
-        if (productoACrear.getCategoria()==null){
-            return new ResponseEntity<>("Ingrese Categoría", HttpStatus.BAD_REQUEST);
+        if (productoACrear.getCategoria()==null || !EnumSet.allOf(Categoria.class).contains(productoACrear.getCategoria())){
+            return new ResponseEntity<>("Categoría inválida", HttpStatus.BAD_REQUEST);
         }
 
         Producto productoCreado = new Producto(

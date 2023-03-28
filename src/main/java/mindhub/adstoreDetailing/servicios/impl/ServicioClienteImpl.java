@@ -20,7 +20,7 @@ public class ServicioClienteImpl implements ServicioCliente{
 
     @Override
     public ClienteDTO findByIds(Long id){
-        return this.generarAccountDTO(this.repositorioCliente.findById(id).orElse(null));
+        return this.generarCuentaDTO(this.repositorioCliente.findById(id).orElse(null));
     }
     @Override
     public void registrarCliente(Cliente cliente){
@@ -46,7 +46,7 @@ public class ServicioClienteImpl implements ServicioCliente{
     public List<Cliente> findAllCliente() {
         return repositorioCliente.findAll();
     }
-    private ClienteDTO generarAccountDTO(Cliente cliente){
+    private ClienteDTO generarCuentaDTO(Cliente cliente){
         return new ClienteDTO(cliente);
     }
     private void encriptarClave(Cliente cliente){
