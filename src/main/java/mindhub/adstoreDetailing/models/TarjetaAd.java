@@ -17,8 +17,11 @@ public class TarjetaAd {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tarjetaMiembro_seq")
     @SequenceGenerator(name = "tarjetaMiembro_seq", sequenceName = "tarjetaMiembro_id_seq", allocationSize = 1)
     private long id;
-    private String numeroTarjeta;
+    private int numeroTarjeta;
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="cuenta_id")
     private Cuenta cuenta;
+    public TarjetaAd(int numeroTarjeta) {
+        this.numeroTarjeta = numeroTarjeta;
+    }
 }

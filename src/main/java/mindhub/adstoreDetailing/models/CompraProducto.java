@@ -7,7 +7,6 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 public class CompraProducto {
     @Id
@@ -23,4 +22,11 @@ public class CompraProducto {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "producto_id")
     private Producto producto;
+    public CompraProducto(Compra compra, Producto producto, int cantidad) {
+        this.precio = producto.getPrecio();
+        this.montoTotal = producto.getPrecio() * cantidad;
+        this.cantidad = cantidad;
+        this.producto = producto;
+        this.compra = compra;
+    }
 }
