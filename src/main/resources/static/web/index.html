@@ -340,14 +340,14 @@
                                                     <div class="section text-center">
                                                         <h4 class="mb-4 pb-3 titulo-log-in fuente-audiowide">Inicio de Sesión</h4>
                                                         <div class="form-group form">
-                                                            <input type="email" name="logemail" class="form-style" placeholder="Email" id="logemail" autocomplete="off" v-model="emailLog" required>
+                                                            <input type="email" name="logemail" class="form-style" placeholder="Email" id="logemail" autocomplete="off" v-model="emailInicioSesion" required>
                                                             <i class="input-icon uil uil-at"></i>
                                                         </div>	
                                                         <div class="form-group mt-2">
-                                                            <input type="password" name="logpass" class="form-style" placeholder="Contraseña" id="logpass" autocomplete="off" v-model="passwordLog" @keyup.enter="loginWithEnter()" required>
+                                                            <input type="password" name="logpass" class="form-style" placeholder="Contraseña" id="logpass" autocomplete="off" v-model="contraInicioSesion" @keyup.enter="loginWithEnter()" required>
                                                             <i class="input-icon uil uil-lock-alt"></i>
                                                         </div>
-                                                        <span @click="login()" class="submit btn mt-4 categoria font1-color">Enviar</span>
+                                                        <span @click="iniciarSesion()" class="submit btn mt-4 categoria font1-color">Enviar</span>
                                                         <p v-if="errorEncontrado" class="mb-0 mt-4 text-center red-color">⋆ El email o la contraseña no son correctos</p>
                                                     </div>
                                                 </div>
@@ -380,7 +380,7 @@
                                                           <input type="text" name="logpass" class="form-style form-style-signup" placeholder="Teléfono" id="signtel" autocomplete="off" v-model="telefono" required>
                                                           <i class="input-icon uil uil-lock-alt"></i>
                                                         </div>
-                                                        <p @click="signIn()" class="submit btn categoria mt-4">Enviar</p>
+                                                        <p @click="realizarRegistro()" class="submit btn categoria mt-4">Enviar</p>
                                                         <p v-show="errorEncontrado" class="mb-0 mt-2 text-center red-color mensaje-error-registro"></p>
                                                     </div>
                                                 </div>
