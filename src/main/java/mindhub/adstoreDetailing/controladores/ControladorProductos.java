@@ -26,7 +26,9 @@ public class ControladorProductos {
     }
     @PatchMapping("/modificar-producto")
     public ResponseEntity<Object> modificarProducto(@RequestBody Producto producto){
+
         Optional<Producto> productoAModificar = this.servicioProducto.findById(producto.getId());
+
         StringBuilder modificadosSb = new StringBuilder().append("Se modificó: ");
 
         if (productoAModificar.isEmpty()){
