@@ -198,3 +198,39 @@ footer{
         display: inline;
     }
 }
+.contenedor-servicios{
+    width: 90%;
+    border-radius: 10px;
+    background-image: linear-gradient(#00000000, #00000000),url("../Imagenes/fondoProducto.jpg")!important;
+    background-size: cover;
+    background-position: bottom;
+    padding-top: 10px;
+    padding-left: 20px;
+}
+.img-servicio{
+    width: 300px;
+    margin: 0;
+}
+.fondo-servicio{
+    background-image: linear-gradient(#000000d5, #000000db),url("../Imagenes/banner3.jpg");
+    background-size: cover;
+    background-position: center;
+
+}
+.titulo-servicio{
+    color: #f7ba24;
+    font-family: 'Audiowide', cursive;
+}
+.up-title{
+    font-size: 1.2rem;
+    color: #f7ba24;
+    font-family: 'Poppins', sans-serif;
+}
+.down-title{
+    font-size: 1.2rem;
+    color: #fcfcfc;
+    font-family: 'Dancing Script', cursive;
+    z-index: 9;
+    margin-top: 3rem;
+    position: absolute;
+}
