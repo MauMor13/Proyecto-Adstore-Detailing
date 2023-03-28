@@ -6,7 +6,9 @@ public interface ServicioCliente {
    ClienteDTO findByIds(Long id);
    Cliente findByEmail(String email);
    void registrarCliente(Cliente cliente);
+   void guardar(Cliente cliente);
    boolean emailEsValido(String email);
    List<ClienteDTO> findAllClienteDTO();
+
 
 }

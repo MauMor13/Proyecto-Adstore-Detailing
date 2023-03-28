@@ -119,6 +119,7 @@ body{
 .img-servicio{
     width: 270px;
     height: 300px;
+    aspect-ratio : 1/1;
 }
 .lista{
     width: 17px;
@@ -161,22 +162,24 @@ body{
     transition-property: width, left;
 }
 
-.flip-card {
-    background-color: transparent;
+.flip-card1 {
+    background-image: linear-gradient(#000000d5, #000000db),url("../Imagenes/fondoGris.jpg")!important;
+    background-size: cover!important;
+    background-position: bottom;
     width: 590px;
     min-height: 300px;
     perspective: 1000px;
     
 }
 @media (min-width: 0px) and (max-width: 600px){
-    .flip-card{
+    .flip-card1{
         width: 330px;
         min-height: 600px;
         margin-left: 20px;
 }
 }
 @media (min-width: 601px) and (max-width: 800px){
-    .flip-card{
+    .flip-card1{
         width: 530px;
         min-height: 500px;
         margin-left: 20px;
@@ -186,14 +189,14 @@ body{
 }
 }
 @media (min-width: 801px) and (max-width: 1000px){
-    .flip-card{
+    .flip-card1{
         width: 530px;
         min-height: 500px;
         margin-left: 20px;
 }
 }
 
-.flip-card-inner {
+.flip-card-inner1 {
     position: relative;
     width: 100%;
     height: 100%;
@@ -203,9 +206,7 @@ body{
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
 }
 
-.flip-card:hover .flip-card-inner {
-    transform: rotateY(180deg);
-}
+
 
 .flip-card-front, .flip-card-back {
     position: absolute;
@@ -219,8 +220,139 @@ body{
     color: white;
     transform: rotateY(180deg);
     border-radius: 15px;
+    background-image: linear-gradient(#000000d5, #000000db),url("../Imagenes/fondoGris.jpg")!important;
+    background-size: cover!important;
+    background-position: bottom;
 }
 .texto-servicio{
     text-align:justify;
 
+}
+.girarServicio{
+    transform: rotateY(180deg);
+}
+
+.flip-card2 {
+    background-image: linear-gradient(#000000d5, #000000db),url("../Imagenes/fondoGris.jpg")!important;
+    background-size: cover!important;
+    background-position: bottom;
+    width: 590px;
+    min-height: 300px;
+    perspective: 1000px;
+    
+}
+@media (min-width: 0px) and (max-width: 600px){
+    .flip-card2{
+        width: 330px;
+        min-height: 600px;
+        margin-left: 20px;
+}
+}
+@media (min-width: 601px) and (max-width: 800px){
+    .flip-card2{
+        width: 530px;
+        min-height: 500px;
+        margin-left: 20px;
+}
+}
+@media (min-width: 801px) and (max-width: 1000px){
+    .flip-card2{
+        width: 530px;
+        min-height: 500px;
+        margin-left: 20px;
+}
+}
+
+.flip-card-inner2 {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+
+.flip-card3 {
+    background-image: linear-gradient(#000000d5, #000000db),url("../Imagenes/fondoGris.jpg")!important;
+    background-size: cover!important;
+    background-position: bottom;
+    width: 590px;
+    min-height: 300px;
+    perspective: 1000px;
+    
+}
+@media (min-width: 0px) and (max-width: 600px){
+    .flip-card3{
+        width: 330px;
+        min-height: 600px;
+        margin-left: 20px;
+}
+}
+@media (min-width: 601px) and (max-width: 800px){
+    .flip-card3{
+        width: 530px;
+        min-height: 500px;
+        margin-left: 20px;
+}
+}
+@media (min-width: 801px) and (max-width: 1000px){
+    .flip-card3{
+        width: 530px;
+        min-height: 500px;
+        margin-left: 20px;
+}
+}
+
+.flip-card-inner3 {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+
+.flip-card4 {
+    background-image: linear-gradient(#000000d5, #000000db),url("../Imagenes/fondoGris.jpg")!important;
+    background-size: cover!important;
+    background-position: bottom;
+    width: 590px;
+    min-height: 300px;
+    perspective: 1000px;
+    
+}
+@media (min-width: 0px) and (max-width: 600px){
+    .flip-card4{
+        width: 330px;
+        min-height: 600px;
+        margin-left: 20px;
+}
+}
+@media (min-width: 601px) and (max-width: 800px){
+    .flip-card4{
+        width: 530px;
+        min-height: 500px;
+        margin-left: 20px;
+}
+}
+@media (min-width: 801px) and (max-width: 1000px){
+    .flip-card4{
+        width: 530px;
+        min-height: 500px;
+        margin-left: 20px;
+}
+}
+
+.flip-card-inner4 {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
 }

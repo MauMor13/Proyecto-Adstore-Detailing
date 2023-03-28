@@ -110,8 +110,8 @@
 
         <div class="d-flex contenedor-servicios1 justify-content-center align-items-center  flex-wrap col-12 ">
           <!--  inicio servicio 1 -->
-          <div class="flip-card fondo-categorias flex-wrap d-flex col-12  col-lg-5 m-3">
-            <div class="flip-card-inner">
+          <div class="flip-card1  fondo-categorias flex-wrap d-flex col-12  col-lg-5 m-3">
+            <div class="flip-card-inner1">
               <div class="flip-card-front">
                 <div class="d-flex  flex-wrap">
                   <div class="col-lg-6 col-12">
@@ -128,8 +128,7 @@
                           <p><img src="./assets/Imagenes/checked.png" class="lista" alt="">  Lavado detallado del vehiculo.</p>
                       </div>
                       <div>
-                        <img src="./assets/Imagenes/carrito.png" class="carrito" alt="">
-                        <a href="" class="link-contacto text-decoration-none">AGENDAR SERVICIO</a>
+                        <button @click="verDetallesServicio1('front')" class="btn btn1 p-2">Ver detalles</button>
                       </div>
                     </div>
                   </div>
@@ -145,13 +144,18 @@
                     </p>
                     <p class="texto-servicio"><img src="./assets/Imagenes/checked.png" class="lista" alt="">  Pulido de la carrocería, para quitar todo tipo de imperfecciones, cómo rayas o swirls estas son las micros rayas circulares que suelen tener.</p>
                 </div>
+                <div>
+                  <img src="./assets/Imagenes/carrito.png" class="carrito" alt="">
+                  <a href="" class="link-contacto text-decoration-none">AGENDAR SERVICIO</a>
+                </div>
+                <button @click="verDetallesServicio1('back')" class="btn btn1 p-2">Volver</button>
                 </div>
               </div>
             </div>
             <!-- fin servicio 1 -->
             <!--  inicio servicio 2 -->
-            <div class="flip-card fondo-categorias flex-wrap d-flex col-12  col-lg-5 m-3">
-              <div class="flip-card-inner">
+            <div class="flip-card2 fondo-categorias flex-wrap d-flex col-12  col-lg-5 m-3">
+              <div class="flip-card-inner2">
                 <div class="flip-card-front">
                   <div class="d-flex  flex-wrap">
                     <div class="col-lg-6 col-12">
@@ -169,8 +173,7 @@
                           
                       </div>
                       <div>
-                        <img src="./assets/Imagenes/carrito.png" class="carrito" alt="">
-                        <a href="" class="link-contacto text-decoration-none">AGENDAR SERVICIO</a>
+                        <button @click="verDetallesServicio2('front')" class="btn btn1 p-2">Ver detalles</button>
                       </div>
                     </div>
                   </div>
@@ -185,6 +188,11 @@
                     <p><img src="./assets/Imagenes/checked.png" class="lista" alt=""> Acondicionado de alfombras de goma.</p>
                     <p class="texto-servicio"><img src="./assets/Imagenes/checked.png" class="lista" alt="">  Pulido de la carrocería, para quitar todo tipo de imperfecciones, cómo rayas o swirls estas son las micros rayas circulares que suelen tener.</p>
                 </div>
+                <div>
+                  <img src="./assets/Imagenes/carrito.png" class="carrito" alt="">
+                  <a href="" class="link-contacto text-decoration-none">AGENDAR SERVICIO</a>
+                </div>
+                <button @click="verDetallesServicio2('back')" class="btn btn1 p-2">Volver</button>
                 </div>
               </div>
             </div>
@@ -193,8 +201,8 @@
 
         <div class="d-flex flex-wrap contenedor-servicios2 justify-content-center align-items-center">
           <!--  inicio servicio 3 -->
-          <div class="flip-card fondo-categorias flex-wrap  col-lg-5 m-3">
-            <div class="flip-card-inner">
+          <div class="flip-card3 fondo-categorias flex-wrap  col-lg-5 m-3">
+            <div class="flip-card-inner3">
               <div class="flip-card-front">
                 <div class="d-flex  flex-wrap">
                   <div class="col-lg-6 col-12">
@@ -211,8 +219,7 @@
                         <p><img src="./assets/Imagenes/checked.png" class="lista" alt="">  Lavado detallado del vehiculo.</p>
                     </div>
                     <div>
-                      <img src="./assets/Imagenes/carrito.png" class="carrito" alt="">
-                      <a href="" class="link-contacto text-decoration-none">AGENDAR SERVICIO</a>
+                      <button @click="verDetallesServicio3('front')" class="btn btn1 p-2">Ver detalles</button>
                     </div>
                   </div>
                 </div>
@@ -228,13 +235,18 @@
                   </p>
                   <p class="texto-servicio"><img src="./assets/Imagenes/checked.png" class="lista" alt="">  Pulido de la carrocería, para quitar todo tipo de imperfecciones, cómo rayas o swirls estas son las micros rayas circulares que suelen tener.</p>
               </div>
+              <div>
+                <img src="./assets/Imagenes/carrito.png" class="carrito" alt="">
+                <a href="" class="link-contacto text-decoration-none">AGENDAR SERVICIO</a>
+              </div>
+              <button @click="verDetallesServicio3('back')" class="btn btn1 p-2">Volver</button>
               </div>
             </div>
           </div>
           <!-- fin servicio 3 -->
           <!--  inicio servicio 4 -->
-          <div class="flip-card fondo-categorias flex-wrap  col-lg-5 m-3">
-            <div class="flip-card-inner">
+          <div class="flip-card4 fondo-categorias flex-wrap  col-lg-5 m-3">
+            <div class="flip-card-inner4">
               <div class="flip-card-front">
                 <div class="d-flex  flex-wrap">
                   <div class="col-lg-6 col-12">
@@ -249,8 +261,7 @@
                         <p> <img src="./assets/Imagenes/checked.png" class="lista" alt=""> Detallado de interior, aspirado al detalle, lavado de carrocería al detalle, terminación con cera en spray.</p>
                     </div>
                     <div>
-                      <img src="./assets/Imagenes/carrito.png" class="carrito" alt="">
-                      <a href="" class="link-contacto text-decoration-none">AGENDAR SERVICIO</a>
+                      <button @click="verDetallesServicio4('front')" class="btn btn1 p-2">Ver detalles</button>
                     </div>
                   </div>
                 </div>
@@ -265,6 +276,11 @@
                   <p><img src="./assets/Imagenes/checked.png" class="lista" alt=""> Acondicionado de alfombras de goma.</p>
                   <p class="texto-servicio"><img src="./assets/Imagenes/checked.png" class="lista" alt="">  Pulido de la carrocería, para quitar todo tipo de imperfecciones, cómo rayas o swirls estas son las micros rayas circulares que suelen tener.</p>
               </div>
+              <div>
+                <img src="./assets/Imagenes/carrito.png" class="carrito" alt="">
+                <a href="" class="link-contacto text-decoration-none">AGENDAR SERVICIO</a>
+              </div>
+              <button @click="verDetallesServicio4('back')" class="btn btn1 p-2">Volver</button>
               </div>
             </div>
           </div>
@@ -333,7 +349,7 @@
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <script src="./assets/Js/index.js"></script>
+  <script src="./assets/Js/servicios.js"></script>
 </body>
 
 </html>

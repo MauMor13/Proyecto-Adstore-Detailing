@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import static java.util.stream.Collectors.toList;
 
 @Service
@@ -40,16 +39,18 @@ public class ServicioClienteImpl implements ServicioCliente{
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
     }
-
+    @Override
     public List<ClienteDTO> findAllClienteDTO() {
         return repositorioCliente.findAll().stream().map(ClienteDTO::new).collect(toList());
     }
-
+    @Override
+    public void guardar(Cliente cliente){
+        this.repositorioCliente.save(cliente);
+    }
     private ClienteDTO generarAccountDTO(Cliente cliente){
         return new ClienteDTO(cliente);
     }
     private void encriptarClave(Cliente cliente){
         cliente.setClaveIngreso(pwdEncoder.encode(cliente.getClaveIngreso()));
     }
-
 }
