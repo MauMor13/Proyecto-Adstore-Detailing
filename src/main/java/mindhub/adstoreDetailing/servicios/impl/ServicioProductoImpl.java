@@ -22,6 +22,7 @@ public class ServicioProductoImpl implements ServicioProducto {
     public List<ProductoDTO> findAllDTOs(){
         return this.mapListToDTOs(this.repositorioProducto.findAll());
     }
+
     @Override
     public void guardar(Producto producto){
         this.repositorioProducto.save(producto);
@@ -32,5 +33,6 @@ public class ServicioProductoImpl implements ServicioProducto {
     }
     private List<ProductoDTO>mapListToDTOs(List<Producto> listaProducto){
         return listaProducto.stream().map(ProductoDTO::new).collect(Collectors.toList());
+
     }
 }
