@@ -1,8 +1,14 @@
 package mindhub.adstoreDetailing.dtos;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import mindhub.adstoreDetailing.models.Servicio;
+
 import javax.persistence.Lob;
 import java.time.Duration;
 
+@Getter
+@NoArgsConstructor
 public class ServicioDTO {
     private long id;
     private String nombre;
