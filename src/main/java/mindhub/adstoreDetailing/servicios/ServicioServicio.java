@@ -9,4 +9,5 @@ import java.util.Optional;
 public interface ServicioServicio {
     List<ServicioDTO> findAllServicioDTO();
     Optional<Servicio> findById(Long id);
+    public void guardar(Servicio servicio);
 }
