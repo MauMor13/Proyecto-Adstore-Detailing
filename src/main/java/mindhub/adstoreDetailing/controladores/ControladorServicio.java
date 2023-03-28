@@ -23,7 +23,7 @@ public class ControladorServicio {
 
     @GetMapping("/servicios")
     public List<ServicioDTO> traerServicios() {
-        return this.servicioServicio.findAllDTOs();
+        return this.servicioServicio.findAllServicioDTO();
     }
     @PatchMapping("/modificar-servicio")
     public ResponseEntity<Object> modificarServicio(@RequestBody Servicio servicio){

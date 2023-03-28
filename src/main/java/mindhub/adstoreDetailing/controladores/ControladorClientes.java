@@ -1,5 +1,4 @@
 package mindhub.adstoreDetailing.controladores;
-
 import mindhub.adstoreDetailing.dtos.ClienteDTO;
 import mindhub.adstoreDetailing.models.Cliente;
 import mindhub.adstoreDetailing.servicios.ServicioCliente;
@@ -7,7 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-
+import java.util.List;
+import static java.util.stream.Collectors.toList;
 @RestController
 @RequestMapping("/api")
 public class ControladorClientes {
@@ -19,6 +19,10 @@ public class ControladorClientes {
     @GetMapping("/cliente")
     public ClienteDTO traerCliente(Authentication auth){
         return new ClienteDTO(this.servicioCliente.findByEmail(auth.getName()));
+    }
+    @GetMapping("/clientes")
+    public List<ClienteDTO> traerClientes(){
+        return servicioCliente.findAllCliente().stream().map(ClienteDTO::new).collect(toList());
     }
 
     @PostMapping("/registrar")

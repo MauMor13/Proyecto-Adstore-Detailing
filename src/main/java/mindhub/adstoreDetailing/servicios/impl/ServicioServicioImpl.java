@@ -20,7 +20,7 @@ public class ServicioServicioImpl implements ServicioServicio {
     }
 
     @Override
-    public List<ServicioDTO> findAllDTOs() {
+    public List<ServicioDTO> findAllServicioDTO() {
         return this.mapListToDTOs(this.repositorioServicio.findAll());
     }
     @Override
