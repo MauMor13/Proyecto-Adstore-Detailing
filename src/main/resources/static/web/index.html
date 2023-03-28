@@ -144,13 +144,14 @@
           <span class="me-5 pb-0">¡Comienza a ser VIP! <i class="fa-solid fa-right-long fa-lg" style="color: #f7ba24;"></i></span>
           <span class="me-5">
             Clic en
-            <button @click="loginRegistro('registro')" class="btn1 font2-color" type="button" class="btn btn-primary bigger" data-bs-toggle="modal" data-bs-target="#modalSign">Registrate</button>
+            <button @click="loginRegistro('registro')" class="btn1 font2-color btn btn-primary bigger" type="button" data-bs-toggle="modal" data-bs-target="#modalSign">Registrate</button>
             si no eres cliente.
           </span>
           <span>
             CLic en
-            <button @click="loginRegistro('login')" class="btn1 font2-color" type="button" class="btn btn-primary bigger" data-bs-toggle="modal" data-bs-target="#modalSign">Logueate</button>
+            <button @click="loginRegistro('login')" class="btn1 font2-color btn btn-primary bigger" type="button" data-bs-toggle="modal" data-bs-target="#modalSign">Logueate</button>
             si ya lo eres y accede a tu perfil.
+          </span>
         </div>
         <div>
 
@@ -380,7 +381,7 @@
                                                           <i class="input-icon uil uil-lock-alt"></i>
                                                         </div>
                                                         <p @click="signIn()" class="submit btn categoria mt-4">Enviar</p>
-                                                        <p v-show="errorEncontrado" class="mb-0 mt-2 text-center red-color signin-error-message"></p>
+                                                        <p v-show="errorEncontrado" class="mb-0 mt-2 text-center red-color mensaje-error-registro"></p>
                                                     </div>
                                                 </div>
                                             </div>

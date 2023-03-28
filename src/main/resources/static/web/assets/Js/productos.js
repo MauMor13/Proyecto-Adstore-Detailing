@@ -28,16 +28,14 @@ createApp({
                     console.log(this.productos);
                 })
         },
+        cargarDatos: function(){
+            axios.get('/api/clientes')
+                .then(respuesta => {
+                    
+                })
+        },
 
-        verDetallesProducto: function (value) {
-            let form = document.querySelector('.flip-card .flip-card-inner');
-            if (value == 'front') {
-                form.classList.add('girarproducto');
-            }
-            else if (value == 'back') {
-                form.classList.remove('girarproducto');
-            }
-        }
+
     },
 
 }).mount("#app")
