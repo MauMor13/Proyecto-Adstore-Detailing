@@ -1,10 +1,9 @@
 package mindhub.adstoreDetailing.servicios;
 
-import mindhub.adstoreDetailing.dtos.ProductoDTO;
 import mindhub.adstoreDetailing.dtos.ServicioDTO;
 
 import java.util.List;
 
 public interface ServicioServicio {
-    public List<ServicioDTO> findAllDTOs();
+    public List<ServicioDTO> findAllServicioDTO();
 }

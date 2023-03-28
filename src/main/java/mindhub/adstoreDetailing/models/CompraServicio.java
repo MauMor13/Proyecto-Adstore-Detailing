@@ -20,7 +20,6 @@ public class CompraServicio {
     @SequenceGenerator(name = "compra_servicio_seq", sequenceName = "compra_servicio_id_seq", allocationSize = 1)
     private Long id;
     private double precio;
-    private Integer cantidad;
     private LocalDateTime fechaReserva;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "compra_id")
