@@ -9,6 +9,7 @@ import mindhub.adstoreDetailing.servicios.ServicioServicio;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 @Service
 public class ServicioServicioImpl implements ServicioServicio {
@@ -21,6 +22,10 @@ public class ServicioServicioImpl implements ServicioServicio {
     @Override
     public List<ServicioDTO> findAllServicioDTO() {
         return this.mapListToDTOs(this.repositorioServicio.findAll());
+    }
+    @Override
+    public Optional<Servicio> findById(Long id){
+        return this.repositorioServicio.findById(id);
     }
 
     private List<ServicioDTO> mapListToDTOs(List<Servicio> lista) {
