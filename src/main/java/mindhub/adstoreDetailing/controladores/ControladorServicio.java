@@ -26,7 +26,7 @@ public class ControladorServicio {
         return this.servicioServicio.findAllServicioDTO();
     }
     @PatchMapping("/modificar-servicio")
-    public ResponseEntity<Object> modificarServicio(@RequestBody Servicio servicio){
+    public ResponseEntity<Object> modificarServicio(@RequestBody ServicioDTO servicio){
 
         Optional<Servicio> servicioAModificar = this.servicioServicio.findById(servicio.getId());
 
