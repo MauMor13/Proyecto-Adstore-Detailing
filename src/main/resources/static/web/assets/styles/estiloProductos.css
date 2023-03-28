@@ -24,7 +24,13 @@ body{
     padding: 0.5px;
 }
 .img-comboProductos{
-    width: 300px;
+    width: 250px;
+    height: 150px;
+}
+.card-body{
+    min-height: 50px;
+    margin: 0;
+    padding: 0;
 }
 .img-categorias{
     height: 200px;
@@ -98,6 +104,10 @@ body{
 .carrito{
     width: 50px;
 }
+.detalle{
+    width: 35px;
+    margin-right: 3px;
+}
 .card-text{
     color: black;
 }
@@ -106,6 +116,7 @@ body{
 }
 
 .up-title{
+    font-size: 1.8rem;
     color: #f7ba24;
     font-family: 'Poppins', sans-serif;
 }
@@ -115,6 +126,7 @@ body{
     z-index: 9;
     margin-top: 3rem;
     position: absolute;
+    font-size: 1.7rem;
 }
 .img-servicio{
     width: 270px;
@@ -206,8 +218,6 @@ body{
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
 }
 
-
-
 .flip-card-front, .flip-card-back {
     position: absolute;
     width: 100%;
@@ -215,7 +225,6 @@ body{
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
 }
-
 .flip-card-back {
     color: white;
     transform: rotateY(180deg);
@@ -231,7 +240,6 @@ body{
 .girarServicio{
     transform: rotateY(180deg);
 }
-
 .flip-card2 {
     background-image: linear-gradient(#000000d5, #000000db),url("../Imagenes/fondoGris.jpg")!important;
     background-size: cover!important;
@@ -355,4 +363,12 @@ body{
     transition: transform 0.6s;
     transform-style: preserve-3d;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+.detalle-text{
+    font-size: 0.9rem;
+    text-align: justify;
+}
+.nombre{
+    font-size: 0.9rem;
+    text-align: center;
 }
