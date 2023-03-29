@@ -26,7 +26,7 @@ public class Producto {
     private String imagenUrl;
     private Categoria categoria;
     private boolean activo;
-    @OneToMany(mappedBy = "producto",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "producto", fetch = FetchType.EAGER)
     private Set<CompraProducto> compraProducto = new HashSet<>();
 
     public Producto(String nombre, double precio, int stock, String descripcion, String imagenUrl, Categoria categoria) {

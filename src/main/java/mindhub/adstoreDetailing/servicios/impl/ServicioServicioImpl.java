@@ -27,7 +27,10 @@ public class ServicioServicioImpl implements ServicioServicio {
     public Optional<Servicio> findById(Long id){
         return this.repositorioServicio.findById(id);
     }
-
+    @Override
+    public void guardar(Servicio servicio){
+        this.repositorioServicio.save(servicio);
+    }
     private List<ServicioDTO> mapListToDTOs(List<Servicio> lista) {
         return lista.stream().map(ServicioDTO::new).collect(Collectors.toList());
     }

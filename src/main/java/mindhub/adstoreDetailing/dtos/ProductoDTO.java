@@ -1,4 +1,5 @@
 package mindhub.adstoreDetailing.dtos;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import mindhub.adstoreDetailing.models.Categoria;
