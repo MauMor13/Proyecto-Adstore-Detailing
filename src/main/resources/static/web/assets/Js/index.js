@@ -29,6 +29,7 @@ createApp({
         window.addEventListener('scroll', this.scrollFunction);
         this.controlCarrusel();
         this.administraAsincronas();
+        this.cargarDatos();
     },
 
     methods: {
@@ -77,12 +78,13 @@ createApp({
 
         iniciarSesion: function(){
             axios.post('/api/login',`email=${this.emailInicioSesion}&claveIngreso=${this.contraInicioSesion}`,{headers:{'content-type':'application/x-www-form-urlencoded'}})
-                 .then(response => {
+                .then(response => {
                     console.log('inicio sesion!');
                     this.cargarDatos();
                 })
-                 .catch(err => {
+                .catch(err => {
                     console.error(err.message);
+                    console.error(err.response);
                     this.errorEncontrado = true;
                 });
         },

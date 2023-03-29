@@ -3,7 +3,7 @@ const {createApp} = Vue;
 createApp({
     data(){
         return{
-            client: undefined,
+            cliente: undefined,
             categorias: [],
             productos: [],
             productosFiltrados: [],
@@ -15,6 +15,7 @@ createApp({
 
     created(){
         this.cargarDatos();
+        this.cargarDatosCliente();
     },
 
     mounted(){
@@ -22,6 +23,13 @@ createApp({
     },
 
     methods:{
+        cargarDatosCliente: function(){
+            axios.get('/api/cliente')
+                .then(respuesta => {
+                    this.cliente = respuesta.data;
+                })
+                .catch(err => console.error(err.message));
+        },
 
         cargarDatos: function(){
             axios.get('/api/productos')
