@@ -13,7 +13,7 @@ createApp({
                 productos:[],
                 servicios:[]
             },
-            cantidad:[]
+            cantidad:[],
             errorEncontrado: false,
             registrado: false,
             nombre: "",
@@ -120,7 +120,7 @@ createApp({
                 this.compra.productos.push(objeto)
             }
             localStorage.setItem("compra",JSON.stringify(this.compra))
-        }
+        },
 
          //Generar registro
         realizarRegistro: function(){
