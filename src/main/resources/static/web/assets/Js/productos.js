@@ -9,12 +9,18 @@ createApp({
             productosFiltrados: [],
             checked:[],
             inputBusqueda:"",
+            compra:{
+                productos:[],
+                servicios:[]
+            },
+            cantidad:[]
         }
     },
 
 
     created(){
         this.cargarDatos();
+        this.guardarLocalStorage();
         // this.cargarDatosCliente();
     },
 
@@ -81,9 +87,27 @@ createApp({
                 let filtroCheck = filtroInput.filter( categoria => this.checked.includes( categoria.categoria ))
                 this.productosFiltrados = filtroCheck 
         } 
+        },
+        guardarLocalStorage(){
+            if(localStorage.getItem("compra") == null){
+                localStorage.setItem("compra", JSON.stringify(this.compra))
+            }
+            console.log(this.compra)
+        },
+        agregarACarrito(idSeleccion, cantidad){
+            this.compra = JSON.parse(localStorage.getItem("compra"))
+            let productoEnCarro = this.compra.productos.find(element => element.id == idSeleccion)
+            if(productoEnCarro != null){
+                productoEnCarro.cantidad += cantidad
+            }
+            else{
+                let objeto = {id: 0, cantidad: 0};
+                objeto.id = idSeleccion
+                objeto.cantidad = cantidad
+                this.compra.productos.push(objeto)
+            }
+            localStorage.setItem("compra",JSON.stringify(this.compra))
         }
-
-
     },
 
 }).mount("#app")
