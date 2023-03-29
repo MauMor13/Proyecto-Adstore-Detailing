@@ -29,6 +29,8 @@ public class ControladorServicio {
     public List<ServicioDTO> traerServicios() {
         return this.servicioServicio.findAllServicioDTO();
     }
+    @GetMapping("/servicios-activos")
+    public List<ServicioDTO> traerServiciosActivos(){return servicioServicio.findAllServiciosActivosDTO();}
     @PatchMapping("/modificar-servicio")
     public ResponseEntity<Object> modificarServicio(@RequestBody ServicioDTO servicio){
 
