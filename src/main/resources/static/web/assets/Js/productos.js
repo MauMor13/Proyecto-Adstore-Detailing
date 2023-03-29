@@ -7,6 +7,7 @@ createApp({
             categorias: [],
             productos: [],
             productosFiltrados: [],
+
         }
     },
 
@@ -29,15 +30,40 @@ createApp({
                 })
         },
 
-        verDetallesProducto: function (value) {
-            let form = document.querySelector('.flip-card .flip-card-inner');
-            if (value == 'front') {
-                form.classList.add('girarproducto');
+        verDetallesProducto: function (id) {
+            let foto = document.getElementById(id + "Foto");
+            let telon = document.getElementById(id + "Telon");
+            let desc = document.getElementById(id + "Desc");
+            let boton = document.getElementById(id + "Bot");
+
+            if(boton.textContent.includes("Ver detalles")){
+
+                foto.style.scale = "0.6"
+                foto.style.translate = "0 -20%"
+                telon.style.translate = "0 0"
+                desc.style.translate = "0 -5rem"
+                desc.style.opacity = "1"
+                desc.style.zIndex = "1"
+                boton.innerText = "Volver"
+                boton.style.color = "white"
             }
-            else if (value == 'back') {
-                form.classList.remove('girarproducto');
+            else{
+
+                foto.style.scale = "1"
+                foto.style.translate = "0 0"
+                telon.style.translate = "0 100%"
+                desc.style.translate = "0 0"
+                desc.style.opacity = "0"
+                desc.style.zIndex = "0"
+                boton.innerText = "Ver detalles"
+                boton.style.color = "black"
             }
-        }
+            
+        },
+
+
+
+
     },
 
 }).mount("#app")
