@@ -127,6 +127,7 @@ body{
 .lista{
     width: 17px;
     margin: 0.2px;
+    color: white;
 }
 .link-contacto{
     font-size: 15px;
@@ -226,6 +227,7 @@ body{
 }
 .texto-servicio{
     text-align:justify;
+    color: white;
 
 }
 .girarServicio{
