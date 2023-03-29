@@ -34,19 +34,16 @@ public class AdstoreDetailingApplication {
 		Cliente cliente1 = new Cliente("Marcelo","Rodriguez","rioja 36 ,Cordoba,Argentina","marcelo21@gmail.com","marce12345",35245789);
 		Cuenta cuentaCliente1 = new Cuenta(generarNumeroCuenta(repositorioCuenta),50000);
 		TarjetaAd tarjetaCliente1 = new TarjetaAd(generarNumeroTarjetaAd(repositorioTarjetaAd));
-		// establecer la relación entre Cliente y Cuenta
+//		 establecer la relación entre Cliente y Cuenta
 		cliente1.setCuenta(cuentaCliente1);
 		cuentaCliente1.setCliente(cliente1);
-
-		// establecer la relación entre Cuenta y TarjetaAd
+//
+//		 establecer la relación entre Cuenta y TarjetaAd
 		cuentaCliente1.setTarjetaAd(tarjetaCliente1);
 		tarjetaCliente1.setCuenta(cuentaCliente1);
-
-		// guardar las entidades en la base de datos
-//		repositorioCliente.save(cliente1);
-//		repositorioCuenta.save(cuentaCliente1);
-//		repositorioTarjetaAd.save(tarjetaCliente1);
-			//lista de productos
+//
+//		 guardar las entidades en la base de datos
+//			lista de productos
 		Producto producto1 = new Producto("Guante de Lavado",4650,11, "Guante de lavado cómodo con agarre en la muñeca.Remueve fácil y suavemente suciedad, grasa y polvo sin generar rayas. Tamaño: 20,3cm x 25,4cm", "imagen", ACCESORIOS);
 		Producto producto2 = new Producto("Paño de Microfibra (Medium)",2650,12,"Paño de microfibra negro, ideal para la limpieza y lustrado de las  superficies del automóvil","imagen",ACCESORIOS);
 		Producto producto3 = new Producto("Esponja Aplicadora Multiuso",4048,20,"Esponja especial con lado de la empuñadura blanco y lado amarillo con microporos. De uso universal para aplicar y extender pulimentos,ceras y productos para la conservación de plásticos en el exterior del coche.","imagen",ACCESORIOS);
@@ -68,39 +65,42 @@ public class AdstoreDetailingApplication {
 		Producto producto19 = new Producto("Xtreme Shampoo 2 en 1 Wash & Dry 1lt",9833,12,"Shampoo con prosecante para el lavado a mano del automóvil. Para limpieza de superficies pintadas, metales, goma y plástico. Lavar sin secar!","imagen",LAVADO);
 		Producto producto20 = new Producto("Profiline Shampoo Actifoam Energy 1lt",14082,18,"Limpiador fuerte que disuelve la suciedad con mucha espuma para el lavado del vehículo con rociador de espuma. Perfecto como shampoo, eliminador de insectos y limpiador de llantas. Concentrado, para al menos 50 coches. De aroma agradable, ph neutro y la mejor compatibilidad con materiales, también para superficies con láminas adheridas.","imagen",LAVADO);
 		Producto producto21 = new Producto("Shampoo Concentradi Ph Neutro 2lt",7107,19,"Limpia cuidadosamente y elimina detenidamente todo tipo de suciedad. Apropiado para la limpieza de superficies pintadas, metal, vidrio, plástico, goma, baldosas, porcelana y esmalte.","imagen",LAVADO);
-			//lista de sevicios
+//			lista de sevicios
 		Servicio servicio1 = new Servicio("Lavado Basico","Detallado de interior, aspirado al detalle, lavado de carrocería al detalle, terminación con cera en spray.",5000, Duration.ofMinutes(90),"imagen");
 		Servicio servicio2 = new Servicio("Servicio premium de lavado","Interior detallado con un acondicionador para los plásticos, aspirado al detalle, acondicionado de alfombras de goma. Lavado de carrocería y llantas al detalle con productos ferricos, para una mayor limpieza con una terminación de cera en pasta",7000,Duration.ofMinutes(120),"imagen");
 		Servicio servicio3 = new Servicio("Tratamiento cerramiento","Brindamos distintos tipos de tratamientos cerámicos que varían solo en el sellador a utilizar, con una durabilidad de entre 3 a 5 años. El sellador le da una protección a la laca del vehículo, con esto los lavados serán más duraderos y no se le pegara tanto la tierra. También podrás observar cuando me moje las gotas de agua estarán bien definidas y de deslizan mas rápido. A continuación se le detallará el proceso para la realización.",9000,Duration.ofMinutes(180),"imagen");
-			//crear compra
+//			crear compra
 		Compra compraCliente1 = new Compra();
 
-		//guardado en repositorio
+//		guardado en repositorio
 
-//		repositorioProducto.save(producto1);
-//		repositorioProducto.save(producto2);
-//		repositorioProducto.save(producto3);
-//		repositorioProducto.save(producto4);
-//		repositorioProducto.save(producto5);
-//		repositorioProducto.save(producto6);
-//		repositorioProducto.save(producto7);
-//		repositorioProducto.save(producto8);
-//		repositorioProducto.save(producto9);
-//		repositorioProducto.save(producto10);
-//		repositorioProducto.save(producto11);
-//		repositorioProducto.save(producto12);
-//		repositorioProducto.save(producto13);
-//		repositorioProducto.save(producto14);
-//		repositorioProducto.save(producto15);
-//		repositorioProducto.save(producto16);
-//		repositorioProducto.save(producto17);
-//		repositorioProducto.save(producto18);
-//		repositorioProducto.save(producto19);
-//		repositorioProducto.save(producto20);
-//		repositorioProducto.save(producto21);
-//		repositorioServicio.save(servicio1);
-//		repositorioServicio.save(servicio2);
-//		repositorioServicio.save(servicio3);
+		repositorioProducto.save(producto1);
+		repositorioProducto.save(producto2);
+		repositorioProducto.save(producto3);
+		repositorioProducto.save(producto4);
+		repositorioProducto.save(producto5);
+		repositorioProducto.save(producto6);
+		repositorioProducto.save(producto7);
+		repositorioProducto.save(producto8);
+		repositorioProducto.save(producto9);
+		repositorioProducto.save(producto10);
+		repositorioProducto.save(producto11);
+		repositorioProducto.save(producto12);
+		repositorioProducto.save(producto13);
+		repositorioProducto.save(producto14);
+		repositorioProducto.save(producto15);
+		repositorioProducto.save(producto16);
+		repositorioProducto.save(producto17);
+		repositorioProducto.save(producto18);
+		repositorioProducto.save(producto19);
+		repositorioProducto.save(producto20);
+		repositorioProducto.save(producto21);
+		repositorioServicio.save(servicio1);
+		repositorioServicio.save(servicio2);
+		repositorioServicio.save(servicio3);
+		repositorioCliente.save(cliente1);
+		repositorioCuenta.save(cuentaCliente1);
+		repositorioTarjetaAd.save(tarjetaCliente1);
 		};
 	}
 }
