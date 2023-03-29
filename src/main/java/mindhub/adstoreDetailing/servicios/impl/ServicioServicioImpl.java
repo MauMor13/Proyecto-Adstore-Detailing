@@ -37,7 +37,7 @@ public class ServicioServicioImpl implements ServicioServicio {
     }
     @Override
     public List<ServicioDTO> findByActiveTrueDTO(){
-        return this.repositorioServicio.findByActivoTrue().stream().map(ProductoDTO::new).collect(Collectors.toList());
+        return this.repositorioServicio.findByActivoTrue().stream().map(ServicioDTO::new).collect(Collectors.toList());
     }
     private List<ServicioDTO> mapListToDTOs(List<Servicio> lista) {
         return lista.stream().map(ServicioDTO::new).collect(Collectors.toList());
