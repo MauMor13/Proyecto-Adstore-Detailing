@@ -92,12 +92,43 @@
 
     <main class="main-index d-flex flex-column gap-3 justify-content-center align-items-center">
       <!--datos cliente-->
-      <div class="fondoProductos datos-cliente d-flex justify-content-center ">
-        <div v-if="cliente">
-          <p>Datos cliente</p>
+      
+      <div v-if="cliente" class="accordion  border border-dark accordion-flush btn btn-warning position-fixed bottom-0 end-0 me-3 mt-3" id="accordionFlushExample">
+        <div class="accordion-item">
+          <div id="flush-collapseOne" class="accordion-collapse bg-warning collapse" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body  text-bg-warning">
+              <table class="table">
+                <tbody >
+                  <tr>
+                    <td class="fuente-poppins" v-cloak>Cuenta No.</td>
+                    <td class="fuente-poppins"  v-cloak>000 </td>
+                  </tr>
+                  <tr>
+                    <td class="fuente-poppins"  v-cloak>Saldo </td>
+                    <td class="fuente-poppins"  v-cloak>000 </td>
+                  </tr>
+                  <tr>
+                    <td class="fuente-poppins"  v-cloak>Tarjeta No.</td>
+                    <td class="fuente-poppins"  v-cloak>000 </td>
+                  </tr>
+                </tbody>
+              </table>
+
+            </div>
+          </div>
+          <h2 class="accordion-header m-0 p-0">
+            <button class="accordion-button collapsed fuente-poppin p-0 text-dark bg-warning" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+              <img src="./assets/Imagenes/usuario.png"  class="m-0 p-0" alt="">
+              Nombre Cliente
+            </button>
+          </h2>
         </div>
-          
       </div>
+
+      <button v-if="!cliente" @click="loginRegistro('login')" type="button"data-bs-target="#modalSign" class="btn btn-warning btn1 bigger position-fixed bottom-0 end-0 me-3 mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        <img src="./assets/Imagenes/usuario.png" alt="">
+        Accede como cliente
+      </button>
 
       <div class="fondo-experiencia w-100 d-flex justify-content-center">
         <h1 class="fondo-experiencia fuente-audiowide font2-color"> PRODUCTOS </h1>
