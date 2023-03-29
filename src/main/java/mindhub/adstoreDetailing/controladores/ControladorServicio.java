@@ -59,6 +59,9 @@ public class ControladorServicio {
             servicioAModificar.get().setDuracion(servicio.getDuracion());
             modificadosSb.append("duración, ");
         }
+
+        this.servicioServicio.guardar(servicioAModificar.get());
+
         modificadosSb.delete(modificadosSb.length()-2,modificadosSb.length());
         modificadosSb.append(".");
         String modificaciones = modificadosSb.toString();
