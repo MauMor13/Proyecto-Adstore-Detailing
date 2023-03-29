@@ -14,6 +14,17 @@ createApp({
                 servicios:[]
             },
             cantidad:[]
+            errorEncontrado: false,
+            registrado: false,
+            nombre: "",
+            apellido: "",
+            email: "",
+            contra: "",
+            direccion: "",
+            telefono: "",
+            emailInicioSesion: undefined,
+            contraInicioSesion: undefined,
+
         }
     },
 
@@ -22,6 +33,7 @@ createApp({
         this.cargarDatos();
         this.guardarLocalStorage();
         // this.cargarDatosCliente();
+
     },
 
     mounted(){
@@ -59,7 +71,7 @@ createApp({
                 foto.style.scale = "0.6"
                 foto.style.translate = "0 -20%"
                 telon.style.translate = "0 0"
-                desc.style.translate = "0 -5rem"
+                desc.style.translate = "0 0"
                 desc.style.opacity = "1"
                 desc.style.zIndex = "1"
                 boton.innerText = "Volver"
@@ -70,7 +82,7 @@ createApp({
                 foto.style.scale = "1"
                 foto.style.translate = "0 0"
                 telon.style.translate = "0 100%"
-                desc.style.translate = "0 0"
+                desc.style.translate = "0 -10rem"
                 desc.style.opacity = "0"
                 desc.style.zIndex = "0"
                 boton.innerText = "Ver detalles"
@@ -88,6 +100,7 @@ createApp({
                 this.productosFiltrados = filtroCheck 
         } 
         },
+
         guardarLocalStorage(){
             if(localStorage.getItem("compra") == null){
                 localStorage.setItem("compra", JSON.stringify(this.compra))
@@ -108,6 +121,64 @@ createApp({
             }
             localStorage.setItem("compra",JSON.stringify(this.compra))
         }
+
+         //Generar registro
+        realizarRegistro: function(){
+            axios.post('/api/registrar', {nombre: this.nombre, apellido: this.apellido, email: this.email, claveIngreso: this.contra, direccion: this.direccion, telefono: this.telefono,})
+                .then(response => {
+                    console.log('registrado');
+
+                    this.emailInicioSesion = this.email;
+                    this.contraInicioSesion = this.contra;
+
+                    this.errorEncontrado = false;
+                    this.nombre = "";
+                    this.apellido = "";
+                    this.email = "";
+                    this.contra = "";
+                    this.direccion = "",
+                    this.registro = "",
+
+                    this.iniciarSesion();
+                })
+                .catch(err => {
+                    this.errorEncontrado = true;
+                    console.error([err]);
+                    let spanError = document.querySelector('.mensaje-error-registro');
+                    spanError.innerHTML = err.response.data;
+                    
+                    if(err.response.data.includes('Email ya registrado')){
+                        this.email = "";
+                        this.contra = "";
+                    }                    
+                })
+            
+        },
+
+        iniciarSesion: function(){
+            axios.post('/api/login',`email=${this.emailInicioSesion}&claveIngreso=${this.contraInicioSesion}`,{headers:{'content-type':'application/x-www-form-urlencoded'}})
+                .then(response => {
+                    console.log('inicio sesion!');
+                    this.cargarDatos();
+                })
+                .catch(err => {
+                    console.error(err.message);
+                    console.error(err.response);
+                    this.errorEncontrado = true;
+                });
+        },
+
+
+        loginRegistro: function (value) {
+            let form = document.querySelector('.card-3d-wrapper');
+            if (value == 'registro') {
+                form.classList.add('girarLogin');
+            }
+            else if (value == 'login') {
+                form.classList.remove('girarLogin');
+            }
+        },
+
     },
 
 }).mount("#app")

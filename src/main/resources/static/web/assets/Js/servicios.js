@@ -5,6 +5,16 @@ createApp({
     data(){
         return{
             cliente: undefined,
+            errorEncontrado: false,
+            registrado: false,
+            nombre: "",
+            apellido: "",
+            email: "",
+            contra: "",
+            direccion: "",
+            telefono: "",
+            emailInicioSesion: undefined,
+            contraInicioSesion: undefined,
 
         }
     },
@@ -25,6 +35,61 @@ createApp({
                     this.cliente = respuesta.data;
                 })
                 .catch(err => console.error(err.message));
+        },
+        //Generar registro
+        realizarRegistro: function(){
+            axios.post('/api/registrar', {nombre: this.nombre, apellido: this.apellido, email: this.email, claveIngreso: this.contra, direccion: this.direccion, telefono: this.telefono,})
+                .then(response => {
+                    console.log('registrado');
+
+                    this.emailInicioSesion = this.email;
+                    this.contraInicioSesion = this.contra;
+
+                    this.errorEncontrado = false;
+                    this.nombre = "";
+                    this.apellido = "";
+                    this.email = "";
+                    this.contra = "";
+                    this.direccion = "",
+                    this.registro = "",
+
+                    this.iniciarSesion();
+                })
+                .catch(err => {
+                    this.errorEncontrado = true;
+                    console.error([err]);
+                    let spanError = document.querySelector('.mensaje-error-registro');
+                    spanError.innerHTML = err.response.data;
+                    
+                    if(err.response.data.includes('Email ya registrado')){
+                        this.email = "";
+                        this.contra = "";
+                    }                    
+                })
+            
+        },
+        iniciarSesion: function(){
+            axios.post('/api/login',`email=${this.emailInicioSesion}&claveIngreso=${this.contraInicioSesion}`,{headers:{'content-type':'application/x-www-form-urlencoded'}})
+                .then(response => {
+                    console.log('inicio sesion!');
+                    this.cargarDatos();
+                })
+                .catch(err => {
+                    console.error(err.message);
+                    console.error(err.response);
+                    this.errorEncontrado = true;
+                });
+        },
+
+
+        loginRegistro: function (value) {
+            let form = document.querySelector('.card-3d-wrapper');
+            if (value == 'registro') {
+                form.classList.add('girarLogin');
+            }
+            else if (value == 'login') {
+                form.classList.remove('girarLogin');
+            }
         },
 
         verDetallesServicio1: function (value) {
