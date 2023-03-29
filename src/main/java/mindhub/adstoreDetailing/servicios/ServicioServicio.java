@@ -10,4 +10,5 @@ public interface ServicioServicio {
     List<ServicioDTO> findAllServicioDTO();
     Optional<Servicio> findById(Long id);
     public void guardar(Servicio servicio);
+    List<ServicioDTO> findAllServiciosActivosDTO();
 }

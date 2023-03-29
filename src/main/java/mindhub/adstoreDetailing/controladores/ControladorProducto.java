@@ -26,6 +26,10 @@ public class ControladorProducto {
     public List<ProductoDTO> traerProductos() {
         return servicioProducto.findAllDTOs();
     }
+    @GetMapping("/productos-activos")
+    public List<ProductoDTO> traerProductosActivos(){
+        return servicioProducto.productosActivosDTO();
+    }
 
     @PatchMapping("/modificar-producto")
     public ResponseEntity<Object> modificarProducto(@RequestBody ProductoDTO producto) {
