@@ -95,7 +95,7 @@ public class ControladorProducto {
         return new ResponseEntity<>(productoCreado, HttpStatus.CREATED);
     }
 
-    @PatchMapping("/deshabilitar-o-habilitar")
+    @PatchMapping("/deshabilitar-producto")
     public ResponseEntity<Object> deshabilitarOHabilitar(@RequestParam Long id){
 
         Optional<Producto> producto = servicioProducto.findById(id);

@@ -93,4 +93,19 @@ public class ControladorServicio {
 
         return new ResponseEntity<>(servicioCreado, HttpStatus.CREATED);
     }
+    @PatchMapping("/deshabilitar-servicio")
+    public ResponseEntity<Object> deshabilitarOHabilitar(@RequestParam Long id){
+
+        Optional<Servicio> servicio = servicioServicio.findById(id);
+
+        if(servicio.isEmpty()){
+            return new ResponseEntity<>("Servicio no encontrado", HttpStatus.BAD_REQUEST);
+        }
+
+        servicio.get().setActivo(!servicio.get().isActivo());
+
+        servicioServicio.guardar(servicio.get());
+
+        return new ResponseEntity<>(servicio.get().getNombre()+" "+"Servicio activo: " + servicio.get().isActivo(), HttpStatus.OK);
+    }
 }
