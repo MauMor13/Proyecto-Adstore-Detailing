@@ -23,10 +23,6 @@ body{
     width: 100%;
     padding: 0.5px;
 }
-.img-comboProductos{
-    width: 250px;
-    height: 150px;
-}
 .card-body{
     min-height: 50px;
     margin: 0;
@@ -121,8 +117,9 @@ body{
 }
 .img-servicio{
     width: 270px;
-    height: 300px;
-    aspect-ratio : 1/1;
+    height: 280px;
+    margin: 7px 0 ;
+    border-radius: 7px;
 }
 .lista{
     width: 17px;
@@ -167,12 +164,9 @@ body{
 }
 
 .flip-card1 {
-    background-image: linear-gradient(#000000d5, #000000db),url("../Imagenes/fondoGris.jpg")!important;
-    background-size: cover!important;
-    background-position: bottom;
+    
     width: 590px;
     min-height: 300px;
-    perspective: 1000px;
     
 }
 @media (min-width: 0px) and (max-width: 600px){
@@ -208,6 +202,7 @@ body{
     transition: transform 0.6s;
     transform-style: preserve-3d;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    
 }
 
 .flip-card-front, .flip-card-back {
@@ -216,14 +211,12 @@ body{
     height: 100%;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
+    
 }
 .flip-card-back {
     color: white;
     transform: rotateY(180deg);
     border-radius: 15px;
-    background-image: linear-gradient(#000000d5, #000000db),url("../Imagenes/fondoGris.jpg")!important;
-    background-size: cover!important;
-    background-position: bottom;
 }
 .texto-servicio{
     text-align:justify;
@@ -234,12 +227,8 @@ body{
     transform: rotateY(180deg);
 }
 .flip-card2 {
-    background-image: linear-gradient(#000000d5, #000000db),url("../Imagenes/fondoGris.jpg")!important;
-    background-size: cover!important;
-    background-position: bottom;
     width: 590px;
     min-height: 300px;
-    perspective: 1000px;
     
 }
 @media (min-width: 0px) and (max-width: 600px){
@@ -276,12 +265,9 @@ body{
 
 
 .flip-card3 {
-    background-image: linear-gradient(#000000d5, #000000db),url("../Imagenes/fondoGris.jpg")!important;
-    background-size: cover!important;
-    background-position: bottom;
+    
     width: 590px;
     min-height: 300px;
-    perspective: 1000px;
     
 }
 @media (min-width: 0px) and (max-width: 600px){
@@ -318,12 +304,8 @@ body{
 
 
 .flip-card4 {
-    background-image: linear-gradient(#000000d5, #000000db),url("../Imagenes/fondoGris.jpg")!important;
-    background-size: cover!important;
-    background-position: bottom;
     width: 590px;
     min-height: 300px;
-    perspective: 1000px;
     
 }
 @media (min-width: 0px) and (max-width: 600px){

@@ -128,11 +128,6 @@
           </h2>
         </div>
       </div>
-      
-      <button  v-if="!cliente" @click="loginRegistro('login')" type="button" data-bs-target="#modalSign" class="btn btn-warning btn1 bigger position-fixed bottom-0 end-0 me-3 mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        <img src="./assets/Imagenes/usuario.png" alt="">
-        Accede como cliente
-      </button>
 
       <div class="fondo-experiencia w-100 d-flex justify-content-center">
         <h1 class="fondo-experiencia fuente-audiowide font2-color"> PRODUCTOS </h1>
@@ -142,8 +137,10 @@
       <div class="filtro-productos fuente-poppins d-flex justify-content-around align-content-center flex-wrap">
         <div class="d-flex align-content-center flex-wrap align-items-center m-0 my-3 p-0 gap-3 categorias justify-content-center">
           <div class="check m-3"  id="checkCategory">
+
             <label v-if="categorias" class="btn ms-3 me-2 btn-primary" v-for="categoria of categorias">
               <input type="checkbox"  v-model="checked" class="btn-check" @change="busquedaCruzada" :value="categoria" autocomplete="off"> {{categoria}}
+
             </label>
           </div>
         </div>

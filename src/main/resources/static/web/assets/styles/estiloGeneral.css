@@ -18,6 +18,20 @@
 .fuente-poppin {
     font-family: 'Poppins', sans-serif;
 }
+.btn-primary{
+    --bs-btn-bg: transparent !important;
+    --bs-btn-border-color: transparent;
+    --bs-btn-hover-color: none;
+    margin: 0 2rem !important;
+    text-decoration: none !important;
+    padding: 4px 6px !important;
+    --bs-btn-active-color: black;
+    --bs-btn-active-bg: #f7ba24;
+    --bs-btn-active-border-color: #f7ba24;
+    /* background-image: linear-gradient(#f7bb2471, #f7bb246f),url("../Imagenes/fondoAmarillo.jpg")!important;
+    background-size: cover!important;
+    background-position: top; */
+}
 
 :root {
     --font-color1 : white;
