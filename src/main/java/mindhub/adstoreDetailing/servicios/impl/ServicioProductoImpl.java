@@ -17,7 +17,6 @@ public class ServicioProductoImpl implements ServicioProducto {
     public ServicioProductoImpl(RepositorioProducto repositorioProducto) {
         this.repositorioProducto = repositorioProducto;
     }
-
     @Override
     public List<ProductoDTO> findAllDTOs(){
         return this.mapListToDTOs(this.repositorioProducto.findAll());
@@ -27,10 +26,16 @@ public class ServicioProductoImpl implements ServicioProducto {
     public void guardar(Producto producto){
         this.repositorioProducto.save(producto);
     }
+
+    @Override
+    public List<ProductoDTO> productosActivosDTO() {
+        return repositorioProducto.findAll().stream().filter(Producto::isActivo).map(ProductoDTO::new).collect(Collectors.toList());
+    }
     @Override
     public Optional<Producto> findById(Long id){
        return this.repositorioProducto.findById(id);
     }
+
     private List<ProductoDTO>mapListToDTOs(List<Producto> listaProducto){
         return listaProducto.stream().map(ProductoDTO::new).collect(Collectors.toList());
 

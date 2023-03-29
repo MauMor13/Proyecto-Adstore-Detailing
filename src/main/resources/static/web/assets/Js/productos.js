@@ -23,9 +23,12 @@ createApp({
         }
     },
 
+
     created(){
         this.cargarDatos();
-        /* this.cargarDatosCliente(); */
+
+        // this.cargarDatosCliente();
+
     },
 
     mounted(){
