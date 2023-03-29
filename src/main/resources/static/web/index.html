@@ -133,6 +133,7 @@
                     <td class="fuente-poppins"  v-cloak>Tarjeta No.</td>
                     <td class="fuente-poppins"  v-cloak>000 </td>
                   </tr>
+                  <button @Click="logOut">Log out</button>
                 </tbody>
               </table>
 
@@ -386,7 +387,7 @@
                                                             <input type="password" name="logpass" class="form-style" placeholder="Contraseña" id="logpass" autocomplete="off" v-model="contraInicioSesion" @keyup.enter="loginWithEnter()" required>
                                                             <i class="input-icon uil uil-lock-alt"></i>
                                                         </div>
-                                                        <span @click="iniciarSesion()" class="submit btn mt-4 categoria font1-color">Enviar</span>
+                                                        <span @click="iniciarSesion()" class="submit btn mt-4 categoria font1-color" data-bs-dismiss="modal">Enviar</span>
                                                         <p v-if="errorEncontrado" class="mb-0 mt-4 text-center red-color">⋆ El email o la contraseña no son correctos</p>
                                                     </div>
                                                 </div>

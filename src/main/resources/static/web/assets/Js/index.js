@@ -79,14 +79,23 @@ createApp({
         iniciarSesion: function(){
             axios.post('/api/login',`email=${this.emailInicioSesion}&claveIngreso=${this.contraInicioSesion}`,{headers:{'content-type':'application/x-www-form-urlencoded'}})
                 .then(response => {
-                    console.log('inicio sesion!');
                     this.cargarDatos();
+                    window.location.reload
                 })
                 .catch(err => {
-                    console.error(err.message);
-                    console.error(err.response);
-                    this.errorEncontrado = true;
+                    Swal.fire({
+                        customClass: 'modal-sweet-alert',
+                        title: 'Usuario no encontrado',
+                        text: "Por favor verifica tus credenciales",
+                        icon: 'warning',
+                        confirmButtonColor: '#f7ba24',
+                        confirmButtonText: 'Aceptar'
+                    })
                 });
+        },
+        logOut(){
+            axios.post('/api/logout')
+            .then(() => window.location.href="./index.html")
         },
 
 
