@@ -19,7 +19,7 @@
 
 <body>
 
-    <div id="app">
+    <div id="app" v-cloak>
         <header>
             <!-- HEADER MOBILE -->
             <section class="justify-content-around align-items-center bg-black d-flex flex-wrap w-100">
@@ -418,17 +418,36 @@
             <div v-if="!vistas || !vistas.length">
                 <img class="w-100" src="./assets/Imagenes/PNG1.png" alt="logo">
             </div>
-
-            <!-- MODALES -->
-            <div>
-                <div class="modal fade" id="modalCliente" tabindex="-1" aria-labelledby="modalCliente"
-                    aria-hidden="true" style="display: none;">
-                    <div class="modal-dialog modal-fullscreen">
-                        <div class="modal-content modales-fondo">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-4">Modificar Cliente</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
+        <!-- MODALES -->
+        <div>
+            <div class="modal fade" id="modalCliente" tabindex="-1" data-bs-backdrop="static" aria-labelledby="modalCliente" aria-hidden="true" style="display: none;">
+                <div class="modal-dialog">
+                  <div class="modal-content modales-fondo">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-4">Modificar Cliente</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div v-if="clienteModif" class="modal-body">
+                        <form class="p-2 form-1">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="nombre">Nombre</span>
+                                <input v-model="clienteModif.nombre" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="Campo Obligatorio" required>
+                            </div>   
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="apellid">Apellido</span>
+                                <input v-model="clienteModif.apellido" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="Campo Obligatorio" required>
+                            </div>   
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="direccion">Direccion</span>
+                                <input v-model="clienteModif.direccion" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="Campo Obligatorio" required>
+                            </div>   
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="email">E-mail</span>
+                                <input v-model="clienteModif.email" type="email" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="Campo Obligatorio" required>
+                            </div>   
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="telefono">Teléfono</span>
+                                <input v-model="clienteModif.telefono" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="Campo Obligatorio" required>
                             </div>
                             <div v-if="clienteModif" class="modal-body">
                                 <form class="p-2 form-1">
@@ -479,64 +498,19 @@
                         </div>
                     </div>
                 </div>
-                <div class="modal fade" id="modalProducto" tabindex="-1" aria-labelledby="modalProducto"
-                    aria-hidden="true" style="display: none;">
-                    <div class="modal-dialog modal-fullscreen">
-                        <div class="modal-content modales-fondo">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-4">Modificar Producto</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body" v-if="productoModif">
-                                <form class="p-2 form-1">
-                                    <div class="input-group mb-3">
-                                        <span class="input-group-text" id="nomPro">Nombre</span>
-                                        <input v-model="productoModif.nombre" type="text" class="form-control"
-                                            aria-label="Sizing example input"
-                                            aria-describedby="inputGroup-sizing-default" placeholder="Campo Obligatorio"
-                                            required>
-                                    </div>
-                                    <div class="input-group mb-3">
-                                        <span class="input-group-text" id="telPro">Descripción</span>
-                                        <textarea v-model="productoModif.descripcion" class="form-control"
-                                            aria-label="With textarea" placeholder="Campo Obligatorio"
-                                            required></textarea>
-                                    </div>
-                                    <div class="input-group mb-3">
-                                        <label class="input-group-text" for="inputGroupSelect01">Categoria</label>
-                                        <select v-model="productoModif.categoria" class="form-select"
-                                            id="floatingSelect" aria-label="Floating label select example">
-                                            <option value="LAVADO">LAVADO</option>
-                                            <option value="PULIDO">PULIDO</option>
-                                            <option value="INTERIORES">INTERIORES</option>
-                                            <option value="ACCESORIOS">ACCESORIOS</option>
-                                        </select>
-                                    </div>
-                                    <div class="input-group mb-3">
-                                        <span class="input-group-text" id="ApPro">Precio</span>
-                                        <input v-model="productoModif.precio" type="number" class="form-control"
-                                            aria-label="Sizing example input"
-                                            aria-describedby="inputGroup-sizing-default" placeholder="Campo Obligatorio"
-                                            required>
-                                    </div>
-                                    <div class="input-group mb-3">
-                                        <span class="input-group-text" id="dirPro">Stock</span>
-                                        <input v-model="productoModif.stock" type="number" class="form-control"
-                                            aria-label="Sizing example input"
-                                            aria-describedby="inputGroup-sizing-default" placeholder="Campo Obligatorio"
-                                            required>
-                                    </div>
-                                    <div class="input-group mb-3">
-                                        <span class="input-group-text" id="emailPro">URL imagen</span>
-                                        <input v-model="productoModif.imagenUrl" type="text" class="form-control"
-                                            aria-label="Sizing example input"
-                                            aria-describedby="inputGroup-sizing-default" placeholder="Campo Obligatorio"
-                                            required>
-                                    </div>
-                                    <p v-if="!sinError" style="color: red;">Debe completar todos los campos para
-                                        continuar.</p>
-                                </form>
+            </div>
+            <div class="modal fade" id="modalProducto" tabindex="-1" data-bs-backdrop="static" aria-labelledby="modalProducto" aria-hidden="true" style="display: none;">
+                <div class="modal-dialog">
+                  <div class="modal-content modales-fondo">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-4">Modificar Producto</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" v-if="productoModif">
+                        <form class="p-2 form-1">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="nomPro">Nombre</span>
+                                <input v-model="productoModif.nombre" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="Campo Obligatorio" required>
                             </div>
                             <div class="modal-footer">
                                 <button @click="modifProd()" type="button" class="btn btn-secondary">Modificar
@@ -546,14 +520,19 @@
                         </div>
                     </div>
                 </div>
-                <div class="modal fade" id="modalServicio" tabindex="-1" aria-labelledby="modalServicio"
-                    aria-hidden="true" style="display: none;">
-                    <div class="modal-dialog modal-fullscreen">
-                        <div class="modal-content modales-fondo">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-4">Modificar Servicio</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
+            </div>
+            <div class="modal fade" id="modalServicio" tabindex="-1" data-bs-backdrop="static" aria-labelledby="modalServicio" aria-hidden="true" style="display: none;">
+                <div class="modal-dialog">
+                  <div class="modal-content modales-fondo">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-4">Modificar Servicio</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" v-if="servicioModif">
+                        <form class="p-2 form-1">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="nomSer">Nombre</span>
+                                <input v-model="servicioModif.nombre" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="Campo Obligatorio" required>
                             </div>
                             <div class="modal-body" v-if="servicioModif">
                                 <form class="p-2 form-1">
@@ -606,16 +585,35 @@
                     </div>
                 </div>
             </div>
-
-            <div>
-                <div class="modal fade" id="modalNuevoCliente" tabindex="-1" aria-labelledby="modalCliente"
-                    aria-hidden="true" style="display: none;">
-                    <div class="modal-dialog modal-fullscreen">
-                        <div class="modal-content modales-fondo">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-4">Crear Cliente</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
+        <div>
+            <div class="modal fade" id="modalNuevoCliente" tabindex="-1" data-bs-backdrop="static" aria-labelledby="modalCliente" aria-hidden="true" style="display: none;">
+                <div class="modal-dialog">
+                  <div class="modal-content modales-fondo">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-4">Crear Cliente</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="p-2 form-1">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">Nombre</span>
+                                <input v-model="clienteNuevo.nombre" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="Campo Obligatorio" required>
+                            </div>   
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">Apellido</span>
+                                <input v-model="clienteNuevo.apellido" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="Campo Obligatorio" required>
+                            </div>   
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">Direccion</span>
+                                <input v-model="clienteNuevo.direccion" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="Campo Obligatorio" required>
+                            </div>   
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">E-mail</span>
+                                <input v-model="clienteNuevo.email" type="email" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="Campo Obligatorio" required>
+                            </div>   
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">Teléfono</span>
+                                <input v-model="clienteNuevo.telefono" type="number" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="Campo Obligatorio" required>
                             </div>
                             <div class="modal-body">
                                 <form class="p-2 form-1">
@@ -666,14 +664,19 @@
                         </div>
                     </div>
                 </div>
-                <div class="modal fade" id="modalNuevoProducto" tabindex="-1" aria-labelledby="modalProducto"
-                    aria-hidden="true" style="display: none;">
-                    <div class="modal-dialog modal-fullscreen">
-                        <div class="modal-content modales-fondo">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-4">Crear Producto</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
+            </div>
+            <div class="modal fade" id="modalNuevoProducto" tabindex="-1" data-bs-backdrop="static" aria-labelledby="modalProducto" aria-hidden="true" style="display: none;">
+                <div class="modal-dialog">
+                  <div class="modal-content modales-fondo">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-4">Crear Producto</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="p-2 form-1">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">Nombre</span>
+                                <input v-model="productoNuevo.nombre" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="Campo Obligatorio" required>
                             </div>
                             <div class="modal-body">
                                 <form class="p-2 form-1">
@@ -733,14 +736,19 @@
                         </div>
                     </div>
                 </div>
-                <div class="modal fade" id="modalNuevoServicio" tabindex="-1" aria-labelledby="modalServicio"
-                    aria-hidden="true" style="display: none;">
-                    <div class="modal-dialog modal-fullscreen">
-                        <div class="modal-content modales-fondo">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-4">Crear Servicio</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
+            </div>
+            <div class="modal fade" id="modalNuevoServicio" tabindex="-1" data-bs-backdrop="static" aria-labelledby="modalServicio" aria-hidden="true" style="display: none;">
+                <div class="modal-dialog">
+                  <div class="modal-content modales-fondo">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-4">Crear Servicio</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="p-2 form-1">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">Nombre</span>
+                                <input v-model="servicioNuevo.nombre" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="Campo Obligatorio" required>
                             </div>
                             <div class="modal-body">
                                 <form class="p-2 form-1">
@@ -794,10 +802,6 @@
                 </div>
             </div>
             <!-- FIN MODALES -->
-
-
-
-
         </main>
 
         <section class=" d-flex justify-content-center copyright mb-0">

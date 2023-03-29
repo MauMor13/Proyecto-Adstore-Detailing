@@ -4,11 +4,13 @@ createApp({
     
     data(){
         return{
+            cliente: undefined,
 
         }
     },
 
     created(){
+        this.cargarDatosCliente();
 
     },
 
@@ -17,6 +19,13 @@ createApp({
     },
 
     methods: {
+        cargarDatosCliente: function(){
+            axios.get('/api/cliente')
+                .then(respuesta => {
+                    this.cliente = respuesta.data;
+                })
+                .catch(err => console.error(err.message));
+        },
 
         verDetallesServicio1: function (value) {
             let form = document.querySelector('.flip-card1 .flip-card-inner1');

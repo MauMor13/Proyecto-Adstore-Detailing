@@ -19,7 +19,7 @@
 
 <body>
 
-  <div id="app">
+  <div id="app" v-cloak>
     <header>
       <!-- NAV-DESKTOP -->
       <nav class="navbar navbar-expand-sm nav-landing-page container-fluid fuente-poppins flexDesde768">
@@ -96,12 +96,43 @@
 
     <main class="main-index d-flex flex-column gap-3 justify-content-center align-items-center">
       <!--datos cliente-->
-      <div class="fondoProductos datos-cliente d-flex justify-content-center ">
-        <div v-if="cliente">
-          <p>Datos cliente</p>
-        </div>
+      
+      <div v-if="cliente" class="accordion  border border-dark accordion-flush btn btn-warning position-fixed bottom-0 end-0 me-3 mt-3" id="accordionFlushExample">
+        <div class="accordion-item">
+          <div id="flush-collapseOne" class="accordion-collapse bg-warning collapse" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body  text-bg-warning">
+              <table class="table">
+                <tbody >
+                  <tr>
+                    <td class="fuente-poppins" v-cloak>Cuenta No.</td>
+                    <td class="fuente-poppins"  v-cloak>000 </td>
+                  </tr>
+                  <tr>
+                    <td class="fuente-poppins"  v-cloak>Saldo </td>
+                    <td class="fuente-poppins"  v-cloak>000 </td>
+                  </tr>
+                  <tr>
+                    <td class="fuente-poppins"  v-cloak>Tarjeta No.</td>
+                    <td class="fuente-poppins"  v-cloak>000 </td>
+                  </tr>
+                </tbody>
+              </table>
 
+            </div>
+          </div>
+          <h2 class="accordion-header m-0 p-0">
+            <button class="accordion-button collapsed fuente-poppin p-0 text-dark bg-warning" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+              <img src="./assets/Imagenes/usuario.png"  class="m-0 p-0" alt="">
+              Nombre Cliente
+            </button>
+          </h2>
+        </div>
       </div>
+
+      <button v-if="!cliente" @click="loginRegistro('login')" type="button"data-bs-target="#modalSign" class="btn btn-warning btn1 bigger position-fixed bottom-0 end-0 me-3 mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        <img src="./assets/Imagenes/usuario.png" alt="">
+        Accede como cliente
+      </button>
 
       <div class="fondo-experiencia w-100 d-flex justify-content-center">
         <h1 class="fondo-experiencia fuente-audiowide font2-color"> PRODUCTOS </h1>
@@ -109,66 +140,67 @@
 
       <!--filtro categorias Productos-->
       <div class="filtro-productos fuente-poppins d-flex justify-content-around align-content-center flex-wrap">
-        <div
-          class="d-flex align-content-center flex-wrap align-items-center m-0 mb-3 p-0 gap-3 categorias justify-content-center">
-          <input type="checkbox" class="btn-check" id="check-lavado" autocomplete="off" value="lavado" checked>
-          <label class="btn btn-primary" for="check-lavado">LAVADO</label>
-          <input type="checkbox" class="btn-check" id="check-pulido" autocomplete="off" value="pulido" checked>
-          <label class="btn btn-primary" for="check-pulido">PULIDO Y ENCERADO</label>
-          <input type="checkbox" class="btn-check" id="check-interiores" autocomplete="off" value="interiores" checked>
-          <label class="btn btn-primary" for="check-interiores">INTERIORES</label>
-          <input type="checkbox" class="btn-check" id="check-accesorios" autocomplete="off" value="accesorios" checked>
-          <label class="btn btn-primary" for="check-accesorios">ACCESORIOS</label>
+        <div class="d-flex align-content-center flex-wrap align-items-center m-0 my-3 p-0 gap-3 categorias justify-content-center">
+          <div class="check m-3"  id="checkCategory">
+            <label v-if="categorias" class="btn ms-3 me-2 btn-warning" v-for="categoria of categorias">
+              <input type="checkbox"  v-model="checked" class="btn-check" autocomplete="off" @change="busquedaCruzada" :value="categoria" autocomplete="off"> {{categoria}}
+            </label>
+          </div>
         </div>
         <nav class="navbar ms-2 mb-3 p-0">
-          <form class="d-flex justify-content-around align-items-center" role="search">
-            <input class="form-control " type="search" placeholder="Busqueda" aria-label="Search">
-            <button class="btn btn-outline-warning ms-2" type="submit">Buscar</button>
-          </form>
+            <form class="d-flex justify-content-around align-items-center" role="search">
+              <input class="form-control " type="search" v-model="inputBusqueda" @input="busquedaCruzada" placeholder="Busqueda" aria-label="Search">
+              <button class="btn btn-outline-warning ms-2"  type="submit">Buscar</button>
+            </form>
         </nav>
       </div>
 
-      <div class="fondo-categorias d-flex justify-content-center flex-wrap">
+      <div  class="fondo-categorias   pb-2  mb-2 d-flex justify-content-evenly flex-wrap">
+        <template v-for="producto of productos">
+          <div class="my-3 mx-2 col-10 col-md-5 col-lg-4 col-xl-3 d-flex align-items-center justify-content-end flex-column prod-index py-4 px-2">
+            <div class="fondo-producto d-flex justify-content-center align-items-center m-0 p-0">
+              <img src="./assets/Imagenes/cera.png " :id="producto.id+'Foto'" class="card-img-top m-0 img-producto" alt="producto.nombre">
+            </div>
+            <div class="d-flex justify-content-around w-100 flex-wrap">
+              <p class="card-text p-0 mx-2"><strong>{{producto.nombre.toUpperCase()}} </strong> </p>
+              <p class="card-text p-0 mx-2"><strong>Precio :</strong>{{producto.precio.toLocaleString('en-US', {style:"currency", currency:"USD"})}}  </p>
+            </div>
+            <div class="d-flex justify-content-between flex-wrap">
+              <div @click="verDetallesProducto(producto.id)" class="d-flex z-1 hover-det"  >
+                <img class="icono-card-prod" src="./assets/Imagenes/detalle.png" alt="">
+                <button class="card-text btn btn1 p-2" :id="producto.id+'Bot'">Ver detalles</button>
+              </div>
+              <div class="d-flex">
+                <img class="icono-card-prod1" src="./assets/Imagenes/carrito.png" alt="">
+                <button class="card-text btn btn1 p-2"> Comprar</button>
+              </div>
+            </div>
+            <p :id="producto.id+'Desc'" class="prod-comprar">{{producto.descripcion}}</p>
+            <div :id="producto.id+'Telon'" class="telon">
 
-        <div class="card m-2" style="width: 13rem;">
-          <div class="fondo-producto">
-            <img src="./assets/Imagenes/cera.png" class="card-img-top img-producto" alt="...">
+            </div>
           </div>
-          <div class="card-body d-flex justify-content-between">
-            <p class="card-text">DATOS PRO.</p>
-            <a href="" class=""><img src="./assets/Imagenes/carrito.png" class="carrito" alt=""> </a>
-          </div>
-        </div>
-
-        <div class="card m-2 " style="width: 13rem;">
-          <div class="fondo-producto">
-            <img src="./assets/Imagenes/cera.png" class="card-img-top img-producto" alt="...">
-          </div>
-          <div class="card-body d-flex justify-content-between">
-            <p class="card-text">DATOS PRO.</p>
-            <a href="" class=""><img src="./assets/Imagenes/carrito.png" class="carrito" alt=""></a>
-          </div>
-        </div>
-
-        <div class="card m-2 " style="width: 13rem;">
-          <div class="fondo-producto">
-            <img src="./assets/Imagenes/cera.png" class="card-img-top img-producto" alt="...">
-          </div>
-          <div class="card-body d-flex justify-content-between">
-            <p class="card-text">DATOS PRO.</p>
-            <a href="" class=""><img src="./assets/Imagenes/carrito.png" class="carrito" alt=""></a>
-          </div>
-        </div>
-
-
-
-
-      </div>
-
-
-
-
-
+            <!-- <div class="fondo-producto d-flex justify-content-center align-items-center m-0 p-0">
+                  <img src="./assets/Imagenes/cera.png " class="card-img-top m-0  img-producto" alt="producto.nombre">
+                </div>
+                <div class="card-body d-flex justify-content-between flex-column">
+                    <p class="card-text p-0 "><strong>{{producto.nombre.toUpperCase()}} </strong> </p>
+                    <p class="card-text p-0"><strong>Precio :</strong>{{producto.precio.toLocaleString('en-US', {style:"currency", currency:"USD"})}}  </p>
+                    <div class="d-flex">
+                      <img class="icono-card-prod" src="./assets/Imagenes/detalle.png" alt="">
+                      <button class="btn btn1 p-2">Ver detalles</button>
+                    </div>
+                    <p class="card-text text-light detalle-text invisible"> {{producto.descripcion}} </p>
+                  </div>
+              
+                  <div class="card-body d-flex justify-content-between flex-column">
+                    <p class="card-text text-warning nombre "> {{producto.nombre.toUpperCase()}} </p>
+                    <a href="" class="text-decoration-none link-light  text-light"> <img class="icono-card-prod" src="./assets/Imagenes/carrito.png" alt=""> Comprar</a>
+                    <button @click="verDetallesProducto('back')" class="btn btn1 p-2">Volver</button>
+                  </div>
+                </div> -->
+        </template>    
+      </div>      
     </main>
 
     <!--Footer-->

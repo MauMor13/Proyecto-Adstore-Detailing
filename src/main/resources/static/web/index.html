@@ -114,6 +114,44 @@
         <img src="./assets/Imagenes/PNG9.png" alt="logo" class="icono-landing position-absolute">
       </div>
 
+      
+      <div v-if="cliente" class="accordion  border border-dark accordion-flush btn btn-warning position-fixed bottom-0 end-0 me-md-3 mt-md-3" id="accordionFlushExample">
+        <div class="accordion-item">
+          <div id="flush-collapseOne" class="accordion-collapse bg-warning collapse" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body  text-bg-warning">
+              <table class="table">
+                <tbody >
+                  <tr>
+                    <td class="fuente-poppins" v-cloak>Cuenta No.</td>
+                    <td class="fuente-poppins"  v-cloak>000 </td>
+                  </tr>
+                  <tr>
+                    <td class="fuente-poppins"  v-cloak>Saldo </td>
+                    <td class="fuente-poppins"  v-cloak>000 </td>
+                  </tr>
+                  <tr>
+                    <td class="fuente-poppins"  v-cloak>Tarjeta No.</td>
+                    <td class="fuente-poppins"  v-cloak>000 </td>
+                  </tr>
+                </tbody>
+              </table>
+
+            </div>
+          </div>
+          <h2 class="accordion-header m-0 p-0">
+            <button class="accordion-button collapsed fuente-poppin p-0 text-dark bg-warning" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+              <img src="./assets/Imagenes/usuario.png"  class="m-0 p-0" alt="">
+              Nombre Cliente
+            </button>
+          </h2>
+        </div>
+      </div>
+
+      <button v-if="!cliente" @click="loginRegistro('login')" type="button"data-bs-target="#modalSign" class="btn btn-warning btn1 bigger position-fixed bottom-0 end-0 me-3 mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        <img src="./assets/Imagenes/usuario.png" alt="">
+        Accede como cliente
+      </button>
+
       <!-- contenedor About US -->
       <div  class="aboutus mb-lg-5 fuente-poppins">
         <h3 class="fuente-audiowide">SOBRE NOSOTROS...</h3>
@@ -197,21 +235,21 @@
             <p class="font1-color"  style="font-family: 'Poppins', sans-serif;" >Tu vehículo merece estar en las mejores manos, con personal altamente capacitado, con los materiales de mejor calidad y a la valocidad que siempre soñaste.
             </p>
             
-            <div class="d-flex justify-content-around align-items-end align-content-end mt-4">
-              <div class="d-flex flex-column justify-content-center align-content-center align-items-center">
+            <div class="d-flex flex-md-row flex-column justify-content-between justify-content-md-around align-content-end align-items-md-end mt-4">
+              <div class="d-flex flex-md-column flex-row m-2 justify-content-center align-content-center align-items-center">
                 <h2 class="up-title">LAVADO</h2>
                 <h2 class="down-title">Premium</h2>
               </div>
-              <div class="d-flex flex-column justify-content-center align-content-center align-items-center">
+              <div class="d-flex flex-md-column flex-row m-2 justify-content-center align-content-center align-items-center">
                 <h2 class="up-title">LAVADO</h2>
                 <h2 class="down-title">Básico</h2>
               </div>
-              <div class="d-flex flex-column justify-content-center align-content-center align-items-center">
-                <h2 class="up-title">TRAMATAMIENTO</h2>
+              <div class="d-flex flex-md-column flex-row m-2 justify-content-center align-content-center align-items-center">
+                <h2 class="up-title">TRATAMIENTO</h2>
                 <h2 class="down-title">Cerámico</h2>
               </div>
-              <div class="d-flex flex-column justify-content-center align-content-center align-items-center">
-                <h2 class="up-title">TRAMATAMIENTO</h2>
+              <div class="d-flex flex-md-column flex-row m-2 justify-content-center align-content-center align-items-center">
+                <h2 class="up-title">TRATAMIENTO</h2>
                 <h2 class="down-title">Acrilico</h2>
               </div>
             </div>
@@ -340,14 +378,14 @@
                                                     <div class="section text-center">
                                                         <h4 class="mb-4 pb-3 titulo-log-in fuente-audiowide">Inicio de Sesión</h4>
                                                         <div class="form-group form">
-                                                            <input type="email" name="logemail" class="form-style" placeholder="Email" id="logemail" autocomplete="off" v-model="emailLog" required>
+                                                            <input type="email" name="logemail" class="form-style" placeholder="Email" id="logemail" autocomplete="off" v-model="emailInicioSesion" required>
                                                             <i class="input-icon uil uil-at"></i>
                                                         </div>	
                                                         <div class="form-group mt-2">
-                                                            <input type="password" name="logpass" class="form-style" placeholder="Contraseña" id="logpass" autocomplete="off" v-model="passwordLog" @keyup.enter="loginWithEnter()" required>
+                                                            <input type="password" name="logpass" class="form-style" placeholder="Contraseña" id="logpass" autocomplete="off" v-model="contraInicioSesion" @keyup.enter="loginWithEnter()" required>
                                                             <i class="input-icon uil uil-lock-alt"></i>
                                                         </div>
-                                                        <span @click="login()" class="submit btn mt-4 categoria font1-color">Enviar</span>
+                                                        <span @click="iniciarSesion()" class="submit btn mt-4 categoria font1-color">Enviar</span>
                                                         <p v-if="errorEncontrado" class="mb-0 mt-4 text-center red-color">⋆ El email o la contraseña no son correctos</p>
                                                     </div>
                                                 </div>
@@ -380,8 +418,8 @@
                                                           <input type="text" name="logpass" class="form-style form-style-signup" placeholder="Teléfono" id="signtel" autocomplete="off" v-model="telefono" required>
                                                           <i class="input-icon uil uil-lock-alt"></i>
                                                         </div>
-                                                        <p @click="signIn()" class="submit btn categoria mt-4">Enviar</p>
-                                                        <p v-show="errorEncontrado" class="mb-0 mt-2 text-center red-color signin-error-message"></p>
+                                                        <p @click="realizarRegistro()" class="submit btn categoria mt-4">Enviar</p>
+                                                        <p v-show="errorEncontrado" class="mb-0 mt-2 text-center red-color mensaje-error-registro"></p>
                                                     </div>
                                                 </div>
                                             </div>
