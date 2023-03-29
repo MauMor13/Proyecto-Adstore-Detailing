@@ -304,3 +304,11 @@ transform: rotateY(180deg);
     z-index: 2;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.349);
 }
+.carrito-flotante{
+    position: fixed;
+    right: 50px;
+    top: 300px;
+    width: 5rem;
+    z-index: 2;
+    cursor: pointer;
+}
