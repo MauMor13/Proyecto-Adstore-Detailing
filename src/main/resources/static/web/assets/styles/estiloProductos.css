@@ -59,15 +59,15 @@ body{
 
 }
 .btn-primary{
-    --bs-btn-bg: transparent !important;
-    --bs-btn-border-color: transparent !important;
-    --bs-btn-hover-color: none !important;
+    --bs-btn-bg: transparent;
+    --bs-btn-border-color: transparent;
+    --bs-btn-hover-color: none;
     margin: 0 2rem !important;
     text-decoration: none !important;
     padding: 4px 6px !important;
-    --bs-btn-active-color: black !important;
-    --bs-btn-active-bg: #f7ba24 !important;
-    --bs-btn-active-border-color: #f7ba24 !important;
+    --bs-btn-active-color: black;
+    --bs-btn-active-bg: #f7ba24;
+    --bs-btn-active-border-color: #f7ba24;
     /* background-image: linear-gradient(#f7bb2471, #f7bb246f),url("../Imagenes/fondoAmarillo.jpg")!important;
     background-size: cover!important;
     background-position: top; */
@@ -383,9 +383,10 @@ body{
     background-position: bottom;
     color: white;
     border-radius: 10px;
+    width: 90%;
 }
 .img-producto{
-    width: 90%;
+    width: 75%;
     transition: all 1s;
 }
 
@@ -406,7 +407,7 @@ body{
     font-family: 'Audiowave', cursive;
     opacity: 0;
     transition: opacity 1.5s, translate 1s;
-    translate: 0 150%;
+    translate: 0 -300%;
     width: 80%;
 }
 
@@ -423,8 +424,8 @@ body{
 .telon{
     content: "";
     position: absolute;
-    width: 700px;
-    height: 700px;
+    width: 800px;
+    height: 800px;
     background-color: rgba(0, 0, 0, 0.721);
     bottom: 0;
     left: 0;
@@ -450,3 +451,4 @@ body{
 .hover-det{
     cursor: pointer;
 }
+

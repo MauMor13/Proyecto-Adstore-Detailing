@@ -142,12 +142,13 @@
       <div class="filtro-productos fuente-poppins d-flex justify-content-around align-content-center flex-wrap">
         <div class="d-flex align-content-center flex-wrap align-items-center m-0 my-3 p-0 gap-3 categorias justify-content-center">
           <div class="check m-3"  id="checkCategory">
-            <label v-if="categorias" class="btn ms-3 me-2 btn-primary" v-for="categoria of categorias">
-              <input type="checkbox"  v-model="checked" class="btn-check" @change="busquedaCruzada" :value="categoria" autocomplete="off"> {{categoria}}
-            </label>
+            <template v-if="categorias"  v-for="categoria of categorias">
+              <input v-model="checked" @change="busquedaCruzada" type="checkbox" class="btn-check" :id="categoria" :value="categoria" autocomplete="off" checked>
+              <label class="btn btn-primary ms-3 me-2" :for="categoria">{{categoria}}</label>
+            </template>
           </div>
         </div>
-        <nav class="navbar ms-2 mb-3 p-0">
+        <nav class="navbar d-flex align-items-center">
             <form class="d-flex justify-content-around align-items-center" role="search">
               <input class="form-control " type="search" v-model="inputBusqueda" @input="busquedaCruzada" placeholder="Busqueda" aria-label="Search">
               <button class="btn btn-outline-warning ms-2"  type="submit">Buscar</button>
@@ -155,24 +156,27 @@
         </nav>
       </div>
 
-      <div  class="fondo-categorias   pb-2  mb-2 d-flex justify-content-evenly flex-wrap">
+      <div  class="fondo-categorias pb-2  mb-2 d-flex justify-content-evenly flex-wrap">
         <template v-for="producto of productosFiltrados">
-          <div class="my-3 mx-2 col-10 col-md-5 col-lg-4 col-xl-3 d-flex align-items-center justify-content-end flex-column prod-index py-4 px-2">
-            <div class="fondo-producto d-flex justify-content-center align-items-center m-0 p-0">
-              <img src="./assets/Imagenes/cera.png " :id="producto.id+'Foto'" class="card-img-top m-0 img-producto" alt="producto.nombre">
+          <div class="my-3 mx-2 col-10 col-md-5 col-lg-4 col-xl-3 d-flex align-items-center justify-content-between flex-column prod-index py-4 px-2 ">
+            <div class="fondo-producto d-flex justify-content-center align-items-center m-0 p-0 mb-2">
+              <img :src="producto.imagenUrl" :id="producto.id+'Foto'" class="card-img-top m-0 img-producto" alt="producto.nombre">
             </div>
-            <div class="d-flex justify-content-around w-100 flex-wrap">
-              <p class="card-text p-0 mx-2"><strong>{{producto.nombre.toUpperCase()}} </strong> </p>
-              <p class="card-text p-0 mx-2"><strong>Precio :</strong>{{producto.precio.toLocaleString('en-US', {style:"currency", currency:"USD"})}}  </p>
+            <div class="d-flex flex-column align-items-center justify-content-around w-100 flex-wrap">
+              <p class="card-text p-0 mx-2 mb-1"><strong>{{producto.nombre.toUpperCase()}} </strong> </p>
+              <div class="d-flex justify-content-between flex-wrap my-2">
+                <p class="card-text p-0 mx-2 mb-1"><strong>Precio: </strong>{{producto.precio.toLocaleString('en-US', {style:"currency", currency:"USD"})}}  </p>
+                <p class="p-0 mx-2 mb-0" :class="producto.stock > 5? 'card-text': 'colorRojo'"> <strong>Unidades disponibles:</strong> {{producto.stock}}</p>
+              </div>
             </div>
             <div class="d-flex justify-content-between flex-wrap">
-              <div @click="verDetallesProducto(producto.id)" class="d-flex z-1 hover-det"  >
+              <div @click="verDetallesProducto(producto.id)" class="ms-2 d-flex z-1 hover-det"  >
                 <img class="icono-card-prod" src="./assets/Imagenes/detalle.png" alt="">
                 <button class="card-text btn btn1 p-2" :id="producto.id+'Bot'">Ver detalles</button>
               </div>
-              <div class="d-flex">
-                <img class="icono-card-prod1" src="./assets/Imagenes/carrito.png" alt="">
-                <button class="card-text btn btn1 p-2"> Comprar</button>
+              <div class="ms-2 d-flex">
+                <img class="icono-card-prod1" src="./assets/Imagenes/carrito1.png" alt="">
+                <button class="card-text btn btn1 p-2">Agregar a carrito</button>
               </div>
             </div>
             <p :id="producto.id+'Desc'" class="prod-comprar">{{producto.descripcion}}</p>

@@ -26,6 +26,10 @@
     --font-color4:#06283D;
 }
 
+.colorRojo{
+    color: red;
+}
+
 .font1-color{
     color: var(--font-color1);
 }
