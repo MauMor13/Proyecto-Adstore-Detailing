@@ -22,11 +22,11 @@ public class Cliente {
     private String direccion;
     private String email;
     private String claveIngreso;
-    private int telefono;
+    private String telefono;
     @OneToOne(mappedBy = "cliente", fetch = FetchType.EAGER)
     private Cuenta cuenta;
 
-    public Cliente(String nombre, String apellido, String direccion, String email, String claveIngreso, int telefono) {
+    public Cliente(String nombre, String apellido, String direccion, String email, String claveIngreso, String telefono) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.direccion = direccion;
