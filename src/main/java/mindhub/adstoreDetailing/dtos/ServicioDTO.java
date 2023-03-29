@@ -17,6 +17,7 @@ public class ServicioDTO {
     private double precio;
     private Duration duracion;
     private String imagenURL;
+    private boolean activo;
 
     public ServicioDTO(Servicio servicio) {
         this.id = servicio.getId();
@@ -25,5 +26,6 @@ public class ServicioDTO {
         this.precio = servicio.getPrecio();
         this.duracion = servicio.getDuracion();
         this.imagenURL = servicio.getImagenURL();
+        this.activo = servicio.isActivo();
     }
 }

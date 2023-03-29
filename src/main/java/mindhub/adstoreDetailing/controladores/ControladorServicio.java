@@ -1,6 +1,9 @@
 package mindhub.adstoreDetailing.controladores;
 
+import mindhub.adstoreDetailing.dtos.ProductoACrearDTO;
+import mindhub.adstoreDetailing.dtos.ServicioACrearDTO;
 import mindhub.adstoreDetailing.dtos.ServicioDTO;
+import mindhub.adstoreDetailing.models.Categoria;
 import mindhub.adstoreDetailing.models.Producto;
 import mindhub.adstoreDetailing.models.Servicio;
 import mindhub.adstoreDetailing.servicios.ServicioServicio;
@@ -9,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Duration;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,8 +29,10 @@ public class ControladorServicio {
     public List<ServicioDTO> traerServicios() {
         return this.servicioServicio.findAllServicioDTO();
     }
+    @GetMapping("/servicios-activos")
+    public List<ServicioDTO> traerServiciosActivos(){return servicioServicio.findAllServiciosActivosDTO();}
     @PatchMapping("/modificar-servicio")
-    public ResponseEntity<Object> modificarServicio(@RequestBody Servicio servicio){
+    public ResponseEntity<Object> modificarServicio(@RequestBody ServicioDTO servicio){
 
         Optional<Servicio> servicioAModificar = this.servicioServicio.findById(servicio.getId());
 
@@ -59,5 +65,34 @@ public class ControladorServicio {
         modificadosSb.append(".");
         String modificaciones = modificadosSb.toString();
         return new ResponseEntity<>(modificaciones, HttpStatus.OK);
+    }
+    @PostMapping("/crear-servicio")
+    public ResponseEntity<Object> crearServicio(@RequestBody ServicioACrearDTO servicioACrearDTO) {
+        if (servicioACrearDTO.getPrecio() < 0) {
+            return new ResponseEntity<>("Ingrese Precio", HttpStatus.BAD_REQUEST);
+        }
+        if (servicioACrearDTO.getDescripcion() == null) {
+            return new ResponseEntity<>("Ingrese Descripción", HttpStatus.BAD_REQUEST);
+        }
+        if (servicioACrearDTO.getNombre() == null) {
+            return new ResponseEntity<>("Ingrese Nombre", HttpStatus.BAD_REQUEST);
+        }
+        if (servicioACrearDTO.getImagenURL() == null) {
+            return new ResponseEntity<>("Ingrese Imagen", HttpStatus.BAD_REQUEST);
+        }
+        if (servicioACrearDTO.getDuracion().compareTo(Duration.ofMinutes(5))>0){
+            return new ResponseEntity<>("Duración inválida", HttpStatus.BAD_REQUEST);
+        }
+
+       Servicio servicioCreado = new Servicio(
+               servicioACrearDTO.getNombre(),
+               servicioACrearDTO.getDescripcion(),
+               servicioACrearDTO.getPrecio(),
+               servicioACrearDTO.getDuracion(),
+               servicioACrearDTO.getImagenURL());
+
+        this.servicioServicio.guardar(servicioCreado);
+
+        return new ResponseEntity<>(servicioCreado, HttpStatus.CREATED);
     }
 }
