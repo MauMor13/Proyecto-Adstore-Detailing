@@ -26,7 +26,10 @@ public class ControladorProducto {
     public List<ProductoDTO> traerProductos() {
         return servicioProducto.findAllDTOs();
     }
-
+    @GetMapping("/productos-activos")
+    public List<ProductoDTO> productosActivosDTOs(){
+        return this.servicioProducto.findByActiveTrueDTO();
+    }
     @PatchMapping("/modificar-producto")
     public ResponseEntity<Object> modificarProducto(@RequestBody ProductoDTO producto) {
 
@@ -90,5 +93,21 @@ public class ControladorProducto {
         this.servicioProducto.guardar(productoCreado);
 
         return new ResponseEntity<>(productoCreado, HttpStatus.CREATED);
+    }
+
+    @PatchMapping("/deshabilitar-o-habilitar")
+    public ResponseEntity<Object> deshabilitarOHabilitar(@RequestParam Long id){
+
+        Optional<Producto> producto = servicioProducto.findById(id);
+
+        if(producto.isEmpty()){
+            return new ResponseEntity<>("Producto no encontrado", HttpStatus.BAD_REQUEST);
+        }
+
+        producto.get().setActivo(!producto.get().isActivo());
+
+        servicioProducto.guardar(producto.get());
+
+        return new ResponseEntity<>(producto.get().getNombre()+" "+"Producto activo: " + producto.get().isActivo(), HttpStatus.OK);
     }
 }

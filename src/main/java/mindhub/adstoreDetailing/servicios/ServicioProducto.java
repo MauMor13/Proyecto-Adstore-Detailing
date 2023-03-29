@@ -10,4 +10,6 @@ public interface ServicioProducto {
     List<ProductoDTO> findAllDTOs();
     Optional<Producto> findById(Long id);
     void guardar(Producto producto);
+    List<Producto> findByActiveTrue();
+    public List<ProductoDTO> findByActiveTrueDTO();
 }
