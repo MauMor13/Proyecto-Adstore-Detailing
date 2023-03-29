@@ -154,7 +154,7 @@
       </div>
 
       <div  class="fondo-categorias pb-2  mb-2 d-flex justify-content-evenly flex-wrap">
-        <template v-for="producto of productosFiltrados">
+        <template v-for="(producto, i) in productosFiltrados">
           <div class="my-3 mx-2 col-10 col-md-5 col-lg-4 col-xl-3 d-flex align-items-center justify-content-between flex-column prod-index py-4 px-2 ">
             <div class="fondo-producto d-flex justify-content-center align-items-center m-0 p-0 mb-2">
               <img :src="producto.imagenUrl" :id="producto.id+'Foto'" class="card-img-top m-0 img-producto" alt="producto.nombre">
@@ -171,9 +171,10 @@
                 <img class="icono-card-prod" src="./assets/Imagenes/detalle.png" alt="">
                 <button class="card-text btn btn1 p-2" :id="producto.id+'Bot'">Ver detalles</button>
               </div>
+
               <div class="ms-2 d-flex z-1">
-                <img class="icono-card-prod1" src="./assets/Imagenes/carrito1.png" alt="">
-                <button class="card-text btn btn1 p-2">Agregar a carrito</button>
+                <img class="icono-card-prod1" src="./assets/Imagenes/carrito.png" alt="">
+                <button class="card-text btn btn1 p-2" @Click="agregarACarrito(producto.id, 1)">Agregar a carrito</button>
               </div>
             </div>
             <p :id="producto.id+'Desc'" class="prod-comprar">{{producto.descripcion}}</p>
@@ -201,7 +202,8 @@
                   </div>
                 </div> -->
         </template>    
-      </div>      
+      </div>  
+      {{compra}}    
     </main>
 
     <!--Footer-->

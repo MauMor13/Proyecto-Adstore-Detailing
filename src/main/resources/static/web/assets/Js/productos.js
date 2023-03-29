@@ -9,6 +9,11 @@ createApp({
             productosFiltrados: [],
             checked:[],
             inputBusqueda:"",
+            compra:{
+                productos:[],
+                servicios:[]
+            },
+            cantidad:[]
             errorEncontrado: false,
             registrado: false,
             nombre: "",
@@ -26,7 +31,7 @@ createApp({
 
     created(){
         this.cargarDatos();
-
+        this.guardarLocalStorage();
         // this.cargarDatosCliente();
 
     },
@@ -95,6 +100,28 @@ createApp({
                 this.productosFiltrados = filtroCheck 
         } 
         },
+
+        guardarLocalStorage(){
+            if(localStorage.getItem("compra") == null){
+                localStorage.setItem("compra", JSON.stringify(this.compra))
+            }
+            console.log(this.compra)
+        },
+        agregarACarrito(idSeleccion, cantidad){
+            this.compra = JSON.parse(localStorage.getItem("compra"))
+            let productoEnCarro = this.compra.productos.find(element => element.id == idSeleccion)
+            if(productoEnCarro != null){
+                productoEnCarro.cantidad += cantidad
+            }
+            else{
+                let objeto = {id: 0, cantidad: 0};
+                objeto.id = idSeleccion
+                objeto.cantidad = cantidad
+                this.compra.productos.push(objeto)
+            }
+            localStorage.setItem("compra",JSON.stringify(this.compra))
+        }
+
          //Generar registro
         realizarRegistro: function(){
             axios.post('/api/registrar', {nombre: this.nombre, apellido: this.apellido, email: this.email, claveIngreso: this.contra, direccion: this.direccion, telefono: this.telefono,})
@@ -151,8 +178,6 @@ createApp({
                 form.classList.remove('girarLogin');
             }
         },
-
-
 
     },
 
