@@ -53,7 +53,7 @@ createApp({
                 foto.style.scale = "0.6"
                 foto.style.translate = "0 -20%"
                 telon.style.translate = "0 0"
-                desc.style.translate = "0 1rem"
+                desc.style.translate = "0 0"
                 desc.style.opacity = "1"
                 desc.style.zIndex = "1"
                 boton.innerText = "Volver"
