@@ -4,8 +4,20 @@ createApp({
     
     data(){
         return{
+            cliente: undefined,
             mensajes: [" UN SERVICIO DE CALIDAD...", "VOS Y TU VEHICULO LO MERECEN...", " VIVI LA EXPERCIENCIA ! !"],
             textoDinamico: "",
+            errorEncontrado: false,
+            registrado: false,
+            nombre: "",
+            apellido: "",
+            email: "",
+            contra: "",
+            direccion: "",
+            telefono: "",
+            emailInicioSesion: undefined,
+            contraInicioSesion: undefined,
+
         }
     },
 
@@ -17,9 +29,76 @@ createApp({
         window.addEventListener('scroll', this.scrollFunction);
         this.controlCarrusel();
         this.administraAsincronas();
+        this.cargarDatos();
     },
 
     methods: {
+
+        //PARA LA CARGA DE DATOS
+        cargarDatos: function(){
+            axios.get('/api/cliente')
+                .then(respuesta => {
+                    this.cliente = respuesta.data;
+                })
+                .catch(err => console.error(err.message));
+        },
+
+        //Generar registro
+        realizarRegistro: function(){
+            axios.post('/api/registrar', {nombre: this.nombre, apellido: this.apellido, email: this.email, claveIngreso: this.contra, direccion: this.direccion, telefono: this.telefono,})
+                .then(response => {
+                    console.log('registrado');
+
+                    this.emailInicioSesion = this.email;
+                    this.contraInicioSesion = this.contra;
+
+                    this.errorEncontrado = false;
+                    this.nombre = "";
+                    this.apellido = "";
+                    this.email = "";
+                    this.contra = "";
+                    this.direccion = "",
+                    this.registro = "",
+
+                    this.iniciarSesion();
+                })
+                .catch(err => {
+                    this.errorEncontrado = true;
+                    console.error([err]);
+                    let spanError = document.querySelector('.mensaje-error-registro');
+                    spanError.innerHTML = err.response.data;
+                    
+                    if(err.response.data.includes('Email ya registrado')){
+                        this.email = "";
+                        this.contra = "";
+                    }                    
+                })
+            
+        },
+
+        iniciarSesion: function(){
+            axios.post('/api/login',`email=${this.emailInicioSesion}&claveIngreso=${this.contraInicioSesion}`,{headers:{'content-type':'application/x-www-form-urlencoded'}})
+                .then(response => {
+                    console.log('inicio sesion!');
+                    this.cargarDatos();
+                })
+                .catch(err => {
+                    console.error(err.message);
+                    console.error(err.response);
+                    this.errorEncontrado = true;
+                });
+        },
+
+
+        loginRegistro: function (value) {
+            let form = document.querySelector('.card-3d-wrapper');
+            if (value == 'registro') {
+                form.classList.add('girarLogin');
+            }
+            else if (value == 'login') {
+                form.classList.remove('girarLogin');
+            }
+        },
 
         scrollFunction() {
 
@@ -29,8 +108,12 @@ createApp({
 
             if (document.body.scrollTop > fotos.clientHeight - nav.clientHeight / 2 || document.documentElement.scrollTop > fotos.clientHeight - nav.clientHeight / 2|| window.pageYOffset > fotos.clientHeight - nav.clientHeight / 2) {
                 nav.style.backgroundColor = "black";  
+                icono.style.height = "5rem";
+                icono.src = "../web/assets/Imagenes/iconoFondoNegroPNG.png"
             } else {
                 nav.style.backgroundColor = "transparent";
+                icono.style.height = "10rem"
+                icono.src = "../web/assets/Imagenes/PNG9.png"
             }
 
             if(icono.scrollTop == nav.scrollTop){

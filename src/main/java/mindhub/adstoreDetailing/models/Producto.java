@@ -21,11 +21,12 @@ public class Producto {
     private String nombre;
     private double precio;
     private int stock;
-    @Column(name = "description", columnDefinition = "VARCHAR(500)")
+    @Lob
     private String descripcion;
     private String imagenUrl;
     private Categoria categoria;
-    @OneToMany(mappedBy = "producto",fetch = FetchType.EAGER)
+    private boolean activo;
+    @OneToMany(mappedBy = "producto", fetch = FetchType.EAGER)
     private Set<CompraProducto> compraProducto = new HashSet<>();
 
     public Producto(String nombre, double precio, int stock, String descripcion, String imagenUrl, Categoria categoria) {
@@ -35,5 +36,6 @@ public class Producto {
         this.descripcion = descripcion;
         this.imagenUrl = imagenUrl;
         this.categoria = categoria;
+        this.activo = true;
     }
 }

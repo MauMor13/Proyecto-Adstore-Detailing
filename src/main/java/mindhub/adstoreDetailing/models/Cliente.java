@@ -1,5 +1,6 @@
 package mindhub.adstoreDetailing.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,24 +9,24 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Getter
-    @Setter
-    @NoArgsConstructor
-    @Entity
-    public class Cliente {
-        @Id
-        @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cliente_seq")
-        @SequenceGenerator(name = "cliente_seq", sequenceName = "cliente_id_seq", allocationSize = 1)
-        private long id;
-        private String nombre;
-        private String apellido;
-        private String direccion;
-        private String email;
-        private String claveIngreso;
-        private int telefono;
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "cuenta_id")
+@Setter
+@NoArgsConstructor
+@Entity
+public class Cliente {
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cliente_seq")
+    @SequenceGenerator(name = "cliente_seq", sequenceName = "cliente_id_seq", allocationSize = 1)
+    private long id;
+    private String nombre;
+    private String apellido;
+    private String direccion;
+    private String email;
+    private String claveIngreso;
+    private String telefono;
+    @OneToOne(mappedBy = "cliente", fetch = FetchType.EAGER)
     private Cuenta cuenta;
-    public Cliente(String nombre, String apellido, String direccion, String email, String claveIngreso, int telefono) {
+
+    public Cliente(String nombre, String apellido, String direccion, String email, String claveIngreso, String telefono) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.direccion = direccion;

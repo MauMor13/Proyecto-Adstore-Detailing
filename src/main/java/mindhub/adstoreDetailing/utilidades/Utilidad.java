@@ -1,6 +1,10 @@
 package mindhub.adstoreDetailing.utilidades;
-import mindhub.adstoreDetailing.repositorios.RepositorioCuenta;
-import mindhub.adstoreDetailing.repositorios.RepositorioTarjetaAd;
+import mindhub.adstoreDetailing.models.*;
+import mindhub.adstoreDetailing.repositorios.*;
+import org.springframework.boot.autoconfigure.rsocket.RSocketProperties;
+
+import java.time.LocalDateTime;
+import java.util.List;
 
 public class Utilidad {
     public static String generarNumeroCuenta(RepositorioCuenta repositorioCuenta){
@@ -27,5 +31,19 @@ public class Utilidad {
     }
     public static int numeroAleatorioTarjeta(){
         return (int) (Math.random() * (99999));
+    }
+    public static void crearCompraPoducto(Compra compra, List<Producto> producto, RepositorioCompraProducto repositorioCompraProducto, RepositorioCompra repositorioCompra){
+        for (int i=0;i<producto.size();i++){
+            CompraProducto nuevaCompraProducto = new CompraProducto(compra, producto.get(i),1);
+            repositorioCompraProducto.save(nuevaCompraProducto);
+            repositorioCompra.save(compra);
+        }
+    }
+    public static void crearCompraServicio(Compra compra, List<Servicio> servicio, RepositorioCompraServicio repositorioCompraServicio,RepositorioCompra repositorioCompra){
+        for (int i=0;i<servicio.size();i++){
+            CompraServicio nuevaCompraServicio = new CompraServicio(compra, servicio.get(i), LocalDateTime.now());
+            repositorioCompraServicio.save(nuevaCompraServicio);
+            repositorioCompra.save(compra);
+        }
     }
 }

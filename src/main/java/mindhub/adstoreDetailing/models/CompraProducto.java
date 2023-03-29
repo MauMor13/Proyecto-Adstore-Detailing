@@ -22,9 +22,11 @@ public class CompraProducto {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "producto_id")
     private Producto producto;
-    public CompraProducto(double precio, double montoTotal, int cantidad) {
-        this.precio = precio;
-        this.montoTotal = montoTotal;
+    public CompraProducto(Compra compra, Producto producto, int cantidad) {
+        this.precio = producto.getPrecio();
+        this.montoTotal = producto.getPrecio() * cantidad;
         this.cantidad = cantidad;
+        this.producto = producto;
+        this.compra = compra;
     }
 }

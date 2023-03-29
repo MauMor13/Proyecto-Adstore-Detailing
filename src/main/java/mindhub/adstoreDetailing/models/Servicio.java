@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 import javax.persistence.*;
 import java.time.Duration;
 import java.util.HashSet;
@@ -19,11 +20,13 @@ public class Servicio {
     @SequenceGenerator(name = "servicio_seq", sequenceName = "servicio_id_seq", allocationSize = 1)
     private long id;
     private String nombre;
+    @Lob
     private String descripcion;
     private double precio;
     private Duration duracion;
     private String imagenURL;
-    @OneToMany(mappedBy = "servicio",fetch = FetchType.EAGER)
+    private boolean activo;
+    @OneToMany(mappedBy = "servicio", fetch = FetchType.EAGER)
     private Set<CompraServicio> compraServicio = new HashSet<>();
 
     public Servicio(String nombre, String descripcion, double precio, Duration duracion, String imagenURL) {
@@ -32,5 +35,6 @@ public class Servicio {
         this.precio = precio;
         this.duracion = duracion;
         this.imagenURL = imagenURL;
+        this.activo = true;
     }
 }
