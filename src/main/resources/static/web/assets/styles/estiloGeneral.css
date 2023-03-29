@@ -312,3 +312,7 @@ transform: rotateY(180deg);
     z-index: 2;
     cursor: pointer;
 }
+
+.modales-fondo{
+    background: #f7ba24;
+}

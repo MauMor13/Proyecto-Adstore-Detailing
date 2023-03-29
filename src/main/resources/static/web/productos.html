@@ -105,49 +105,56 @@
           <div class="modal-content modales-fondo">
             <div class="modal-header">
               <h1 class="modal-title fs-4">Productos a facturar</h1>
+              <img class="ms-4 w-25" src="./assets/Imagenes/PNG3.png" alt="logo">
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div class="p-2 form-1">
-                    <table class="text-center">
+                    <table class="text-center w-100">
                       <tbody>
                         <!-- <template> v-if="compra.servicios.length"  -->
                           <tr>
-                            <th>Servicios</th> 
+                            <th colspan="3" class="text-start">Servicios</th> 
                           </tr>
-                          <tr>
-                            <td><span class="mx-2">Lavado Basico</span></td>
-                            <td>
+                          <tr class="w-100">
+                            <td class="col-6 text-start"><span class="mx-2">Lavado Basico</span></td>
+                            <td class="col-3">
                               <i class="fa-solid fa-minus me-2" style="color: #000000;"></i>
                               6
                               <i class="fa-solid fa-plus ms-2" style="color: #000000;"></i>
                             </td>
-                            <td>5000 * 6</td>
+                            <td class="col-3">5000 * 6</td>
                           </tr>
                         <!-- </template> -->
 
                         <!-- <template> v-if="compra.productos.length"  -->
                           <tr>
-                            <th>Productos</th> 
+                            <th colspan="3" class="text-start">Productos</th> 
                           </tr>
-                          <tr>
-                            <td><span class="mx-2">Guante de Lavado</span></td>
-                            <td>
+                          <tr class="w-100">
+                            <td class="col-6 text-start"><span class="mx-2">Guante de Lavado</span></td>
+                            <td class="col-3">
                               <i class="fa-solid fa-minus me-2" style="color: #000000;"></i> <!--suma una unidad-->
                               2
                               <i class="fa-solid fa-plus ms-2" style="color: #000000;"></i>  <!--resta una unidad-->
                             </td>
-                            <td>4650 * 2</td>
+                            <td class="col-3">4650 * 2</td>
                           </tr>
                         <!-- </template> -->
                        
                       </tbody>
                       <tfoot>
                         <tr>
-                          <td class="d-flex justify-content-between">
-                            <span>total</span>
-                            <span> Suma total de las dos unidades</span>
-                          </td>
+                          <th colspan="2" class="text-start">
+                            <span>Total</span>
+                          </th>
+                          <th>
+                            <span class=""> Suma total</span>
+                          </th>
+                          <th class="text-start d-flex justify-content-between w-100 row" colspan="3">
+                            
+                            
+                          </th>
                         </tr>
                       </tfoot>
                     </table>
@@ -155,9 +162,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button @click="crearCliente()" type="button" class="btn btn-secondary">Crear
-                    Cliente</button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button @click="" type="button" class="btn btn-secondary bg-black">Proceder al Pago</button>
+                <button type="button" class="btn btn-secondary bg-black" data-bs-dismiss="modal">Cerrar</button>
             </div>
            </div>
         </div>
