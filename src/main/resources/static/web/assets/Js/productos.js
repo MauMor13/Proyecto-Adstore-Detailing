@@ -9,13 +9,13 @@ createApp({
             productosFiltrados: [],
             checked:[],
             inputBusqueda:"",
-
         }
     },
 
+
     created(){
         this.cargarDatos();
-        this.cargarDatosCliente();
+        // this.cargarDatosCliente();
     },
 
     mounted(){
@@ -76,7 +76,7 @@ createApp({
         busquedaCruzada: function(){
             let filtroInput = this.productos.filter( producto => producto.nombre.toLowerCase().includes( this.inputBusqueda.toLowerCase()))
             if( this.checked.length === 0 ){
-                this.productosFiltrados = filterBySearch
+                this.productosFiltrados = filtroInput
             }else{
                 let filtroCheck = filtroInput.filter( categoria => this.checked.includes( categoria.categoria ))
                 this.productosFiltrados = filtroCheck 
