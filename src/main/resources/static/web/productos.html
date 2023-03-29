@@ -139,7 +139,7 @@
 
         <div class="d-flex align-content-center flex-wrap align-items-center m-0 my-3 p-0 gap-3 categorias justify-content-center">
           <div class="check m-3"  id="checkCategory">
-            <label v-if="categorias" class="btn ms-3 me-2 btn-warning" v-for="categoria of categorias">
+            <label v-if="categorias" class="btn ms-3 me-2 btn-primary" v-for="categoria of categorias">
               <input type="checkbox"  v-model="checked" class="btn-check" autocomplete="off" @change="busquedaCruzada" :value="categoria" autocomplete="off"> {{categoria}}
             </label>
           </div>
@@ -153,7 +153,7 @@
       </div>
 
       <div  class="fondo-categorias   pb-2  mb-2 d-flex justify-content-evenly flex-wrap">
-        <template v-for="producto of productos">
+        <template v-for="producto of productosFiltrados">
           <div class="my-3 mx-2 col-10 col-md-5 col-lg-4 col-xl-3 d-flex align-items-center justify-content-end flex-column prod-index py-4 px-2">
             <div class="fondo-producto d-flex justify-content-center align-items-center m-0 p-0">
               <img src="./assets/Imagenes/cera.png " :id="producto.id+'Foto'" class="card-img-top m-0 img-producto" alt="producto.nombre">
