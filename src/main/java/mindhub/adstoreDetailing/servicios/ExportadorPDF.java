@@ -63,8 +63,9 @@ public class ExportadorPDF {
         table.addCell(cell);
     }
     private void writeTableHeaderProductos(PdfPTable table){
+        Color amarilloAdstore = new Color(245,184,37);
         PdfPCell cell = new PdfPCell();
-        cell.setBackgroundColor(Color.yellow);
+        cell.setBackgroundColor(amarilloAdstore);
         cell.setPadding(5);
 
         Font font = FontFactory.getFont(FontFactory.HELVETICA);
@@ -80,8 +81,9 @@ public class ExportadorPDF {
         table.addCell(cell);
     }
     private void writeTableHeaderServicios(PdfPTable table){
+        Color amarilloAdstore = new Color(245,184,37);
         PdfPCell cell = new PdfPCell();
-        cell.setBackgroundColor(Color.yellow);
+        cell.setBackgroundColor(amarilloAdstore);
         cell.setPadding(5);
 
         Font font = FontFactory.getFont(FontFactory.HELVETICA);
@@ -141,8 +143,34 @@ public class ExportadorPDF {
 
             Image image = Image.getInstance("src/main/resources/static/web/assets/Imagenes/PNG9.png");
             image.scalePercent(25F, 25F);
-            image.setAlignment( Image.ALIGN_TOP | Image.ALIGN_MIDDLE);
-            document.add(image);
+//            image.setAlignment( Image.ALIGN_TOP | Image.ALIGN_MIDDLE);
+//            document.add(image);
+
+            StringBuilder sb = new StringBuilder();
+            sb.append("Adstore Detailing\n");
+            sb.append("Pedro Carta Molina 650, X5016 Córdoba\n");
+            sb.append("0351 319-3271");
+
+            // Create a paragraph object
+            Paragraph paragraph = new Paragraph(sb.toString(), FontFactory.getFont(FontFactory.HELVETICA, 16, Font.BOLDITALIC));
+
+            // Create a table with two columns
+            PdfPTable headerTable = new PdfPTable(2);
+            headerTable.setWidthPercentage(100);
+
+            // Add the image to the left column
+            PdfPCell cell = new PdfPCell(image);
+            cell.setBorder(0);
+            headerTable.addCell(cell);
+
+            // Add the paragraph to the right column
+            cell = new PdfPCell(paragraph);
+            cell.setBorder(0);
+            headerTable.addCell(cell);
+
+            // Add the table to the PDF document
+            document.add(headerTable);
+
 
             if (!compra.getCompraProductos().isEmpty()){
                 PdfPTable tablaProductos = new PdfPTable(3);
@@ -163,7 +191,12 @@ public class ExportadorPDF {
                 document.add(tablaServicios);
             }
 
-            document.add(new Paragraph("Monto Total: $"+ compra.getMontoFinal()));
+            // Create a font object with underline
+            Font fontUnderline = FontFactory.getFont(FontFactory.HELVETICA, 14, Font.UNDERLINE);
+            Paragraph montoTotal = new Paragraph("Monto Total: $"+ compra.getMontoFinal(), fontUnderline);
+            montoTotal.setAlignment(Element.ALIGN_RIGHT);
+
+            document.add(montoTotal);
 
 
             document.addTitle("facturaAdstore");
