@@ -22,8 +22,12 @@ createApp({
             contra: "",
             direccion: "",
             telefono: "",
+            numTarjeta:undefined,
+            saldo:undefined,
             emailInicioSesion: undefined,
             contraInicioSesion: undefined,
+            productos:[],
+            servicios:[]
 
         }
     },
@@ -49,13 +53,14 @@ createApp({
                     console.log(this.cliente)
                     this.direccion = this.cliente.direccion
                     this.telefono = this.cliente.telefono
-                    console.log(this.direccion, this.telefono)
+                    this.numTarjeta = this.cliente.cuenta.tarjetaAd.numeroTarjeta
+                    this.saldo = this.cliente.cuenta.saldo
                 })
                 .catch(err => console.error(err.message));
         },
 
         cargarDatos: function(){
-            axios.get('/api/productos-activos')
+            axios.get('/api/productos')
                 .then(respuesta => {
                     this.productos = respuesta.data.map(producto => ({... producto}));
                     this.productosFiltrados = respuesta.data;
@@ -116,7 +121,7 @@ createApp({
             this.compra = JSON.parse(localStorage.getItem("compra"))
             let productoEnCarro = this.compra.productos.find(element => element.id == idSeleccion)
             if(productoEnCarro != null){
-                if(productoEnCarro.cantidad == this.productos.find(element => element.id == productoEnCarro.id).stock){
+                if(productoEnCarro.cantidad == this.compra.productos.find(element => element.id == productoEnCarro.id).stock){
                     Swal.fire({
                         customClass: 'modal-sweet-alert',
                         title: 'Lo sentimos',
@@ -135,6 +140,8 @@ createApp({
                 objeto.cantidad = cantidad
                 this.compra.productos.push(objeto)
             }
+            this.productos = this.compra.productos
+            console.log(this.productos)
             localStorage.setItem("compra",JSON.stringify(this.compra))
         },
 
