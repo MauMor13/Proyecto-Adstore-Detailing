@@ -10,11 +10,11 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 public class PedidoCompraDTO {
-    private List<Arrays> productos;
-    private List<Arrays> servicios;
+    private List<PedidoProductoDTO> productos;
+    private List<PedidoServicioDTO> servicios;
     private LocalDateTime fechaServicio;
 
-    public PedidoCompraDTO(List<Arrays> productos, List<Arrays> servicios, LocalDateTime fechaServicio) {
+    public PedidoCompraDTO(List<PedidoProductoDTO> productos, List<PedidoServicioDTO> servicios, LocalDateTime fechaServicio) {
         this.productos = productos;
         this.servicios = servicios;
         this.fechaServicio = fechaServicio;
