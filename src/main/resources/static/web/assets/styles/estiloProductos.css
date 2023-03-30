@@ -68,21 +68,6 @@ body{
     background-size: cover!important;
     background-position: top; */
 }
-.categoria{
-    text-decoration: none;
-    padding: 4px 6px;
-    color: rgb(255, 255, 255);
-    margin: 0 1.7rem;
-}
-.categoria:hover{
-    text-decoration: none;
-    padding: 4px 6px;
-    color: black;
-    background-image: linear-gradient(#f7bb2471, #f7bb246f),url("../Imagenes/fondoAmarillo.jpg")!important;
-    background-size: cover!important;
-    background-position: top;
-    margin: 0 2rem;
-}
 .filtro-productos{
     padding: 0;
     margin: 0;
