@@ -120,6 +120,7 @@ createApp({
         agregarACarrito(idSeleccion, cantidad){
             this.compra = JSON.parse(localStorage.getItem("compra"))
             let productoEnCarro = this.compra.productos.find(element => element.id == idSeleccion)
+            console.log(productoEnCarro)
             if(productoEnCarro != null){
                 if(productoEnCarro.cantidad == this.compra.productos.find(element => element.id == productoEnCarro.id).stock){
                     Swal.fire({
