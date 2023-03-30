@@ -18,7 +18,6 @@ import static mindhub.adstoreDetailing.utilidades.Utilidad.*;
 public class AdstoreDetailingApplication {
     @Autowired
     private PasswordEncoder passwordEncoder;
-
     public static void main(String[] args) {
         SpringApplication.run(AdstoreDetailingApplication.class, args);
     }
