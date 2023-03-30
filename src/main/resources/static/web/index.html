@@ -133,6 +133,7 @@
                     <td class="fuente-poppins"  v-cloak>Tarjeta No.</td>
                     <td class="fuente-poppins"  v-cloak>000 </td>
                   </tr>
+                  <button @Click="logOut">Log out</button>
                 </tbody>
               </table>
 
@@ -155,7 +156,7 @@
       </button>
 
       <!-- contenedor About US -->
-      <div  class="aboutus mb-lg-3  fuente-poppins">
+      <div  class="aboutus mb-lg-5 fuente-poppins">
         <h3 class="fuente-audiowide">SOBRE NOSOTROS...</h3>
         <p>AdStore Detailing nació de un grupo de amigos apasionados por los vehículos. Tenemos un firme convencimiento de que tu auto es más que un simple medio de transporte. Es una expresión de tu estilo personal y tu pasión por la conducción. Es por eso que ofrecemos servicios de primera categoría para mejorar la apariencia de tu vehículo y hacer que se vea como nuevo. Nos enorgullecemos de brindar los productos de más alta calidad necesarios para mantener en las mejores condiciones ese auto que tanto quieres.</p>
         <p class="fuente-poppins">Somos mucho mas que un simple lavadero de autos. Somos AdStore Detailing y te invitamos a que... ¡Vivas la experiencia!</p>
@@ -171,7 +172,8 @@
               <li><p>Una vez registrado tendras una cuenta asociada con la cual podras realizar tus pagos.</p></li>
               <li><p>Dicha cuenta contará con una tarjeta de tu propiedad para que puedas utilizar todo lo que te brindamos.</p></li>
             </ul>
-            <div class="d-flex mb-2">
+
+            <div class="d-flex mb-2 ">
               <div class="d-flex justify-content-between flex-column my-lg-4 w-100 flex-wrap">
                 <span class="me-5 mb-3 pb-0">¡Comienza a ser VIP! <i class="fa-solid fa-right-long fa-lg" style="color: #f7ba24;"></i></span>
                 <span class="me-5 mb-3 ">
@@ -229,7 +231,7 @@
       </div>
       <!--  fin contenedor productos -->
       <!--  inicio contenedor servicios -->
-      <div class="contenedor-servicios mt-lg-5 d-flex">
+      <div class="contenedor-servicios d-flex">
         <div class="d-flex flex-column flex-lg-row">
           <div>
             <h1 class="titulo-servicio"> CONOCE NUESTROS SERVICIOS</h1>
@@ -255,8 +257,8 @@
               </div>
             </div>
           </div>
-          <div class=" d-md-flex justify-content-end">
-            <img src="./assets/Imagenes/servicios.png" class="img-servicio ms-md-0 ms-3" alt="">
+          <div>
+            <img src="./assets/Imagenes/servicios.png" class="img-servicio" alt="">
           </div>
         </div>
         
@@ -265,7 +267,7 @@
       </div>
 
       <!--  Inicio div marcas -->
-      <section class="z-0 d-flex flex-column justify-content-center align-items-center flex-wrap marcas-index mb-0 mt-lg-5 mt-2 p-2">
+      <section class="z-0 d-flex flex-column justify-content-center align-items-center flex-wrap marcas-index my-lg-5 p-2">
         <h2 class="font2-color fuente-audiowide text-uppercase">Nuestras marcas, satisfacción garantizada</h2>
         <p class="font1-color" style="font-family: 'Poppins', sans-serif;">Utilizamos solo los mejores productos para tu vehículo. Utilizamos marcas avaladas por una larga trayectoria y una intachable reputación.</p>
         <div class="w-100 justify-content-around d-flex align-items-center gap-3">
@@ -277,8 +279,10 @@
       </section>
       <!--  Fin div marcas -->
 
+
+
       <!--  Inicio carrusel experiencias -->
-      <div class="carrusel-exp d-flex justify-content-center z-0 mt-0 mb-lg-3 mt-lg-2">
+      <div class="carrusel-exp d-flex justify-content-center z-0 my-lg-5">
         <div id="carouselExampleSlidesOnly" class="carousel col-lg-10 slide w-100" data-bs-ride="carousel">
           <div class="carousel-inner">
 
@@ -384,7 +388,7 @@
                                                             <input type="password" name="logpass" class="form-style" placeholder="Contraseña" id="logpass" autocomplete="off" v-model="contraInicioSesion" @keyup.enter="loginWithEnter()" required>
                                                             <i class="input-icon uil uil-lock-alt"></i>
                                                         </div>
-                                                        <span @click="iniciarSesion()" data-bs-dismiss="modal" class="submit btn mt-4 categoria font1-color">Enviar</span>
+                                                        <span @click="iniciarSesion()" class="submit btn mt-4 categoria font1-color" data-bs-dismiss="modal">Enviar</span>
                                                         <p v-if="errorEncontrado" class="mb-0 mt-4 text-center red-color">⋆ El email o la contraseña no son correctos</p>
                                                     </div>
                                                 </div>
@@ -417,7 +421,7 @@
                                                           <input type="text" name="logpass" class="form-style form-style-signup" placeholder="Teléfono" id="signtel" autocomplete="off" v-model="telefono" required>
                                                           <i class="input-icon uil uil-lock-alt"></i>
                                                         </div>
-                                                        <p @click="realizarRegistro()" data-bs-dismiss="modal" class="submit btn categoria mt-4">Enviar</p>
+                                                        <p @click="realizarRegistro()" class="submit btn categoria mt-4">Enviar</p>
                                                         <p v-show="errorEncontrado" class="mb-0 mt-2 text-center red-color mensaje-error-registro"></p>
                                                     </div>
                                                 </div>
@@ -493,7 +497,7 @@
 
     </footer>
     <section class=" d-flex justify-content-center copyright mb-0">
-      <p class="fuente-poppin"><i class="fas align-items-center mt-3 fa-copyright"></i> <strong>&nbsp;2023-Copyright Adstore-Cohorte 41</strong></p>
+      <p class="fuente-poppins"><i class="fas align-items-center mt-3 fa-copyright"></i> <strong>&nbsp;2023-Copyright Adstore-Cohorte 41</strong></p>
     </section>
   </div>
 
