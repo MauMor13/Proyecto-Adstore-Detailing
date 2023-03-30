@@ -14,6 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.Optional;
+
 import static java.util.stream.Collectors.toList;
 @RestController
 @RequestMapping("/api")
@@ -89,4 +91,47 @@ public class ControladorCliente {
         repositorioTarjetaAd.save(nuevaTarjeta);
         return new ResponseEntity<>(nuevoCliente,HttpStatus.CREATED);
     }
+    @PatchMapping("/modificar-cliente")
+    public ResponseEntity<Object> modificarCliente(@RequestBody ClienteDTO clienteDTO){
+
+        if(clienteDTO.getId()<0){
+            return new ResponseEntity<>("Id inválido", HttpStatus.FORBIDDEN);
+        }
+        Optional<Cliente> cliente = this.servicioCliente.findById(clienteDTO.getId());
+
+        if(cliente.isEmpty()){
+            return new ResponseEntity<>("Cliente no encontrado", HttpStatus.FORBIDDEN);
+        }
+
+        StringBuilder modificadosSb = new StringBuilder().append("Se modificó: ");
+
+        if(clienteDTO.getNombre()!=null){
+            cliente.get().setNombre(clienteDTO.getNombre());
+            modificadosSb.append("nombre, ");
+        }
+        if(clienteDTO.getApellido()!=null){
+            cliente.get().setApellido(clienteDTO.getApellido());
+            modificadosSb.append("apellido, ");
+        }
+        if(clienteDTO.getEmail()!=null){
+            cliente.get().setEmail(clienteDTO.getEmail());
+            modificadosSb.append("email, ");
+        }
+        if(clienteDTO.getDireccion()!=null){
+            cliente.get().setDireccion(clienteDTO.getDireccion());
+            modificadosSb.append("dirección, ");
+        }
+        if(clienteDTO.getTelefono()!=null){
+            cliente.get().setTelefono(clienteDTO.getTelefono());
+            modificadosSb.append("teléfono, ");
+        }
+
+        this.servicioCliente.guardar(cliente.get());
+
+        modificadosSb.delete(modificadosSb.length()-2,modificadosSb.length());
+        modificadosSb.append(".");
+        String modificaciones = modificadosSb.toString();
+        return new ResponseEntity<>(modificaciones, HttpStatus.OK);
+    }
+
 }

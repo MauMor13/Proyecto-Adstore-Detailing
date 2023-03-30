@@ -27,7 +27,10 @@ createApp({
             emailInicioSesion: undefined,
             contraInicioSesion: undefined,
             productos:[],
-            servicios:[]
+            servicios:[],
+            productosNombre:"",
+            servicioNombre:"",
+            servicio:""
 
         }
     },
@@ -37,6 +40,7 @@ createApp({
         this.cargarDatos();
         this.guardarLocalStorage();
         this.cargarDatosCliente();
+        this.cargarDatosServicios();
         // this.cargarDatosCliente();
 
     },
@@ -46,6 +50,12 @@ createApp({
     },
 
     methods:{
+        logout() {
+            axios.post('/api/logout')
+            .then(res =>{
+                window.location.href = "/web/index.html"
+            })
+        },
         cargarDatosCliente: function(){
             axios.get('/api/cliente')
                 .then(respuesta => {
@@ -58,15 +68,22 @@ createApp({
                 })
                 .catch(err => console.error(err.message));
         },
+        
 
         cargarDatos: function(){
             axios.get('/api/productos')
                 .then(respuesta => {
                     this.productos = respuesta.data.map(producto => ({... producto}));
+                    this.productoNombre=this.productos.filter(producto => producto.nombre)
                     this.productosFiltrados = respuesta.data;
                     this.categorias =[... new Set(this.productos.map(producto => producto.categoria))];
-                    console.log(this.productos);
-                    console.log(this.categorias);
+                })
+        },
+        cargarDatosServicios: function(){
+            axios.get('/api/servicios')
+                .then(respuesta => {
+                    this.servicios = respuesta.data.map(servicio => ({... servicio}));
+                    this.servicioNombre=this.servicios.filter(servicio => servicio.nombre)
                 })
         },
 
@@ -110,12 +127,49 @@ createApp({
                 this.productosFiltrados = filtroCheck 
         } 
         },
+        limpiarCarrito(){
+            localStorage.clear()
+            this.compra={
+                productos:[],
+                servicios:[]
+            }
+        },
 
         guardarLocalStorage(){
             if(localStorage.getItem("compra") == null){
                 localStorage.setItem("compra", JSON.stringify(this.compra))
             }
-            console.log(this.compra)
+        },
+        sumarUnidad(productoId,cantidad){
+            this.compra = JSON.parse(localStorage.getItem("compra"))
+            let productoEnCarro = this.compra.productos.find(element => element.id == productoId)
+            if(productoEnCarro != null){
+                if(productoEnCarro.cantidad == this.compra.productos.find(element => element.id == productoEnCarro.id).stock){
+                    Swal.fire({
+                        customClass: 'modal-sweet-alert',
+                        title: 'Lo sentimos',
+                        text: "No hay más stock disponible",
+                        icon: 'warning',
+                        confirmButtonColor: '#f7ba24',
+                        confirmButtonText: 'Aceptar'
+                    })
+                }
+                else{
+                productoEnCarro.cantidad += cantidad
+            }}
+            this.productos = this.compra.productos
+            localStorage.setItem("compra",JSON.stringify(this.compra))
+        },
+        restarUnidad(productoId, cantidad){
+            this.compra = JSON.parse(localStorage.getItem("compra"))
+            let productoEnCarro = this.compra.productos.find(element => element.id == productoId)
+            if( productoEnCarro == 0){
+                productoEnCarro == 0
+                }else{
+                    productoEnCarro.cantidad -= cantidad  
+                }
+            this.productos = this.compra.productos
+            localStorage.setItem("compra",JSON.stringify(this.compra))
         },
         agregarACarrito(idSeleccion, cantidad){
             this.compra = JSON.parse(localStorage.getItem("compra"))
@@ -142,7 +196,6 @@ createApp({
                 this.compra.productos.push(objeto)
             }
             this.productos = this.compra.productos
-            console.log(this.productos)
             localStorage.setItem("compra",JSON.stringify(this.compra))
         },
 
