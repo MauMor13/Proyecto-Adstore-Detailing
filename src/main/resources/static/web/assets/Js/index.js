@@ -29,7 +29,6 @@ createApp({
         window.addEventListener('scroll', this.scrollFunction);
         this.controlCarrusel();
         this.administraAsincronas();
-        this.cargarDatos();
     },
 
     methods: {
