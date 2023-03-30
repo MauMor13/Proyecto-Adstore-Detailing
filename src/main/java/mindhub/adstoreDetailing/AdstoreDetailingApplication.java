@@ -1,5 +1,4 @@
 package mindhub.adstoreDetailing;
-
 import mindhub.adstoreDetailing.models.*;
 import mindhub.adstoreDetailing.repositorios.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,13 +7,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-
 import static mindhub.adstoreDetailing.models.Categoria.*;
 import static mindhub.adstoreDetailing.utilidades.Utilidad.*;
 
@@ -98,10 +94,12 @@ public class AdstoreDetailingApplication {
             repositorioProducto.save(producto19);
             repositorioProducto.save(producto20);
             repositorioProducto.save(producto21);
+
             repositorioServicio.save(servicio1);
             repositorioServicio.save(servicio2);
             repositorioServicio.save(servicio3);
             repositorioServicio.save(servicio4);
+
             //crear compra
             Compra compraCliente1 = new Compra(12000, LocalDateTime.now(), 0);
             cuentaCliente1.sumarCompra(compraCliente1);

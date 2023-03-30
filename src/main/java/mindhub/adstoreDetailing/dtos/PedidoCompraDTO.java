@@ -1,10 +1,7 @@
 package mindhub.adstoreDetailing.dtos;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.List;
 
 @Getter
