@@ -94,7 +94,7 @@ public class AdstoreDetailingApplication {
             repositorioProducto.save(producto19);
             repositorioProducto.save(producto20);
             repositorioProducto.save(producto21);
-
+                //guardado de servicios
             repositorioServicio.save(servicio1);
             repositorioServicio.save(servicio2);
             repositorioServicio.save(servicio3);
@@ -102,15 +102,16 @@ public class AdstoreDetailingApplication {
 
             //crear compra
             Compra compraCliente1 = new Compra(12000, LocalDateTime.now(), 0);
-            cuentaCliente1.sumarCompra(compraCliente1);
             repositorioCompra.save(compraCliente1);
+            cuentaCliente1.sumarCompra(compraCliente1);
             crearCompraPoducto(compraCliente1, new ArrayList<Producto>(Arrays.asList(producto3, producto4, producto7, producto2)), repositorioCompraProducto, repositorioCompra);
             crearCompraServicio(compraCliente1, new ArrayList<Servicio>(Arrays.asList(servicio1, servicio2)), repositorioCompraServicio, repositorioCompra);
 
-            // guardar las entidades en la base de datos
+             //guardar las entidades en la base de datos
             repositorioCuenta.save(cuentaCliente1);
             repositorioTarjetaAd.save(tarjetaCliente1);
             repositorioCliente.save(cliente1);
+            repositorioCompra.save(compraCliente1);
         };
     }
 }
