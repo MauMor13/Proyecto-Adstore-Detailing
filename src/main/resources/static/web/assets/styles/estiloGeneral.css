@@ -378,3 +378,12 @@ table{
 .pago{
     border-top: 2px solid #f7ba24 ;
 }
+.columna{
+    text-align: start;
+}
+.img-logout{
+    width: 20px;
+}
+tr th td{
+    border-bottom: 1px solid white;
+}
