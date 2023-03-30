@@ -13,4 +13,7 @@ public class RealizarCompraDTO {
     private ArrayList<RealizarCompraProducto> productos;
     private ArrayList<RealizarCompraServicio> servicios;
     private LocalDateTime fechaDelServicio;
+    private String numeroTarjetaPago;
+    private int cvv;
+    private boolean pagarCuentaCliente;
 }

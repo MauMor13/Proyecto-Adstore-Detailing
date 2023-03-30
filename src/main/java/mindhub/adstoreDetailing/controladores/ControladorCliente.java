@@ -89,7 +89,7 @@ public class ControladorCliente {
         servicioCliente.registrarCliente(nuevoCliente);
         repositorioCuenta.save(nuevaCuenta);
         repositorioTarjetaAd.save(nuevaTarjeta);
-        return new ResponseEntity<>(nuevoCliente,HttpStatus.CREATED);
+        return new ResponseEntity<>("Se registrò con èxito",HttpStatus.CREATED);
     }
     @PatchMapping("/modificar-cliente")
     public ResponseEntity<Object> modificarCliente(@RequestBody ClienteDTO clienteDTO){
