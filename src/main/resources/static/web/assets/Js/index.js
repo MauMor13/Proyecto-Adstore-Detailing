@@ -24,7 +24,7 @@ createApp({
     },
 
     created(){
-        this.cargarDatos()
+        
     },
 
     mounted(){

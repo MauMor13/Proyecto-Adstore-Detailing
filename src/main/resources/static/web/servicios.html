@@ -178,9 +178,37 @@
         </template>
         
         
-        <div class="overlay">
-          <div class="overlay__reveal"></div>
-          
+        <!-- <div class="col-3 position-relative servicios-individual">
+          <img @click="hacerEfectoPagina('ceramico')" src="./assets/Imagenes/acrilico.png" class="w-75 foto-servicio-efecto" alt="">
+          <h3 @click="hacerEfectoPagina('ceramico')" id="tratamiento" class="letra-sin-relleno"><span class="titulo-sin-fill" data-hover="Tratamiento">Tratamiento</span></h3>
+          <img @click="hacerEfectoPagina('ceramico')" id="ceramico" class="cuadros-servicios" src="./assets/Imagenes/CuadroCeramico.png" alt="ceramico">
+        </div>
+        <div class="col-3 position-relative servicios-individual">
+          <img @click="hacerEfectoPagina('acrilico')" src="./assets/Imagenes/pulidora.png" class="w-75 foto-servicio-efecto" alt="">
+          <img @click="hacerEfectoPagina('acrilico')" id="tratAc" class="cuadros-servicios" src="./assets/Imagenes/CuadroTratamiento.png" alt="">
+          <h3 @click="hacerEfectoPagina('acrilico')" id="acrilico" class="letra-sin-relleno"><span class="titulo-sin-fill" data-hover="West">Acrilico</span></h3>
+        </div>
+        <div class="col-3 position-relative d-flex align-items-end servicios-individual">
+          <h3 @click="hacerEfectoPagina('basico')" id="probalo" class="letra-sin-relleno z-1"><span class="titulo-sin-fill" data-hover="West">Probalo</span></h3>
+          <img @click="hacerEfectoPagina('basico')" id="basico" class="cuadros-servicios" src="./assets/Imagenes/CuadroLavadoBasico.png" alt="">
+          <img @click="hacerEfectoPagina('basico')" src="./assets/Imagenes/lavadoBasico.png" class="w-75 foto-servicio-efecto" alt="">
+        </div>
+        <div class="col-3 position-relative servicios-individual py-2">
+          <h3 @click="hacerEfectoPagina('premium')" id="mejor" class="letra-sin-relleno"><span class="titulo-sin-fill" data-hover="West">El Mejor</span></h3>
+          <img @click="hacerEfectoPagina('premium')" src="./assets/Imagenes/lavado.jpg" class="w-75 foto-servicio-efecto" alt="">
+          <img @click="hacerEfectoPagina('premium')" id="premium" class="cuadros-servicios" src="./assets/Imagenes/CuadroLavadoPremium.png" alt="">
+        </div> -->
+
+      </div>
+
+      <div class="card-principal d-flex flex-column justify-content-around align-items-center">
+        <img @click="volverPagina()" class="icono-cierre" src="./assets/Imagenes/x.png" alt="x">
+        <div class="w-100 principal-wrapper">
+          <!-- <div class="col-3 position-relative servicios-individual">
+            <img src="./assets/Imagenes/acrilico.png" class="w-75 foto-servicio-efecto" alt="">
+            <h3 id="tratamiento1" class="letra-sin-relleno"><span class="titulo-sin-fill" data-hover="Tratamiento">Tratamiento</span></h3>
+            <img id="ceramico1" class="cuadros-servicios" src="./assets/Imagenes/CuadroCeramico.png" alt="ceramico">
+          </div> -->
           <div class="overlay__item" id="preview-4">
             <div class="box">
               <div class="box__shadow"></div>
@@ -217,43 +245,6 @@
               <h4 class="box__text"><span class="box__text-inner box__text-inner--rotated2">Rust</span></h4>
             </div>
             <p class="overlay__content">It's time the tale were told of how you took a child and you made him old.</p>
-          </div>
-          
-          <button class="overlay__close"><svg class="icon icon--cross"><use xlink:href="#icon-cross"></use></svg></button>
-        </div>
-        
-        
-        
-        <!-- <div class="col-3 position-relative servicios-individual">
-          <img @click="hacerEfectoPagina('ceramico')" src="./assets/Imagenes/acrilico.png" class="w-75 foto-servicio-efecto" alt="">
-          <h3 @click="hacerEfectoPagina('ceramico')" id="tratamiento" class="letra-sin-relleno"><span class="titulo-sin-fill" data-hover="Tratamiento">Tratamiento</span></h3>
-          <img @click="hacerEfectoPagina('ceramico')" id="ceramico" class="cuadros-servicios" src="./assets/Imagenes/CuadroCeramico.png" alt="ceramico">
-        </div>
-        <div class="col-3 position-relative servicios-individual">
-          <img @click="hacerEfectoPagina('acrilico')" src="./assets/Imagenes/pulidora.png" class="w-75 foto-servicio-efecto" alt="">
-          <img @click="hacerEfectoPagina('acrilico')" id="tratAc" class="cuadros-servicios" src="./assets/Imagenes/CuadroTratamiento.png" alt="">
-          <h3 @click="hacerEfectoPagina('acrilico')" id="acrilico" class="letra-sin-relleno"><span class="titulo-sin-fill" data-hover="West">Acrilico</span></h3>
-        </div>
-        <div class="col-3 position-relative d-flex align-items-end servicios-individual">
-          <h3 @click="hacerEfectoPagina('basico')" id="probalo" class="letra-sin-relleno z-1"><span class="titulo-sin-fill" data-hover="West">Probalo</span></h3>
-          <img @click="hacerEfectoPagina('basico')" id="basico" class="cuadros-servicios" src="./assets/Imagenes/CuadroLavadoBasico.png" alt="">
-          <img @click="hacerEfectoPagina('basico')" src="./assets/Imagenes/lavadoBasico.png" class="w-75 foto-servicio-efecto" alt="">
-        </div>
-        <div class="col-3 position-relative servicios-individual py-2">
-          <h3 @click="hacerEfectoPagina('premium')" id="mejor" class="letra-sin-relleno"><span class="titulo-sin-fill" data-hover="West">El Mejor</span></h3>
-          <img @click="hacerEfectoPagina('premium')" src="./assets/Imagenes/lavado.jpg" class="w-75 foto-servicio-efecto" alt="">
-          <img @click="hacerEfectoPagina('premium')" id="premium" class="cuadros-servicios" src="./assets/Imagenes/CuadroLavadoPremium.png" alt="">
-        </div> -->
-
-      </div>
-
-      <div class="card-principal d-flex flex-column justify-content-around align-items-center">
-        <img @click="volverPagina()" class="icono-cierre" src="./assets/Imagenes/x.png" alt="x">
-        <div class="w-100 principal-wrapper">
-          <div class="col-3 position-relative servicios-individual">
-            <img src="./assets/Imagenes/acrilico.png" class="w-75 foto-servicio-efecto" alt="">
-            <h3 id="tratamiento1" class="letra-sin-relleno"><span class="titulo-sin-fill" data-hover="Tratamiento">Tratamiento</span></h3>
-            <img id="ceramico1" class="cuadros-servicios" src="./assets/Imagenes/CuadroCeramico.png" alt="ceramico">
           </div>
 
         </div>
