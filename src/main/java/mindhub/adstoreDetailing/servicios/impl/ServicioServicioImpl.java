@@ -2,6 +2,7 @@ package mindhub.adstoreDetailing.servicios.impl;
 
 import mindhub.adstoreDetailing.dtos.ProductoDTO;
 import mindhub.adstoreDetailing.dtos.ServicioDTO;
+import mindhub.adstoreDetailing.models.Cliente;
 import mindhub.adstoreDetailing.models.Producto;
 import mindhub.adstoreDetailing.models.Servicio;
 import mindhub.adstoreDetailing.repositorios.RepositorioServicio;
@@ -31,10 +32,18 @@ public class ServicioServicioImpl implements ServicioServicio {
     public void guardar(Servicio servicio){
         this.repositorioServicio.save(servicio);
     }
+    @Override
+    public List<Servicio> findByActiveTrue(){
+        return this.repositorioServicio.findByActivoTrue();
+    }
+    @Override
+    public List<ServicioDTO> findByActiveTrueDTO(){
+        return this.repositorioServicio.findByActivoTrue().stream().map(ServicioDTO::new).collect(Collectors.toList());
+    }
 
     @Override
     public List<ServicioDTO> findAllServiciosActivosDTO() {
-        return repositorioServicio.findAll().stream().filter(Servicio::isActivo).map(ServicioDTO::new).collect(Collectors.toList());
+        return this.repositorioServicio.findByActivoTrue().stream().map(ServicioDTO::new).collect(Collectors.toList());
     }
 
     private List<ServicioDTO> mapListToDTOs(List<Servicio> lista) {

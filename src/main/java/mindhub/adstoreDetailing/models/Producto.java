@@ -1,14 +1,10 @@
 package mindhub.adstoreDetailing.models;
-
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
-
 @Getter
 @Setter
 @NoArgsConstructor
@@ -28,7 +24,6 @@ public class Producto {
     private boolean activo;
     @OneToMany(mappedBy = "producto", fetch = FetchType.EAGER)
     private Set<CompraProducto> compraProducto = new HashSet<>();
-
     public Producto(String nombre, double precio, int stock, String descripcion, String imagenUrl, Categoria categoria) {
         this.nombre = nombre;
         this.precio = precio;

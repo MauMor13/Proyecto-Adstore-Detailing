@@ -1,5 +1,4 @@
 package mindhub.adstoreDetailing;
-
 import mindhub.adstoreDetailing.models.*;
 import mindhub.adstoreDetailing.repositorios.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,13 +7,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-
 import static mindhub.adstoreDetailing.models.Categoria.*;
 import static mindhub.adstoreDetailing.utilidades.Utilidad.*;
 
@@ -70,10 +66,10 @@ public class AdstoreDetailingApplication {
             Producto producto20 = new Producto("Profiline Shampoo Actifoam Energy 1lt", 14082, 18, "Limpiador fuerte que disuelve la suciedad con mucha espuma para el lavado del vehículo con rociador de espuma. Perfecto como shampoo, eliminador de insectos y limpiador de llantas. Concentrado, para al menos 50 coches. De aroma agradable, ph neutro y la mejor compatibilidad con materiales, también para superficies con láminas adheridas.", "./assets/Imagenes-Productos/Profiline_Shampoo_Actifoam.png", LAVADO);
             Producto producto21 = new Producto("Shampoo Concentradi Ph Neutro 2lt", 7107, 19, "Limpia cuidadosamente y elimina detenidamente todo tipo de suciedad. Apropiado para la limpieza de superficies pintadas, metal, vidrio, plástico, goma, baldosas, porcelana y esmalte.", "./assets/Imagenes-Productos/Shampoo_Concentrado.png", LAVADO);
             //lista de sevicios
-            Servicio servicio1 = new Servicio("Lavado Basico", "Detallado de interior, aspirado al detalle, lavado de carrocería al detalle, terminación con cera en spray.", 5000, Duration.ofMinutes(90), "imagen");
-            Servicio servicio2 = new Servicio("Servicio premium de lavado", "Interior detallado con un acondicionador para los plásticos, aspirado al detalle, acondicionado de alfombras de goma. Lavado de carrocería y llantas al detalle con productos ferricos, para una mayor limpieza con una terminación de cera en pasta", 7000, Duration.ofMinutes(120), "imagen");
-            Servicio servicio3 = new Servicio("Tratamiento cerramiento", "Brindamos distintos tipos de tratamientos cerámicos que varían solo en el sellador a utilizar, con una durabilidad de entre 3 a 5 años. El sellador le da una protección a la laca del vehículo, con esto los lavados serán más duraderos y no se le pegara tanto la tierra. También podrás observar cuando me moje las gotas de agua estarán bien definidas y de deslizan mas rápido. A continuación se le detallará el proceso para la realización.", 9000, Duration.ofMinutes(180), "imagen");
-
+            Servicio servicio1 = new Servicio("Lavado Basico", "Detallado de interior, aspirado al detalle, lavado de carrocería al detalle, terminación con cera en spray.", 5000, Duration.ofMinutes(90), "./assets/Imágenes/lavadobasico.JPGE");
+            Servicio servicio2 = new Servicio("Servicio Premium de Lavado", "Interior detallado con un acondicionador para los plásticos, aspirado al detalle, acondicionado de alfombras de goma. Lavado de carrocería y llantas al detalle con productos ferricos, para una mayor limpieza con una terminación de cera en pasta", 7000, Duration.ofMinutes(120), "./assets/Imágenes/lavado.jpg");
+            Servicio servicio3 = new Servicio("Tratamiento Cerramiento", "Brindamos distintos tipos de tratamientos cerámicos que varían solo en el sellador a utilizar, con una durabilidad de entre 3 a 5 años. El sellador le da una protección a la laca del vehículo, con esto los lavados serán más duraderos y no se le pegara tanto la tierra. También podrás observar cuando me moje las gotas de agua estarán bien definidas y de deslizan mas rápido. A continuación se le detallará el proceso para la realización.", 9000, Duration.ofMinutes(180), "./assets/Imágenes/ceramico.jpg");
+            Servicio servicio4 = new Servicio("Tratamiento Acrilico","Con nuestro Tratamiento Acrílico, rejuvenecé tu vehículo y mantenelo limpio, brillante y protegido en todo momento, consiste en la aplicación de una película protectora a base de acrílico, que permitirá un proceso de descontaminación de la pintura, seguido por un sistema de pulido, lustre, abrillantado, encerado y sellado con Cera de Carnauba, dando como resultado un acabado final de excelencia",15000,Duration.ofMinutes(180),"./assets/Imágenes/acrilico.jpg");
             //guardado en repositorio
 
             repositorioProducto.save(producto1);
@@ -97,20 +93,24 @@ public class AdstoreDetailingApplication {
             repositorioProducto.save(producto19);
             repositorioProducto.save(producto20);
             repositorioProducto.save(producto21);
+                //guardado de servicios
             repositorioServicio.save(servicio1);
             repositorioServicio.save(servicio2);
             repositorioServicio.save(servicio3);
+            repositorioServicio.save(servicio4);
+
             //crear compra
             Compra compraCliente1 = new Compra(12000, LocalDateTime.now(), 0);
-            cuentaCliente1.sumarCompra(compraCliente1);
             repositorioCompra.save(compraCliente1);
+            cuentaCliente1.sumarCompra(compraCliente1);
             crearCompraPoducto(compraCliente1, new ArrayList<Producto>(Arrays.asList(producto3, producto4, producto7, producto2)), repositorioCompraProducto, repositorioCompra);
             crearCompraServicio(compraCliente1, new ArrayList<Servicio>(Arrays.asList(servicio1, servicio2)), repositorioCompraServicio, repositorioCompra);
 
-            // guardar las entidades en la base de datos
+             //guardar las entidades en la base de datos
             repositorioCuenta.save(cuentaCliente1);
             repositorioTarjetaAd.save(tarjetaCliente1);
             repositorioCliente.save(cliente1);
+            repositorioCompra.save(compraCliente1);
         };
     }
 }

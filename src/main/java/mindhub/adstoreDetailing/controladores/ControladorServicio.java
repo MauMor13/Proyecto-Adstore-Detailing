@@ -1,18 +1,12 @@
 package mindhub.adstoreDetailing.controladores;
-
-import mindhub.adstoreDetailing.dtos.ProductoACrearDTO;
 import mindhub.adstoreDetailing.dtos.ServicioACrearDTO;
 import mindhub.adstoreDetailing.dtos.ServicioDTO;
-import mindhub.adstoreDetailing.models.Categoria;
-import mindhub.adstoreDetailing.models.Producto;
 import mindhub.adstoreDetailing.models.Servicio;
 import mindhub.adstoreDetailing.servicios.ServicioServicio;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.time.Duration;
-import java.util.EnumSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -61,6 +55,9 @@ public class ControladorServicio {
             servicioAModificar.get().setDuracion(servicio.getDuracion());
             modificadosSb.append("duración, ");
         }
+
+        this.servicioServicio.guardar(servicioAModificar.get());
+
         modificadosSb.delete(modificadosSb.length()-2,modificadosSb.length());
         modificadosSb.append(".");
         String modificaciones = modificadosSb.toString();
@@ -94,5 +91,20 @@ public class ControladorServicio {
         this.servicioServicio.guardar(servicioCreado);
 
         return new ResponseEntity<>(servicioCreado, HttpStatus.CREATED);
+    }
+    @PatchMapping("/deshabilitar-servicio")
+    public ResponseEntity<Object> deshabilitarOHabilitar(@RequestParam Long id){
+
+        Optional<Servicio> servicio = servicioServicio.findById(id);
+
+        if(servicio.isEmpty()){
+            return new ResponseEntity<>("Servicio no encontrado", HttpStatus.BAD_REQUEST);
+        }
+
+        servicio.get().setActivo(!servicio.get().isActivo());
+
+        servicioServicio.guardar(servicio.get());
+
+        return new ResponseEntity<>(servicio.get().getNombre()+" "+"Servicio activo: " + servicio.get().isActivo(), HttpStatus.OK);
     }
 }
