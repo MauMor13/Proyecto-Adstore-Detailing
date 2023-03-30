@@ -11,4 +11,5 @@ public interface ServicioCompra {
 //   void addCompraServicio(RealizarCompraServicio realizarCompraServicio, Compra compra);
    void agregarProductos(ArrayList<RealizarCompraProducto> productos, Compra compra);
    void agregarServicios(ArrayList<RealizarCompraServicio> servicios, Compra compra);
+   void guardar(Compra compra);
 }

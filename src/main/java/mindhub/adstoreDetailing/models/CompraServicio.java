@@ -20,7 +20,6 @@ public class CompraServicio {
     @SequenceGenerator(name = "compra_servicio_seq", sequenceName = "compra_servicio_id_seq", allocationSize = 1)
     private Long id;
     private double precio;
-    private LocalDateTime fechaReserva;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "compra_id")
     private Compra compra;
@@ -28,9 +27,8 @@ public class CompraServicio {
     @JoinColumn(name = "servicio_id")
     private Servicio servicio;
 
-    public CompraServicio(Compra compra, Servicio servicio, LocalDateTime fechaReserva) {
+    public CompraServicio(Compra compra, Servicio servicio) {
         this.precio = servicio.getPrecio();
-        this.fechaReserva = fechaReserva;
         this.compra = compra;
         this.servicio = servicio;
     }

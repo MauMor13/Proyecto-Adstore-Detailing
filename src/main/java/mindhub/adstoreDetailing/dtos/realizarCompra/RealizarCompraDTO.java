@@ -13,7 +13,7 @@ import java.util.ArrayList;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RealizarCompraDTO {
-    private LocalDateTime fecha;
     private ArrayList<RealizarCompraProducto> productos;
     private ArrayList<RealizarCompraServicio> servicios;
+    private LocalDateTime fechaDelServicio;
 }

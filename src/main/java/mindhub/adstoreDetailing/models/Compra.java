@@ -25,7 +25,7 @@ public class Compra {
     private double montoFinal;
     private LocalDateTime fecha;
     private int descuento;
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "cuenta_id")
     private Cuenta cuenta;
     @OneToMany(mappedBy = "compra",fetch = FetchType.EAGER, cascade = CascadeType.ALL)

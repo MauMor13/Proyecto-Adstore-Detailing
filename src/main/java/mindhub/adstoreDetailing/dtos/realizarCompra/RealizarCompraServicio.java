@@ -15,6 +15,4 @@ import java.time.LocalDateTime;
 @Component
 public class RealizarCompraServicio {
     private Long id;
-    private int cantidad;
-    private LocalDateTime fecha;
 }

@@ -4,8 +4,7 @@ import mindhub.adstoreDetailing.dtos.realizarCompra.RealizarCompraDTO;
 import mindhub.adstoreDetailing.dtos.realizarCompra.RealizarCompraProducto;
 import mindhub.adstoreDetailing.dtos.realizarCompra.RealizarCompraServicio;
 import mindhub.adstoreDetailing.models.*;
-import mindhub.adstoreDetailing.repositorios.RepositorioProducto;
-import mindhub.adstoreDetailing.repositorios.RepositorioServicio;
+import mindhub.adstoreDetailing.repositorios.*;
 import mindhub.adstoreDetailing.servicios.ServicioCompra;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,27 +15,21 @@ import java.util.ArrayList;
 @Service
 public class ServicioCompraImpl implements ServicioCompra {
     @Autowired
+    RepositorioCompra repositorioCompra;
+    @Autowired
     RepositorioProducto repositorioProducto;
     @Autowired
     RepositorioServicio repositorioServicio;
     @Autowired
-    RealizarCompraServicio realizarCompraServicio;
+    RepositorioCompraProducto repositorioCompraProducto;
     @Autowired
-    RealizarCompraProducto realizarCompraProducto;
-//    @Override
-//    public void addCompraProducto(RealizarCompraProducto realizarCompraProducto, Compra compra) {
-//        CompraProducto compraProducto = new CompraProducto();
-//        compraProducto.setProducto(repositorioProducto.findById(realizarCompraProducto.getId()).orElseThrow(() -> new EntityNotFoundException("Producto not found")));
-//        compraProducto.setCantidad(realizarCompraProducto.getCantidad());
-//        compra.sumarCompraProducto(compraProducto);
-//    }
-//    @Override
-//    public void addCompraServicio(RealizarCompraServicio realizarCompraServicio, Compra compra) {
-//        CompraServicio compraServicio = new CompraServicio();
-//        compraServicio.setServicio(repositorioServicio.findById(realizarCompraServicio.getId()).orElseThrow(() -> new EntityNotFoundException("Servicio not found")));
-//        compraServicio.setFechaReserva(realizarCompraServicio.getFecha());
-//        compra.sumarCompraServicio(compraServicio);
-  //  }
+    RepositorioCompraServicio repositorioCompraServicio;
+
+
+    @Override
+    public void guardar(Compra compra){
+        repositorioCompra.save(compra);
+    }
     @Override
     public void agregarProductos(ArrayList<RealizarCompraProducto> productos, Compra compra) {
         for (RealizarCompraProducto producto : productos) {
@@ -45,6 +38,8 @@ public class ServicioCompraImpl implements ServicioCompra {
             CompraProducto compraProducto = new CompraProducto(compra, productoObj, producto.getCantidad());
 
             compra.sumarCompraProducto(compraProducto);
+
+            repositorioCompraProducto.save(compraProducto);
         }
     }
     @Override
@@ -52,9 +47,11 @@ public class ServicioCompraImpl implements ServicioCompra {
         for (RealizarCompraServicio servicio : servicios) {
 
             Servicio servicioObj = this.repositorioServicio.findById(servicio.getId()).orElseThrow();
-            CompraServicio compraServicio = new CompraServicio(compra,servicioObj, servicio.getFecha());
+            CompraServicio compraServicio = new CompraServicio(compra,servicioObj);
 
             compra.sumarCompraServicio(compraServicio);
+
+            repositorioCompraServicio.save(compraServicio);
         }
     }
 
