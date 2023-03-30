@@ -4,6 +4,7 @@ createApp({
     
     data(){
         return{
+            cliente: undefined,
             mensajes: [" UN SERVICIO DE CALIDAD...", "VOS Y TU VEHICULO LO MERECEN...", " VIVI LA EXPERCIENCIA ! !"],
             textoDinamico: "",
             errorEncontrado: false,
@@ -14,14 +15,16 @@ createApp({
             contra: "",
             direccion: "",
             telefono: "",
-            emailLog: undefined,
-            passwordLog: undefined,
+            numTarjeta:undefined,
+            saldo:undefined,
+            emailInicioSesion: undefined,
+            contraInicioSesion: undefined,
 
         }
     },
 
     created(){
-
+        this.cargarDatos()
     },
 
     mounted(){
@@ -31,6 +34,75 @@ createApp({
     },
 
     methods: {
+
+        //PARA LA CARGA DE DATOS
+        cargarDatos: function(){
+            axios.get('/api/cliente')
+                .then(respuesta => {
+                    this.cliente = respuesta.data;
+                    this.direccion = this.cliente.direccion
+                    this.telefono = this.cliente.telefono
+                    this.numTarjeta = this.cliente.cuenta.tarjetaAd.numeroTarjeta
+                    this.saldo = this.cliente.cuenta.saldo
+                })
+                .catch(err => console.error(err.message));
+        },
+
+        //Generar registro
+        realizarRegistro: function(){
+            axios.post('/api/registrar', {nombre: this.nombre, apellido: this.apellido, email: this.email, claveIngreso: this.contra, direccion: this.direccion, telefono: this.telefono,})
+                .then(response => {
+                    console.log('registrado');
+
+                    this.emailInicioSesion = this.email;
+                    this.contraInicioSesion = this.contra;
+
+                    this.errorEncontrado = false;
+                    this.nombre = "";
+                    this.apellido = "";
+                    this.email = "";
+                    this.contra = "";
+                    this.direccion = "",
+                    this.registro = "",
+
+                    this.iniciarSesion();
+                })
+                .catch(err => {
+                    this.errorEncontrado = true;
+                    console.error([err]);
+                    let spanError = document.querySelector('.mensaje-error-registro');
+                    spanError.innerHTML = err.response.data;
+                    
+                    if(err.response.data.includes('Email ya registrado')){
+                        this.email = "";
+                        this.contra = "";
+                    }                    
+                })
+            
+        },
+
+        iniciarSesion: function(){
+            axios.post('/api/login',`email=${this.emailInicioSesion}&claveIngreso=${this.contraInicioSesion}`,{headers:{'content-type':'application/x-www-form-urlencoded'}})
+                .then(response => {
+                    this.cargarDatos();
+                    // window.location.href("/index.html")
+                })
+                .catch(err => {
+                    Swal.fire({
+                        customClass: 'modal-sweet-alert',
+                        title: 'Usuario no encontrado',
+                        text: "Por favor verifica tus credenciales",
+                        icon: 'warning',
+                        confirmButtonColor: '#f7ba24',
+                        confirmButtonText: 'Aceptar'
+                    })
+                });
+        },
+        logOut(){
+            axios.post('/api/logout')
+            .then(() => window.location.href="./index.html")
+        },
+
 
         loginRegistro: function (value) {
             let form = document.querySelector('.card-3d-wrapper');
