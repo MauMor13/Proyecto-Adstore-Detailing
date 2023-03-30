@@ -98,43 +98,148 @@
     <main class="overflow-x-hidden main-index d-flex flex-column gap-3 justify-content-center align-items-center main-servicios">
       <!--datos cliente-->
       
-      <div v-if="cliente" class="accordion  border border-dark accordion-flush btn btn-warning position-fixed bottom-0 end-0 me-3 mt-3" id="accordionFlushExample">
-        <div class="accordion-item">
-          <div id="flush-collapseOne" class="accordion-collapse bg-warning collapse" data-bs-parent="#accordionFlushExample">
-            <div class="accordion-body  text-bg-warning">
-              <table class="table">
-                <tbody >
-                  <tr>
-                    <td class="fuente-poppins" v-cloak>Cuenta No.</td>
-                    <td class="fuente-poppins"  v-cloak>000 </td>
-                  </tr>
-                  <tr>
-                    <td class="fuente-poppins"  v-cloak>Saldo </td>
-                    <td class="fuente-poppins"  v-cloak>000 </td>
-                  </tr>
-                  <tr>
-                    <td class="fuente-poppins"  v-cloak>Tarjeta No.</td>
-                    <td class="fuente-poppins"  v-cloak>000 </td>
-                  </tr>
-                </tbody>
-              </table>
+     <div v-if="cliente" class="accordion  border border-dark accordion-flush btn btn-warning position-fixed bottom-0 end-0 me-3 mt-3" id="accordionFlushExample">
+      <div class="accordion-item">
+        <div id="flush-collapseOne" class="accordion-collapse bg-warning collapse" data-bs-parent="#accordionFlushExample">
+          <div class="accordion-body  text-bg-warning">
+            <table class="table">
+              <tbody >
+                <tr>
+                  <td class="fuente-poppin columna text-dark" v-cloak><strong>Cuenta</strong> </td>
+                  <td class="fuente-poppin"  v-cloak>{{cliente.cuenta.numeroCuenta}}</td>
+                </tr>
+                <tr>
+                  <td class="fuente-poppin columna text-dark"  v-cloak> <strong>Saldo</strong> </td>
+                  <td class="fuente-poppin"  v-cloak>{{saldo}}</td>
+                </tr>
+                <tr>
+                  <td class="fuente-poppin columna text-dark"  v-cloak> <strong>Tarjeta</strong> </td>
+                  <td class="fuente-poppin"  v-cloak>{{numTarjeta}}</td>
+                </tr>
+                <tr>
+                  <td class="fuente-poppins columna text-dark"  v-cloak> <strong>Direccion</strong> </td>
+                  <td class="fuente-poppin"  v-cloak>{{direccion}}</td>
+                </tr>
+                <tr>
+                  <td class="fuente-poppin columna text-dark"  v-cloak> <strong>Telefono</strong></td>
+                  <td class="fuente-poppin"  v-cloak>{{telefono}}</td>
+                </tr>
+                <div>
+                  <a href="./index.html" type="submit"  @click="logout()" class="text-decoration-none d-flex justify-content-center text-dark"><img class="img-logout pb-3" src="./assets/Imagenes/logout.png" alt=""><p class="fuente-poppin ps-2"> <strong>LOGOUT</strong></p></a>
+                </div>
+              </tbody>
+            </table>
 
-            </div>
           </div>
-          <h2 class="accordion-header m-0 p-0">
-            <button class="accordion-button collapsed fuente-poppin p-0 text-dark bg-warning" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-              <img src="./assets/Imagenes/usuario.png"  class="m-0 p-0" alt="">
-              Nombre Cliente
-            </button>
-          </h2>
         </div>
+        <h2 class="accordion-header m-0 p-0">
+          <button class="accordion-button collapsed fuente-poppin p-0 text-dark bg-warning" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+            <img src="./assets/Imagenes/usuario.png"  class="m-0 p-0 me-2" alt="">
+            <strong>{{cliente.nombre + " "+ cliente.apellido}} </strong> 
+          </button>
+        </h2>
       </div>
+    </div>
 
       <div class="fondo-experiencia w-100 d-flex justify-content-center">
         <h1 class="fondo-experiencia fuente-audiowide font2-color"> SERVICIOS</h1>
       </div>
 
+
+      <!--inicio carrito-->
+
+      <div class="carrito-flotante" data-bs-toggle="modal" data-bs-target="#modalCarrito">
+        <img class="inlineDesde768 w-100" src="./assets/Imagenes/carrito.png" alt="carrito">
+      </div>    
+
+      <div class="modal fade" id="modalCarrito" tabindex="-1" data-bs-backdrop="static" aria-labelledby="modalCliente" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+          <div class="modal-content modales-fondo">
+            <div class="modal-header">
+              <h1 class="modal-title fs-4">Productos a facturar</h1>
+              <img class="ms-4 w-25" src="./assets/Imagenes/PNG3.png" alt="logo">
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="p-2 form-1">
+                    <table class="text-center w-100">
+                      <tbody>
+                        <template v-if="compra.servicios.length > 0 "   > 
+                          <tr>
+                            <th colspan="2" class="text-start">Servicios</th>
+                            <th colspan="1" class="text-start">Valor Unitario</th> 
+                            <th colspan="1" class="text-start">Valor total</th>  
+                          </tr>
+                          <tr v-for="servicio of compra.servicios " class="w-100">
+                            <td class="col-6 text-start"><span class="mx-2">{{(servicioNombre.find(serv=>serv.id ==servicio.id )).nombre}} </span></td>
+                            <td class="col-3">
+                              <i class="fa-solid fa-minus me-2" @click="restarUnidad(servicio.id, 1)" style="color: #000000;"></i>
+                              {{servicio.cantidad}} 
+                              <i class="fa-solid fa-plus ms-2" @click="sumarUnidad(servicio.id, 1)" style="color: #000000;"></i>
+                            </td>
+                            <td class="col-3">{{(servicioNombre.find(serv=>serv.id ==servicio.id )).precio.toLocaleString('en-US', {style:"currency", currency:"USD"})}}</td>
+                            <td class="col-3">{{(((servicioNombre.find(serv=>serv.id ==servicio.id )).precio)*servicio.cantidad).toLocaleString('en-US', {style:"currency", currency:"USD"})}}   </td>
+                          </tr>
+                        </template>
+
+                        <template v-if="compra.productos.length > 0"> 
+                          <tr>
+                            <th colspan="2" class="text-start">Productos</th>
+                            <th colspan="1" class="text-start">Valor Unitario</th> 
+                            <th colspan="1" class="text-start">Valor total </th>  
+                          </tr>
+                          <tr class="w-100" v-for="producto of compra.productos">
+                            <td class="col-6 text-start"><span class="mx-1">{{(productoNombre.find(prod=>prod.id ==producto.id )).nombre}} </span></td>
+                            <td class="col-3">
+                              <i class="fa-solid fa-minus me-2" @click="restarUnidad(producto.id, 1)" style="color: #000000;"></i> 
+                              {{producto.cantidad}} 
+                              <i class="fa-solid fa-plus ms-2" @click="sumarUnidad(producto.id, 1)" style="color: #000000;"></i> 
+                            </td>
+                            <td class="col-3">{{(productoNombre.find(prod=>prod.id ==producto.id )).precio.toLocaleString('en-US', {style:"currency", currency:"USD"})}}</td>
+                            <td class="col-3">{{(((productoNombre.find(prod=>prod.id ==producto.id )).precio)*producto.cantidad).toLocaleString('en-US', {style:"currency", currency:"USD"})}}   </td>
+                          </tr>
+                        </template>
+                      </tbody>
+                      <tfoot>
+                        <tr>
+                          <th colspan="3" class="text-start border-1 border-light">
+                            <span>Total</span>
+                          </th>
+                          <th>
+                            <span class=""> Suma total</span>
+                          </th>
+                          <th class="text-start d-flex justify-content-between w-100 row" colspan="3">
+                          </th>
+                        </tr>
+                        <tr>
+                          <th colspan="3" class="text-start">
+                            <span>
+                              <p>Vaciar carrito</p>
+                            </span>
+                          </th>
+                          <th>
+                            <span class=""> <a type="submit" @click="limpiarCarrito" > <img src="./assets/Imagenes/eliminar.png" alt=""></a></span>
+                          </th>
+                          <th class="text-start d-flex justify-content-between w-100 row" colspan="3">
+                          </th>
+                        </tr>
+                      </tfoot>
+                    </table>
+                    
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button  type="button" class="btn btn-secondary bg-black"  href="./checkout.html">Proceder al Pago</button>
+                <button type="button" class="btn btn-secondary bg-black" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--fin carrito-->
+
+
       <div class="grid modales-fondo mB-5 py-5 servicios" style="min-height: 600px;">
+
 
         <template v-if="servicios.length" v-for="servicio of servicios">
 

@@ -34,6 +34,12 @@ createApp({
     },
 
     methods: {
+        logout() {
+            axios.post('/api/logout')
+            .then(res =>{
+                window.location.reload()
+            })
+        },
 
         //PARA LA CARGA DE DATOS
         cargarDatos: function(){

@@ -15,14 +15,23 @@ createApp({
             telefono: "",
             emailInicioSesion: undefined,
             contraInicioSesion: undefined,
-            servicios: [],
+            compra:{
+                productos:[],
+                servicios:[]
+            },
+            productos:[],
+            servicios:[]
 
         }
     },
 
     created(){
-        // this.cargarDatosCliente();
-        this.cargarServicios();
+        this.cargarDatosCliente();
+        this.cargarDatos();
+        this.guardarLocalStorage();
+        this.cargarDatosServicios();
+
+
     },
 
     mounted(){
@@ -30,13 +39,110 @@ createApp({
     },
 
     methods: {
+        logout() {
+            axios.post('/api/logout')
+            .then(res =>{
+                window.location.href = "/web/index.html"
+            })
+        },
         cargarDatosCliente: function(){
             axios.get('/api/cliente')
                 .then(respuesta => {
                     this.cliente = respuesta.data;
+                    this.direccion = this.cliente.direccion
+                    this.telefono = this.cliente.telefono
+                    this.numTarjeta = this.cliente.cuenta.tarjetaAd.numeroTarjeta
+                    this.saldo = this.cliente.cuenta.saldo
                 })
                 .catch(err => console.error(err.message));
         },
+
+        cargarDatos: function(){
+            axios.get('/api/productos')
+                .then(respuesta => {
+                    this.productos = respuesta.data.map(producto => ({... producto}));
+                    this.productoNombre=this.productos.filter(producto => producto.nombre)
+                    this.productosFiltrados = respuesta.data;
+                    this.categorias =[... new Set(this.productos.map(producto => producto.categoria))];
+                })
+        },
+        cargarDatosServicios: function(){
+            axios.get('/api/servicios')
+                .then(respuesta => {
+                    this.servicios = respuesta.data.map(servicio => ({... servicio}));
+                    this.servicioNombre=this.servicios.filter(servicio => servicio.nombre)
+                })
+        },
+        limpiarCarrito(){
+            localStorage.clear()
+            this.compra={
+                productos:[],
+                servicios:[]
+            }
+        },
+
+        guardarLocalStorage(){
+            if(localStorage.getItem("compra") == null){
+                localStorage.setItem("compra", JSON.stringify(this.compra))
+            }
+        },
+        sumarUnidad(productoId,cantidad){
+            this.compra = JSON.parse(localStorage.getItem("compra"))
+            let productoEnCarro = this.compra.productos.find(element => element.id == productoId)
+            if(productoEnCarro != null){
+                if(productoEnCarro.cantidad == this.compra.productos.find(element => element.id == productoEnCarro.id).stock){
+                    Swal.fire({
+                        customClass: 'modal-sweet-alert',
+                        title: 'Lo sentimos',
+                        text: "No hay más stock disponible",
+                        icon: 'warning',
+                        confirmButtonColor: '#f7ba24',
+                        confirmButtonText: 'Aceptar'
+                    })
+                }
+                else{
+                productoEnCarro.cantidad += cantidad
+            }}
+            this.productos = this.compra.productos
+            localStorage.setItem("compra",JSON.stringify(this.compra))
+        },
+        restarUnidad(productoId, cantidad){
+            this.compra = JSON.parse(localStorage.getItem("compra"))
+            let productoEnCarro = this.compra.productos.find(element => element.id == productoId)
+            if( productoEnCarro == 0){
+                productoEnCarro == 0
+                }else{
+                    productoEnCarro.cantidad -= cantidad  
+                }
+            this.productos = this.compra.productos
+            localStorage.setItem("compra",JSON.stringify(this.compra))
+        },
+        agregarACarrito(idSeleccion, cantidad){
+            this.compra = JSON.parse(localStorage.getItem("compra"))
+            let productoEnCarro = this.compra.productos.find(element => element.id == idSeleccion)
+            if(productoEnCarro != null){
+                if(productoEnCarro.cantidad == this.compra.productos.find(element => element.id == productoEnCarro.id).stock){
+                    Swal.fire({
+                        customClass: 'modal-sweet-alert',
+                        title: 'Lo sentimos',
+                        text: "Has excedido la cantidad de productos que tenemos en stock, si quieres puedes agregar algun otro producto a tu compra.",
+                        icon: 'warning',
+                        confirmButtonColor: '#f7ba24',
+                        confirmButtonText: 'Aceptar'
+                    })
+                }
+                else{
+                productoEnCarro.cantidad += cantidad
+            }}
+            else{
+                let objeto = {id: 0, cantidad: 0};
+                objeto.id = idSeleccion
+                objeto.cantidad = cantidad
+                this.compra.productos.push(objeto)
+            }
+            this.productos = this.compra.productos
+            localStorage.setItem("compra",JSON.stringify(this.compra))
+
 
         cargarServicios:function(){
             axios.get('/api/servicios-activos')
@@ -45,6 +151,7 @@ createApp({
                     console.log(this.servicios);
                 })
                 .catch(err => console.error(err.message));
+
         },
 
         //Generar registro
