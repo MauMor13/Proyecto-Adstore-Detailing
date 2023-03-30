@@ -20,7 +20,7 @@ createApp({
     },
 
     created(){
-        this.cargarDatosCliente();
+        // this.cargarDatosCliente();
 
     },
 
@@ -127,6 +127,29 @@ createApp({
             else if (value == 'back') {
                 form.classList.remove('girarServicio');
             }
+        },
+
+
+        //efecto paginado
+
+        hacerEfectoPagina: function(){
+            console.log("hola");
+            let telon = document.querySelector('.hojaNegra');
+            let vistaPrincipal = document.querySelector('.card-principal')
+            telon.style.left = '0';
+            vistaPrincipal.style.left = '0';
+            setTimeout(() => {
+                telon.style.left = '-100vw';
+            }, "1800");
+            
+        },
+
+        volverPagina: function(){
+            let telon = document.querySelector('.hojaNegra');
+            let vistaPrincipal = document.querySelector('.card-principal');
+            telon.style.left = '0';
+            vistaPrincipal.style.left = '-100vw';
+            telon.style.left = '-100vw';
         },
 
 
