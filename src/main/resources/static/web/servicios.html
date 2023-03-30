@@ -134,45 +134,49 @@
         <h1 class="fondo-experiencia fuente-audiowide font2-color"> SERVICIOS</h1>
       </div>
 
-      <div class="grid modales-fondo mB-5 py-5" style="min-height: 600px;">
-        
-        <a class="grid__item mb-xl-5" href="#preview-5">
-          <div class="box">
-            <div class="box__shadow"></div>
-            <img class="box__img" src="./assets/Imagenes/lavadoBasico.png" alt="Some image"/>
-            <h3 class="box__title"><span class="box__title-inner" data-hover="Lavado">Lavado</span></h3>
-            <h4 class="box__text box__text--bottomcloser"><span class="box__text-inner">Tradicional</span></h4>
+      <div class="grid modales-fondo mB-5 py-5 servicios" style="min-height: 600px;">
+
+        <template v-if="servicios.length" v-for="servicio of servicios">
+
+          <div v-if="servicio.nombre.toLowerCase().includes('basico')" class="grid__item mb-xl-5 servicios-individual" @click="hacerEfectoPagina('ceramico')" >
+            <div class="box">
+              <div class="box__shadow"></div>
+              <img class="box__img" src="./assets/Imagenes/lavadoBasico.png" alt="Some image"/>
+              <h3 class="box__title"><span class="box__title-inner" data-hover="Lavado">Lavado</span></h3>
+              <h4 class="box__text box__text--bottomcloser"><span class="box__text-inner">Tradicional</span></h4>
+            </div>
           </div>
-        </a>
-        
-        <a class="grid__item" href="#preview-4">
-          <div class="box">
-            <div class="box__shadow"></div>
-            <img class="box__img" src="./assets/Imagenes/lavado.jpg" alt="Some image"/>
-            <h3 class="box__title"><span class="box__title-inner" data-hover="Lavado">Lavado</span></h3>
-            <h4 class="box__text box__text--bottom box__text--right"><span class="box__text-inner box__text-inner--rotated3">Premium</span></h4>
+          
+          <div v-if="servicio.nombre.toLowerCase().includes('premium')" class="grid__item servicios-individual" @click="hacerEfectoPagina('ceramico')" >
+            <div class="box">
+              <div class="box__shadow"></div>
+              <img class="box__img" src="./assets/Imagenes/lavado.jpg" alt="Some image"/>
+              <h3 class="box__title"><span class="box__title-inner" data-hover="Lavado">Lavado</span></h3>
+              <h4 class="box__text box__text--bottom box__text--right"><span class="box__text-inner box__text-inner--rotated3">Premium</span></h4>
+            </div>
           </div>
-        </a>
-        
-        <a class="grid__item" href="#preview-6">
-          <div class="box">
-            <div class="box__shadow"></div>
-            <img class="box__img" src="./assets/Imagenes/acrilico.png" alt="Some image"/>
-            <h3 class="box__title"><span class="box__title-inner" data-hover="Tratamiento">Tratamiento</span></h3>
-            <h4 class="box__text"><span class="box__text-inner">Ceramico</span></h4>
-            <p class="box__content">"Un año de duración"</p>
+          
+          <div v-if="servicio.nombre.toLowerCase().includes('ceramico')" class="grid__item servicios-individual" @click="hacerEfectoPagina('ceramico')">
+            <div class="box">
+              <div class="box__shadow"></div>
+              <img class="box__img" src="./assets/Imagenes/acrilico.png" alt="Some image"/>
+              <h3 class="box__title"><span class="box__title-inner" data-hover="Tratamiento">Tratamiento</span></h3>
+              <h4 class="box__text"><span class="box__text-inner">Ceramico</span></h4>
+              <p class="box__content">"Un año de duración"</p>
+            </div>
           </div>
-        </a>
-        
-        <div class="grid__item  servicios-individual" @click="hacerEfectoPagina('ceramico')">
-          <div class="box">
-            <div class="box__shadow"></div>
-            <img class="box__img" src="./assets/Imagenes/pulidora.png" alt="Some image"/>
-            <h3 class="box__title box__title--bottom"><span class="box__title-inner" data-hover="Tratamiento">Tratamiento</span></h3>
-            <h4 class="box__text"><span class="box__text-inner box__text-inner--rotated2">Acrilico</span></h4>
-            <p class="box__content">"Tres años de duración"</p>
+          
+          <div v-if="servicio.nombre.toLowerCase().includes('acrilico')" class="grid__item servicios-individual" @click="hacerEfectoPagina('ceramico')">
+            <div class="box">
+              <div class="box__shadow"></div>
+              <img class="box__img" src="./assets/Imagenes/pulidora.png" alt="Some image"/>
+              <h3 class="box__title box__title--bottom"><span class="box__title-inner" data-hover="Tratamiento">Tratamiento</span></h3>
+              <h4 class="box__text"><span class="box__text-inner box__text-inner--rotated2">Acrilico</span></h4>
+              <p class="box__content">"Tres años de duración"</p>
+            </div>
           </div>
-        </div>
+        </template>
+        
         
         <div class="overlay">
           <div class="overlay__reveal"></div>
