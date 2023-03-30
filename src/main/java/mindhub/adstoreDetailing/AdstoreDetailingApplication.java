@@ -98,9 +98,11 @@ public class AdstoreDetailingApplication {
             repositorioProducto.save(producto19);
             repositorioProducto.save(producto20);
             repositorioProducto.save(producto21);
+
             repositorioServicio.save(servicio1);
             repositorioServicio.save(servicio2);
             repositorioServicio.save(servicio3);
+
             //crear compra
             Compra compraCliente1 = new Compra(12000, LocalDateTime.now(), 0);
             cuentaCliente1.sumarCompra(compraCliente1);
