@@ -46,6 +46,28 @@ public class EmailSenderServiceImpl implements EmailSenderService {
         this.mailSender.send(mimeMessage);
 
     }
+    @Override
+    public void enviarFactura(String asunto, String mensaje, String para) throws MessagingException, IOException {
+        MimeMessage mimeMessage = mailSender.createMimeMessage();
+        MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
+
+        exportadorPDF.generarPdf();
+
+        mimeMessageHelper.setFrom("adstoreDetailing23@gmail.com");
+        mimeMessageHelper.setTo(para);
+        mimeMessageHelper.setSubject(asunto);
+        mimeMessageHelper.setText(mensaje);
+
+        File file = new File("sample.pdf");
+        byte[] bytes = Files.readAllBytes(file.toPath());
+        ByteArrayDataSource pdfDataSource = new ByteArrayDataSource(bytes, "application/pdf");
+
+        // add the attachment to the email
+        mimeMessageHelper.addAttachment("sample.pdf", pdfDataSource);
+
+        this.mailSender.send(mimeMessage);
+
+    }
 
     public void a2(String asunto, String mensaje, String para) throws MessagingException, IOException {
         MimeMessage mimeMessage = mailSender.createMimeMessage();

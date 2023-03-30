@@ -2,6 +2,7 @@ package mindhub.adstoreDetailing.servicios;
 
 import com.lowagie.text.*;
 import com.lowagie.text.Font;
+import com.lowagie.text.Image;
 import com.lowagie.text.pdf.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -67,6 +68,28 @@ public class ExportadorPDF {
             Document document = new Document();
             PdfWriter.getInstance(document, new FileOutputStream("sample.pdf"));
             document.open();
+            document.add(new Paragraph("Hello, World!"));
+            document.close();
+        } catch (IOException | DocumentException e) {
+            e.printStackTrace();
+        }
+    }
+    public void generarFactura() {
+        try {
+            Document document = new Document();
+            PdfWriter.getInstance(document, new FileOutputStream("factura.pdf"));
+            document.open();
+
+            // Load the image from a file
+            Image image = Image.getInstance("src/main/resources/static/web/assets/Imagenes/PNG9.png");
+
+            // Scale the image to fit the page
+            image.scaleToFit(document.getPageSize().getWidth(), document.getPageSize().getHeight());
+
+            // Add the image to the document
+            document.add(image);
+
+            document.addTitle("facturaAdstore");
             document.add(new Paragraph("Hello, World!"));
             document.close();
         } catch (IOException | DocumentException e) {

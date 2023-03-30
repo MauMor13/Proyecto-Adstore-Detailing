@@ -13,5 +13,5 @@ public interface ServicioServicio {
     Optional<Servicio> findById(Long id);
     public void guardar(Servicio servicio);
     List<Servicio> findByActiveTrue();
-    public List<ServicioDTO> findByActiveTrueDTO();
+    List<ServicioDTO> findByActiveTrueDTO();
 }
