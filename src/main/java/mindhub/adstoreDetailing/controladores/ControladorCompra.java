@@ -48,12 +48,14 @@ public class ControladorCompra {
 
             compra.setMontoFinal(compra.calcularPrecioTotal());
 
-            this.servicioCompra.guardar(compra);
 
-            this.emailSenderService.enviarEmail(
-                    "Factura de compra "+compra.getId(),
-                    "Gracias por su compra! -Adstore Detailing",
-                    authentication.getName());
+            this.emailSenderService.enviarFactura(
+                    "Factura de compra #"+compra.getId()+ " -Adstore",
+                    "Gracias por confiar en nosotros! Adjunta se encuentra su factura.",
+                    authentication.getName(),
+                    compra);
+
+            this.servicioCompra.guardar(compra);
 
             return new ResponseEntity<>(new CompraDTO(compra),HttpStatus.CREATED );
 
