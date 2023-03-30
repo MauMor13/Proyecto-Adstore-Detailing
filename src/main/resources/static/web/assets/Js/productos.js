@@ -22,8 +22,12 @@ createApp({
             contra: "",
             direccion: "",
             telefono: "",
+            numTarjeta:undefined,
+            saldo:undefined,
             emailInicioSesion: undefined,
             contraInicioSesion: undefined,
+            productos:[],
+            servicios:[]
 
         }
     },
@@ -32,6 +36,7 @@ createApp({
     created(){
         this.cargarDatos();
         this.guardarLocalStorage();
+        this.cargarDatosCliente();
         // this.cargarDatosCliente();
 
     },
@@ -45,6 +50,11 @@ createApp({
             axios.get('/api/cliente')
                 .then(respuesta => {
                     this.cliente = respuesta.data;
+                    console.log(this.cliente)
+                    this.direccion = this.cliente.direccion
+                    this.telefono = this.cliente.telefono
+                    this.numTarjeta = this.cliente.cuenta.tarjetaAd.numeroTarjeta
+                    this.saldo = this.cliente.cuenta.saldo
                 })
                 .catch(err => console.error(err.message));
         },
@@ -111,14 +121,27 @@ createApp({
             this.compra = JSON.parse(localStorage.getItem("compra"))
             let productoEnCarro = this.compra.productos.find(element => element.id == idSeleccion)
             if(productoEnCarro != null){
+                if(productoEnCarro.cantidad == this.compra.productos.find(element => element.id == productoEnCarro.id).stock){
+                    Swal.fire({
+                        customClass: 'modal-sweet-alert',
+                        title: 'Lo sentimos',
+                        text: "Has excedido la cantidad de productos que tenemos en stock, si quieres puedes agregar algun otro producto a tu compra.",
+                        icon: 'warning',
+                        confirmButtonColor: '#f7ba24',
+                        confirmButtonText: 'Aceptar'
+                    })
+                }
+                else{
                 productoEnCarro.cantidad += cantidad
-            }
+            }}
             else{
                 let objeto = {id: 0, cantidad: 0};
                 objeto.id = idSeleccion
                 objeto.cantidad = cantidad
                 this.compra.productos.push(objeto)
             }
+            this.productos = this.compra.productos
+            console.log(this.productos)
             localStorage.setItem("compra",JSON.stringify(this.compra))
         },
 
@@ -166,6 +189,10 @@ createApp({
                     console.error(err.response);
                     this.errorEncontrado = true;
                 });
+        },
+        logOut(){
+            axios.post('/api/logout')
+            .then(() => window.location.reload)
         },
 
 
