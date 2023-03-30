@@ -14,8 +14,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Work+Sans&display=swap" rel="stylesheet">
-  <link href="https://unpkg.com/vue-cal/dist/vuecal.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./assets/styles/estiloGeneral.css">
+  <link rel="stylesheet" href="./assets/styles/base.css">
   <link rel="stylesheet" href="./assets/styles/estiloProductos.css" />
 </head>
 
@@ -92,8 +95,8 @@
       
     </header>
 
-    <main class="main-index d-flex flex-column gap-3 justify-content-center align-items-center">
-     <!--datos cliente-->
+    <main class="overflow-x-hidden main-index d-flex flex-column gap-3 justify-content-center align-items-center main-servicios">
+      <!--datos cliente-->
       
      <div v-if="cliente" class="accordion  border border-dark accordion-flush btn btn-warning position-fixed bottom-0 end-0 me-3 mt-3" id="accordionFlushExample">
       <div class="accordion-item">
@@ -141,6 +144,7 @@
       <div class="fondo-experiencia w-100 d-flex justify-content-center">
         <h1 class="fondo-experiencia fuente-audiowide font2-color"> SERVICIOS</h1>
       </div>
+
 
       <!--inicio carrito-->
 
@@ -234,188 +238,159 @@
       <!--fin carrito-->
 
 
-      <!--cards servicios-->
-      <div class=" d-flex flex-column">
+      <div class="grid modales-fondo mB-5 py-5 servicios" style="min-height: 600px;">
 
-        <div class="d-flex contenedor-servicios1 justify-content-center align-items-center  flex-wrap col-12 ">
-          <!--  inicio servicio 1 -->
-          <div class="flip-card1  fondo-categorias flex-wrap d-flex col-12  col-lg-5 m-3">
 
-            <div class="flip-card-inner1  fondo-categorias">
-              <div class="flip-card-front  fondo-categorias">
-                <div class="d-flex  flex-wrap ">
-                  <div class="col-lg-6 col-12 ">
-                      <img src="./assets/Imagenes/IMG5.jpg" class="img-servicio" alt="">
-                    </div>
-                    <div class=" col-lg-6 col-12  p-2  ">
-                      <div class="d-flex flex-column justify-content-center align-content-center align-items-center">
-                        <h2 class="up-title">TRATAMIENTO</h2>
-                        <h2 class="down-title">Cerámico</h2>
-                      </div>
-                      <div class="p-3 texto-servicio">
-                          <p> <img src="./assets/Imagenes/checked.png" class="lista text-light" alt=""> Distintos tipos de tratamientos cerámicos que varían solo en el sellador a utilizar, con una durabilidad de entre 1 a 3 años.
-                          </p>
-                          <p><img src="./assets/Imagenes/checked.png" class="lista text-light" alt="">  Lavado detallado del vehiculo.</p>
-                      </div>
-                      <div>
-                        <button @click="verDetallesServicio1('front')" class=" btn1 p-2">Ver detalles</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+        <template v-if="servicios.length" v-for="servicio of servicios">
 
-                <div class="flip-card-back ">
-                  <div class="d-flex flex-column justify-content-center  align-content-center align-items-center">
-                    <h2 class="up-title">TRATAMIENTO</h2>
-                    <h2 class="down-title">Cerámico</h2>
-                  </div>
-                  <div class="p-3 texto-servicio    ">
-                    <p class="texto-servicio"> <img src="./assets/Imagenes/checked.png" class="lista" alt=""> Distintos tipos de tratamientos cerámicos que varían solo en el sellador a utilizar, con una durabilidad de entre 3 a 5 años.
-                    </p>
-                    <p class="texto-servicio"><img src="./assets/Imagenes/checked.png" class="lista" alt="">  Pulido de la carrocería, para quitar todo tipo de imperfecciones, cómo rayas o swirls estas son las micros rayas circulares que suelen tener.</p>
-                </div>
-                <div class="  ">
-                  <img src="./assets/Imagenes/carrito.png" class="carrito" alt="">
-                  <a href="" class="link-contacto text-decoration-none">AGENDAR SERVICIO</a>
-                </div>
-                <button @click="verDetallesServicio1('back')" class=" w-100  btn1 p-2">Volver</button>
-                </div>
-              </div>
-            </div>
-            <!-- fin servicio 1 -->
-            <!--  inicio servicio 2 -->
-            <div class="flip-card2 fondo-categorias flex-wrap d-flex col-12  col-lg-5 m-3">
-              <div class="flip-card-inner2">
-                <div class="flip-card-front">
-                  <div class="d-flex  flex-wrap">
-                    <div class="col-lg-6 col-12">
-                      <img src="./assets/Imagenes/IMG4.jpg" class="img-servicio" alt="">
-                    </div>
-                    <div class=" col-lg-6 col-12  p-2">
-                      <div class="d-flex flex-column justify-content-center  align-content-center align-items-center">
-                        <h2 class="up-title">LAVADO</h2>
-                        <h2 class="down-title">Premium</h2>
-                      </div>
-                      <div class="ps-3 pe-3 pt-3 texto-servicio">
-                          <p> <img src="./assets/Imagenes/checked.png" class="lista text-light" alt=""> Interior detallado con un acondicionador para los plásticos 
-                          </p>
-                          <p><img src="./assets/Imagenes/checked.png" class="lista text-light" alt=""> lavado de llantas al detalle con productos ferricos, para una mayor limpieza. </p>
-                          
-                      </div>
-                      <div>
-                        <button @click="verDetallesServicio2('front')" class=" btn1 p-2">Ver detalles</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="flip-card-back">
-                  <div class="d-flex flex-column justify-content-center   align-content-center align-items-center">
-                    <h2 class="up-title">LAVADO</h2>
-                    <h2 class="down-title">Premium</h2>
-                  </div>
-                  <div class="p-3 texto-servicio ">
-                    <p class="texto-servicio"><img src="./assets/Imagenes/checked.png" class="lista" alt="">  Pulido de la carrocería, para quitar todo tipo de imperfecciones, cómo rayas o swirls estas son las micros rayas circulares que suelen tener.</p>
-                    <p><img src="./assets/Imagenes/checked.png" class="lista" alt=""> Acondicionado de alfombras de goma.</p>
-                  </div>
-                <div>
-                  <img src="./assets/Imagenes/carrito.png" class="carrito" alt="">
-                  <a href="" class="link-contacto text-decoration-none">AGENDAR SERVICIO</a>
-                </div>
-                <button @click="verDetallesServicio2('back')" class=" w-100 btn1 p-2">Volver</button>
-                </div>
-              </div>
-            </div>
-            <!-- fin servicio 2 -->
-        </div>
-
-        <div class="d-flex flex-wrap contenedor-servicios2 justify-content-center align-items-center">
-          <!--  inicio servicio 3 -->
-          <div class="flip-card3 fondo-categorias flex-wrap  col-lg-5 m-3">
-            <div class="flip-card-inner3">
-              <div class="flip-card-front ">
-                <div class="d-flex  flex-wrap">
-                  <div class="col-lg-6 col-12">
-                    <img src="./assets/Imagenes/IMG3.jpg" class="img-servicio" alt="">
-                  </div>
-                  <div class="col-lg-6 col-12 p-2">
-                    <div class="d-flex flex-column justify-content-center align-content-center align-items-center">
-                      <h2 class="up-title">TRATAMIENTO</h2>
-                      <h2 class="down-title"> Acrilico</h2>
-                    </div>
-                    <div class="p-3 texto-servicio">
-                        <p> <img src="./assets/Imagenes/checked.png" class="lista text-light" alt=""> Distintos tipos de tratamientos cerámicos que varían solo en el sellador a utilizar, con una durabilidad de entre 3 a 5 años.
-                        </p>
-                        <p><img src="./assets/Imagenes/checked.png" class="lista text-light" alt="">  Lavado detallado del vehiculo.</p>
-                    </div>
-                    <div>
-                      <button @click="verDetallesServicio3('front')" class=" btn1 p-2">Ver detalles</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="flip-card-back">
-                <div class="d-flex flex-column justify-content-center align-content-center align-items-center">
-                  <h2 class="up-title">TRATAMIENTO</h2>
-                  <h2 class="down-title">Acrilico</h2>
-                </div>
-                <div class="p-3 texto-servicio ">
-                  <p class="texto-servicio"> <img src="./assets/Imagenes/checked.png" class="lista" alt=""> Distintos tipos de tratamientos cerámicos que varían solo en el sellador a utilizar, con una durabilidad de entre 3 a 5 años.
-                  </p>
-                  <p class="texto-servicio"><img src="./assets/Imagenes/checked.png" class="lista" alt="">  Pulido de la carrocería, para quitar todo tipo de imperfecciones, cómo rayas o swirls estas son las micros rayas circulares que suelen tener.</p>
-              </div>
-              <div>
-                <img src="./assets/Imagenes/carrito.png" class="carrito" alt="">
-                <a href="" class="link-contacto text-decoration-none">AGENDAR SERVICIO</a>
-              </div>
-              <button @click="verDetallesServicio3('back')" class=" w-100 btn1 p-2">Volver</button>
-              </div>
+          <div v-if="servicio.nombre.toLowerCase().includes('basico')" class="grid__item mb-xl-5 servicios-individual" @click="hacerEfectoPagina('ceramico')" >
+            <div class="box">
+              <div class="box__shadow"></div>
+              <img class="box__img" src="./assets/Imagenes/lavadoBasico.png" alt="Some image"/>
+              <h3 class="box__title"><span class="box__title-inner" data-hover="Lavado">Lavado</span></h3>
+              <h4 class="box__text box__text--bottomcloser"><span class="box__text-inner">Tradicional</span></h4>
             </div>
           </div>
-          <!-- fin servicio 3 -->
-          <!--  inicio servicio 4 -->
-          <div class="flip-card4 fondo-categorias flex-wrap  col-lg-5 m-3">
-            <div class="flip-card-inner4">
-              <div class="flip-card-front">
-                <div class="d-flex  flex-wrap">
-                  <div class="col-lg-6 col-12">
-                    <img src="./assets/Imagenes/foto2.jpeg" class="img-servicio" alt="">
-                  </div>
-                  <div class="col-lg-6 col-12 p-2">
-                    <div class="d-flex flex-column justify-content-center align-content-center align-items-center">
-                      <h2 class="up-title">LAVADO</h2>
-                      <h2 class="down-title">Básico</h2>
-                    </div>
-                    <div class="ps-3 pe-3 pt-3 texto-servicio">
-                        <p> <img src="./assets/Imagenes/checked.png" class="lista text-light" alt=""> Detallado de interior, aspirado al detalle, lavado de carrocería al detalle, terminación con cera en spray.</p>
-                    </div>
-                    <div>
-                      <button @click="verDetallesServicio4('front')" class=" btn1 p-2">Ver detalles</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="flip-card-back">
-                <div class="d-flex flex-column justify-content-center align-content-center align-items-center">
-                  <h2 class="up-title">LAVADO</h2>
-                  <h2 class="down-title">Básico</h2>
-                </div>
-                <div class="p-3 texto-servicio ">
-                  <p class="texto-servicio"><img src="./assets/Imagenes/checked.png" class="lista" alt="">  Pulido de la carrocería, para quitar todo tipo de imperfecciones, cómo rayas o swirls estas son las micros rayas circulares que suelen tener.</p>
-                  <p><img src="./assets/Imagenes/checked.png" class="lista " alt=""> Acondicionado de alfombras de goma.</p>
-                </div>
-              <div>
-                <img src="./assets/Imagenes/carrito.png" class="carrito" alt="">
-                <a href="" class="link-contacto text-decoration-none">AGENDAR SERVICIO</a>
-              </div>
-              <button @click="verDetallesServicio4('back')" class=" w-100 btn1 p-2">Volver</button>
-              </div>
+          
+          <div v-if="servicio.nombre.toLowerCase().includes('premium')" class="grid__item servicios-individual" @click="hacerEfectoPagina('ceramico')" >
+            <div class="box">
+              <div class="box__shadow"></div>
+              <img class="box__img" src="./assets/Imagenes/lavado.jpg" alt="Some image"/>
+              <h3 class="box__title"><span class="box__title-inner" data-hover="Lavado">Lavado</span></h3>
+              <h4 class="box__text box__text--bottom box__text--right"><span class="box__text-inner box__text-inner--rotated3">Premium</span></h4>
             </div>
           </div>
-          <!-- fin servicio 4 -->
+          
+          <div v-if="servicio.nombre.toLowerCase().includes('ceramico')" class="grid__item servicios-individual" @click="hacerEfectoPagina('ceramico')">
+            <div class="box">
+              <div class="box__shadow"></div>
+              <img class="box__img" src="./assets/Imagenes/acrilico.png" alt="Some image"/>
+              <h3 class="box__title"><span class="box__title-inner" data-hover="Tratamiento">Tratamiento</span></h3>
+              <h4 class="box__text"><span class="box__text-inner">Ceramico</span></h4>
+              <p class="box__content">"Un año de duración"</p>
+            </div>
+          </div>
+          
+          <div v-if="servicio.nombre.toLowerCase().includes('acrilico')" class="grid__item servicios-individual" @click="hacerEfectoPagina('ceramico')">
+            <div class="box">
+              <div class="box__shadow"></div>
+              <img class="box__img" src="./assets/Imagenes/pulidora.png" alt="Some image"/>
+              <h3 class="box__title box__title--bottom"><span class="box__title-inner" data-hover="Tratamiento">Tratamiento</span></h3>
+              <h4 class="box__text"><span class="box__text-inner box__text-inner--rotated2">Acrilico</span></h4>
+              <p class="box__content">"Tres años de duración"</p>
+            </div>
+          </div>
+        </template>
+        
+        
+        <div class="overlay">
+          <div class="overlay__reveal"></div>
+          
+          <div class="overlay__item" id="preview-4">
+            <div class="box">
+              <div class="box__shadow"></div>
+              <img class="box__img box__img--original" src="./assets/Imagenes/lavado.jpg" alt="Some image"/>
+              <h3 class="box__title"><span class="box__title-inner">Catch</span></h3>
+              <h4 class="box__text box__text--bottom box__text--right"><span class="box__text-inner box__text-inner--rotated3">Fire</span></h4>
+            </div>
+            <p class="overlay__content">It's time the tale were told of how you took a child and you made him old.</p>
+          </div>
+          <div class="overlay__item" id="preview-5">
+            <div class="box">
+              <div class="box__shadow"></div>
+              <img class="box__img box__img--original" src="./assets/Imagenes/lavadoBasico.png" alt="Some image"/>
+              <h3 class="box__title"><span class="box__title-inner">Lim</span></h3>
+              <h4 class="box__text box__text--bottomcloser"><span class="box__text-inner">Breed</span></h4>
+            </div>
+            <p class="overlay__content">It's time the tale were told of how you took a child and you made him old.</p>
+          </div>
+          <div class="overlay__item" id="preview-6">
+            <div class="box">
+              <div class="box__shadow"></div>
+              <img class="box__img box__img--original" src="./assets/Imagenes/acrilico.png" alt="Some image"/>
+              <h3 class="box__title"><span class="box__title-inner">Hard</span></h3>
+              <h4 class="box__text"><span class="box__text-inner">Fast</span></h4>
+            </div>
+            <p class="overlay__content">It's time the tale were told of how you took a child and you made him old.</p>
+          </div>
+          
+          <div class="overlay__item" id="preview-10">
+            <div class="box">
+              <div class="box__shadow"></div>
+              <img class="box__img box__img--original" src="./assets/Imagenes/pulidora.png" alt="Some image"/>
+              <h3 class="box__title box__title--bottom"><span class="box__title-inner">Lost</span></h3>
+              <h4 class="box__text"><span class="box__text-inner box__text-inner--rotated2">Rust</span></h4>
+            </div>
+            <p class="overlay__content">It's time the tale were told of how you took a child and you made him old.</p>
+          </div>
+          
+          <button class="overlay__close"><svg class="icon icon--cross"><use xlink:href="#icon-cross"></use></svg></button>
         </div>
+        
+        
+        
+        <!-- <div class="col-3 position-relative servicios-individual">
+          <img @click="hacerEfectoPagina('ceramico')" src="./assets/Imagenes/acrilico.png" class="w-75 foto-servicio-efecto" alt="">
+          <h3 @click="hacerEfectoPagina('ceramico')" id="tratamiento" class="letra-sin-relleno"><span class="titulo-sin-fill" data-hover="Tratamiento">Tratamiento</span></h3>
+          <img @click="hacerEfectoPagina('ceramico')" id="ceramico" class="cuadros-servicios" src="./assets/Imagenes/CuadroCeramico.png" alt="ceramico">
+        </div>
+        <div class="col-3 position-relative servicios-individual">
+          <img @click="hacerEfectoPagina('acrilico')" src="./assets/Imagenes/pulidora.png" class="w-75 foto-servicio-efecto" alt="">
+          <img @click="hacerEfectoPagina('acrilico')" id="tratAc" class="cuadros-servicios" src="./assets/Imagenes/CuadroTratamiento.png" alt="">
+          <h3 @click="hacerEfectoPagina('acrilico')" id="acrilico" class="letra-sin-relleno"><span class="titulo-sin-fill" data-hover="West">Acrilico</span></h3>
+        </div>
+        <div class="col-3 position-relative d-flex align-items-end servicios-individual">
+          <h3 @click="hacerEfectoPagina('basico')" id="probalo" class="letra-sin-relleno z-1"><span class="titulo-sin-fill" data-hover="West">Probalo</span></h3>
+          <img @click="hacerEfectoPagina('basico')" id="basico" class="cuadros-servicios" src="./assets/Imagenes/CuadroLavadoBasico.png" alt="">
+          <img @click="hacerEfectoPagina('basico')" src="./assets/Imagenes/lavadoBasico.png" class="w-75 foto-servicio-efecto" alt="">
+        </div>
+        <div class="col-3 position-relative servicios-individual py-2">
+          <h3 @click="hacerEfectoPagina('premium')" id="mejor" class="letra-sin-relleno"><span class="titulo-sin-fill" data-hover="West">El Mejor</span></h3>
+          <img @click="hacerEfectoPagina('premium')" src="./assets/Imagenes/lavado.jpg" class="w-75 foto-servicio-efecto" alt="">
+          <img @click="hacerEfectoPagina('premium')" id="premium" class="cuadros-servicios" src="./assets/Imagenes/CuadroLavadoPremium.png" alt="">
+        </div> -->
+
+      </div>
+
+      <div class="card-principal d-flex flex-column justify-content-around align-items-center">
+        <img @click="volverPagina()" class="icono-cierre" src="./assets/Imagenes/x.png" alt="x">
+        <div class="w-100 principal-wrapper">
+          <div class="col-3 position-relative servicios-individual">
+            <img src="./assets/Imagenes/acrilico.png" class="w-75 foto-servicio-efecto" alt="">
+            <h3 id="tratamiento1" class="letra-sin-relleno"><span class="titulo-sin-fill" data-hover="Tratamiento">Tratamiento</span></h3>
+            <img id="ceramico1" class="cuadros-servicios" src="./assets/Imagenes/CuadroCeramico.png" alt="ceramico">
+          </div>
+
+        </div>
+        <img class="w-50" src="./assets/Imagenes/PNG3.png" alt="">
+      </div>
+<!--
+      <div style="display: none;" class="mostar-cards modales-fondo w-100 position-relative z-0 row flexDesde768" style="min-height: 350px;">
+        
+        <div class="col-3 position-relative servicios-individual">
+          <img @click="hacerEfectoPagina('acrilico')" src="./assets/Imagenes/pulidora.png" class="w-75 foto-servicio-efecto" alt="">
+          <img @click="hacerEfectoPagina('acrilico')" id="tratAc1" class="cuadros-servicios" src="./assets/Imagenes/CuadroTratamiento.png" alt="">
+          <h3 @click="hacerEfectoPagina('acrilico')" id="acrilico1" class="letra-sin-relleno"><span class="titulo-sin-fill" data-hover="West">Acrilico</span></h3>
+        </div>
+        <div class="col-3 position-relative d-flex align-items-center servicios-individual">
+          <h3 @click="hacerEfectoPagina('basico')" id="probal1o" class="letra-sin-relleno z-1"><span class="titulo-sin-fill" data-hover="West">Probalo</span></h3>
+          <img @click="hacerEfectoPagina('basico')" id="basico1" class="cuadros-servicios" src="./assets/Imagenes/CuadroLavadoBasico.png" alt="">
+          <img @click="hacerEfectoPagina('basico')" src="./assets/Imagenes/lavadoBasico.png" class="w-75 foto-servicio-efecto" alt="">
+        </div>
+        <div class="col-3 position-relative servicios-individual py-2">
+          <img @click="hacerEfectoPagina('premium')" src="./assets/Imagenes/lavado.jpg" class="w-75 foto-servicio-efecto" alt="">
+          <img @click="hacerEfectoPagina('premium')" id="premium1" class="cuadros-servicios" src="./assets/Imagenes/CuadroLavadoPremium.png" alt="">
+          <h3 @click="hacerEfectoPagina('premium')" id="mejor1" class="letra-sin-relleno"><span class="titulo-sin-fill" data-hover="West">El Mejor</span></h3>
+        </div>
+
+      </div>
+
+      <div class="h-50">
+        <p class="visually-hidden">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptate velit necessitatibus quae veritatis delectus consectetur magni blanditiis architecto nemo impedit recusandae aspernatur tenetur neque, mollitia et repellendus placeat voluptatibus earum?</p>
+      </div>
+
+    -->
+      <div class="hojaNegra">
 
       </div>
       

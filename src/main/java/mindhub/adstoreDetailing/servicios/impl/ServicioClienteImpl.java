@@ -8,6 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -55,6 +56,10 @@ public class ServicioClienteImpl implements ServicioCliente {
     @Override
     public void guardar(Cliente cliente) {
         this.repositorioCliente.save(cliente);
+    }
+    @Override
+    public Optional<Cliente> findById(Long id){
+        return this.repositorioCliente.findById(id);
     }
 
     private ClienteDTO generarCuentaDTO(Cliente cliente) {

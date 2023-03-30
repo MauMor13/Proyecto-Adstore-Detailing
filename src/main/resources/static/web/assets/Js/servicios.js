@@ -21,6 +21,7 @@ createApp({
             },
             productos:[],
             servicios:[]
+
         }
     },
 
@@ -29,6 +30,7 @@ createApp({
         this.cargarDatos();
         this.guardarLocalStorage();
         this.cargarDatosServicios();
+
 
     },
 
@@ -54,6 +56,7 @@ createApp({
                 })
                 .catch(err => console.error(err.message));
         },
+
         cargarDatos: function(){
             axios.get('/api/productos')
                 .then(respuesta => {
@@ -139,6 +142,16 @@ createApp({
             }
             this.productos = this.compra.productos
             localStorage.setItem("compra",JSON.stringify(this.compra))
+
+
+        cargarServicios:function(){
+            axios.get('/api/servicios-activos')
+                .then(respuesta => {
+                    this.servicios = respuesta.data;
+                    console.log(this.servicios);
+                })
+                .catch(err => console.error(err.message));
+
         },
 
         //Generar registro
@@ -232,6 +245,33 @@ createApp({
             else if (value == 'back') {
                 form.classList.remove('girarServicio');
             }
+        },
+
+
+        //efecto paginado
+
+        hacerEfectoPagina: function(){
+            console.log("hola");
+            let telon = document.querySelector('.hojaNegra');
+            let vistaPrincipal = document.querySelector('.card-principal')
+            let todosServicios = document.querySelectorAll('.servicios')
+
+           
+            vistaPrincipal.style.left = '0';
+           
+            todosServicios.forEach(servicio => servicio.style.opacity = '0');
+            
+        },
+
+        volverPagina: function(){
+            let telon = document.querySelector('.hojaNegra');
+            let vistaPrincipal = document.querySelector('.card-principal');
+            let todosServicios = document.querySelectorAll('.servicios')
+
+            
+            vistaPrincipal.style.left = '-100vw';
+           
+            todosServicios.forEach(servicio => servicio.style.opacity = '1');
         },
 
 
