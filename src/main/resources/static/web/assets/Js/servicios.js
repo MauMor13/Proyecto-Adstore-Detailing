@@ -15,13 +15,14 @@ createApp({
             telefono: "",
             emailInicioSesion: undefined,
             contraInicioSesion: undefined,
+            servicios: [],
 
         }
     },
 
     created(){
         // this.cargarDatosCliente();
-
+        this.cargarServicios();
     },
 
     mounted(){
@@ -36,6 +37,16 @@ createApp({
                 })
                 .catch(err => console.error(err.message));
         },
+
+        cargarServicios:function(){
+            axios.get('/api/servicios-activos')
+                .then(respuesta => {
+                    this.servicios = respuesta.data;
+                    console.log(this.servicios);
+                })
+                .catch(err => console.error(err.message));
+        },
+
         //Generar registro
         realizarRegistro: function(){
             axios.post('/api/registrar', {nombre: this.nombre, apellido: this.apellido, email: this.email, claveIngreso: this.contra, direccion: this.direccion, telefono: this.telefono,})
@@ -136,20 +147,24 @@ createApp({
             console.log("hola");
             let telon = document.querySelector('.hojaNegra');
             let vistaPrincipal = document.querySelector('.card-principal')
-            telon.style.left = '0';
+            let todosServicios = document.querySelectorAll('.servicios')
+
+           
             vistaPrincipal.style.left = '0';
-            setTimeout(() => {
-                telon.style.left = '-100vw';
-            }, "1800");
+           
+            todosServicios.forEach(servicio => servicio.style.opacity = '0');
             
         },
 
         volverPagina: function(){
             let telon = document.querySelector('.hojaNegra');
             let vistaPrincipal = document.querySelector('.card-principal');
-            telon.style.left = '0';
+            let todosServicios = document.querySelectorAll('.servicios')
+
+            
             vistaPrincipal.style.left = '-100vw';
-            telon.style.left = '-100vw';
+           
+            todosServicios.forEach(servicio => servicio.style.opacity = '1');
         },
 
 

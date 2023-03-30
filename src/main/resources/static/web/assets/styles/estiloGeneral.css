@@ -467,12 +467,12 @@ transform: rotateY(180deg);
 .hojaNegra{
     transform-origin: 0% 50%;
     width: 100vw;
-    height: 150vh;
+    height: 100vh;
     background-color: black;
     scale: 1;
     position: absolute;
     left: -100vw;
-    top: 0;
+    top: 112px;
     z-index: 100;
     transition: all 2s ease-in-out;
 }
@@ -480,24 +480,43 @@ transform: rotateY(180deg);
 .card-principal{
     transform-origin: 0% 50%;
     width: 100vw;
-    height: 100vh;
+    height: 80vh;
     background-color: #f7ba24;
     scale: 1;
-    position: fixed;
+    position: absolute;
     left: -100vw;
-    top: 0;
+    top: 98px;
     z-index: 100;
     transition: all 2s ease-in-out;
 }
+
+@media (min-width: 1440px){
+    .card-principal{
+        height: 70vh;
+    }
+}
+
+@media (min-width: 1450px){
+    .card-principal{
+        height: 84vh;
+    }
+}
+
+
 
 .icono-cierre {
     height: 3rem;
     z-index: 10;
     position: absolute;
-    top: 5px;
-    right: 20px;
+    top: 20px;
+    right: 60px;
     cursor: pointer;
 }
+
+.servicios-individual{
+    cursor: pointer;
+}
+
 
 
 .flip-card{
