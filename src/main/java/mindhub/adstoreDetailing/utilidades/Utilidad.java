@@ -41,7 +41,7 @@ public class Utilidad {
     }
     public static void crearCompraServicio(Compra compra, List<Servicio> servicio, RepositorioCompraServicio repositorioCompraServicio,RepositorioCompra repositorioCompra){
         for (int i=0;i<servicio.size();i++){
-            CompraServicio nuevaCompraServicio = new CompraServicio(compra, servicio.get(i), LocalDateTime.now());
+            CompraServicio nuevaCompraServicio = new CompraServicio(compra, servicio.get(i));
             repositorioCompraServicio.save(nuevaCompraServicio);
             repositorioCompra.save(compra);
         }

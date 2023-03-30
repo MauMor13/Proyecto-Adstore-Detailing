@@ -1,15 +1,11 @@
 package mindhub.adstoreDetailing.models;
-
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
-
 @Getter
 @Setter
 @NoArgsConstructor
@@ -22,12 +18,12 @@ public class Compra {
     private double montoFinal;
     private LocalDateTime fecha;
     private int descuento;
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "cuenta_id")
     private Cuenta cuenta;
-    @OneToMany(mappedBy = "compra",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "compra",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<CompraProducto> compraProductos = new HashSet<>();
-    @OneToMany(mappedBy = "compra",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "compra",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<CompraServicio> compraServicios = new HashSet<>();
 
     public Compra(double montoFinal, LocalDateTime fecha, int descuento) {
@@ -43,4 +39,16 @@ public class Compra {
         compraServicio.setCompra(this);
         compraServicios.add(compraServicio);
     }
+
+    public double calcularPrecioTotal() {
+        double precioTotal = 0.0;
+        for (CompraProducto compraProducto : compraProductos) {
+            precioTotal += compraProducto.getProducto().getPrecio() * compraProducto.getCantidad();
+        }
+        for (CompraServicio compraServicio : compraServicios) {
+            precioTotal += compraServicio.getServicio().getPrecio();
+        }
+        return precioTotal;
+    }
+
 }
