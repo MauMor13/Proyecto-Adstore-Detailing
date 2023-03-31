@@ -21,6 +21,7 @@ import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.bind.ValidationException;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,7 +50,7 @@ public class ControladorCliente {
         return servicioCliente.findAllClienteDTO();
     }
     @PostMapping("/registrar")
-    public ResponseEntity<Object> registrar(@RequestBody RegistroClienteDTO registroClienteDTO) throws MessagingException {
+    public ResponseEntity<Object> registrar(@RequestBody RegistroClienteDTO registroClienteDTO) throws MessagingException, UnsupportedEncodingException {
 
         if (registroClienteDTO.getNombre().isEmpty()) {
             return new ResponseEntity<>("Ingrese Nombre", HttpStatus.BAD_REQUEST);
@@ -105,7 +106,7 @@ public class ControladorCliente {
         repositorioTarjetaAd.save(nuevaTarjeta);
 
         this.emailSenderService.enviarCodigo(nuevoCliente.getEmail(), token);
-        return new ResponseEntity<>("Se registró con éxito",HttpStatus.CREATED);
+        return new ResponseEntity<>("Por favor revise su bandeja de entrada",HttpStatus.CREATED);
     }
     @PatchMapping("/modificar-cliente")
     public ResponseEntity<Object> modificarCliente(@RequestBody ClienteDTO clienteDTO){
