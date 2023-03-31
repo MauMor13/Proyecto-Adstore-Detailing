@@ -22,6 +22,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
+import java.time.Duration;
 import java.time.format.DateTimeFormatter;
 
 @Service
@@ -116,10 +117,11 @@ public class EmailSenderServiceImpl implements EmailSenderService {
         mimeMessageHelper.setSubject(asunto);
 
         DateTimeFormatter formatterIngreso = DateTimeFormatter.ofPattern("EEEE dd MMMM");//agregar hora
-        DateTimeFormatter formatterSalida = DateTimeFormatter.ofPattern("HH");
 
         String fechaIngreso= formatterIngreso.format(turno.getFechaHoraIngreso());
-        String fechaSalida = formatterSalida.format(turno.getFechaHoraSalida());
+
+        Duration duration = Duration.between(turno.getFechaHoraIngreso(), turno.getFechaHoraSalida());
+        long minutes = duration.toMinutes();
 
         StringBuilder sb = new StringBuilder("Estimado cliente,\n");
         sb.append("\n");
@@ -128,13 +130,13 @@ public class EmailSenderServiceImpl implements EmailSenderService {
         sb.append(" tiene turno con nosotros para ");
         for(CompraServicio compraServicio : turno.getCompraServicios()){
             sb.append(compraServicio.getServicio().getNombre());
-            sb.append(" ,");
+            sb.append(" , ");
         }
         sb.replace(sb.length()-2, sb.length(), " .");
         sb.append("\n");
         sb.append("\n");
-        sb.append("Tiempo de servicio estimado : ");
-        sb.append(fechaSalida);
+        sb.append("Tiempo estimado de servicio : ");
+        sb.append(minutes).append(" minutos");
         sb.append(".");
 
         mimeMessageHelper.setText(sb.toString());

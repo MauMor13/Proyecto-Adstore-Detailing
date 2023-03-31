@@ -39,7 +39,7 @@ public class TurnoCron {
                emailSenderService.enviarRecordatorio("Recordatorio turno | Adstore Detailing",email,turno);
                turno.setNotificado(true);
                repositorioTurnoServicio.save(turno);
-                System.out.println("Email Enviado");
+               System.out.println("Email Enviado");
             }
         }
     }
