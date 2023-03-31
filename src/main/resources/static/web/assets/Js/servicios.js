@@ -20,15 +20,13 @@ createApp({
                 servicios:[]
             },
             productos:[],
-            servicios:[]
-
+            servicios:[],
+            servicioElegido: undefined,
         }
     },
 
     created(){
-        if(this.cliente == undefined){
-            this.cargarDatosCliente()
-        }
+
         this.cargarDatos();
         this.guardarLocalStorage();
         this.cargarDatosServicios();
@@ -146,6 +144,7 @@ createApp({
             localStorage.setItem("compra",JSON.stringify(this.compra))
 
         },
+
         cargarServicios:function(){
             axios.get('/api/servicios-activos')
                 .then(respuesta => {
@@ -252,28 +251,20 @@ createApp({
 
         //efecto paginado
 
-        hacerEfectoPagina: function(){
-            console.log("hola");
-            let telon = document.querySelector('.hojaNegra');
+        hacerEfectoPagina: function(servicio){
+            this.servicioElegido = {... servicio};
             let vistaPrincipal = document.querySelector('.card-principal')
             let todosServicios = document.querySelectorAll('.servicios')
 
-           
             vistaPrincipal.style.left = '0';
-           
-            todosServicios.forEach(servicio => servicio.style.opacity = '0');
             
         },
 
         volverPagina: function(){
-            let telon = document.querySelector('.hojaNegra');
             let vistaPrincipal = document.querySelector('.card-principal');
             let todosServicios = document.querySelectorAll('.servicios')
-
-            
             vistaPrincipal.style.left = '-100vw';
-           
-            todosServicios.forEach(servicio => servicio.style.opacity = '1');
+
         },
 
 

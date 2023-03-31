@@ -25,6 +25,7 @@ createApp({
     },
 
     created(){
+
         this.sesion = localStorage.getItem("sesion")
         if(this.sesion == "1"){
             this.cargarDatos()
