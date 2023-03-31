@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.bind.ValidationException;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Optional;
@@ -48,7 +49,7 @@ public class ControladorCliente {
         return servicioCliente.findAllClienteDTO();
     }
     @PostMapping("/registrar")
-    public ResponseEntity<Object> registrar(@RequestBody RegistroClienteDTO registroClienteDTO) throws MessagingException, UnsupportedEncodingException {
+    public ResponseEntity<Object> registrar(@RequestBody RegistroClienteDTO registroClienteDTO) throws MessagingException, IOException {
 
         if (registroClienteDTO.getNombre().isEmpty()) {
             return new ResponseEntity<>("Ingrese Nombre", HttpStatus.BAD_REQUEST);
