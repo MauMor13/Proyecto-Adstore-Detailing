@@ -3,6 +3,8 @@ const {createApp} = Vue;
 createApp({
     data(){
         return{
+            numcuenta:"",
+            nombreCliente:"",
             cliente: undefined,
             categorias: [],
             productos: [],
@@ -30,7 +32,8 @@ createApp({
             servicios:[],
             productosNombre:"",
             servicioNombre:"",
-            servicio:""
+            servicio:"",
+            compraProducto :"",
 
         }
     },
@@ -41,7 +44,6 @@ createApp({
         this.guardarLocalStorage();
         this.cargarDatosCliente();
         this.cargarDatosServicios();
-        // this.cargarDatosCliente();
 
     },
 
@@ -60,11 +62,14 @@ createApp({
             axios.get('/api/cliente')
                 .then(respuesta => {
                     this.cliente = respuesta.data;
-                    console.log(this.cliente)
+                    this.nombreCliente= this.cliente.nombre + " "+this.cliente.apellido 
+                    this.numcuenta= this.cliente.cuenta.numeroCuenta
                     this.direccion = this.cliente.direccion
                     this.telefono = this.cliente.telefono
                     this.numTarjeta = this.cliente.cuenta.tarjetaAd.numeroTarjeta
                     this.saldo = this.cliente.cuenta.saldo
+                    this.compraProducto =({...respuesta.data.cuenta.compras[0].compraProducto})
+                    this.compraServicio =({...respuesta.data.cuenta.compras[0].compraServicio})
                 })
                 .catch(err => console.error(err.message));
         },

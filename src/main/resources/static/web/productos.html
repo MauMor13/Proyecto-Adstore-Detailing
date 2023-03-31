@@ -198,7 +198,7 @@
                   </tr>
                   <tr>
                     <td class="fuente-poppin columna text-dark"  v-cloak> <strong>Saldo</strong> </td>
-                    <td class="fuente-poppin"  v-cloak>{{saldo}}</td>
+                    <td class="fuente-poppin"  v-cloak>{{saldo.toLocaleString('en-US', {style:"currency", currency:"USD"})}}</td>
                   </tr>
                   <tr>
                     <td class="fuente-poppin columna text-dark"  v-cloak> <strong>Tarjeta</strong> </td>

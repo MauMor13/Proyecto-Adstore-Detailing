@@ -142,6 +142,7 @@ createApp({
             }
             this.productos = this.compra.productos
             localStorage.setItem("compra",JSON.stringify(this.compra))
+        },
 
 
         cargarServicios:function(){
@@ -256,9 +257,7 @@ createApp({
             let vistaPrincipal = document.querySelector('.card-principal')
             let todosServicios = document.querySelectorAll('.servicios')
 
-           
             vistaPrincipal.style.left = '0';
-           
             todosServicios.forEach(servicio => servicio.style.opacity = '0');
             
         },
@@ -270,7 +269,6 @@ createApp({
 
             
             vistaPrincipal.style.left = '-100vw';
-           
             todosServicios.forEach(servicio => servicio.style.opacity = '1');
         },
 
