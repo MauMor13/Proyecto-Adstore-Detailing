@@ -3,8 +3,6 @@ const {createApp} = Vue;
 createApp({
     data(){
         return{
-            numcuenta:"",
-            nombreCliente:"",
             cliente: undefined,
             categorias: [],
             productos: [],
@@ -33,7 +31,6 @@ createApp({
             productosNombre:"",
             servicioNombre:"",
             servicio:"",
-            compraProducto :"",
             sesion: "0"
 
         }
@@ -53,7 +50,6 @@ createApp({
 
     mounted(){
         this.compra = JSON.parse(localStorage.getItem("compra"))
-
     },
 
     methods:{
@@ -67,14 +63,11 @@ createApp({
             axios.get('/api/cliente')
                 .then(respuesta => {
                     this.cliente = respuesta.data;
-                    this.nombreCliente= this.cliente.nombre + " "+this.cliente.apellido 
-                    this.numcuenta= this.cliente.cuenta.numeroCuenta
+                    console.log(this.cliente)
                     this.direccion = this.cliente.direccion
                     this.telefono = this.cliente.telefono
                     this.numTarjeta = this.cliente.cuenta.tarjetaAd.numeroTarjeta
                     this.saldo = this.cliente.cuenta.saldo
-                    this.compraProducto =({...respuesta.data.cuenta.compras[0].compraProducto})
-                    this.compraServicio =({...respuesta.data.cuenta.compras[0].compraServicio})
                 })
                 .catch(err => console.error(err.message));
         },
@@ -180,42 +173,29 @@ createApp({
             localStorage.setItem("compra",JSON.stringify(this.compra))
         },
         agregarACarrito(idSeleccion, cantidad){
-            if(JSON.parse(localStorage.getItem("sesion")== 1)){
-                this.compra = JSON.parse(localStorage.getItem("compra"))
-                            let productoEnCarro = this.compra.productos.find(element => element.id == idSeleccion)
-                            if(productoEnCarro != null){
-                                if(productoEnCarro.cantidad == this.compra.productos.find(element => element.id == productoEnCarro.id).stock){
-                                    Swal.fire({
-                                        customClass: 'modal-sweet-alert',
-                                        title: 'Lo sentimos',
-                                        text: "Has excedido la cantidad de productos que tenemos en stock, si quieres puedes agregar algun otro producto a tu compra.",
-                                        icon: 'warning',
-                                        confirmButtonColor: '#f7ba24',
-                                        confirmButtonText: 'Aceptar'
-                                    })
-                                }
-                                else{
-                                productoEnCarro.cantidad += cantidad
-                            }}
-                            else{
-                                let objeto = {id: 0, cantidad: 0};
-                                objeto.id = idSeleccion
-                                objeto.cantidad = cantidad
-                                this.compra.productos.push(objeto)
-                            }
-                            localStorage.setItem("compra",JSON.stringify(this.compra))
-            }else{
-                Swal.fire({
-                    customClass: 'modal-sweet-alert',
-                    title: 'Por favor inicia sesión ',
-                    text: "No puedes realizar una compra si no eres cliente",
-                    icon: 'warning',
-                    confirmButtonColor: '#f7ba24',
-                    confirmButtonText: 'Aceptar'
-                })
-                
+            this.compra = JSON.parse(localStorage.getItem("compra"))
+            let productoEnCarro = this.compra.productos.find(element => element.id == idSeleccion)
+            if(productoEnCarro != null){
+                if(productoEnCarro.cantidad == this.productosFiltrados.find(element => element.id == productoEnCarro.id).stock){
+                    Swal.fire({
+                        customClass: 'modal-sweet-alert',
+                        title: 'Lo sentimos',
+                        text: "Has excedido la cantidad de productos que tenemos en stock, si quieres puedes agregar algun otro producto a tu compra.",
+                        icon: 'warning',
+                        confirmButtonColor: '#f7ba24',
+                        confirmButtonText: 'Aceptar'
+                    })
+                }
+                else{
+                productoEnCarro.cantidad += cantidad
+            }}
+            else{
+                let objeto = {id: 0, cantidad: 0};
+                objeto.id = idSeleccion
+                objeto.cantidad = cantidad
+                this.compra.productos.push(objeto)
             }
-            
+            localStorage.setItem("compra",JSON.stringify(this.compra))
         },
 
          //Generar registro
@@ -273,6 +253,9 @@ createApp({
                 localStorage.setItem("sesion", this.sesion)
                 window.location.reload
             })
+        },
+        verificar(){
+            
         },
 
 

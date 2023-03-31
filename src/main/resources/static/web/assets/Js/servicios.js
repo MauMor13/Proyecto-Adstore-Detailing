@@ -143,7 +143,6 @@ createApp({
             this.productos = this.compra.productos
             localStorage.setItem("compra",JSON.stringify(this.compra))
         },
-
         cargarServicios:function(){
             axios.get('/api/servicios-activos')
                 .then(respuesta => {
