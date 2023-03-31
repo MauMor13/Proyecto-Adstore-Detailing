@@ -98,126 +98,189 @@
     <main class="overflow-x-hidden main-index d-flex flex-column gap-3 justify-content-center align-items-center main-servicios">
       <!--datos cliente-->
       
-      <div v-if="cliente" class="accordion  border border-dark accordion-flush btn btn-warning position-fixed bottom-0 end-0 me-3 mt-3" id="accordionFlushExample">
-        <div class="accordion-item">
-          <div id="flush-collapseOne" class="accordion-collapse bg-warning collapse" data-bs-parent="#accordionFlushExample">
-            <div class="accordion-body  text-bg-warning">
-              <table class="table">
-                <tbody >
-                  <tr>
-                    <td class="fuente-poppins" v-cloak>Cuenta No.</td>
-                    <td class="fuente-poppins"  v-cloak>000 </td>
-                  </tr>
-                  <tr>
-                    <td class="fuente-poppins"  v-cloak>Saldo </td>
-                    <td class="fuente-poppins"  v-cloak>000 </td>
-                  </tr>
-                  <tr>
-                    <td class="fuente-poppins"  v-cloak>Tarjeta No.</td>
-                    <td class="fuente-poppins"  v-cloak>000 </td>
-                  </tr>
-                </tbody>
-              </table>
+     <div v-if="cliente" class="accordion  border border-dark accordion-flush btn btn-warning position-fixed bottom-0 end-0 me-3 mt-3" id="accordionFlushExample">
+      <div class="accordion-item">
+        <div id="flush-collapseOne" class="accordion-collapse bg-warning collapse" data-bs-parent="#accordionFlushExample">
+          <div class="accordion-body  text-bg-warning">
+            <table class="table">
+              <tbody >
+                <tr>
+                  <td class="fuente-poppin columna text-dark" v-cloak><strong>Cuenta</strong> </td>
+                  <td class="fuente-poppin"  v-cloak>{{cliente.cuenta.numeroCuenta}}</td>
+                </tr>
+                <tr>
+                  <td class="fuente-poppin columna text-dark"  v-cloak> <strong>Saldo</strong> </td>
+                  <td class="fuente-poppin"  v-cloak>{{saldo}}</td>
+                </tr>
+                <tr>
+                  <td class="fuente-poppin columna text-dark"  v-cloak> <strong>Tarjeta</strong> </td>
+                  <td class="fuente-poppin"  v-cloak>{{numTarjeta}}</td>
+                </tr>
+                <tr>
+                  <td class="fuente-poppins columna text-dark"  v-cloak> <strong>Direccion</strong> </td>
+                  <td class="fuente-poppin"  v-cloak>{{direccion}}</td>
+                </tr>
+                <tr>
+                  <td class="fuente-poppin columna text-dark"  v-cloak> <strong>Telefono</strong></td>
+                  <td class="fuente-poppin"  v-cloak>{{telefono}}</td>
+                </tr>
+                <div>
+                  <a href="./index.html" type="submit"  @click="logout()" class="text-decoration-none d-flex justify-content-center text-dark"><img class="img-logout pb-3" src="./assets/Imagenes/logout.png" alt=""><p class="fuente-poppin ps-2"> <strong>LOGOUT</strong></p></a>
+                </div>
+              </tbody>
+            </table>
 
-            </div>
           </div>
-          <h2 class="accordion-header m-0 p-0">
-            <button class="accordion-button collapsed fuente-poppin p-0 text-dark bg-warning" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-              <img src="./assets/Imagenes/usuario.png"  class="m-0 p-0" alt="">
-              Nombre Cliente
-            </button>
-          </h2>
         </div>
+        <h2 class="accordion-header m-0 p-0">
+          <button class="accordion-button collapsed fuente-poppin p-0 text-dark bg-warning" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+            <img src="./assets/Imagenes/usuario.png"  class="m-0 p-0 me-2" alt="">
+            <strong>{{cliente.nombre + " "+ cliente.apellido}} </strong> 
+          </button>
+        </h2>
       </div>
+    </div>
 
       <div class="fondo-experiencia w-100 d-flex justify-content-center">
         <h1 class="fondo-experiencia fuente-audiowide font2-color"> SERVICIOS</h1>
       </div>
 
-      <div class="grid modales-fondo mB-5 py-5" style="min-height: 600px;">
-        
-        <a class="grid__item mb-xl-5" href="#preview-5">
-          <div class="box">
-            <div class="box__shadow"></div>
-            <img class="box__img" src="./assets/Imagenes/lavadoBasico.png" alt="Some image"/>
-            <h3 class="box__title"><span class="box__title-inner" data-hover="Lavado">Lavado</span></h3>
-            <h4 class="box__text box__text--bottomcloser"><span class="box__text-inner">Tradicional</span></h4>
-          </div>
-        </a>
-        
-        <a class="grid__item" href="#preview-4">
-          <div class="box">
-            <div class="box__shadow"></div>
-            <img class="box__img" src="./assets/Imagenes/lavado.jpg" alt="Some image"/>
-            <h3 class="box__title"><span class="box__title-inner" data-hover="Lavado">Lavado</span></h3>
-            <h4 class="box__text box__text--bottom box__text--right"><span class="box__text-inner box__text-inner--rotated3">Premium</span></h4>
-          </div>
-        </a>
-        
-        <a class="grid__item" href="#preview-6">
-          <div class="box">
-            <div class="box__shadow"></div>
-            <img class="box__img" src="./assets/Imagenes/acrilico.png" alt="Some image"/>
-            <h3 class="box__title"><span class="box__title-inner" data-hover="Tratamiento">Tratamiento</span></h3>
-            <h4 class="box__text"><span class="box__text-inner">Ceramico</span></h4>
-            <p class="box__content">"Un año de duración"</p>
-          </div>
-        </a>
-        
-        <div class="grid__item  servicios-individual" @click="hacerEfectoPagina('ceramico')">
-          <div class="box">
-            <div class="box__shadow"></div>
-            <img class="box__img" src="./assets/Imagenes/pulidora.png" alt="Some image"/>
-            <h3 class="box__title box__title--bottom"><span class="box__title-inner" data-hover="Tratamiento">Tratamiento</span></h3>
-            <h4 class="box__text"><span class="box__text-inner box__text-inner--rotated2">Acrilico</span></h4>
-            <p class="box__content">"Tres años de duración"</p>
+
+      <!--inicio carrito-->
+
+      <div class="carrito-flotante" data-bs-toggle="modal" data-bs-target="#modalCarrito">
+        <img class="inlineDesde768 w-100" src="./assets/Imagenes/carrito.png" alt="carrito">
+      </div>    
+
+      <div class="modal fade" id="modalCarrito" tabindex="-1" data-bs-backdrop="static" aria-labelledby="modalCliente" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+          <div class="modal-content modales-fondo">
+            <div class="modal-header">
+              <h1 class="modal-title fs-4">Productos a facturar</h1>
+              <img class="ms-4 w-25" src="./assets/Imagenes/PNG3.png" alt="logo">
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="p-2 form-1">
+                    <table class="text-center w-100">
+                      <tbody>
+                        <template v-if="compra.servicios.length > 0 "   > 
+                          <tr>
+                            <th colspan="2" class="text-start">Servicios</th>
+                            <th colspan="1" class="text-start">Valor Unitario</th> 
+                            <th colspan="1" class="text-start">Valor total</th>  
+                          </tr>
+                          <tr v-for="servicio of compra.servicios " class="w-100">
+                            <td class="col-6 text-start"><span class="mx-2">{{(servicioNombre.find(serv=> serv.id == servicio.id )).nombre}} </span></td>
+                            <td class="col-3">
+                              <i class="fa-solid fa-minus me-2" @click="restarUnidad(servicio.id, 1)" style="color: #000000;"></i>
+                              {{servicio.cantidad}} 
+                              <i class="fa-solid fa-plus ms-2" @click="sumarUnidad(servicio.id, 1)" style="color: #000000;"></i>
+                            </td>
+                            <td class="col-3">{{(servicioNombre.find(serv => serv.id == servicio.id )).precio.toLocaleString('en-US', {style:"currency", currency:"USD"})}}</td>
+                            <td class="col-3">{{(((servicioNombre.find(serv => serv.id == servicio.id )).precio)*servicio.cantidad).toLocaleString('en-US', {style:"currency", currency:"USD"})}}   </td>
+                          </tr>
+                        </template>
+
+                        <template v-if="compra.productos.length > 0"> 
+                          <tr>
+                            <th colspan="2" class="text-start">Productos</th>
+                            <th colspan="1" class="text-start">Valor Unitario</th> 
+                            <th colspan="1" class="text-start">Valor total </th>  
+                          </tr>
+                          <tr class="w-100" v-for="producto of compra.productos">
+                            <td class="col-6 text-start"><span class="mx-1">{{(productoNombre.find(prod=> prod.id == producto.id )).nombre}} </span></td>
+                            <td class="col-3">
+                              <i class="fa-solid fa-minus me-2" @click="restarUnidad(producto.id, 1)" style="color: #000000;"></i> 
+                              {{producto.cantidad}} 
+                              <i class="fa-solid fa-plus ms-2" @click="sumarUnidad(producto.id, 1)" style="color: #000000;"></i> 
+                            </td>
+                            <td class="col-3">{{(productoNombre.find(prod=> prod.id == producto.id )).precio.toLocaleString('en-US', {style:"currency", currency:"USD"})}}</td>
+                            <td class="col-3">{{(((productoNombre.find(prod=> prod.id == producto.id )).precio)*producto.cantidad).toLocaleString('en-US', {style:"currency", currency:"USD"})}}   </td>
+                          </tr>
+                        </template>
+                      </tbody>
+                      <tfoot>
+                        <tr>
+                          <th colspan="3" class="text-start border-1 border-light">
+                            <span>Total</span>
+                          </th>
+                          <th>
+                            <span class=""> Suma total</span>
+                          </th>
+                          <th class="text-start d-flex justify-content-between w-100 row" colspan="3">
+                          </th>
+                        </tr>
+                        <tr>
+                          <th colspan="3" class="text-start">
+                            <span>
+                              <p>Vaciar carrito</p>
+                            </span>
+                          </th>
+                          <th>
+                            <span class=""> <a type="submit" @click="limpiarCarrito" > <img src="./assets/Imagenes/eliminar.png" alt=""></a></span>
+                          </th>
+                          <th class="text-start d-flex justify-content-between w-100 row" colspan="3">
+                          </th>
+                        </tr>
+                      </tfoot>
+                    </table>
+                    
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button  type="button" class="btn btn-secondary bg-black"  href="./checkout.html">Proceder al Pago</button>
+                <button type="button" class="btn btn-secondary bg-black" data-bs-dismiss="modal">Cerrar</button>
+            </div>
           </div>
         </div>
-        
-        <div class="overlay">
-          <div class="overlay__reveal"></div>
-          
-          <div class="overlay__item" id="preview-4">
+      </div>
+      <!--fin carrito-->
+
+
+      <div class="grid modales-fondo mb-5 py-5 servicios justify-content-center flex-wrap flex-xl-nowrap d-flex" style="min-height: 600px;">
+
+
+        <template v-if="servicios.length" v-for="servicio of servicios">
+
+          <div v-if="servicio.nombre.toLowerCase().includes('basico')" class="grid__item mb-xl-5 servicios-individual" @click="hacerEfectoPagina(servicio)" >
             <div class="box">
               <div class="box__shadow"></div>
-              <img class="box__img box__img--original" src="./assets/Imagenes/lavado.jpg" alt="Some image"/>
-              <h3 class="box__title"><span class="box__title-inner">Catch</span></h3>
-              <h4 class="box__text box__text--bottom box__text--right"><span class="box__text-inner box__text-inner--rotated3">Fire</span></h4>
+              <img class="box__img" :src="servicio.imagenURL" alt="Some image"/>
+              <h3 class="box__title"><span class="box__title-inner" :data-hover="servicio.nombre.split(' ')[0]">{{servicio.nombre.split(' ')[0]}}</span></h3>
+              <h4 class="box__text box__text--bottomcloser"><span class="box__text-inner">{{servicio.nombre.split(' ')[1]}}</span></h4>
             </div>
-            <p class="overlay__content">It's time the tale were told of how you took a child and you made him old.</p>
-          </div>
-          <div class="overlay__item" id="preview-5">
-            <div class="box">
-              <div class="box__shadow"></div>
-              <img class="box__img box__img--original" src="./assets/Imagenes/lavadoBasico.png" alt="Some image"/>
-              <h3 class="box__title"><span class="box__title-inner">Lim</span></h3>
-              <h4 class="box__text box__text--bottomcloser"><span class="box__text-inner">Breed</span></h4>
-            </div>
-            <p class="overlay__content">It's time the tale were told of how you took a child and you made him old.</p>
-          </div>
-          <div class="overlay__item" id="preview-6">
-            <div class="box">
-              <div class="box__shadow"></div>
-              <img class="box__img box__img--original" src="./assets/Imagenes/acrilico.png" alt="Some image"/>
-              <h3 class="box__title"><span class="box__title-inner">Hard</span></h3>
-              <h4 class="box__text"><span class="box__text-inner">Fast</span></h4>
-            </div>
-            <p class="overlay__content">It's time the tale were told of how you took a child and you made him old.</p>
           </div>
           
-          <div class="overlay__item" id="preview-10">
+          <div v-if="servicio.nombre.toLowerCase().includes('premium')" class="grid__item servicios-individual" @click="hacerEfectoPagina(servicio)" >
             <div class="box">
               <div class="box__shadow"></div>
-              <img class="box__img box__img--original" src="./assets/Imagenes/pulidora.png" alt="Some image"/>
-              <h3 class="box__title box__title--bottom"><span class="box__title-inner">Lost</span></h3>
-              <h4 class="box__text"><span class="box__text-inner box__text-inner--rotated2">Rust</span></h4>
+              <img class="box__img" :src="servicio.imagenURL" alt="Some image"/>
+              <h3 class="box__title"><span class="box__title-inner" :data-hover="servicio.nombre.split(' ')[0]">{{servicio.nombre.split(' ')[0]}}</span></h3>
+              <h4 class="box__text box__text--bottom box__text--right"><span class="box__text-inner box__text-inner--rotated3">{{servicio.nombre.split(' ')[1]}}</span></h4>
             </div>
-            <p class="overlay__content">It's time the tale were told of how you took a child and you made him old.</p>
           </div>
           
-          <button class="overlay__close"><svg class="icon icon--cross"><use xlink:href="#icon-cross"></use></svg></button>
-        </div>
-        
+          <div v-if="servicio.nombre.toLowerCase().includes('ceramico')" class="grid__item servicios-individual" @click="hacerEfectoPagina(servicio)">
+            <div class="box">
+              <div class="box__shadow"></div>
+              <img class="box__img" :src="servicio.imagenURL" alt="Some image"/>
+              <h3 class="box__title"><span class="box__title-inner" :data-hover="servicio.nombre.split(' ')[0]">{{servicio.nombre.split(' ')[0]}}</span></h3>
+              <h4 class="box__text"><span class="box__text-inner">{{servicio.nombre.split(' ')[1]}}</span></h4>
+              <p class="box__content">"Un año de duración"</p>
+            </div>
+          </div>
+          
+          <div v-if="servicio.nombre.toLowerCase().includes('acrilico')" class="grid__item servicios-individual" @click="hacerEfectoPagina(servicio)">
+            <div class="box">
+              <div class="box__shadow"></div>
+              <img class="box__img" :src="servicio.imagenURL" alt="Some image"/>
+              <h3 class="box__title box__title--bottom"><span class="box__title-inner" :data-hover="servicio.nombre.split(' ')[0]">{{servicio.nombre.split(' ')[0]}}</span></h3>
+              <h4 class="box__text"><span class="box__text-inner box__text-inner--rotated2">{{servicio.nombre.split(' ')[1]}}</span></h4>
+              <p class="box__content">"Tres años de duración"</p>
+            </div>
+          </div>
+        </template>
         
         
         <!-- <div class="col-3 position-relative servicios-individual">
@@ -243,17 +306,42 @@
 
       </div>
 
-      <div class="card-principal d-flex flex-column justify-content-around align-items-center">
+      <div class="card-principal flexDesde768 flex-md-wrap flex-column justify-content-around align-items-center p-5">
         <img @click="volverPagina()" class="icono-cierre" src="./assets/Imagenes/x.png" alt="x">
-        <div class="w-100 principal-wrapper">
-          <div class="col-3 position-relative servicios-individual">
+        <div class="w-100 principal-wrapper d-flex flex-wrap justify-content-around align-items-center">
+          <!-- <div class="col-3 position-relative servicios-individual">
             <img src="./assets/Imagenes/acrilico.png" class="w-75 foto-servicio-efecto" alt="">
             <h3 id="tratamiento1" class="letra-sin-relleno"><span class="titulo-sin-fill" data-hover="Tratamiento">Tratamiento</span></h3>
             <img id="ceramico1" class="cuadros-servicios" src="./assets/Imagenes/CuadroCeramico.png" alt="ceramico">
+          </div> -->
+            
+          <div class="" id="vista" v-if="servicioElegido">
+            <div class="box">
+              <div class="box__shadow z-n1"></div>
+              <img class="box__img box__img--original" :src="servicioElegido.imagenURL" alt="Some image"/>
+              <h3 class="box__title"><span class="box__title-inner">{{servicioElegido.nombre.split(' ')[0]}}</span></h3>
+              <h4 class="box__text"><span class="box__text-inner">{{servicioElegido.nombre.split(' ')[1]}}</span></h4>
+            </div>
           </div>
+          <div class="mt-md-5 mt-xl-1 col-lg-6 col-12 p-2 fondo-categorias1 d-flex flex-column align-items-center" v-if="servicioElegido">
+            <div class="d-flex flex-column justify-content-center align-content-center align-items-center">
+              <h2 class="up-title">{{servicioElegido.nombre.split(' ')[0]}}</h2>
+              <h2 class="down-title">{{servicioElegido.nombre.split(' ')[1]}}</h2>
+            </div>
+            <div class="p-3 texto-servicio" v-if="servicioElegido.descripcion">
+                <p v-for="linea of servicioElegido.descripcion.split('.')"><img src="./assets/Imagenes/checked.png" class="lista text-light" alt="">{{linea}}</p>
+            </div>
+            <div class="ms-2 d-flex z-1 justify-content-center">
+              <img class="icono-card-prod1" src="./assets/Imagenes/carrito1.png" alt="">
+              <button class="btn btn1 p-2 font1-color" @click="agregarServicioACarrito(servicio)">Agregar a carrito</button>
+            </div>         
+            <img class="w-75" src="./assets/Imagenes/PNG2.png" alt="">
+          </div>
+          
+         
 
         </div>
-        <img class="w-50" src="./assets/Imagenes/PNG3.png" alt="">
+        
       </div>
 <!--
       <div style="display: none;" class="mostar-cards modales-fondo w-100 position-relative z-0 row flexDesde768" style="min-height: 350px;">
@@ -281,9 +369,9 @@
       </div>
 
     -->
-      <div class="hojaNegra">
 
-      </div>
+      <!--cards servicios-->
+    
       
     </main>
       

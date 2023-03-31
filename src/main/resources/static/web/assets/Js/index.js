@@ -19,12 +19,17 @@ createApp({
             saldo:undefined,
             emailInicioSesion: undefined,
             contraInicioSesion: undefined,
+            sesion: "0"
 
         }
     },
 
     created(){
-        this.cargarDatos()
+
+        this.sesion = localStorage.getItem("sesion")
+        if(this.sesion == "1"){
+            this.cargarDatos()
+        }
     },
 
     mounted(){
@@ -34,6 +39,12 @@ createApp({
     },
 
     methods: {
+        logout() {
+            axios.post('/api/logout')
+            .then(res =>{
+                window.location.reload()
+            })
+        },
 
         //PARA LA CARGA DE DATOS
         cargarDatos: function(){
@@ -44,10 +55,16 @@ createApp({
                     this.telefono = this.cliente.telefono
                     this.numTarjeta = this.cliente.cuenta.tarjetaAd.numeroTarjeta
                     this.saldo = this.cliente.cuenta.saldo
+                    this.cargarDatos()
                 })
                 .catch(err => console.error(err.message));
         },
-
+        verificarSesion: function(){
+            let sesion = localStorage.getItem("sesion")
+            if (sesion == "1"){
+                this.cargarDatosCliente
+            }
+        },
         //Generar registro
         realizarRegistro: function(){
             axios.post('/api/registrar', {nombre: this.nombre, apellido: this.apellido, email: this.email, claveIngreso: this.contra, direccion: this.direccion, telefono: this.telefono,})
@@ -84,6 +101,8 @@ createApp({
         iniciarSesion: function(){
             axios.post('/api/login',`email=${this.emailInicioSesion}&claveIngreso=${this.contraInicioSesion}`,{headers:{'content-type':'application/x-www-form-urlencoded'}})
                 .then(response => {
+                    this.sesion = "1"
+                    localStorage.setItem("sesion", this.sesion)
                     this.cargarDatos();
                     // window.location.href("/index.html")
                 })
@@ -100,7 +119,11 @@ createApp({
         },
         logOut(){
             axios.post('/api/logout')
-            .then(() => window.location.href="./index.html")
+            .then(() => {
+                this.sesion = JSON.stringify(localStorage.getItem("sesion"))
+                this.sesion = "0"
+                localStorage.setItem("sesion", this.sesion)
+                window.location.href="./index.html"})
         },
 
 
