@@ -48,6 +48,9 @@ public class Compra {
         for (CompraServicio compraServicio : compraServicios) {
             precioTotal += compraServicio.getServicio().getPrecio();
         }
+        if (descuento>0)
+            precioTotal -= precioTotal * 0.05;
+
         return precioTotal;
     }
 
