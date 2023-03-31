@@ -57,6 +57,7 @@ createApp({
                     this.telefono = this.cliente.telefono
                     this.numTarjeta = this.cliente.cuenta.tarjetaAd.numeroTarjeta
                     this.saldo = this.cliente.cuenta.saldo
+
                 })
                 .catch(err => console.error(err.message));
         },
@@ -154,6 +155,7 @@ createApp({
                     })
                 });
         },
+
         loginRegistro: function (value) {
             let form = document.querySelector('.card-3d-wrapper');
             if (value == 'registro') {
