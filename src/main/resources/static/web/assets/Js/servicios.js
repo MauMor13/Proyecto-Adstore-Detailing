@@ -1,9 +1,9 @@
-const {createApp} = Vue;
+const { createApp } = Vue;
 
 createApp({
-    
-    data(){
-        return{
+
+    data() {
+        return {
             cliente: undefined,
             errorEncontrado: false,
             registrado: false,
@@ -15,17 +15,17 @@ createApp({
             telefono: "",
             emailInicioSesion: undefined,
             contraInicioSesion: undefined,
-            compra:{
-                productos:[],
-                servicios:[]
+            compra: {
+                productos: [],
+                servicios: []
             },
-            productos:[],
-            servicios:[],
+            productos: [],
+            servicios: [],
             servicioElegido: undefined,
         }
     },
 
-    created(){
+    created() {
 
         this.cargarDatos();
         this.guardarLocalStorage();
@@ -34,7 +34,7 @@ createApp({
 
     },
 
-    mounted(){
+    mounted() {
         this.compra = JSON.parse(localStorage.getItem("compra"))
         console.log(this.compra);
     },
@@ -42,11 +42,15 @@ createApp({
     methods: {
         logout() {
             axios.post('/api/logout')
-            .then(res =>{
-                window.location.href = "/web/index.html"
-            })
+                .then(res => {
+                    this.sesion = JSON.stringify(localStorage.getItem("sesion"))
+                    this.sesion = "0"
+                    localStorage.setItem("sesion", this.sesion)
+                    window.location.reload
+                })
+                .catch(err => console.error(err.message));
         },
-        cargarDatosCliente: function(){
+        cargarDatosCliente: function () {
             axios.get('/api/cliente')
                 .then(respuesta => {
                     this.cliente = respuesta.data;
@@ -58,40 +62,40 @@ createApp({
                 .catch(err => console.error(err.message));
         },
 
-        cargarDatos: function(){
+        cargarDatos: function () {
             axios.get('/api/productos')
                 .then(respuesta => {
-                    this.productos = respuesta.data.map(producto => ({... producto}));
-                    this.productoNombre=this.productos.filter(producto => producto.nombre)
+                    this.productos = respuesta.data.map(producto => ({ ...producto }));
+                    this.productoNombre = this.productos.filter(producto => producto.nombre)
                     this.productosFiltrados = respuesta.data;
-                    this.categorias =[... new Set(this.productos.map(producto => producto.categoria))];
+                    this.categorias = [... new Set(this.productos.map(producto => producto.categoria))];
                 })
         },
-        cargarDatosServicios: function(){
+        cargarDatosServicios: function () {
             axios.get('/api/servicios')
                 .then(respuesta => {
-                    this.servicios = respuesta.data.map(servicio => ({... servicio}));
-                    this.servicioNombre=this.servicios.filter(servicio => servicio.nombre)
+                    this.servicios = respuesta.data.map(servicio => ({ ...servicio }));
+                    this.servicioNombre = this.servicios.filter(servicio => servicio.nombre)
                 })
         },
-        limpiarCarrito(){
+        limpiarCarrito() {
             localStorage.clear()
-            this.compra={
-                productos:[],
-                servicios:[]
+            this.compra = {
+                productos: [],
+                servicios: []
             }
         },
 
-        guardarLocalStorage(){
-            if(localStorage.getItem("compra") == null){
+        guardarLocalStorage() {
+            if (localStorage.getItem("compra") == null) {
                 localStorage.setItem("compra", JSON.stringify(this.compra))
             }
         },
-        sumarUnidad(productoId,cantidad){
+        sumarUnidad(productoId, cantidad) {
             this.compra = JSON.parse(localStorage.getItem("compra"))
             let productoEnCarro = this.compra.productos.find(element => element.id == productoId)
-            if(productoEnCarro != null){
-                if(productoEnCarro.cantidad == this.compra.productos.find(element => element.id == productoEnCarro.id).stock){
+            if (productoEnCarro != null) {
+                if (productoEnCarro.cantidad == this.compra.productos.find(element => element.id == productoEnCarro.id).stock) {
                     Swal.fire({
                         customClass: 'modal-sweet-alert',
                         title: 'Lo sentimos',
@@ -101,26 +105,27 @@ createApp({
                         confirmButtonText: 'Aceptar'
                     })
                 }
-                else{
-                productoEnCarro.cantidad += cantidad
-            }}
-            localStorage.setItem("compra",JSON.stringify(this.compra))
+                else {
+                    productoEnCarro.cantidad += cantidad
+                }
+            }
+            localStorage.setItem("compra", JSON.stringify(this.compra))
         },
-        restarUnidad(productoId, cantidad){
+        restarUnidad(productoId, cantidad) {
             this.compra = JSON.parse(localStorage.getItem("compra"))
             let productoEnCarro = this.compra.productos.find(element => element.id == productoId)
-            if( productoEnCarro == 0){
+            if (productoEnCarro == 0) {
                 productoEnCarro == 0
-                }else{
-                    productoEnCarro.cantidad -= cantidad  
-                }
-            localStorage.setItem("compra",JSON.stringify(this.compra))
+            } else {
+                productoEnCarro.cantidad -= cantidad
+            }
+            localStorage.setItem("compra", JSON.stringify(this.compra))
         },
-        agregarACarrito(idSeleccion, cantidad){
+        agregarACarrito(idSeleccion, cantidad) {
             this.compra = JSON.parse(localStorage.getItem("compra"))
             let productoEnCarro = this.compra.productos.find(element => element.id == idSeleccion)
-            if(productoEnCarro != null){
-                if(productoEnCarro.cantidad == this.compra.productos.find(element => element.id == productoEnCarro.id).stock){
+            if (productoEnCarro != null) {
+                if (productoEnCarro.cantidad == this.compra.productos.find(element => element.id == productoEnCarro.id).stock) {
                     Swal.fire({
                         customClass: 'modal-sweet-alert',
                         title: 'Lo sentimos',
@@ -130,11 +135,12 @@ createApp({
                         confirmButtonText: 'Aceptar'
                     })
                 }
-                else{
-                productoEnCarro.cantidad += cantidad
-            }}
-            else{
-                let objeto = {id: 0, cantidad: 0};
+                else {
+                    productoEnCarro.cantidad += cantidad
+                }
+            }
+            else {
+                let objeto = { id: 0, cantidad: 0 };
                 objeto.id = idSeleccion
                 objeto.cantidad = cantidad
                 this.compra.productos.push(objeto)
@@ -147,23 +153,23 @@ createApp({
                 timer: 3000,
                 timerProgressBar: true,
                 didOpen: (toast) => {
-                  toast.addEventListener('mouseenter', Swal.stopTimer)
-                  toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
                 }
-              })
+            })
 
-              Toast.fire({
+            Toast.fire({
                 customClass: 'modal-sweet-alert',
                 icon: 'success',
                 title: 'Has agregado un servicio!'
-              })
+            })
 
-            localStorage.setItem("compra",JSON.stringify(this.compra))
+            localStorage.setItem("compra", JSON.stringify(this.compra))
         },
 
 
 
-        cargarServicios:function(){
+        cargarServicios: function () {
             axios.get('/api/servicios-activos')
                 .then(respuesta => {
                     this.servicios = respuesta.data;
@@ -174,8 +180,8 @@ createApp({
         },
 
         //Generar registro
-        realizarRegistro: function(){
-            axios.post('/api/registrar', {nombre: this.nombre, apellido: this.apellido, email: this.email, claveIngreso: this.contra, direccion: this.direccion, telefono: this.telefono,})
+        realizarRegistro: function () {
+            axios.post('/api/registrar', { nombre: this.nombre, apellido: this.apellido, email: this.email, claveIngreso: this.contra, direccion: this.direccion, telefono: this.telefono, })
                 .then(response => {
                     console.log('registrado');
 
@@ -188,8 +194,7 @@ createApp({
                     this.email = "";
                     this.contra = "";
                     this.direccion = "",
-                    this.registro = "",
-
+                        this.registro = "",
                     Swal.fire({
                         customClass: 'modal-sweet-alert',
                         title: 'Cliente regisrado!',
@@ -198,30 +203,56 @@ createApp({
                         confirmButtonColor: '#f7ba24',
                         confirmButtonText: 'Aceptar'
                     })
+
                 })
                 .catch(err => {
                     this.errorEncontrado = true;
                     console.error([err]);
                     let spanError = document.querySelector('.mensaje-error-registro');
                     spanError.innerHTML = err.response.data;
-                    
-                    if(err.response.data.includes('Email ya registrado')){
+
+                    if (err.response.data.includes('Email ya registrado')) {
                         this.email = "";
                         this.contra = "";
-                    }                    
+                    }
                 })
-            
+
         },
-        iniciarSesion: function(){
-            axios.post('/api/login',`email=${this.emailInicioSesion}&claveIngreso=${this.contraInicioSesion}`,{headers:{'content-type':'application/x-www-form-urlencoded'}})
+        iniciarSesion: function () {
+            axios.post('/api/login', `email=${this.emailInicioSesion}&claveIngreso=${this.contraInicioSesion}`, { headers: { 'content-type': 'application/x-www-form-urlencoded' } })
                 .then(response => {
-                    console.log('inicio sesion!');
+                    this.sesion = "1"
+                    localStorage.setItem("sesion", this.sesion)
                     this.cargarDatos();
+                    this.cargarDatosCliente();
+
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                    })
+
+                    Toast.fire({
+                        customClass: 'modal-sweet-alert',
+                        icon: 'success',
+                        title: 'Has iniciado sesión con exito!'
+                    })
                 })
                 .catch(err => {
-                    console.error(err.message);
-                    console.error(err.response);
-                    this.errorEncontrado = true;
+                    Swal.fire({
+                        customClass: 'modal-sweet-alert',
+                        title: 'Usuario no encontrado',
+                        text: "Por favor verifica tus credenciales",
+                        icon: 'warning',
+                        confirmButtonColor: '#f7ba24',
+                        confirmButtonText: 'Aceptar'
+                    })
                 });
         },
 
@@ -276,16 +307,16 @@ createApp({
 
         //efecto paginado
 
-        hacerEfectoPagina: function(servicio){
-            this.servicioElegido = {... servicio};
+        hacerEfectoPagina: function (servicio) {
+            this.servicioElegido = { ...servicio };
             let vistaPrincipal = document.querySelector('.card-principal')
             let todosServicios = document.querySelectorAll('.servicios')
 
             vistaPrincipal.style.left = '0';
-            
+
         },
 
-        volverPagina: function(){
+        volverPagina: function () {
             let vistaPrincipal = document.querySelector('.card-principal');
             let todosServicios = document.querySelectorAll('.servicios')
             vistaPrincipal.style.left = '-100vw';
@@ -294,5 +325,5 @@ createApp({
 
     },
 
- 
+
 }).mount("#app")
