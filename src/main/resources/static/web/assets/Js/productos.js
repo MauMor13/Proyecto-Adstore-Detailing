@@ -52,6 +52,7 @@ createApp({
     },
 
     mounted(){
+        this.compra = JSON.parse(localStorage.getItem("compra"))
 
     },
 
@@ -166,7 +167,6 @@ createApp({
                 else{
                 productoEnCarro.cantidad += cantidad
             }}
-            this.productos = this.compra.productos
             localStorage.setItem("compra",JSON.stringify(this.compra))
         },
         restarUnidad(productoId, cantidad){
@@ -177,34 +177,45 @@ createApp({
                 }else{
                     productoEnCarro.cantidad -= cantidad  
                 }
-            this.productos = this.compra.productos
             localStorage.setItem("compra",JSON.stringify(this.compra))
         },
         agregarACarrito(idSeleccion, cantidad){
-            this.compra = JSON.parse(localStorage.getItem("compra"))
-            let productoEnCarro = this.compra.productos.find(element => element.id == idSeleccion)
-            if(productoEnCarro != null){
-                if(productoEnCarro.cantidad == this.compra.productos.find(element => element.id == productoEnCarro.id).stock){
-                    Swal.fire({
-                        customClass: 'modal-sweet-alert',
-                        title: 'Lo sentimos',
-                        text: "Has excedido la cantidad de productos que tenemos en stock, si quieres puedes agregar algun otro producto a tu compra.",
-                        icon: 'warning',
-                        confirmButtonColor: '#f7ba24',
-                        confirmButtonText: 'Aceptar'
-                    })
-                }
-                else{
-                productoEnCarro.cantidad += cantidad
-            }}
-            else{
-                let objeto = {id: 0, cantidad: 0};
-                objeto.id = idSeleccion
-                objeto.cantidad = cantidad
-                this.compra.productos.push(objeto)
+            if(JSON.parse(localStorage.getItem("sesion")== 1)){
+                this.compra = JSON.parse(localStorage.getItem("compra"))
+                            let productoEnCarro = this.compra.productos.find(element => element.id == idSeleccion)
+                            if(productoEnCarro != null){
+                                if(productoEnCarro.cantidad == this.compra.productos.find(element => element.id == productoEnCarro.id).stock){
+                                    Swal.fire({
+                                        customClass: 'modal-sweet-alert',
+                                        title: 'Lo sentimos',
+                                        text: "Has excedido la cantidad de productos que tenemos en stock, si quieres puedes agregar algun otro producto a tu compra.",
+                                        icon: 'warning',
+                                        confirmButtonColor: '#f7ba24',
+                                        confirmButtonText: 'Aceptar'
+                                    })
+                                }
+                                else{
+                                productoEnCarro.cantidad += cantidad
+                            }}
+                            else{
+                                let objeto = {id: 0, cantidad: 0};
+                                objeto.id = idSeleccion
+                                objeto.cantidad = cantidad
+                                this.compra.productos.push(objeto)
+                            }
+                            localStorage.setItem("compra",JSON.stringify(this.compra))
+            }else{
+                Swal.fire({
+                    customClass: 'modal-sweet-alert',
+                    title: 'Por favor inicia sesión ',
+                    text: "No puedes realizar una compra si no eres cliente",
+                    icon: 'warning',
+                    confirmButtonColor: '#f7ba24',
+                    confirmButtonText: 'Aceptar'
+                })
+                
             }
-            this.productos = this.compra.productos
-            localStorage.setItem("compra",JSON.stringify(this.compra))
+            
         },
 
          //Generar registro
