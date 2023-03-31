@@ -1,5 +1,6 @@
 package mindhub.adstoreDetailing.servicios.envioEmail.impl;
 
+import mindhub.adstoreDetailing.models.Compra;
 import mindhub.adstoreDetailing.servicios.ExportadorPDF;
 import mindhub.adstoreDetailing.servicios.envioEmail.EmailSenderService;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -69,4 +70,5 @@ public class EmailSenderServiceImpl implements EmailSenderService {
 
         this.mailSender.send(mimeMessage);
     }
+
 }

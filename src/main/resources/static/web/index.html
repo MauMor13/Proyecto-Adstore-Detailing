@@ -133,6 +133,7 @@
                     <td class="fuente-poppins"  v-cloak>Tarjeta No.</td>
                     <td class="fuente-poppins"  v-cloak>000 </td>
                   </tr>
+                  <button @Click="logOut">Log out</button>
                 </tbody>
               </table>
 
@@ -147,7 +148,9 @@
         </div>
       </div>
 
-      <button v-if="!cliente" @click="loginRegistro('login')" type="button"data-bs-target="#modalSign" class="btn btn-warning btn1 bigger position-fixed bottom-0 end-0 me-3 mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+
+      <button v-if="!cliente" @click="loginRegistro('login')" type="button" data-bs-target="#modalSign" class="btn btn-warning z-2 border border-dark bigger fuente-poppin position-fixed bottom-0 end-0 me-3 mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+
         <img src="./assets/Imagenes/usuario.png" alt="">
         Accede como cliente
       </button>
@@ -160,37 +163,38 @@
       </div>
 
       <!--  Inicio contenedor ser cliente -->
-      <section class="se-cliente d-flex flex-column justify-content-between align-items-center font1-color my-lg-5">
+      <section class="se-cliente d-flex flex-column justify-content-between align-items-center font1-color my-lg-5 py-5">
         <h3 class="fuente-audiowide my-lg-4 text-center">¡Resgistrate como cliente!</h3>
         <div class="w-100 d-flex justify-content-center flex-wrap row">
-          <div class="col-10 col-md-6 d-flex flex-column justify-content-between h-100">
-            <ul>
+          <div class="col-10 col-lg-6 d-flex flex-column justify-content-between h-100">
+            <ul class="m-0 p-0">
               <li><p>Resgistrate y accede a los mejores productos y servicios para el embellecimiento de tu vehículo</p></li>
               <li><p>Una vez registrado tendras una cuenta asociada con la cual podras realizar tus pagos.</p></li>
               <li><p>Dicha cuenta contará con una tarjeta de tu propiedad para que puedas utilizar todo lo que te brindamos.</p></li>
             </ul>
-            <div class="d-flex gap-3">
-              <img class="inlineDesde1024 w-50" src="./assets/Imagenes/corvette.png" alt="corvette">
-              <img class="inlineDesde1024 w-50" src="./assets/Imagenes/lamborghini.png" alt="porsche">
+
+            <div class="d-flex mb-2">
+
+              <div class="d-flex justify-content-between flex-column my-lg-4 w-100 flex-wrap">
+                <span class="me-5 mb-3 pb-0">¡Comienza a ser VIP! <i class="fa-solid fa-right-long fa-lg" style="color: #f7ba24;"></i></span>
+                <span class="me-5 mb-3 ">
+                  Clic en
+                  <button @click="loginRegistro('registro')" class="btn btn-warning bigger" type="button" data-bs-toggle="modal" data-bs-target="#modalSign"><strong>REGISTRATE</strong></button>
+                  si no eres cliente.
+                </span>
+                <span  class="me-5 mb-2 ">
+                  CLic en
+                  <button @click="loginRegistro('login')" class="btn ps-3 pe-3 btn-warning bigger" type="button" data-bs-toggle="modal" data-bs-target="#modalSign"><strong>LOGUEATE</strong></button>
+                  si ya lo eres y accede a tu perfil.
+                </span>
+              </div>
             </div> 
           </div>
           
-          <img class="col-10 col-md-4" src="./assets/Imagenes/tarjetAddStore.png" alt="tarjeta">
+          <img class="col-10 col-lg-4" style="border-radius: 20px;" src="./assets/Imagenes/tarjetAddStore.png" alt="tarjeta">
         </div>
         
-        <div class="d-flex justify-content-between my-lg-4 w-75 flex-wrap">
-          <span class="me-5 pb-0">¡Comienza a ser VIP! <i class="fa-solid fa-right-long fa-lg" style="color: #f7ba24;"></i></span>
-          <span class="me-5">
-            Clic en
-            <button @click="loginRegistro('registro')" class="btn1 font2-color btn btn-primary bigger" type="button" data-bs-toggle="modal" data-bs-target="#modalSign">Registrate</button>
-            si no eres cliente.
-          </span>
-          <span>
-            CLic en
-            <button @click="loginRegistro('login')" class="btn1 font2-color btn btn-primary bigger" type="button" data-bs-toggle="modal" data-bs-target="#modalSign">Logueate</button>
-            si ya lo eres y accede a tu perfil.
-          </span>
-        </div>
+        
         <div>
 
         </div>
@@ -369,14 +373,14 @@
                                     <p class="font1-color m-0">Si aún no eres cliente registrate. De lo contrario inicia sesión.</p>
                                     <div class="d-flex justify-content-evenly w-100 flex-wrap">
                                       <button @click="loginRegistro('registro')" class="btn btn1 p-2">Ver formulario de Registro</button>
-                                      <button @click="loginRegistro('login')" class="btn btn1 mb-3 p-2">Ver formulario de inicio de sesión</button> 
+                                      <button @click="loginRegistro('login')" class="btn btn1 p-2">Ver formulario de inicio de sesión</button> 
                                     </div>
                                     <div class="card-3d-wrap mx-auto">
                                         <div class="card-3d-wrapper">
                                             <div class="card-frente">
                                                 <div class="center-wrap">
                                                     <div class="section text-center">
-                                                        <h4 class="mb-4 pb-3 titulo-log-in fuente-audiowide">Inicio de Sesión</h4>
+                                                        <h4 class="mb-2 pb-3 titulo-log-in fuente-audiowide">Inicio de Sesión</h4>
                                                         <div class="form-group form">
                                                             <input type="email" name="logemail" class="form-style" placeholder="Email" id="logemail" autocomplete="off" v-model="emailInicioSesion" required>
                                                             <i class="input-icon uil uil-at"></i>
@@ -385,7 +389,7 @@
                                                             <input type="password" name="logpass" class="form-style" placeholder="Contraseña" id="logpass" autocomplete="off" v-model="contraInicioSesion" @keyup.enter="loginWithEnter()" required>
                                                             <i class="input-icon uil uil-lock-alt"></i>
                                                         </div>
-                                                        <span @click="iniciarSesion()" class="submit btn mt-4 categoria font1-color">Enviar</span>
+                                                        <span @click="iniciarSesion()" class="submit btn mt-4 categoria font1-color" data-bs-dismiss="modal">Enviar</span>
                                                         <p v-if="errorEncontrado" class="mb-0 mt-4 text-center red-color">⋆ El email o la contraseña no son correctos</p>
                                                     </div>
                                                 </div>
@@ -393,7 +397,7 @@
                                             <div v-if="!registrado" class="card-dorso">
                                                 <div class="center-wrap">
                                                     <div class="section text-center">
-                                                        <h4 class="mb-4 pb-3 titulo-log-in fuente-audiowide">Registro</h4>
+                                                        <h4 class="mb-2 pb-3 titulo-log-in fuente-audiowide">Registro</h4>
                                                         <div class="form-group form">
                                                             <input type="text" name="logfirstname" class="form-style form-style-signup" placeholder="Nombre" id="logfirstname" autocomplete="off" v-model="nombre" required>
                                                             <i class="input-icon uil uil-user"></i>

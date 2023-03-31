@@ -1,5 +1,4 @@
 package mindhub.adstoreDetailing.controladores;
-
 import mindhub.adstoreDetailing.dtos.EmailDTO;
 import mindhub.adstoreDetailing.servicios.ExportadorPDF;
 import mindhub.adstoreDetailing.servicios.envioEmail.EmailSenderService;

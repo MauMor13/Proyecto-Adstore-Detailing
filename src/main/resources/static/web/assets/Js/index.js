@@ -15,6 +15,8 @@ createApp({
             contra: "",
             direccion: "",
             telefono: "",
+            numTarjeta:undefined,
+            saldo:undefined,
             emailInicioSesion: undefined,
             contraInicioSesion: undefined,
 
@@ -22,14 +24,13 @@ createApp({
     },
 
     created(){
-
+        this.cargarDatos()
     },
 
     mounted(){
         window.addEventListener('scroll', this.scrollFunction);
         this.controlCarrusel();
         this.administraAsincronas();
-        this.cargarDatos();
     },
 
     methods: {
@@ -39,6 +40,10 @@ createApp({
             axios.get('/api/cliente')
                 .then(respuesta => {
                     this.cliente = respuesta.data;
+                    this.direccion = this.cliente.direccion
+                    this.telefono = this.cliente.telefono
+                    this.numTarjeta = this.cliente.cuenta.tarjetaAd.numeroTarjeta
+                    this.saldo = this.cliente.cuenta.saldo
                 })
                 .catch(err => console.error(err.message));
         },
@@ -79,14 +84,23 @@ createApp({
         iniciarSesion: function(){
             axios.post('/api/login',`email=${this.emailInicioSesion}&claveIngreso=${this.contraInicioSesion}`,{headers:{'content-type':'application/x-www-form-urlencoded'}})
                 .then(response => {
-                    console.log('inicio sesion!');
                     this.cargarDatos();
+                    // window.location.href("/index.html")
                 })
                 .catch(err => {
-                    console.error(err.message);
-                    console.error(err.response);
-                    this.errorEncontrado = true;
+                    Swal.fire({
+                        customClass: 'modal-sweet-alert',
+                        title: 'Usuario no encontrado',
+                        text: "Por favor verifica tus credenciales",
+                        icon: 'warning',
+                        confirmButtonColor: '#f7ba24',
+                        confirmButtonText: 'Aceptar'
+                    })
                 });
+        },
+        logOut(){
+            axios.post('/api/logout')
+            .then(() => window.location.href="./index.html")
         },
 
 

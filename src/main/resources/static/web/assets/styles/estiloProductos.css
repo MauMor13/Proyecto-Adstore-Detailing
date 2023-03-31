@@ -23,10 +23,6 @@ body{
     width: 100%;
     padding: 0.5px;
 }
-.img-comboProductos{
-    width: 250px;
-    height: 150px;
-}
 .card-body{
     min-height: 50px;
     margin: 0;
@@ -72,21 +68,6 @@ body{
     background-size: cover!important;
     background-position: top; */
 }
-.categoria{
-    text-decoration: none;
-    padding: 4px 6px;
-    color: rgb(255, 255, 255);
-    margin: 0 1.7rem;
-}
-.categoria:hover{
-    text-decoration: none;
-    padding: 4px 6px;
-    color: black;
-    background-image: linear-gradient(#f7bb2471, #f7bb246f),url("../Imagenes/fondoAmarillo.jpg")!important;
-    background-size: cover!important;
-    background-position: top;
-    margin: 0 2rem;
-}
 .filtro-productos{
     padding: 0;
     margin: 0;
@@ -121,8 +102,9 @@ body{
 }
 .img-servicio{
     width: 270px;
-    height: 300px;
-    aspect-ratio : 1/1;
+    height: 280px;
+    margin: 7px 0 ;
+    border-radius: 7px;
 }
 .lista{
     width: 17px;
@@ -167,12 +149,9 @@ body{
 }
 
 .flip-card1 {
-    background-image: linear-gradient(#000000d5, #000000db),url("../Imagenes/fondoGris.jpg")!important;
-    background-size: cover!important;
-    background-position: bottom;
+    
     width: 590px;
     min-height: 300px;
-    perspective: 1000px;
     
 }
 @media (min-width: 0px) and (max-width: 600px){
@@ -208,6 +187,7 @@ body{
     transition: transform 0.6s;
     transform-style: preserve-3d;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    
 }
 
 .flip-card-front, .flip-card-back {
@@ -216,14 +196,12 @@ body{
     height: 100%;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
+    
 }
 .flip-card-back {
     color: white;
     transform: rotateY(180deg);
     border-radius: 15px;
-    background-image: linear-gradient(#000000d5, #000000db),url("../Imagenes/fondoGris.jpg")!important;
-    background-size: cover!important;
-    background-position: bottom;
 }
 .texto-servicio{
     text-align:justify;
@@ -234,12 +212,8 @@ body{
     transform: rotateY(180deg);
 }
 .flip-card2 {
-    background-image: linear-gradient(#000000d5, #000000db),url("../Imagenes/fondoGris.jpg")!important;
-    background-size: cover!important;
-    background-position: bottom;
     width: 590px;
     min-height: 300px;
-    perspective: 1000px;
     
 }
 @media (min-width: 0px) and (max-width: 600px){
@@ -276,12 +250,9 @@ body{
 
 
 .flip-card3 {
-    background-image: linear-gradient(#000000d5, #000000db),url("../Imagenes/fondoGris.jpg")!important;
-    background-size: cover!important;
-    background-position: bottom;
+    
     width: 590px;
     min-height: 300px;
-    perspective: 1000px;
     
 }
 @media (min-width: 0px) and (max-width: 600px){
@@ -318,12 +289,8 @@ body{
 
 
 .flip-card4 {
-    background-image: linear-gradient(#000000d5, #000000db),url("../Imagenes/fondoGris.jpg")!important;
-    background-size: cover!important;
-    background-position: bottom;
     width: 590px;
     min-height: 300px;
-    perspective: 1000px;
     
 }
 @media (min-width: 0px) and (max-width: 600px){
@@ -383,9 +350,10 @@ body{
     background-position: bottom;
     color: white;
     border-radius: 10px;
+    width: 90%;
 }
 .img-producto{
-    width: 90%;
+    width: 75%;
     transition: all 1s;
 }
 
@@ -400,13 +368,13 @@ body{
 
 .prod-comprar{
     position: absolute;
-    font-size: 1rem;
+    font-size: 0.9rem;
     margin-bottom: 2rem;
     color: white;
-    font-family: 'Audiowave', cursive;
+    font-family: 'Poppins', sans-serif;
     opacity: 0;
     transition: opacity 1.5s, translate 1s;
-    translate: 0 150%;
+    translate: 0 -300%;
     width: 80%;
 }
 
@@ -417,14 +385,14 @@ body{
     overflow: hidden;
     position: relative;
     z-index: 0;
-    transition: all 1s;
+    transition: translate 1s;
 }
 
 .telon{
     content: "";
     position: absolute;
-    width: 700px;
-    height: 700px;
+    width: 800px;
+    height: 800px;
     background-color: rgba(0, 0, 0, 0.721);
     bottom: 0;
     left: 0;
@@ -450,3 +418,4 @@ body{
 .hover-det{
     cursor: pointer;
 }
+
