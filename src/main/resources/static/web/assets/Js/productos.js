@@ -55,6 +55,7 @@ createApp({
                     localStorage.setItem("sesion", this.sesion)
 
                     window.location.reload
+
                 })
                 .catch(err => console.error(err.message));
         },
@@ -306,6 +307,7 @@ createApp({
                     })
                 });
         },
+
         loginRegistro: function (value) {
             let form = document.querySelector('.card-3d-wrapper');
             if (value == 'registro') {

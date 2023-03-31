@@ -33,13 +33,10 @@ createApp({
         this.cargarDatos();
         this.guardarLocalStorage();
         this.cargarDatosServicios();
-
-
     },
 
     mounted() {
         this.compra = JSON.parse(localStorage.getItem("compra"))
-        console.log(this.compra);
     },
 
     methods: {
