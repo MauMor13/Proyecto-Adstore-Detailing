@@ -26,7 +26,8 @@ public class AdstoreDetailingApplication {
     public CommandLineRunner initData(RepositorioCuenta repositorioCuenta, RepositorioTarjetaAd repositorioTarjetaAd, RepositorioCliente repositorioCliente, RepositorioProducto repositorioProducto, RepositorioServicio repositorioServicio, RepositorioCompraProducto repositorioCompraProducto, RepositorioCompraServicio repositorioCompraServicio, RepositorioCompra repositorioCompra) {
         return (args) -> {
             //crear cliente, cuenta y tarjeta
-            Cliente cliente1 = new Cliente("Marcelo", "Rodriguez", "rioja 36 ,Cordoba,Argentina", "marcelo21@gmail.com", passwordEncoder.encode("marce12345"), "35245789");
+            Cliente cliente1 = new Cliente("Marcelo", "Rodriguez", "rioja 36 ,Cordoba,Argentina", "mauri.f.mores@gmail.com", passwordEncoder.encode("marce12345"), "35245789");
+            cliente1.setActivo(true);
             Cuenta cuentaCliente1 = new Cuenta(generarNumeroCuenta(repositorioCuenta), 50000);
             TarjetaAd tarjetaCliente1 = new TarjetaAd(generarNumeroTarjetaAd(repositorioTarjetaAd));
 
@@ -103,6 +104,7 @@ public class AdstoreDetailingApplication {
             Compra compraCliente1 = new Compra(12000, LocalDateTime.now(), 0);
             repositorioCompra.save(compraCliente1);
             cuentaCliente1.sumarCompra(compraCliente1);
+
             crearCompraPoducto(compraCliente1, new ArrayList<Producto>(Arrays.asList(producto3, producto4, producto7, producto2)), repositorioCompraProducto, repositorioCompra);
             crearCompraServicio(compraCliente1, new ArrayList<Servicio>(Arrays.asList(servicio1, servicio2)), repositorioCompraServicio, repositorioCompra);
 

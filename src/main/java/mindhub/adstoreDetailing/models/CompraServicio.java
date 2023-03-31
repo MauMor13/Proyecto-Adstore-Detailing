@@ -19,6 +19,9 @@ public class CompraServicio {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "servicio_id")
     private Servicio servicio;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "turnoServicio_id")
+    private TurnoServicio turnoServicio;
 
     public CompraServicio(Compra compra, Servicio servicio) {
         this.precio = servicio.getPrecio();

@@ -6,12 +6,20 @@ import mindhub.adstoreDetailing.repositorios.*;
 import mindhub.adstoreDetailing.servicios.ServicioCompra;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 @Service
 public class ServicioCompraImpl implements ServicioCompra {
     @Autowired
-
     RepositorioCompra repositorioCompra;
     @Autowired
     RepositorioProducto repositorioProducto;
@@ -21,7 +29,8 @@ public class ServicioCompraImpl implements ServicioCompra {
     RepositorioCompraProducto repositorioCompraProducto;
     @Autowired
     RepositorioCompraServicio repositorioCompraServicio;
-
+    @Autowired
+    RepositorioTurnoServicio repositorioTurnoServicio;
 
     @Override
     public void guardar(Compra compra){
@@ -40,16 +49,63 @@ public class ServicioCompraImpl implements ServicioCompra {
         }
     }
     @Override
-    public void agregarServicios(ArrayList<RealizarCompraServicio> servicios, Compra compra) {
+    public void agregarServicios(ArrayList<RealizarCompraServicio> servicios, Compra compra, LocalDateTime fechaDelServicio) {
+        TurnoServicio nuevoTurnoServicio = new TurnoServicio(fechaDelServicio);
+        repositorioTurnoServicio.save(nuevoTurnoServicio);
+        LocalDateTime tiempoDuracion = fechaDelServicio;
         for (RealizarCompraServicio servicio : servicios) {
-
             Servicio servicioObj = this.repositorioServicio.findById(servicio.getId()).orElseThrow();
+            tiempoDuracion = tiempoDuracion.plus(servicioObj.getDuracion());
             CompraServicio compraServicio = new CompraServicio(compra,servicioObj);
+            nuevoTurnoServicio.sumarCompraServicio(compraServicio);
 
             compra.sumarCompraServicio(compraServicio);
-
             repositorioCompraServicio.save(compraServicio);
         }
+        nuevoTurnoServicio.setFechaHoraSalida(tiempoDuracion);
+        repositorioTurnoServicio.save(nuevoTurnoServicio);
     }
+    @Override
+    public String conectarHomebanking(String URLobjetivo, String parametros){
+        HttpURLConnection connection = null;
+        try {
 
+            //Crear conexión
+
+            URL url = new URL(URLobjetivo);
+            connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("POST");
+            connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            connection.setRequestProperty("Content-Length", Integer.toString(parametros.getBytes().length));
+            connection.setUseCaches(false);
+            connection.setDoOutput(true);
+
+            //Envio de solicitud
+
+            DataOutputStream envio = new DataOutputStream(connection.getOutputStream());
+            envio.writeBytes(parametros);
+            System.out.println(connection);
+            envio.close();
+
+            //Obtener respuesta
+
+            InputStream inputStream = connection.getInputStream();
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+            StringBuffer respuesta = new StringBuffer();
+            String linea;
+            while ((linea = bufferedReader.readLine()) != null){
+                respuesta.append(linea);
+                respuesta.append('\r');
+            }
+            bufferedReader.close();
+            return respuesta.toString();
+        } catch (Exception exception){
+            exception.printStackTrace();
+            return null;
+        } finally {
+            if (connection != null){{
+                connection.disconnect();
+            }}
+        }
+    }
 }
