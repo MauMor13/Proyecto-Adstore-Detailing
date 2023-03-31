@@ -166,8 +166,8 @@ createApp({
         restarUnidad(productoId, cantidad){
             this.compra = JSON.parse(localStorage.getItem("compra"))
             let productoEnCarro = this.compra.productos.find(element => element.id == productoId)
-            if( productoEnCarro == 0){
-                productoEnCarro == 0
+            if( productoEnCarro.cantidad == 0){
+                this.compra.productos.splice(this.compra.productos.indexOf(productoEnCarro), 1)
                 }else{
                     productoEnCarro.cantidad -= cantidad  
                 }
