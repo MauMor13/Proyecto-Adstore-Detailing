@@ -52,17 +52,17 @@ public class ServicioCompraImpl implements ServicioCompra {
     public void agregarServicios(ArrayList<RealizarCompraServicio> servicios, Compra compra, LocalDateTime fechaDelServicio) {
         TurnoServicio nuevoTurnoServicio = new TurnoServicio(fechaDelServicio);
         repositorioTurnoServicio.save(nuevoTurnoServicio);
-        Duration tiempoDuracion = Duration.ofMinutes(0);
+        LocalDateTime tiempoDuracion = fechaDelServicio;
         for (RealizarCompraServicio servicio : servicios) {
             Servicio servicioObj = this.repositorioServicio.findById(servicio.getId()).orElseThrow();
-            tiempoDuracion.plus(servicioObj.getDuracion());
+            tiempoDuracion = tiempoDuracion.plus(servicioObj.getDuracion());
             CompraServicio compraServicio = new CompraServicio(compra,servicioObj);
             nuevoTurnoServicio.sumarCompraServicio(compraServicio);
 
             compra.sumarCompraServicio(compraServicio);
             repositorioCompraServicio.save(compraServicio);
         }
-        nuevoTurnoServicio.setFechaHoraSalida(fechaDelServicio.plus(tiempoDuracion));
+        nuevoTurnoServicio.setFechaHoraSalida(tiempoDuracion);
         repositorioTurnoServicio.save(nuevoTurnoServicio);
     }
     @Override
