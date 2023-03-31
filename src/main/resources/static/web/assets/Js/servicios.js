@@ -26,7 +26,10 @@ createApp({
     },
 
     created() {
-
+        this.sesion = localStorage.getItem("sesion")
+        if (this.sesion == "1") {
+            this.cargarDatosCliente()
+        }
         this.cargarDatos();
         this.guardarLocalStorage();
         this.cargarDatosServicios();
