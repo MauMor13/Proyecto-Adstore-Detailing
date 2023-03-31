@@ -1,18 +1,11 @@
 package mindhub.adstoreDetailing.models;
-
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import mindhub.adstoreDetailing.dtos.realizarCompra.RealizarCompraDTO;
-import mindhub.adstoreDetailing.dtos.realizarCompra.RealizarCompraProducto;
-import mindhub.adstoreDetailing.dtos.realizarCompra.RealizarCompraServicio;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
-
 @Getter
 @Setter
 @NoArgsConstructor

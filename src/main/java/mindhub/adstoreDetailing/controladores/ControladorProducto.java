@@ -30,6 +30,7 @@ public class ControladorProducto {
     public List<ProductoDTO> productosActivosDTOs(){
         return this.servicioProducto.findByActiveTrueDTO();
     }
+
     @PatchMapping("/modificar-producto")
     public ResponseEntity<Object> modificarProducto(@RequestBody ProductoDTO producto) {
 

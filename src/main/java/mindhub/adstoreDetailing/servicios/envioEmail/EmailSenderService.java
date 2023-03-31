@@ -1,8 +1,9 @@
 package mindhub.adstoreDetailing.servicios.envioEmail;
 
 import mindhub.adstoreDetailing.models.Compra;
+
 import mindhub.adstoreDetailing.models.TokenValidacion;
-import org.springframework.security.core.Authentication;
+
 
 import javax.mail.MessagingException;
 import java.io.IOException;

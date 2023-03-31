@@ -54,7 +54,6 @@ createApp({
                 imagenURL: "",
             },
             sinError: true,
-            vistas: [],
         }
     },
 

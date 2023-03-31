@@ -10,5 +10,4 @@ import java.util.List;
 @RepositoryRestResource
 public interface RepositorioServicio extends JpaRepository <Servicio, Long>{
     List<Servicio> findByActivoTrue();
-
 }

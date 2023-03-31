@@ -1,5 +1,4 @@
 package mindhub.adstoreDetailing.servicios;
-
 import com.lowagie.text.*;
 import com.lowagie.text.Font;
 import com.lowagie.text.Image;
@@ -13,17 +12,13 @@ import mindhub.adstoreDetailing.models.CompraProducto;
 import mindhub.adstoreDetailing.models.CompraServicio;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.CascadeType;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.*;
 import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.HashSet;
+
 import java.util.Set;
 
 @Getter

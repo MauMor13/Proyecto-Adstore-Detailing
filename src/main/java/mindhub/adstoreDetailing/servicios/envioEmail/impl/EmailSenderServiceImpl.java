@@ -1,7 +1,9 @@
 package mindhub.adstoreDetailing.servicios.envioEmail.impl;
 
 import mindhub.adstoreDetailing.models.Compra;
+
 import mindhub.adstoreDetailing.models.TokenValidacion;
+
 import mindhub.adstoreDetailing.servicios.ExportadorPDF;
 import mindhub.adstoreDetailing.servicios.envioEmail.EmailSenderService;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -78,6 +80,7 @@ public class EmailSenderServiceImpl implements EmailSenderService {
 
         this.mailSender.send(mimeMessage);
     }
+
     @Override
     public void enviarCodigo(String para, TokenValidacion tokenValidacion) throws MessagingException {
 
@@ -101,6 +104,5 @@ public class EmailSenderServiceImpl implements EmailSenderService {
     public void confirmarRegistro(@RequestParam String token){
 
     }
-
 
 }

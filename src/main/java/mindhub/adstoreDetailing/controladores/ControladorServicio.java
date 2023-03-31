@@ -1,18 +1,12 @@
 package mindhub.adstoreDetailing.controladores;
-
-import mindhub.adstoreDetailing.dtos.ProductoACrearDTO;
 import mindhub.adstoreDetailing.dtos.ServicioACrearDTO;
 import mindhub.adstoreDetailing.dtos.ServicioDTO;
-import mindhub.adstoreDetailing.models.Categoria;
-import mindhub.adstoreDetailing.models.Producto;
 import mindhub.adstoreDetailing.models.Servicio;
 import mindhub.adstoreDetailing.servicios.ServicioServicio;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.time.Duration;
-import java.util.EnumSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,6 +23,8 @@ public class ControladorServicio {
     public List<ServicioDTO> traerServicios() {
         return this.servicioServicio.findAllServicioDTO();
     }
+    @GetMapping("/servicios-activos")
+    public List<ServicioDTO> traerServiciosActivos(){return servicioServicio.findAllServiciosActivosDTO();}
     @PatchMapping("/modificar-servicio")
     public ResponseEntity<Object> modificarServicio(@RequestBody ServicioDTO servicio){
 

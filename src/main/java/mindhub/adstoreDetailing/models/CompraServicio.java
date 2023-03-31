@@ -1,15 +1,8 @@
 package mindhub.adstoreDetailing.models;
-
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import javax.persistence.*;
-import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
-
 @Getter
 @Setter
 @NoArgsConstructor
@@ -26,6 +19,9 @@ public class CompraServicio {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "servicio_id")
     private Servicio servicio;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "turnoServicio_id")
+    private TurnoServicio turnoServicio;
 
     public CompraServicio(Compra compra, Servicio servicio) {
         this.precio = servicio.getPrecio();
