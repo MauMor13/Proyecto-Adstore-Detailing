@@ -74,9 +74,8 @@
     background-color: var(--font-color2);
 }
 
-
 .flexDesde768 {
-    display: none!;
+    display: none;
 }
 
 .flexHasta768 {
@@ -204,7 +203,7 @@ footer{
 
 @media(min-width: 768px){
     .flexDesde768 {
-        display: flex!;
+        display: flex;
     }
     
     .flexHasta768 {
@@ -307,11 +306,13 @@ transform: rotateY(180deg);
 }
 .carrito-flotante{
     position: fixed;
-    right: 50px;
-    top: 300px;
+    right: 25px;
+    top: 90px;
     width: 5rem;
-    z-index: 2;
+    z-index: 150;
     cursor: pointer;
+    border-radius: 50%;
+    box-shadow: -9px 6px 11px 0.5px rgba(247,186,36,0.82);
 }
 
 .modales-fondo{
@@ -597,11 +598,11 @@ thead{
     color: black;
 }
 tbody{
-    border: 1px solid white;
-    color: white;
+    /* border: 1px solid white; */
+    color: black;
 }
 table{
-    border: 1px solid white;
+    /* border: 1px solid white; */
 }
 .pago{
     border-top: 2px solid #f7ba24 ;
