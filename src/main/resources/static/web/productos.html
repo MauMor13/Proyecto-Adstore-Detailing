@@ -268,10 +268,10 @@
             </div>
             <div class="d-flex flex-column align-items-center justify-content-around w-100 flex-wrap">
               <p class="card-text p-0 mx-2 mb-1"><strong>{{producto.nombre.toUpperCase()}} </strong> </p>
-              <div class="d-flex justify-content-between flex-wrap my-2">
+              <div class="d-flex align-items-between flex-wrap flex-column my-2">
                 <p class="card-text p-0 mx-2 mb-1"><strong>Precio: </strong>{{producto.precio.toLocaleString('en-US', {style:"currency", currency:"USD"})}}  </p>
                 <p class="p-0 mx-2 mb-0" :class="producto.stock > 5? 'card-text': 'colorRojo'"> <strong>Unidades disponibles:</strong> {{producto.stock}}</p>
-                <p v-if="producto.stock" :class="producto.stock > 5? 'card-text': 'colorRojo'"><strong>Sin Stock</strong> </p>
+                <p class="p-0 mx-2 mb-0" :class="producto.stock > 5? 'card-text': 'colorRojo'" v-show="!producto.stock"><strong>Sin Stock</strong> </p>
               </div>
             </div>
             <div class="d-flex justify-content-between flex-wrap">
