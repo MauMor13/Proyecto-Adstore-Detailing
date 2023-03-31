@@ -254,7 +254,7 @@ createApp({
             let fotos = document.querySelector(".fotos-landing");
             console.log([fotos]);
             while(i <= 5){
-                await this.esperaPorMs(10000);
+                await this.esperaPorMs(3000);
                 for(let j = 1; j > 0; j -= 0.1){
                     await this.esperaPorMs(25);
                     fotos.style.opacity = `${j}`;
