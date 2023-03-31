@@ -18,6 +18,7 @@ import javax.mail.util.ByteArrayDataSource;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
 
 @Service
@@ -60,7 +61,7 @@ public class EmailSenderServiceImpl implements EmailSenderService {
 
         exportadorPDF.generarFactura(compra);
 
-        mimeMessageHelper.setFrom("adstoreDetailing23@gmail.com");
+        mimeMessageHelper.setFrom("adstoreDetailing23@gmail.com", "Adstore Detailing");
         mimeMessageHelper.setTo(para);
         mimeMessageHelper.setSubject(asunto);
 
@@ -82,27 +83,25 @@ public class EmailSenderServiceImpl implements EmailSenderService {
     }
 
     @Override
-    public void enviarCodigo(String para, TokenValidacion tokenValidacion) throws MessagingException {
+    public void enviarCodigo(String para, TokenValidacion tokenValidacion) throws MessagingException, UnsupportedEncodingException {
 
-        String contenido= "<p>Por favor haga click en el link para confirmar su correo: </p>";
-        String urlVerificacion = "http://localhost:8080/api/confirmar-registro?token="+tokenValidacion.getToken();
-        contenido+="<h3><a href=\"" + urlVerificacion+ "\">VERIFICAR</a></h3>";
-        contenido+="<p>Gracias</p>";
+        String contenido= "<h1>Por favor haga click en el link para confirmar su correo: </h1>";
+        String urlVerificacion = "api/confirmar-registro?token="+tokenValidacion.getToken();
+        contenido+="<h2><a href=\"" + urlVerificacion+ "\">VERIFICAR</a></h2>";
+        contenido+="<p>Gracias.</p>";
+        contenido+="<p>-Adstore Detailing</p>";
 
         MimeMessage message = mailSender.createMimeMessage();
         message.setContent(contenido, "text/html; charset=utf-8");
         MimeMessageHelper helper = new MimeMessageHelper(message);
 
-        helper.setFrom("adstoremailingservice@gmail.com");
+
+        helper.setFrom("adstoremailingservice@gmail.com", "Adstore Detailing");
         helper.setTo(para);
         helper.setSubject("Confirmación de email |Adstore");
 
         mailSender.send(message);
     }
 
-    @GetMapping("/confirmar-registro")
-    public void confirmarRegistro(@RequestParam String token){
-
-    }
 
 }

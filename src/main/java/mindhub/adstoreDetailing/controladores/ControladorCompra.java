@@ -1,21 +1,14 @@
 package mindhub.adstoreDetailing.controladores;
 import mindhub.adstoreDetailing.dtos.CompraDTO;
-
-
 import mindhub.adstoreDetailing.dtos.realizarCompra.RealizarCompraDTO;
 import mindhub.adstoreDetailing.models.Cliente;
 import mindhub.adstoreDetailing.models.Compra;
-
-import mindhub.adstoreDetailing.dtos.realizarCompra.RealizarCompraDTO;
 import mindhub.adstoreDetailing.dtos.realizarCompra.RealizarCompraProducto;
 import mindhub.adstoreDetailing.dtos.realizarCompra.RealizarCompraServicio;
-import mindhub.adstoreDetailing.models.Cliente;
-import mindhub.adstoreDetailing.models.Compra;
 import mindhub.adstoreDetailing.models.Producto;
 import mindhub.adstoreDetailing.models.Servicio;
 import mindhub.adstoreDetailing.repositorios.RepositorioProducto;
 import mindhub.adstoreDetailing.repositorios.RepositorioServicio;
-
 import mindhub.adstoreDetailing.servicios.ServicioCliente;
 import mindhub.adstoreDetailing.servicios.ServicioCompra;
 import mindhub.adstoreDetailing.servicios.envioEmail.EmailSenderService;
@@ -24,7 +17,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-
 import javax.mail.MessagingException;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -111,6 +103,7 @@ public class ControladorCompra {
                     authentication.getName(),
                     compra);
             this.servicioCompra.guardar(compra);
+
             return new ResponseEntity<>(new CompraDTO(compra),HttpStatus.CREATED );
 
         }

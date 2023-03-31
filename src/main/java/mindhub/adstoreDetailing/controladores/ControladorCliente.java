@@ -16,9 +16,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-
 import javax.mail.MessagingException;
-
+import javax.servlet.http.HttpServletResponse;
+import javax.xml.bind.ValidationException;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,7 +48,7 @@ public class ControladorCliente {
         return servicioCliente.findAllClienteDTO();
     }
     @PostMapping("/registrar")
-    public ResponseEntity<Object> registrar(@RequestBody RegistroClienteDTO registroClienteDTO) throws MessagingException {
+    public ResponseEntity<Object> registrar(@RequestBody RegistroClienteDTO registroClienteDTO) throws MessagingException, UnsupportedEncodingException {
 
         if (registroClienteDTO.getNombre().isEmpty()) {
             return new ResponseEntity<>("Ingrese Nombre", HttpStatus.BAD_REQUEST);
@@ -103,7 +104,7 @@ public class ControladorCliente {
         repositorioTarjetaAd.save(nuevaTarjeta);
 
         this.emailSenderService.enviarCodigo(nuevoCliente.getEmail(), token);
-        return new ResponseEntity<>("Se registró con éxito",HttpStatus.CREATED);
+        return new ResponseEntity<>("Por favor revise su bandeja de entrada",HttpStatus.CREATED);
     }
     @PatchMapping("/modificar-cliente")
     public ResponseEntity<Object> modificarCliente(@RequestBody ClienteDTO clienteDTO){
@@ -174,9 +175,20 @@ public class ControladorCliente {
 
         return new ResponseEntity<>("Cliente reactivado", HttpStatus.OK);
     }
-    @GetMapping("/enviar-codigo")
-    public void enviarCodigo (Authentication authentication){
+    @GetMapping("/confirmar-registro")
+    public void confirmarRegistro(@RequestParam String token, HttpServletResponse response) throws ValidationException {
+       Optional<TokenValidacion> tokenValidacion = repositorioToken.findByToken(token);
 
+       if(tokenValidacion.isPresent()){
+          Cliente cliente = this.servicioCliente.findByEmail(tokenValidacion.get().getCliente().getEmail());
+          cliente.setActivo(true);
+          this.servicioCliente.guardar(cliente);
+           response.setHeader("Location", "/web/email-verificado.html");
+           response.setStatus(HttpServletResponse.SC_FOUND);
+       }
+       else{
+          throw new ValidationException("Token inválido");
+       }
     }
 
 }
