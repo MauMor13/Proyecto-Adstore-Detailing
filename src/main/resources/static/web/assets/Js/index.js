@@ -55,7 +55,7 @@ createApp({
                     this.telefono = this.cliente.telefono
                     this.numTarjeta = this.cliente.cuenta.tarjetaAd.numeroTarjeta
                     this.saldo = this.cliente.cuenta.saldo
-                    this.cargarDatos()
+
                 })
                 .catch(err => console.error(err.message));
         },
