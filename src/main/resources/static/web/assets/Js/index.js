@@ -92,8 +92,17 @@ createApp({
                     this.email = "";
                     this.contra = "";
                     this.direccion = "",
-                        this.registro = "",
-                        this.iniciarSesion();
+                    this.registro = "",
+
+                    Swal.fire({
+                        customClass: 'modal-sweet-alert',
+                        title: 'Cliente regisrado!',
+                        text: "Para poder acceder a la cuenta debes verificar tu E-mail. Por favor, revisa tu correo y verificalo",
+                        icon: 'success',
+                        confirmButtonColor: '#f7ba24',
+                        confirmButtonText: 'Aceptar'
+                    })
+
                 })
                 .catch(err => {
                     this.errorEncontrado = true;
