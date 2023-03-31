@@ -1,5 +1,7 @@
 package mindhub.adstoreDetailing.servicios.envioEmail;
 
+import mindhub.adstoreDetailing.models.Compra;
+
 import javax.mail.MessagingException;
 import java.io.IOException;
 

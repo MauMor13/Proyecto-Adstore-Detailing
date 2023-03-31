@@ -4,7 +4,10 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -18,9 +21,14 @@ public class TurnoServicio {
 
     private LocalDateTime fechaHoraIngreso;
     private LocalDateTime fechaHoraSalida;
+    @OneToMany(mappedBy = "turnoServicio", fetch = FetchType.EAGER)
+    private Set<CompraServicio> compraServicios = new HashSet<>();
 
-    public TurnoServicio(LocalDateTime fechaHoraIngreso, LocalDateTime fechaHoraSalida) {
+    public TurnoServicio(LocalDateTime fechaHoraIngreso) {
         this.fechaHoraIngreso = fechaHoraIngreso;
-        this.fechaHoraSalida = fechaHoraSalida;
+    }
+    public void sumarCompraServicio(CompraServicio compraServicio){
+        compraServicio.setTurnoServicio(this);
+        compraServicios.add(compraServicio);
     }
 }

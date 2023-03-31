@@ -43,13 +43,13 @@ public class ControladorCompra {
         public ResponseEntity<Object> comprar (@RequestBody RealizarCompraDTO realizarCompraDTO,
                                                Authentication authentication) throws MessagingException, IOException {
             Cliente cliente = this.servicioCliente.findByEmail(authentication.getName());
-
+            Compra compra = new Compra();
+                //verifica si tiene servicio pero no coloco fecha de turno
             if(!realizarCompraDTO.getServicios().isEmpty()&&realizarCompraDTO.getFechaDelServicio()==null)
                 return new ResponseEntity<>("La fecha de servicio no fue ingresada",HttpStatus.BAD_REQUEST);
-
+                //verifica si no tiene productos ni servicios
             if(realizarCompraDTO.getProductos().isEmpty()&&realizarCompraDTO.getServicios().isEmpty())
                 return new ResponseEntity<>("Usted no tiene nada en su carrito de compra",HttpStatus.BAD_REQUEST);
-
 
             Double montoDeCompra = 0.0;
             for (RealizarCompraServicio servicio : realizarCompraDTO.getServicios()) {
@@ -60,6 +60,18 @@ public class ControladorCompra {
                 Producto productoObj = this.repositorioProducto.findById(producto.getId()).orElseThrow();
                 montoDeCompra += productoObj.getPrecio();
             }
+            if (montoDeCompra>25000){
+                compra.setDescuento(5);
+                montoDeCompra -= montoDeCompra * 0.05;
+            }
+
+                //verifica que tenga saldo menor al pago y que introdujo numero de tarjeta (revisar)
+            if (montoDeCompra>cliente.getCuenta().getSaldo() && realizarCompraDTO.getNumeroTarjetaPago().isEmpty())
+                return new ResponseEntity<>("No ingresò el numero de la tarjeta para realizar el pago",HttpStatus.BAD_REQUEST);
+                //verifica que tenga saldo menor al pago y que introdujo cvv de tarjeta (revisar)
+            if (montoDeCompra>cliente.getCuenta().getSaldo() && realizarCompraDTO.getCvv()==null)
+                return new ResponseEntity<>("No ingresò el cvv de la tarjeta para realizar el pago",HttpStatus.BAD_REQUEST);
+
             if(realizarCompraDTO.isPagarCuentaCliente()) {
                 if (montoDeCompra > cliente.getCuenta().getSaldo()){
                     montoDeCompra -= cliente.getCuenta().getSaldo();
@@ -70,15 +82,15 @@ public class ControladorCompra {
                     montoDeCompra = 0.0;
                 }
             }
-            if(montoDeCompra == 0){
+            if(montoDeCompra > 0){
                 //realizar el pago por tarjeta
+                servicioCompra.conectarHomebanking("http://localhost:8080/api/pay", "number="+realizarCompraDTO.getNumeroTarjetaPago()+"&cvv="+realizarCompraDTO.getCvv()+"&amount="+montoDeCompra+"&description=Pago de compra AD-Store Detailing");
             }
-            Compra compra = new Compra();
             compra.setFecha(LocalDateTime.now());
             this.servicioCompra.guardar(compra);
             cliente.getCuenta().sumarCompra(compra);
             if (!realizarCompraDTO.getServicios().isEmpty())
-            this.servicioCompra.agregarServicios(realizarCompraDTO.getServicios(),compra);
+            this.servicioCompra.agregarServicios(realizarCompraDTO.getServicios(),compra,realizarCompraDTO.getFechaDelServicio());
             if (!realizarCompraDTO.getProductos().isEmpty())
             this.servicioCompra.agregarProductos(realizarCompraDTO.getProductos(),compra);
 
@@ -86,10 +98,11 @@ public class ControladorCompra {
 
             this.servicioCompra.guardar(compra);
 
-            this.emailSenderService.enviarEmail(
-                    "Factura de compra "+compra.getId(),
-                    "Gracias por su compra! -Adstore Detailing",
-                    authentication.getName());
+//            this.emailSenderService.enviarFactura(
+//                    "Factura de compra #"+compra.getId()+ " -Adstore",
+//                    "Gracias por confiar en nosotros! Adjunta se encuentra su factura.",
+//                    authentication.getName(),
+//                    compra);
 
             return new ResponseEntity<>(new CompraDTO(compra),HttpStatus.CREATED );
         }
