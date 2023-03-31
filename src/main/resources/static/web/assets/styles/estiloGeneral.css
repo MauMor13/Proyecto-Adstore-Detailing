@@ -312,7 +312,7 @@ transform: rotateY(180deg);
     z-index: 150;
     cursor: pointer;
     border-radius: 50%;
-    box-shadow: -9px 9px 17px 1px rgba(247,186,36,0.82);
+    box-shadow: -9px 6px 11px 0.5px rgba(247,186,36,0.82);
 }
 
 .modales-fondo{
@@ -598,11 +598,11 @@ thead{
     color: black;
 }
 tbody{
-    border: 1px solid white;
-    color: white;
+    /* border: 1px solid white; */
+    color: black;
 }
 table{
-    border: 1px solid white;
+    /* border: 1px solid white; */
 }
 .pago{
     border-top: 2px solid #f7ba24 ;

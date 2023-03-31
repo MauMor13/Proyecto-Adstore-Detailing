@@ -40,7 +40,7 @@
                 <a class="nav-link text-light" aria-current="page" href="./index.html">INICIO</a>
               </li>
               <li class="nav-item btn1">
-                <a class="nav-link text-light" href="">CONTACTO</a>
+                <a class="nav-link text-light" href="#contacto">CONTACTO</a>
               </li>
               <li>
                 <a class="navbar-brand ms-3 col-6" href="#">
@@ -78,7 +78,7 @@
                     <a class="nav-link" aria-current="page" href="./index.html">INICIO</a>
                   </li>
                   <li class="nav-item btn1">
-                    <a class="nav-link" href="">CONTACTO</a>
+                    <a class="nav-link" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasNavbar" aria-label="Close" href="#contacto">CONTACTO</a>
                   </li>
                   <li class="nav-item btn1">
                     <a class="nav-link" href="#">SERVICIOS</a>
@@ -152,8 +152,8 @@
         <img class="flexDesde768 w-100" src="./assets/Imagenes/carritoRedondo.png" alt="carrito">
       </div>    
 
-      <div class="modal fade" id="modalCarrito" tabindex="-1" data-bs-backdrop="static" aria-labelledby="modalCliente" aria-hidden="true" style="display: none;">
-        <div class="modal-dialog">
+      <div class="modal fade" style="font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;" id="modalCarrito" tabindex="-1" data-bs-backdrop="static" aria-labelledby="modalCliente" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-lg">
           <div class="modal-content modales-fondo">
             <div class="modal-header">
               <h1 class="modal-title fs-4">Productos a facturar</h1>
@@ -164,24 +164,24 @@
                 <div class="p-2 form-1">
                     <table class="text-center w-100">
                       <tbody>
-                        <template v-if="servicioNombre"> 
+                        <template v-if="servicioNombre && compra.servicios.length"> 
                           <tr>
                             <th colspan="2" class="text-start">Servicios</th>
-                            <th colspan="1" class="text-start">Valor Unitario</th> 
-                            <th colspan="1" class="text-start">Valor total</th>  
+                            <th colspan="1" class="">Valor Unitario</th> 
+                            <th colspan="1" class="">Valor total </th>  
                           </tr>
                           <tr v-for="servicio of compra.servicios " class="w-100">
-                            <td class="col-6 text-start"><span class="mx-2">{{(servicioNombre.find(serv=> serv.id == servicio.id )).nombre}} </span></td>
-                            <td class="col-3">
+                            <td class="col-5 text-start"><span class="mx-2">{{(servicioNombre.find(serv=> serv.id == servicio.id )).nombre}} </span></td>
+                            <td class="col-2">
                               <i class="fa-solid fa-minus me-2" @click="restarUnidad(servicio.id, 1)" style="color: #000000;"></i>
                               <i class="fa-solid fa-plus ms-2" @click="sumarUnidad(servicio.id, 1)" style="color: #000000;"></i>
                             </td>
-                            <td class="col-3">{{(servicioNombre.find(serv => serv.id == servicio.id )).precio.toLocaleString('en-US', {style:"currency", currency:"USD"})}}</td>
+                            <td class="col-2">{{(servicioNombre.find(serv => serv.id == servicio.id )).precio.toLocaleString('en-US', {style:"currency", currency:"USD"})}}</td>
                             <td class="col-3">{{(((servicioNombre.find(serv => serv.id == servicio.id )).precio)*servicio.cantidad).toLocaleString('en-US', {style:"currency", currency:"USD"})}}   </td>
                           </tr>
                         </template>
 
-                        <template v-if="productoNombre"> 
+                        <template v-if="productoNombre && compra.productos.length"> 
                           <tr>
                             <th colspan="2" class="text-start">Productos</th>
                             <th colspan="1" class="text-start">Valor Unitario</th> 
@@ -242,7 +242,7 @@
 
         <template v-if="servicios.length" v-for="servicio of servicios">
 
-          <div v-if="servicio.nombre.toLowerCase().includes('basico')" class="grid__item mb-xl-5 servicios-individual" @click="hacerEfectoPagina(servicio)" >
+          <div v-if="servicio.nombre.toLowerCase().includes('basico')" class="grid__item mb-xl-5 servicios-individual pt-4 p-lg-0" @click="hacerEfectoPagina(servicio)" >
             <div class="box">
               <div class="box__shadow"></div>
               <img class="box__img" :src="servicio.imagenURL" alt="Some image"/>
@@ -251,7 +251,7 @@
             </div>
           </div>
           
-          <div v-if="servicio.nombre.toLowerCase().includes('premium')" class="grid__item servicios-individual" @click="hacerEfectoPagina(servicio)" >
+          <div v-if="servicio.nombre.toLowerCase().includes('premium')" class="grid__item servicios-individual pt-4 p-lg-0" @click="hacerEfectoPagina(servicio)" >
             <div class="box">
               <div class="box__shadow"></div>
               <img class="box__img" :src="servicio.imagenURL" alt="Some image"/>
@@ -260,7 +260,7 @@
             </div>
           </div>
           
-          <div v-if="servicio.nombre.toLowerCase().includes('ceramico')" class="grid__item servicios-individual" @click="hacerEfectoPagina(servicio)">
+          <div v-if="servicio.nombre.toLowerCase().includes('ceramico')" class="grid__item servicios-individual pt-4 p-lg-0" @click="hacerEfectoPagina(servicio)">
             <div class="box">
               <div class="box__shadow"></div>
               <img class="box__img" :src="servicio.imagenURL" alt="Some image"/>
@@ -270,7 +270,7 @@
             </div>
           </div>
           
-          <div v-if="servicio.nombre.toLowerCase().includes('acrilico')" class="grid__item servicios-individual" @click="hacerEfectoPagina(servicio)">
+          <div v-if="servicio.nombre.toLowerCase().includes('acrilico')" class="grid__item servicios-individual pt-4 p-lg-0" @click="hacerEfectoPagina(servicio)">
             <div class="box">
               <div class="box__shadow"></div>
               <img class="box__img" :src="servicio.imagenURL" alt="Some image"/>
@@ -332,7 +332,7 @@
             </div>
             <div class="ms-2 d-flex z-1 justify-content-center">
               <img class="icono-card-prod1" src="./assets/Imagenes/carrito1.png" alt="">
-              <button class="btn btn1 p-2 font1-color" @click="agregarServicioACarrito(servicio)">Agregar a carrito</button>
+              <button class="btn btn1 p-2 font1-color" @click="agregarACarrito(servicioElegido.id, 1)">Agregar a carrito</button>
             </div>         
             <img class="w-75" src="./assets/Imagenes/PNG2.png" alt="">
           </div>
@@ -385,7 +385,7 @@
       <div class="d-flex flex-md-row flex-column ms-md-5 flex-lg-row ">
       <div class="d-md-flex  justify-content-between align-content-center align-items-center ms-4 col-lg-6 col-md-6">
         <div class="d-md-flex flex-md-column">
-          <h4 class="text-center text-lg-start text-md-start text-warning ">CONTACTANOS</h4>
+          <h4 id="contacto" class="text-center text-lg-start text-md-start text-warning ">CONTACTANOS</h4>
           <div class="contacto container-fluid d-md-flex flex-lg-column p-lg-0 container-fluid justify-content-md-around">
             <div class="text-center d-flex flex-column justify-content-center">
               <p class="contact text-md-start fw-bold"><i class="fa  text-warning fa-envelope-o fa-fw" aria-hidden="true"></i>&nbsp; EMAIL: <a class="link-light link-white-hover  link-contacto text-decoration-none" href="mailto:adstore@boxes.com">adstore@boxes.com</a></p>

@@ -104,6 +104,25 @@ createApp({
                     this.sesion = "1"
                     localStorage.setItem("sesion", this.sesion)
                     this.cargarDatos();
+
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                          toast.addEventListener('mouseenter', Swal.stopTimer)
+                          toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                      })
+
+                      Toast.fire({
+                        customClass: 'modal-sweet-alert',
+                        icon: 'success',
+                        title: 'Has iniciado sesión con exito!'
+                      })
+
                     // window.location.href("/index.html")
                 })
                 .catch(err => {
