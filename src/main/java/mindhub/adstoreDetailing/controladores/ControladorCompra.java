@@ -1,5 +1,11 @@
 package mindhub.adstoreDetailing.controladores;
 import mindhub.adstoreDetailing.dtos.CompraDTO;
+<<<<<<< HEAD
+
+import mindhub.adstoreDetailing.dtos.realizarCompra.RealizarCompraDTO;
+import mindhub.adstoreDetailing.models.Cliente;
+import mindhub.adstoreDetailing.models.Compra;
+=======
 import mindhub.adstoreDetailing.dtos.realizarCompra.RealizarCompraDTO;
 import mindhub.adstoreDetailing.dtos.realizarCompra.RealizarCompraProducto;
 import mindhub.adstoreDetailing.dtos.realizarCompra.RealizarCompraServicio;
@@ -9,6 +15,7 @@ import mindhub.adstoreDetailing.models.Producto;
 import mindhub.adstoreDetailing.models.Servicio;
 import mindhub.adstoreDetailing.repositorios.RepositorioProducto;
 import mindhub.adstoreDetailing.repositorios.RepositorioServicio;
+>>>>>>> 1a22848b6b18d657b482980a5829f4634480311e
 import mindhub.adstoreDetailing.servicios.ServicioCliente;
 import mindhub.adstoreDetailing.servicios.ServicioCompra;
 import mindhub.adstoreDetailing.servicios.envioEmail.EmailSenderService;
@@ -21,6 +28,10 @@ import org.springframework.web.bind.annotation.*;
 import javax.mail.MessagingException;
 import java.io.IOException;
 import java.time.LocalDateTime;
+<<<<<<< HEAD
+
+=======
+>>>>>>> 1a22848b6b18d657b482980a5829f4634480311e
 @RestController
 @RequestMapping("/api")
 public class ControladorCompra {
@@ -28,6 +39,18 @@ public class ControladorCompra {
     private final ServicioCompra servicioCompra;
     private final ServicioCliente servicioCliente;
     private final EmailSenderService emailSenderService;
+<<<<<<< HEAD
+    public ControladorCompra(ServicioCompra servicioCompra, ServicioCliente servicioCliente, EmailSenderService emailSenderService) {
+        this.servicioCompra = servicioCompra;
+        this.servicioCliente = servicioCliente;
+        this.emailSenderService = emailSenderService;
+    }
+
+        @PostMapping("/compra")
+        @Transactional
+        public ResponseEntity<Object> comprar (@RequestBody RealizarCompraDTO realizarCompraDTO, Authentication authentication) throws MessagingException, IOException {
+
+=======
     private final RepositorioServicio repositorioServicio;
     private final RepositorioProducto repositorioProducto;
 
@@ -42,6 +65,7 @@ public class ControladorCompra {
         @Transactional
         public ResponseEntity<Object> comprar (@RequestBody RealizarCompraDTO realizarCompraDTO,
                                                Authentication authentication) throws MessagingException, IOException {
+>>>>>>> 1a22848b6b18d657b482980a5829f4634480311e
             Cliente cliente = this.servicioCliente.findByEmail(authentication.getName());
             Compra compra = new Compra();
                 //verifica si tiene servicio pero no coloco fecha de turno
@@ -89,12 +113,25 @@ public class ControladorCompra {
             compra.setFecha(LocalDateTime.now());
             this.servicioCompra.guardar(compra);
             cliente.getCuenta().sumarCompra(compra);
+<<<<<<< HEAD
+
+            this.servicioCompra.agregarServicios(realizarCompraDTO.getServicios(),compra);
+
+=======
             if (!realizarCompraDTO.getServicios().isEmpty())
             this.servicioCompra.agregarServicios(realizarCompraDTO.getServicios(),compra,realizarCompraDTO.getFechaDelServicio());
             if (!realizarCompraDTO.getProductos().isEmpty())
+>>>>>>> 1a22848b6b18d657b482980a5829f4634480311e
             this.servicioCompra.agregarProductos(realizarCompraDTO.getProductos(),compra);
 
             compra.setMontoFinal(compra.calcularPrecioTotal());
+
+
+            this.emailSenderService.enviarFactura(
+                    "Factura de compra #"+compra.getId()+ " -Adstore",
+                    "Gracias por confiar en nosotros! Adjunta se encuentra su factura.",
+                    authentication.getName(),
+                    compra);
 
             this.servicioCompra.guardar(compra);
 
@@ -105,5 +142,6 @@ public class ControladorCompra {
 //                    compra);
 
             return new ResponseEntity<>(new CompraDTO(compra),HttpStatus.CREATED );
+
         }
 }

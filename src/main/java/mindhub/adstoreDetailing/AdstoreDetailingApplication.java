@@ -103,6 +103,7 @@ public class AdstoreDetailingApplication {
             Compra compraCliente1 = new Compra(12000, LocalDateTime.now(), 0);
             repositorioCompra.save(compraCliente1);
             cuentaCliente1.sumarCompra(compraCliente1);
+
             crearCompraPoducto(compraCliente1, new ArrayList<Producto>(Arrays.asList(producto3, producto4, producto7, producto2)), repositorioCompraProducto, repositorioCompra);
             crearCompraServicio(compraCliente1, new ArrayList<Servicio>(Arrays.asList(servicio1, servicio2)), repositorioCompraServicio, repositorioCompra);
 

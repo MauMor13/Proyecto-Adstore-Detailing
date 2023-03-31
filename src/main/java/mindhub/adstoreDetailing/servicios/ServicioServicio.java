@@ -13,6 +13,6 @@ public interface ServicioServicio {
 
     List<Servicio> findByActiveTrue();
     public List<ServicioDTO> findByActiveTrueDTO();
-
     List<ServicioDTO> findAllServiciosActivosDTO();
+
 }
