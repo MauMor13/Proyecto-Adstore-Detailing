@@ -26,7 +26,9 @@ createApp({
     },
 
     created(){
-        this.cargarDatosCliente();
+        if(this.cliente == undefined){
+            this.cargarDatosCliente()
+        }
         this.cargarDatos();
         this.guardarLocalStorage();
         this.cargarDatosServicios();
@@ -143,7 +145,7 @@ createApp({
             this.productos = this.compra.productos
             localStorage.setItem("compra",JSON.stringify(this.compra))
 
-
+        },
         cargarServicios:function(){
             axios.get('/api/servicios-activos')
                 .then(respuesta => {
@@ -277,5 +279,5 @@ createApp({
 
     },
 
-    
+ 
 }).mount("#app")
