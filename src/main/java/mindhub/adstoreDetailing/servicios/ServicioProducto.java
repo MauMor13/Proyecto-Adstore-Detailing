@@ -4,7 +4,7 @@ import mindhub.adstoreDetailing.models.Producto;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
-@Service
+
 public interface ServicioProducto {
     List<ProductoDTO> findAllDTOs();
     Optional<Producto> findById(Long id);
