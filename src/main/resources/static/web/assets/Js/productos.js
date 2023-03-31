@@ -30,18 +30,21 @@ createApp({
             servicios:[],
             productosNombre:"",
             servicioNombre:"",
-            servicio:""
+            servicio:"",
+            sesion: "0"
 
         }
     },
 
 
     created(){
-        this.cargarDatos();
-        this.guardarLocalStorage();
-        this.cargarDatosCliente();
-        this.cargarDatosServicios();
-        // this.cargarDatosCliente();
+        this.sesion = localStorage.getItem("sesion")
+        if(this.sesion == "1"){
+            this.cargarDatosCliente()
+        }
+        this.guardarLocalStorage()
+        this.cargarDatos()
+        this.cargarDatosServicios()
 
     },
 
@@ -68,8 +71,7 @@ createApp({
                 })
                 .catch(err => console.error(err.message));
         },
-        
-
+    
         cargarDatos: function(){
             axios.get('/api/productos')
                 .then(respuesta => {
@@ -133,6 +135,7 @@ createApp({
                 productos:[],
                 servicios:[]
             }
+            localStorage.setItem("compra", JSON.stringify(this.compra))
         },
 
         guardarLocalStorage(){
@@ -163,8 +166,8 @@ createApp({
         restarUnidad(productoId, cantidad){
             this.compra = JSON.parse(localStorage.getItem("compra"))
             let productoEnCarro = this.compra.productos.find(element => element.id == productoId)
-            if( productoEnCarro == 0){
-                productoEnCarro == 0
+            if( productoEnCarro.cantidad == 0){
+                this.compra.productos.splice(this.compra.productos.indexOf(productoEnCarro), 1)
                 }else{
                     productoEnCarro.cantidad -= cantidad  
                 }
@@ -235,6 +238,8 @@ createApp({
             axios.post('/api/login',`email=${this.emailInicioSesion}&claveIngreso=${this.contraInicioSesion}`,{headers:{'content-type':'application/x-www-form-urlencoded'}})
                 .then(response => {
                     console.log('inicio sesion!');
+                    this.sesion = "1"
+                    localStorage.setItem("sesion", this.sesion)
                     this.cargarDatos();
                 })
                 .catch(err => {
@@ -245,7 +250,12 @@ createApp({
         },
         logOut(){
             axios.post('/api/logout')
-            .then(() => window.location.reload)
+            .then(() => {
+                this.sesion = JSON.stringify(localStorage.getItem("sesion"))
+                this.sesion = "0"
+                localStorage.setItem("sesion", this.sesion)
+                window.location.reload
+            })
         },
 
 

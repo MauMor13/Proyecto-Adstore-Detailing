@@ -26,6 +26,7 @@ createApp({
     },
 
     created(){
+
         this.cargarDatos();
         this.guardarLocalStorage();
         this.cargarDatosServicios();
@@ -269,5 +270,5 @@ createApp({
 
     },
 
-    
+ 
 }).mount("#app")
