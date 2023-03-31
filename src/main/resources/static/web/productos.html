@@ -14,6 +14,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Work+Sans&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./assets/styles/estiloGeneral.css">
+  <link rel="stylesheet" href="./assets/styles/estiloLogin.css">
   <link rel="stylesheet" href="./assets/styles/estiloProductos.css" />
 </head>
 
@@ -35,6 +36,7 @@
                 <a class="nav-link text-light" aria-current="page" href="./index.html">INICIO</a>
               </li>
               <li class="nav-item btn1">
+
                 <a class="nav-link text-light" href="#contacto">CONTACTO</a>
               </li>
               <li>
@@ -77,7 +79,7 @@
                     <a class="nav-link" aria-current="page" href="./index.html">INICIO</a>
                   </li>
                   <li class="nav-item btn1">
-                    <a class="nav-link" href="">CONTACTO</a>
+                    <a class="nav-link" href="./index.html">CONTACTO</a>
                   </li>
                   <li class="nav-item btn1">
                     <a class="nav-link" href="./servicios.html">SERVICIOS</a>
@@ -291,6 +293,107 @@
             </div>
           </div>
         </template>
+
+      </div> 
+
+      <button v-if="!cliente" @click="loginRegistro('login')" type="button" data-bs-target="#modalSign" class="btn btn-warning z-2  acceder-boton  bigger fuente-poppin position-fixed bottom-0 end-0 me-3 mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+
+        <img src="./assets/Imagenes/usuario.png" alt="">
+        Accede como cliente
+      </button>
+      <!-- Inicio formulario de login-->
+      <div div class="modal fade" id="modalSign" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content modal-login">
+            <div class="modal-header header-login font2-color">
+                <h2 class="fuente-audiowide text-uppercase">Bienvenido</h2>
+                <button type="button" class="btn-close close-modal" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body d-flex align-items-center justify-content-center flex-column">
+              <div class="d-flex align-items-center justify-content-center font2-color">
+                <div class="section mb-3">
+                    <div class="container">
+                        <div class="row full-height justify-content-center">
+                            <div class="col-12 text-center align-self-center">
+                                <div class="section pt-sm-2 text-center">
+                                    <p class="font1-color m-0">Si aún no eres cliente registrate. De lo contrario inicia sesión.</p>
+                                    <div class="d-flex justify-content-evenly w-100 flex-wrap">
+                                      <button @click="loginRegistro('registro')" class="btn btn1 p-2">Ver formulario de Registro</button>
+                                      <button @click="loginRegistro('login')" class="btn btn1 p-2">Ver formulario de inicio de sesión</button> 
+                                    </div>
+                                    <div class="card-3d-wrap mx-auto">
+                                        <div class="card-3d-wrapper">
+                                            <div class="card-frente">
+                                                <div class="center-wrap">
+                                                    <div class="section text-center">
+                                                        <h4 class="mb-2 pb-3 titulo-log-in fuente-audiowide">Inicio de Sesión</h4>
+                                                        <div class="form-group form">
+                                                            <input type="email" name="logemail" class="form-style" placeholder="Email" id="logemail" autocomplete="off" v-model="emailInicioSesion" required>
+                                                            <i class="input-icon uil uil-at"></i>
+                                                        </div>	
+                                                        <div class="form-group mt-2">
+                                                            <input type="password" name="logpass" class="form-style" placeholder="Contraseña" id="logpass" autocomplete="off" v-model="contraInicioSesion" @keyup.enter="loginWithEnter()" required>
+                                                            <i class="input-icon uil uil-lock-alt"></i>
+                                                        </div>
+                                                        <span @click="iniciarSesion()" class="submit btn mt-4 categoria font1-color" data-bs-dismiss="modal">Enviar</span>
+                                                        <p v-if="errorEncontrado" class="mb-0 mt-4 text-center red-color">⋆ El email o la contraseña no son correctos</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div v-if="!registrado" class="card-dorso">
+                                                <div class="center-wrap">
+                                                    <div class="section text-center">
+                                                        <h4 class="mb-2 pb-3 titulo-log-in fuente-audiowide">Registro</h4>
+                                                        <div class="form-group form">
+                                                            <input type="text" name="logfirstname" class="form-style form-style-signup" placeholder="Nombre" id="logfirstname" autocomplete="off" v-model="nombre" required>
+                                                            <i class="input-icon uil uil-user"></i>
+                                                        </div>	
+                                                        <div class="form-group mt-2">
+                                                            <input type="text" name="loglastname" class="form-style form-style-signup" placeholder="Apellido" id="loglastname" autocomplete="off" v-model="apellido" required>
+                                                            <i class="input-icon uil uil-user"></i>
+                                                        </div>	
+                                                        <div class="form-group mt-2">
+                                                            <input type="email" name="logemail" class="form-style form-style-signup" placeholder="Email" id="signmail" autocomplete="off" v-model="email" required>
+                                                            <i class="input-icon uil uil-at"></i>
+                                                        </div>	
+                                                        <div class="form-group mt-2">
+                                                            <input type="password" name="logpass" class="form-style form-style-signup" placeholder="Contraseña" id="signpass" autocomplete="off" v-model="contra" required>
+                                                            <i class="input-icon uil uil-lock-alt"></i>
+                                                        </div>
+                                                        <div class="form-group mt-2">
+                                                          <input type="text" name="logpass" class="form-style form-style-signup" placeholder="Dirección" id="signDirecc" autocomplete="off" v-model="direccion" required>
+                                                          <i class="input-icon uil uil-lock-alt"></i>
+                                                        </div>
+                                                        <div class="form-group mt-2">
+                                                          <input type="text" name="logpass" class="form-style form-style-signup" placeholder="Teléfono" id="signtel" autocomplete="off" v-model="telefono" required>
+                                                          <i class="input-icon uil uil-lock-alt"></i>
+                                                        </div>
+                                                        <p @click="realizarRegistro()" class="submit btn categoria mt-4">Enviar</p>
+                                                        <p v-show="errorEncontrado" class="mb-0 mt-2 text-center red-color mensaje-error-registro"></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div v-else class="card-dorso d-flex justify-content-center align-items-center">
+                                                <div class="registered-view">
+                                                    <h2 class="font2-color">¡Cliente registrado!</h2>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Fin formulario de login-->
+
+      
+      {{compra}}    
       </div>     
     </main>
 
