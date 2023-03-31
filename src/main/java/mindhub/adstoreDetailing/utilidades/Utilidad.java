@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.rsocket.RSocketProperties;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Random;
 
 public class Utilidad {
     public static String generarNumeroCuenta(RepositorioCuenta repositorioCuenta){
@@ -45,5 +46,10 @@ public class Utilidad {
             repositorioCompraServicio.save(nuevaCompraServicio);
             repositorioCompra.save(compra);
         }
+    }
+    private static String generateVerificationCode() {
+        Random random = new Random();
+        int code = random.nextInt(900000) + 100000;
+        return String.valueOf(code);
     }
 }

@@ -41,7 +41,6 @@ public class ControladorCompra {
 
             cliente.getCuenta().sumarCompra(compra);
 
-
             this.servicioCompra.agregarServicios(realizarCompraDTO.getServicios(),compra);
 
             this.servicioCompra.agregarProductos(realizarCompraDTO.getProductos(),compra);

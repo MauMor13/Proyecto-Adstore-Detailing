@@ -1,11 +1,14 @@
 package mindhub.adstoreDetailing.servicios.envioEmail.impl;
 
 import mindhub.adstoreDetailing.models.Compra;
+import mindhub.adstoreDetailing.models.TokenValidacion;
 import mindhub.adstoreDetailing.servicios.ExportadorPDF;
 import mindhub.adstoreDetailing.servicios.envioEmail.EmailSenderService;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -75,5 +78,29 @@ public class EmailSenderServiceImpl implements EmailSenderService {
 
         this.mailSender.send(mimeMessage);
     }
+    @Override
+    public void enviarCodigo(String para, TokenValidacion tokenValidacion) throws MessagingException {
+
+        String contenido= "<p>Por favor haga click en el link para confirmar su correo: </p>";
+        String urlVerificacion = "http://localhost:8080/api/confirmar-registro?token="+tokenValidacion.getToken();
+        contenido+="<h3><a href=\"" + urlVerificacion+ "\">VERIFICAR</a></h3>";
+        contenido+="<p>Gracias</p>";
+
+        MimeMessage message = mailSender.createMimeMessage();
+        message.setContent(contenido, "text/html; charset=utf-8");
+        MimeMessageHelper helper = new MimeMessageHelper(message);
+
+        helper.setFrom("adstoremailingservice@gmail.com");
+        helper.setTo(para);
+        helper.setSubject("Confirmación de email |Adstore");
+
+        mailSender.send(message);
+    }
+
+    @GetMapping("/confirmar-registro")
+    public void confirmarRegistro(@RequestParam String token){
+
+    }
+
 
 }

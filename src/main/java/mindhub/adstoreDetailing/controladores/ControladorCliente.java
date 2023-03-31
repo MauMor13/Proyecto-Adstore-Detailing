@@ -4,9 +4,12 @@ import mindhub.adstoreDetailing.dtos.RegistroClienteDTO;
 import mindhub.adstoreDetailing.models.Cliente;
 import mindhub.adstoreDetailing.models.Cuenta;
 import mindhub.adstoreDetailing.models.TarjetaAd;
+import mindhub.adstoreDetailing.models.TokenValidacion;
 import mindhub.adstoreDetailing.repositorios.RepositorioCuenta;
 import mindhub.adstoreDetailing.repositorios.RepositorioTarjetaAd;
+import mindhub.adstoreDetailing.repositorios.RepositorioToken;
 import mindhub.adstoreDetailing.servicios.ServicioCliente;
+import mindhub.adstoreDetailing.servicios.envioEmail.EmailSenderService;
 import mindhub.adstoreDetailing.utilidades.Utilidad;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,11 +17,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.Duration;
+import javax.mail.MessagingException;
 import java.util.List;
 import java.util.Optional;
 
-import static java.util.stream.Collectors.toList;
 @RestController
 @RequestMapping("/api")
 public class ControladorCliente {
@@ -26,9 +28,13 @@ public class ControladorCliente {
     RepositorioCuenta repositorioCuenta;
     @Autowired
     RepositorioTarjetaAd repositorioTarjetaAd;
+    @Autowired
+    RepositorioToken repositorioToken;
     private final ServicioCliente servicioCliente;
-    public ControladorCliente(ServicioCliente servicioCliente) {
+    private final EmailSenderService emailSenderService;
+    public ControladorCliente(ServicioCliente servicioCliente, EmailSenderService emailSenderService) {
         this.servicioCliente = servicioCliente;
+        this.emailSenderService = emailSenderService;
     }
 
     @GetMapping("/cliente")
@@ -40,7 +46,7 @@ public class ControladorCliente {
         return servicioCliente.findAllClienteDTO();
     }
     @PostMapping("/registrar")
-    public ResponseEntity<Object> registrar(@RequestBody RegistroClienteDTO registroClienteDTO) {
+    public ResponseEntity<Object> registrar(@RequestBody RegistroClienteDTO registroClienteDTO) throws MessagingException {
 
         if (registroClienteDTO.getNombre().isEmpty()) {
             return new ResponseEntity<>("Ingrese Nombre", HttpStatus.BAD_REQUEST);
@@ -82,6 +88,9 @@ public class ControladorCliente {
         this.repositorioCuenta.save(nuevaCuenta);
         this.repositorioTarjetaAd.save(nuevaTarjeta);
 
+        TokenValidacion token = new TokenValidacion(nuevoCliente);
+        repositorioToken.save(token);
+
         nuevoCliente.setCuenta(nuevaCuenta);
         nuevaCuenta.setCliente(nuevoCliente);
 
@@ -91,6 +100,8 @@ public class ControladorCliente {
         servicioCliente.registrarCliente(nuevoCliente);
         repositorioCuenta.save(nuevaCuenta);
         repositorioTarjetaAd.save(nuevaTarjeta);
+
+        this.emailSenderService.enviarCodigo(nuevoCliente.getEmail(), token);
         return new ResponseEntity<>("Se registró con éxito",HttpStatus.CREATED);
     }
     @PatchMapping("/modificar-cliente")
@@ -134,6 +145,37 @@ public class ControladorCliente {
         modificadosSb.append(".");
         String modificaciones = modificadosSb.toString();
         return new ResponseEntity<>(modificaciones, HttpStatus.OK);
+    }
+
+    @PatchMapping("/eliminar-cliente")
+    public ResponseEntity<Object> eliminarCliente (Authentication authentication){
+        Cliente cliente = this.servicioCliente.findByEmail(authentication.getName());
+
+        if(cliente==null){
+            return new ResponseEntity<>("Cliente no encontrado",HttpStatus.BAD_REQUEST);
+        }
+
+        cliente.setActivo(false);
+        this.servicioCliente.guardar(cliente);
+
+        return new ResponseEntity<>("Cliente eliminado", HttpStatus.OK);
+    }
+    @PatchMapping("/reactivar-cliente")
+    public ResponseEntity<Object> reactivarCliente (Authentication authentication){
+        Cliente cliente = this.servicioCliente.findByEmail(authentication.getName());
+
+        if(cliente==null){
+            return new ResponseEntity<>("Cliente no encontrado",HttpStatus.BAD_REQUEST);
+        }
+
+        cliente.setActivo(true);
+        this.servicioCliente.guardar(cliente);
+
+        return new ResponseEntity<>("Cliente reactivado", HttpStatus.OK);
+    }
+    @GetMapping("/enviar-codigo")
+    public void enviarCodigo (Authentication authentication){
+
     }
 
 }

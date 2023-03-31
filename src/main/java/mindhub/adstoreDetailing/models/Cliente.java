@@ -23,6 +23,7 @@ public class Cliente {
     private String email;
     private String claveIngreso;
     private String telefono;
+    public boolean activo;
     @OneToOne(mappedBy = "cliente", fetch = FetchType.EAGER)
     private Cuenta cuenta;
 
@@ -33,6 +34,7 @@ public class Cliente {
         this.email = email;
         this.claveIngreso = claveIngreso;
         this.telefono = telefono;
+        this.activo=false;
     }
 }
 
