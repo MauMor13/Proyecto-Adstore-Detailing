@@ -174,6 +174,7 @@ createApp({
         },
         agregarACarrito(idSeleccion, cantidad){
             this.compra = JSON.parse(localStorage.getItem("compra"))
+            console.log(this.compra.productos);
             let productoEnCarro = this.compra.productos.find(element => element.id == idSeleccion)
             if(productoEnCarro != null){
                 if(productoEnCarro.cantidad == this.productosFiltrados.find(element => element.id == productoEnCarro.id).stock){

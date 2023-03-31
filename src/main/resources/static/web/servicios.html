@@ -149,7 +149,7 @@
       <!--inicio carrito-->
 
       <div class="carrito-flotante" data-bs-toggle="modal" data-bs-target="#modalCarrito">
-        <img class="inlineDesde768 w-100" src="./assets/Imagenes/carrito.png" alt="carrito">
+        <img class="flexDesde768 w-100" src="./assets/Imagenes/carritoRedondo.png" alt="carrito">
       </div>    
 
       <div class="modal fade" id="modalCarrito" tabindex="-1" data-bs-backdrop="static" aria-labelledby="modalCliente" aria-hidden="true" style="display: none;">
@@ -164,7 +164,7 @@
                 <div class="p-2 form-1">
                     <table class="text-center w-100">
                       <tbody>
-                        <template v-if="compra.servicios.length > 0 "   > 
+                        <template v-if="servicioNombre"> 
                           <tr>
                             <th colspan="2" class="text-start">Servicios</th>
                             <th colspan="1" class="text-start">Valor Unitario</th> 
@@ -174,7 +174,6 @@
                             <td class="col-6 text-start"><span class="mx-2">{{(servicioNombre.find(serv=> serv.id == servicio.id )).nombre}} </span></td>
                             <td class="col-3">
                               <i class="fa-solid fa-minus me-2" @click="restarUnidad(servicio.id, 1)" style="color: #000000;"></i>
-                              {{servicio.cantidad}} 
                               <i class="fa-solid fa-plus ms-2" @click="sumarUnidad(servicio.id, 1)" style="color: #000000;"></i>
                             </td>
                             <td class="col-3">{{(servicioNombre.find(serv => serv.id == servicio.id )).precio.toLocaleString('en-US', {style:"currency", currency:"USD"})}}</td>
@@ -182,7 +181,7 @@
                           </tr>
                         </template>
 
-                        <template v-if="compra.productos.length > 0"> 
+                        <template v-if="productoNombre"> 
                           <tr>
                             <th colspan="2" class="text-start">Productos</th>
                             <th colspan="1" class="text-start">Valor Unitario</th> 

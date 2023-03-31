@@ -97,7 +97,7 @@
     <main class="main-index d-flex flex-column gap-3 justify-content-center align-items-center">
 
       <div class="carrito-flotante" data-bs-toggle="modal" data-bs-target="#modalCarrito">
-        <img class="inlineDesde768 w-100" src="./assets/Imagenes/carrito.png" alt="carrito">
+        <img class="inlineDesde768 w-100" src="./assets/Imagenes/carritoRedondo.png" alt="carrito">
       </div>    
 
       <div class="modal fade" id="modalCarrito" tabindex="-1" data-bs-backdrop="static" aria-labelledby="modalCliente" aria-hidden="true" style="display: none;">
@@ -110,7 +110,7 @@
             </div>
             <div class="modal-body">
                 <div class="p-2 form-1">
-                    <table class="text-center w-100" v-if="productos">
+                    <table class="text-center w-100" v-if="servicioNombre">
                       <tbody>
                         <template v-if="compra.servicios.length > 0 "   > 
                           <tr>
@@ -286,9 +286,7 @@
             </div>
           </div>
         </template>
-      </div>  
-      
-      {{compra}}    
+      </div>     
     </main>
 
     <!--Footer-->

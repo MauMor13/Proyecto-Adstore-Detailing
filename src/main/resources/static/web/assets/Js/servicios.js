@@ -35,7 +35,8 @@ createApp({
     },
 
     mounted(){
-        
+        this.compra = JSON.parse(localStorage.getItem("compra"))
+        console.log(this.compra);
     },
 
     methods: {
@@ -103,7 +104,6 @@ createApp({
                 else{
                 productoEnCarro.cantidad += cantidad
             }}
-            this.productos = this.compra.productos
             localStorage.setItem("compra",JSON.stringify(this.compra))
         },
         restarUnidad(productoId, cantidad){
@@ -114,7 +114,6 @@ createApp({
                 }else{
                     productoEnCarro.cantidad -= cantidad  
                 }
-            this.productos = this.compra.productos
             localStorage.setItem("compra",JSON.stringify(this.compra))
         },
         agregarACarrito(idSeleccion, cantidad){
@@ -140,7 +139,6 @@ createApp({
                 objeto.cantidad = cantidad
                 this.compra.productos.push(objeto)
             }
-            this.productos = this.compra.productos
             localStorage.setItem("compra",JSON.stringify(this.compra))
         },
         cargarServicios:function(){
