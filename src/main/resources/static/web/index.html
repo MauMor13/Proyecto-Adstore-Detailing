@@ -115,25 +115,37 @@
       </div>
 
       
-      <div v-if="cliente" class="accordion  border border-dark accordion-flush btn btn-warning position-fixed bottom-0 end-0 me-md-3 mt-md-3" id="accordionFlushExample">
+      <!--datos cliente-->
+      
+      <div v-if="cliente" class="accordion  border border-dark accordion-flush btn btn-warning position-fixed bottom-0 end-0 me-3 mt-3" id="accordionFlushExample">
         <div class="accordion-item">
           <div id="flush-collapseOne" class="accordion-collapse bg-warning collapse" data-bs-parent="#accordionFlushExample">
             <div class="accordion-body  text-bg-warning">
               <table class="table">
                 <tbody >
                   <tr>
-                    <td class="fuente-poppins" v-cloak>Cuenta No.</td>
-                    <td class="fuente-poppins"  v-cloak>000 </td>
+                    <td class="fuente-poppin columna text-dark" v-cloak><strong>Cuenta</strong> </td>
+                    <td class="fuente-poppin"  v-cloak>{{cliente.cuenta.numeroCuenta}}</td>
                   </tr>
                   <tr>
-                    <td class="fuente-poppins"  v-cloak>Saldo </td>
-                    <td class="fuente-poppins"  v-cloak>000 </td>
+                    <td class="fuente-poppin columna text-dark"  v-cloak> <strong>Saldo</strong> </td>
+                    <td class="fuente-poppin"  v-cloak>{{saldo.toLocaleString('en-US', {style:"currency", currency:"USD"})}}</td>
                   </tr>
                   <tr>
-                    <td class="fuente-poppins"  v-cloak>Tarjeta No.</td>
-                    <td class="fuente-poppins"  v-cloak>000 </td>
+                    <td class="fuente-poppin columna text-dark"  v-cloak> <strong>Tarjeta</strong> </td>
+                    <td class="fuente-poppin"  v-cloak>{{numTarjeta}}</td>
                   </tr>
-                  <button @Click="logOut">Log out</button>
+                  <tr>
+                    <td class="fuente-poppins columna text-dark"  v-cloak> <strong>Direccion</strong> </td>
+                    <td class="fuente-poppin"  v-cloak>{{direccion}}</td>
+                  </tr>
+                  <tr>
+                    <td class="fuente-poppin columna text-dark"  v-cloak> <strong>Telefono</strong></td>
+                    <td class="fuente-poppin"  v-cloak>{{telefono}}</td>
+                  </tr>
+                  <div>
+                    <a href="./index.html" type="submit"  @click="logout()" class="text-decoration-none d-flex justify-content-center text-dark"><img class="img-logout pb-3" src="./assets/Imagenes/logout.png" alt=""><p class="fuente-poppin ps-2"> <strong>LOGOUT</strong></p></a>
+                  </div>
                 </tbody>
               </table>
 
@@ -141,15 +153,15 @@
           </div>
           <h2 class="accordion-header m-0 p-0">
             <button class="accordion-button collapsed fuente-poppin p-0 text-dark bg-warning" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-              <img src="./assets/Imagenes/usuario.png"  class="m-0 p-0" alt="">
-              Nombre Cliente
+              <img src="./assets/Imagenes/usuario.png"  class="m-0 p-0 me-2" alt="">
+              <strong>{{cliente.nombre + " "+ cliente.apellido}} </strong> 
             </button>
           </h2>
         </div>
       </div>
 
 
-      <button v-if="!cliente" @click="loginRegistro('login')" type="button" data-bs-target="#modalSign" class="btn btn-warning z-2 border border-dark bigger fuente-poppin position-fixed bottom-0 end-0 me-3 mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      <button v-if="!cliente" @click="loginRegistro('login')" type="button" data-bs-target="#modalSign" class="btn btn-warning z-2  acceder-boton  bigger fuente-poppin position-fixed bottom-0 end-0 me-3 mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
 
         <img src="./assets/Imagenes/usuario.png" alt="">
         Accede como cliente
@@ -173,8 +185,7 @@
               <li><p>Dicha cuenta contará con una tarjeta de tu propiedad para que puedas utilizar todo lo que te brindamos.</p></li>
             </ul>
 
-            <div class="d-flex mb-2">
-
+            <div class="d-flex mb-2 ">
               <div class="d-flex justify-content-between flex-column my-lg-4 w-100 flex-wrap">
                 <span class="me-5 mb-3 pb-0">¡Comienza a ser VIP! <i class="fa-solid fa-right-long fa-lg" style="color: #f7ba24;"></i></span>
                 <span class="me-5 mb-3 ">
