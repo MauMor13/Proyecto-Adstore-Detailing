@@ -18,6 +18,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletResponse;
+import javax.xml.bind.ValidationException;
 
 import java.util.List;
 import java.util.Optional;
@@ -174,9 +176,20 @@ public class ControladorCliente {
 
         return new ResponseEntity<>("Cliente reactivado", HttpStatus.OK);
     }
-    @GetMapping("/enviar-codigo")
-    public void enviarCodigo (Authentication authentication){
+    @GetMapping("/confirmar-registro")
+    public void confirmarRegistro(@RequestParam String token, HttpServletResponse response) throws ValidationException {
+       Optional<TokenValidacion> tokenValidacion = repositorioToken.findByToken(token);
 
+       if(tokenValidacion.isPresent()){
+          Cliente cliente = this.servicioCliente.findByEmail(tokenValidacion.get().getCliente().getEmail());
+          cliente.setActivo(true);
+          this.servicioCliente.guardar(cliente);
+           response.setHeader("Location", "/web/email-verificado.html");
+           response.setStatus(HttpServletResponse.SC_FOUND);
+       }
+       else{
+          throw new ValidationException("Token inválido");
+       }
     }
 
 }

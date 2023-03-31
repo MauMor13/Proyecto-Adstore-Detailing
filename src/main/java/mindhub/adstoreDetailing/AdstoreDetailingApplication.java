@@ -27,6 +27,7 @@ public class AdstoreDetailingApplication {
         return (args) -> {
             //crear cliente, cuenta y tarjeta
             Cliente cliente1 = new Cliente("Marcelo", "Rodriguez", "rioja 36 ,Cordoba,Argentina", "marcelo21@gmail.com", passwordEncoder.encode("marce12345"), "35245789");
+            cliente1.setActivo(true);
             Cuenta cuentaCliente1 = new Cuenta(generarNumeroCuenta(repositorioCuenta), 50000);
             TarjetaAd tarjetaCliente1 = new TarjetaAd(generarNumeroTarjetaAd(repositorioTarjetaAd));
 

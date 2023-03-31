@@ -100,9 +100,5 @@ public class EmailSenderServiceImpl implements EmailSenderService {
         mailSender.send(message);
     }
 
-    @GetMapping("/confirmar-registro")
-    public void confirmarRegistro(@RequestParam String token){
-
-    }
 
 }
