@@ -74,9 +74,13 @@
     background-color: var(--font-color2);
 }
 
+.flexHasta425{
+
+}
+
 
 .flexDesde768 {
-    display: none;
+    display: none!;
 }
 
 .flexHasta768 {
@@ -204,7 +208,7 @@ footer{
 
 @media(min-width: 768px){
     .flexDesde768 {
-        display: flex;
+        display: flex!;
     }
     
     .flexHasta768 {
@@ -480,7 +484,7 @@ transform: rotateY(180deg);
 .card-principal{
     transform-origin: 0% 50%;
     width: 100vw;
-    height: 80vh;
+    height: 100vh;
     background-color: #f7ba24;
     scale: 1;
     position: absolute;
@@ -489,6 +493,31 @@ transform: rotateY(180deg);
     z-index: 100;
     transition: all 2s ease-in-out;
 }
+
+.fondo-categorias1{
+    background-image: linear-gradient(#000000d5, #000000db),url("../Imagenes/fondoGris.jpg")!important;
+    background-size: cover!important;
+    background-position: bottom;
+    border-radius: 10px;
+
+}
+
+@media (min-width: 768px){
+    .card-principal{
+        height: 200vh;
+        padding: 0;
+        padding-top: 10rem;
+    }
+}
+
+@media (min-width: 1024px){
+    .card-principal{
+        height: 140vh;
+        padding: 0;
+
+    }
+}
+
 
 @media (min-width: 1440px){
     .card-principal{
@@ -509,7 +538,7 @@ transform: rotateY(180deg);
     z-index: 10;
     position: absolute;
     top: 20px;
-    right: 60px;
+    right: 40px;
     cursor: pointer;
 }
 
