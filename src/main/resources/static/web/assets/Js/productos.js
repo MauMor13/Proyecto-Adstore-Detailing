@@ -3,8 +3,6 @@ const {createApp} = Vue;
 createApp({
     data(){
         return{
-            numcuenta:"",
-            nombreCliente:"",
             cliente: undefined,
             categorias: [],
             productos: [],
@@ -33,7 +31,6 @@ createApp({
             productosNombre:"",
             servicioNombre:"",
             servicio:"",
-            compraProducto :"",
             sesion: "0"
 
         }
@@ -52,7 +49,7 @@ createApp({
     },
 
     mounted(){
-
+        this.compra = JSON.parse(localStorage.getItem("compra"))
     },
 
     methods:{
@@ -66,14 +63,11 @@ createApp({
             axios.get('/api/cliente')
                 .then(respuesta => {
                     this.cliente = respuesta.data;
-                    this.nombreCliente= this.cliente.nombre + " "+this.cliente.apellido 
-                    this.numcuenta= this.cliente.cuenta.numeroCuenta
+                    console.log(this.cliente)
                     this.direccion = this.cliente.direccion
                     this.telefono = this.cliente.telefono
                     this.numTarjeta = this.cliente.cuenta.tarjetaAd.numeroTarjeta
                     this.saldo = this.cliente.cuenta.saldo
-                    this.compraProducto =({...respuesta.data.cuenta.compras[0].compraProducto})
-                    this.compraServicio =({...respuesta.data.cuenta.compras[0].compraServicio})
                 })
                 .catch(err => console.error(err.message));
         },
@@ -142,6 +136,24 @@ createApp({
                 servicios:[]
             }
             localStorage.setItem("compra", JSON.stringify(this.compra))
+
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener('mouseenter', Swal.stopTimer)
+                  toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+              })
+
+              Toast.fire({
+                customClass: 'modal-sweet-alert',
+                icon: 'success',
+                title: 'Has vaciado el carro de compras'
+              })
         },
 
         guardarLocalStorage(){
@@ -166,7 +178,6 @@ createApp({
                 else{
                 productoEnCarro.cantidad += cantidad
             }}
-            this.productos = this.compra.productos
             localStorage.setItem("compra",JSON.stringify(this.compra))
         },
         restarUnidad(productoId, cantidad){
@@ -176,15 +187,18 @@ createApp({
                 this.compra.productos.splice(this.compra.productos.indexOf(productoEnCarro), 1)
                 }else{
                     productoEnCarro.cantidad -= cantidad  
-                }
-            this.productos = this.compra.productos
+            }
+            
             localStorage.setItem("compra",JSON.stringify(this.compra))
         },
+
+
         agregarACarrito(idSeleccion, cantidad){
             this.compra = JSON.parse(localStorage.getItem("compra"))
+            console.log(this.compra.productos);
             let productoEnCarro = this.compra.productos.find(element => element.id == idSeleccion)
             if(productoEnCarro != null){
-                if(productoEnCarro.cantidad == this.compra.productos.find(element => element.id == productoEnCarro.id).stock){
+                if(productoEnCarro.cantidad == this.productosFiltrados.find(element => element.id == productoEnCarro.id).stock){
                     Swal.fire({
                         customClass: 'modal-sweet-alert',
                         title: 'Lo sentimos',
@@ -203,8 +217,25 @@ createApp({
                 objeto.cantidad = cantidad
                 this.compra.productos.push(objeto)
             }
-            this.productos = this.compra.productos
             localStorage.setItem("compra",JSON.stringify(this.compra))
+
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener('mouseenter', Swal.stopTimer)
+                  toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+              })
+
+              Toast.fire({
+                customClass: 'modal-sweet-alert',
+                icon: 'success',
+                title: 'Has agregado un producto!'
+              })
         },
 
          //Generar registro
@@ -262,6 +293,9 @@ createApp({
                 localStorage.setItem("sesion", this.sesion)
                 window.location.reload
             })
+        },
+        verificar(){
+            
         },
 
 
