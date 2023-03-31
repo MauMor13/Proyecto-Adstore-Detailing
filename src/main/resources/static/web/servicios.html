@@ -150,7 +150,7 @@
 
       <!--inicio carrito-->
 
-      <div class="carrito-flotante" data-bs-toggle="modal" data-bs-target="#modalCarrito">
+      <div v-if="compra.productos || compra.servicios" class="carrito-flotante" data-bs-toggle="modal" data-bs-target="#modalCarrito">
         <img class="flexDesde768 w-100" src="./assets/Imagenes/carritoRedondo.png" alt="carrito">
       </div>    
 
