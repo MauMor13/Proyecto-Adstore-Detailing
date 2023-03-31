@@ -58,7 +58,7 @@ public class ServicioCompraImpl implements ServicioCompra {
             tiempoDuracion.plus(servicioObj.getDuracion());
             CompraServicio compraServicio = new CompraServicio(compra,servicioObj);
             nuevoTurnoServicio.sumarCompraServicio(compraServicio);
-
+            nuevoTurnoServicio.setNotificado(false);
             compra.sumarCompraServicio(compraServicio);
             repositorioCompraServicio.save(compraServicio);
         }
