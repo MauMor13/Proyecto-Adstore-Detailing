@@ -104,6 +104,25 @@ createApp({
                     this.sesion = "1"
                     localStorage.setItem("sesion", this.sesion)
                     this.cargarDatos();
+
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                          toast.addEventListener('mouseenter', Swal.stopTimer)
+                          toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                      })
+
+                      Toast.fire({
+                        customClass: 'modal-sweet-alert',
+                        icon: 'success',
+                        title: 'Has iniciado sesión con exito!'
+                      })
+
                     // window.location.href("/index.html")
                 })
                 .catch(err => {
@@ -235,7 +254,7 @@ createApp({
             let fotos = document.querySelector(".fotos-landing");
             console.log([fotos]);
             while(i <= 5){
-                await this.esperaPorMs(10000);
+                await this.esperaPorMs(3000);
                 for(let j = 1; j > 0; j -= 0.1){
                     await this.esperaPorMs(25);
                     fotos.style.opacity = `${j}`;
