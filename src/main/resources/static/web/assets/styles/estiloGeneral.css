@@ -499,6 +499,15 @@ transform: rotateY(180deg);
 
 }
 
+@media (max-width: 768px){
+    .palabra-servicio{
+        font-size: 45px !important;
+    }
+    .grid__item{
+        margin: 0 0 5rem 0 !important;
+    }
+}
+
 @media (min-width: 768px){
     .card-principal{
         height: 200vh;

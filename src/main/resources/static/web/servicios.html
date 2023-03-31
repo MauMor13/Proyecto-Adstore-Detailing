@@ -244,42 +244,58 @@
 
         <template v-if="servicios.length" v-for="servicio of servicios">
 
-          <div v-if="servicio.nombre.toLowerCase().includes('basico')" class="grid__item mb-xl-5 servicios-individual pt-4 p-lg-0" @click="hacerEfectoPagina(servicio)" >
+          <div v-if="servicio.nombre.toLowerCase().includes('basico')" class="grid__item mb-xl-5 servicios-individual pt-4 p-lg-0 d-flex flex-wrap" @click="hacerEfectoPagina(servicio)" >
             <div class="box">
               <div class="box__shadow"></div>
               <img class="box__img" :src="servicio.imagenURL" alt="Some image"/>
-              <h3 class="box__title"><span class="box__title-inner" :data-hover="servicio.nombre.split(' ')[0]">{{servicio.nombre.split(' ')[0]}}</span></h3>
+              <h3 class="box__title"><span class="box__title-inner palabra-servicio" :data-hover="servicio.nombre.split(' ')[0]">{{servicio.nombre.split(' ')[0]}}</span></h3>
               <h4 class="box__text box__text--bottomcloser"><span class="box__text-inner">{{servicio.nombre.split(' ')[1]}}</span></h4>
             </div>
+            <div class="ms-2 z-1 justify-content-center flexHasta768 mt-5">
+              <img class="icono-card-prod1" src="./assets/Imagenes/carrito1.png" alt="">
+              <button class="btn btn1 p-2 font1-color" @click="agregarACarrito(servicio.id, 1)">Agregar a carrito</button>
+            </div> 
           </div>
           
-          <div v-if="servicio.nombre.toLowerCase().includes('premium')" class="grid__item servicios-individual pt-4 p-lg-0" @click="hacerEfectoPagina(servicio)" >
+          <div v-if="servicio.nombre.toLowerCase().includes('premium')" class="grid__item servicios-individual pt-4 p-lg-0 d-flex flex-wrap" @click="hacerEfectoPagina(servicio)" >
             <div class="box">
               <div class="box__shadow"></div>
               <img class="box__img" :src="servicio.imagenURL" alt="Some image"/>
-              <h3 class="box__title"><span class="box__title-inner" :data-hover="servicio.nombre.split(' ')[0]">{{servicio.nombre.split(' ')[0]}}</span></h3>
+              <h3 class="box__title"><span class="box__title-inner palabra-servicio" :data-hover="servicio.nombre.split(' ')[0]">{{servicio.nombre.split(' ')[0]}}</span></h3>
               <h4 class="box__text box__text--bottom box__text--right"><span class="box__text-inner box__text-inner--rotated3">{{servicio.nombre.split(' ')[1]}}</span></h4>
             </div>
+            <div class="ms-2 z-1 justify-content-center flexHasta768 mt-5">
+              <img class="icono-card-prod1" src="./assets/Imagenes/carrito1.png" alt="">
+              <button class="btn btn1 p-2 font1-color " @click="agregarACarrito(servicio.id, 1)">Agregar a carrito</button>
+            </div> 
           </div>
           
-          <div v-if="servicio.nombre.toLowerCase().includes('ceramico')" class="grid__item servicios-individual pt-4 p-lg-0" @click="hacerEfectoPagina(servicio)">
+          <div v-if="servicio.nombre.toLowerCase().includes('ceramico')" class="grid__item servicios-individual pt-4 p-lg-0 d-flex flex-wrap" @click="hacerEfectoPagina(servicio)">
             <div class="box">
               <div class="box__shadow"></div>
               <img class="box__img" :src="servicio.imagenURL" alt="Some image"/>
-              <h3 class="box__title"><span class="box__title-inner" :data-hover="servicio.nombre.split(' ')[0]">{{servicio.nombre.split(' ')[0]}}</span></h3>
+              <h3 class="box__title"><span class="box__title-inner palabra-servicio" :data-hover="servicio.nombre.split(' ')[0]">{{servicio.nombre.split(' ')[0]}}</span></h3>
               <h4 class="box__text"><span class="box__text-inner">{{servicio.nombre.split(' ')[1]}}</span></h4>
               <p class="box__content">"Un año de duración"</p>
             </div>
+            <div class="ms-2 z-1 justify-content-center flexHasta768 mt-5">
+              <img class="icono-card-prod1" src="./assets/Imagenes/carrito1.png" alt="">
+              <button class="btn btn1 p-2 font1-color" @click="agregarACarrito(servicio.id, 1)">Agregar a carrito</button>
+            </div> 
           </div>
           
-          <div v-if="servicio.nombre.toLowerCase().includes('acrilico')" class="grid__item servicios-individual pt-4 p-lg-0" @click="hacerEfectoPagina(servicio)">
+          <div v-if="servicio.nombre.toLowerCase().includes('acrilico')" class="grid__item servicios-individual pt-4 p-lg-0 d-flex flex-wrap" @click="hacerEfectoPagina(servicio)">
             <div class="box">
               <div class="box__shadow"></div>
               <img class="box__img" :src="servicio.imagenURL" alt="Some image"/>
-              <h3 class="box__title box__title--bottom"><span class="box__title-inner" :data-hover="servicio.nombre.split(' ')[0]">{{servicio.nombre.split(' ')[0]}}</span></h3>
+              <h3 class="box__title box__title--bottom"><span class="box__title-inner palabra-servicio" :data-hover="servicio.nombre.split(' ')[0]">{{servicio.nombre.split(' ')[0]}}</span></h3>
               <h4 class="box__text"><span class="box__text-inner box__text-inner--rotated2">{{servicio.nombre.split(' ')[1]}}</span></h4>
               <p class="box__content">"Tres años de duración"</p>
             </div>
+            <div class="ms-2 z-1 justify-content-center flexHasta768 mt-5">
+              <img class="icono-card-prod1" src="./assets/Imagenes/carrito1.png" alt="">
+              <button class="btn btn1 p-2 font1-color" @click="agregarACarrito(servicio.id, 1)">Agregar a carrito</button>
+            </div> 
           </div>
         </template>
         
