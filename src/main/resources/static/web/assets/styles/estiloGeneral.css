@@ -628,13 +628,14 @@ table{
     font-weight: 700;
     color: white;
     transition: all .5s ease-in-out;
-    animation: gradient 10s infinite cubic-bezier(.62, .28, .23, .99) both;
+    animation: gradient 5s infinite cubic-bezier(.62, .28, .23, .99) both;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     border: 2px solid black !important;
 }
 .acceder-boton:hover {
     animation: gradient 3s infinite;
     transform: scale(1.05);
+    color: white !important;
 }
 .acceder-boton:active {
     animation: gradient 3s infinite;
