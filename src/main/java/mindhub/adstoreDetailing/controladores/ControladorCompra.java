@@ -66,7 +66,7 @@ public class ControladorCompra {
             }
             for (RealizarCompraProducto producto : realizarCompraDTO.getProductos()) {
                 Producto productoObj = this.repositorioProducto.findById(producto.getId()).orElseThrow();
-                montoDeCompra += productoObj.getPrecio();
+                montoDeCompra += productoObj.getPrecio() * producto.getCantidad();
             }
             if (montoDeCompra>25000){
                 compra.setDescuento(5);
@@ -105,21 +105,12 @@ public class ControladorCompra {
 
             compra.setMontoFinal(compra.calcularPrecioTotal());
 
-
             this.emailSenderService.enviarFactura(
                     "Factura de compra #"+compra.getId()+ " -Adstore",
                     "Gracias por confiar en nosotros! Adjunta se encuentra su factura.",
                     authentication.getName(),
                     compra);
-
             this.servicioCompra.guardar(compra);
-
-//            this.emailSenderService.enviarFactura(
-//                    "Factura de compra #"+compra.getId()+ " -Adstore",
-//                    "Gracias por confiar en nosotros! Adjunta se encuentra su factura.",
-//                    authentication.getName(),
-//                    compra);
-
             return new ResponseEntity<>(new CompraDTO(compra),HttpStatus.CREATED );
 
         }
