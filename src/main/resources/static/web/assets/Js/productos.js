@@ -53,6 +53,7 @@ createApp({
                     this.sesion = JSON.stringify(localStorage.getItem("sesion"))
                     this.sesion = "0"
                     localStorage.setItem("sesion", this.sesion)
+
                     window.location.reload
                 })
                 .catch(err => console.error(err.message));
@@ -182,7 +183,17 @@ createApp({
         agregarACarrito(idSeleccion, cantidad) {
             this.compra = JSON.parse(localStorage.getItem("compra"))
             console.log(this.compra.productos);
-            let productoEnCarro = this.compra.productos.find(element => element.id == idSeleccion)
+            let productoEnCarro = null;
+            if(this.compra.productos && this.compra.productos.length){
+                productoEnCarro = this.compra.productos.find(element => element.id == idSeleccion)
+            }
+            else{
+                this.compra = {
+                    productos: [],
+                    servicios: []
+                }
+            }
+            
             if (productoEnCarro != null) {
                 if (productoEnCarro.cantidad == this.productosFiltrados.find(element => element.id == productoEnCarro.id).stock) {
                     Swal.fire({
