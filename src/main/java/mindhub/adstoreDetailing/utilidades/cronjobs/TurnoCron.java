@@ -32,12 +32,14 @@ public class TurnoCron {
         LocalDateTime now = LocalDateTime.now();
         List<TurnoServicio> turnos = repositorioTurnoServicio.findByFechaHoraIngresoBetween(
                 now.with(LocalTime.MIN), now.with(LocalTime.MAX));
+        System.out.println(turnos);
         for (TurnoServicio turno : turnos) {
             if(!turno.isNotificado()){
                 String email = traerUno(turno.getCompraServicios()).getCompra().getCuenta().getCliente().getEmail();
                emailSenderService.enviarRecordatorio("Recordatorio turno | Adstore Detailing",email,turno);
                turno.setNotificado(true);
-                System.out.println("Email Enviado");
+               repositorioTurnoServicio.save(turno);
+               System.out.println("Email Enviado");
             }
         }
     }

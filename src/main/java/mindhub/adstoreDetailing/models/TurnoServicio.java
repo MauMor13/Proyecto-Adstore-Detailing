@@ -19,7 +19,7 @@ public class TurnoServicio {
 
     private LocalDateTime fechaHoraIngreso;
     private LocalDateTime fechaHoraSalida;
-    private boolean notificado;
+    private boolean notificado=false;
     @OneToMany(mappedBy = "turnoServicio", fetch = FetchType.EAGER)
     private Set<CompraServicio> compraServicios = new HashSet<>();
     public TurnoServicio(LocalDateTime fechaHoraIngreso) {
