@@ -30,21 +30,22 @@ createApp({
         this.cargarDatos();
         this.guardarLocalStorage();
         this.cargarDatosServicios();
-
-
     },
 
     mounted(){
         this.compra = JSON.parse(localStorage.getItem("compra"))
-        console.log(this.compra);
     },
 
     methods: {
         logout() {
             axios.post('/api/logout')
-            .then(res =>{
-                window.location.href = "/web/index.html"
-            })
+                .then(res => {
+                    this.sesion = JSON.stringify(localStorage.getItem("sesion"))
+                    this.sesion = "0"
+                    localStorage.setItem("sesion", this.sesion)
+                    window.location.reload
+                })
+                .catch(err => console.error(err.message));
         },
         cargarDatosCliente: function(){
             axios.get('/api/cliente')

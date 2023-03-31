@@ -47,7 +47,7 @@
                 <a class="nav-link text-light" href="./servicios.html">SERVICIOS</a>
               </li>
               <li class="nav-item btn1">
-                <a class="nav-link text-light" href="#">PRODUCTOS</a>
+                <a class="nav-link text-light" href="./productos.html">PRODUCTOS</a>
               </li>
             </ul>
           </div>
@@ -84,7 +84,7 @@
                     <a class="nav-link" href="./servicios.html">SERVICIOS</a>
                   </li>
                   <li class="nav-item btn1">
-                    <a class="nav-link" href="#">PRODUCTOS</a>
+                    <a class="nav-link" href="./productos.html">PRODUCTOS</a>
                   </li>
                 </ul>
               </div>
@@ -97,11 +97,9 @@
 
     <main class="main-index d-flex flex-column gap-3 justify-content-center align-items-center">
 
-      <!--datos cliente-->
+       <!--datos cliente-->
       
-      <!--datos cliente-->
-      
-      <div v-if="cliente" class="accordion  border border-dark accordion-flush btn btn-warning position-fixed bottom-0 end-0 me-3 mt-3" id="accordionFlushExample">
+       <div v-if="cliente" class="accordion  border border-dark acceder-boton accordion-flush btn  position-fixed bottom-0 p-2 end-0 me-3 mt-3" id="accordionFlushExample">
         <div class="accordion-item">
           <div id="flush-collapseOne" class="accordion-collapse bg-warning collapse" data-bs-parent="#accordionFlushExample">
             <div class="accordion-body  text-bg-warning">
@@ -135,8 +133,8 @@
 
             </div>
           </div>
-          <h2 class="accordion-header m-0 p-0">
-            <button class="accordion-button collapsed fuente-poppin p-0 text-dark bg-warning" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+          <h2 class="accordion-header acceder-boton1 w-100 text-center  m-0 p-0">
+            <button class="accordion-button collapsed acceder-boton1 w-100 text-light fuente-poppin border-0 p-0 " type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
               <img src="./assets/Imagenes/usuario.png"  class="m-0 p-0 me-2" alt="">
               <strong>{{cliente.nombre + " "+ cliente.apellido}} </strong> 
             </button>
@@ -147,23 +145,23 @@
         <h1 class="fondo-experiencia  fuente-audiowide font2-color"> PAGOS </h1>
       </div>
 
-      <div class="d-flex  pago fondo-categorias pt-3 mt-0 w-100" >
+      <div class="d-flex flex-wrap justify-content-center pago fondo-categorias pt-3 mt-0 w-100" >
         <div class="fuente-poppins d-flex flex-column  align-items-center col-lg-4 flex-wrap">
           <div>
             <div class="d-flex justify-content-center">
-              <table class="table  ">
+              <table class="table  tabla-checkout ">
                 <tbody>
                   <tr class="text-center">
                     <td class="p-2 bg-warning text-dark">CLIENTE</td>
-                    <td class="p-2">{{nombreCliente}} </td>
+                    <td class="p-2 text-light">{{nombreCliente}} </td>
                   </tr>
                   <tr class="text-center">
                     <td class="p-2 bg-warning text-dark">CUENTA No.</td>
-                    <td class="p-2">{{numcuenta}} </td>
+                    <td class="p-2 text-light">{{numcuenta}} </td>
                   </tr>
                   <tr class="text-center">
                     <td class="p-2 bg-warning text-dark">TARJETA No</td>
-                    <td class="p-2">{{numTarjeta}}</td>
+                    <td class="p-2 text-light">{{numTarjeta}}</td>
                   </tr>
                 </tbody>
               </table>
@@ -178,7 +176,7 @@
                 </div>
                 <div class="d-flex text-light mt-3 flex-column justify-content-start align-items-end">
                   <p class="me-2">TARJETA  {{numTarjeta}}</p>
-                  <p class="me-2">SALDO $ {{saldo}}</p>
+                  <p class="me-2">SALDO $ {{(saldo)}}</p>
                 </div>
               </div>
               <div class=" card flip-card-back" >
@@ -194,7 +192,7 @@
         <div class="col-lg-4 ">
           <div class="">
             <div>
-              <table class="table">
+              <table class="table tabla-checkout">
                 <thead >
                   <tr>
                     <th scope="col" class="fuente-audiowide text-warning bg-black text-center" colspan="4"><img src="./assets/Imagenes/carrito.png" class="carrito" alt=""> CARRITO DE COMPRAS</th>
@@ -205,19 +203,20 @@
                     <th scope="col" class="fuente-audiowide text-warning bg-black" colspan="1"> Valor</th>
                   </tr>
                 </thead>
-                <tbody >
-                  <tr v-for="compraProd of compraProducto">
-                    <td colspan="2">{{compraProd.nombreProducto }} </td>
+                <tbody class="text-light" >
+                  <tr  v-if="productos.length" v-for="compraProd of compraProducto">
+                    <td colspan="2">{{(productos.find(prod=>prod.id ==compraProd.id )).nombre}} </td>
                     <td class="text-center">{{compraProd.cantidad}} </td>
-                    <td>{{compraProd.precio.toLocaleString('en-US', {style:"currency", currency:"USD"}) }} </td>
+                    <td>{{((productos.find(prod=>prod.id ==compraProd.id )).precio).toLocaleString('en-US', {style:"currency", currency:"USD"}) }} </td>
                   </tr>
-                  <tr v-for="compraServ of compraServicio">
-                    <td colspan="3">{{compraServ.id}} </td>
-                    <td colspan="3">{{compraServ.precio.toLocaleString('en-US', {style:"currency", currency:"USD"})}} </td>
+
+                  <tr v-if="servicios.length" v-for="compraServ of compraServicio">
+                    <td colspan="3">{{(servicios.find(serv=>serv.id ==compraServ.id )).nombre}} </td>
+                    <td colspan="3">{{((servicios.find(serv=>serv.id ==compraServ.id )).precio).toLocaleString('en-US', {style:"currency", currency:"USD"}) }} </td>
                   </tr>
                 </tbody>
               </table>
-              <h3 class="text-light">TOTAL A PAGAR: </h3>
+              <h3 class="text-light">TOTAL A PAGAR:  </h3>
             </div>
           </div>
         </div>
@@ -225,21 +224,29 @@
           <div class="w-75">
             <h5>SELECCIONA TU MEDIO DE PAGO</h5>
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="flexRadioDefault" v-model="tipoPago" value="adstore" id="flexRadioDefault1">
+              <input class="form-check-input" type="radio" name="flexRadioDefault" v-model="cuentaCliente" value="true" id="flexRadioDefault1" checked>
               <label class="form-check-label" for="flexRadioDefault1">
                 Tarjeta Adstore
               </label>
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="flexRadioDefault" v-model="tipoPago" value="banco" id="flexRadioDefault2" checked>
+              <input class="form-check-input" type="radio" name="flexRadioDefault" v-model="cuentaCliente" value="false" id="flexRadioDefault2" >
               <label class="form-check-label" for="flexRadioDefault2">
                 Cuenta bancaria
               </label>
             </div>
-            <div v-if="tipoPago == 'banco' ">
+            <div v-if="compraServicio>0">
+              <input type="date" value="2017-06-01" v-model="" />
+
+            </div>
+            <div v-if="cuentaCliente == false ">
               <h6 class="mt-2">NUMERO DE CUENTA</h6>
               <div class="form-trans box-shadow " >
-                <input type="text " placeholder="0000 0000"  class="form-control" >
+                <input type="text " placeholder="0000 0000" v-model="numTarjetaPago"  class="form-control" >
+              </div>
+              <h6 class="mt-2">NUMERO DE CVV</h6>
+              <div class="form-trans box-shadow " >
+                <input type="text " placeholder="cvv" v-model="cvv" class="form-control" >
               </div>
               <form >
                 <button type="button" class="btn boton mt-2 text-bg-warning" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
@@ -272,11 +279,11 @@
         </div>
 
       </div>
-      <button v-if="!cliente" @click="loginRegistro('login')" type="button" data-bs-target="#modalSign" class="btn btn-warning z-2  acceder-boton  bigger fuente-poppin position-fixed bottom-0 end-0 me-3 mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      <!-- <button v-if="!cliente" @click="loginRegistro('login')" type="button" data-bs-target="#modalSign" class="btn btn-warning z-2  acceder-boton  bigger fuente-poppin position-fixed bottom-0 end-0 me-3 mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
 
         <img src="./assets/Imagenes/usuario.png" alt="">
         Accede como cliente
-      </button>
+      </button> -->
 
       <!-- Inicio formulario de login-->
       <div div class="modal fade" id="modalSign" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

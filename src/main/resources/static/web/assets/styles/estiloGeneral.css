@@ -629,6 +629,20 @@ table{
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     border: 2px solid black !important;
 }
+.acceder-boton1
+{
+    background: linear-gradient(-45deg, #f7ba24, #262215, #1f1d17, #141414);
+    background-size: 800% 400%;
+    padding: 0.6rem 1em;
+    display: inline-block;
+    border: none;
+    border-radius: 10px;
+    font-size: 17px;
+    font-weight: 700;
+    color: white;
+    transition: all .5s ease-in-out;
+    animation: gradient 5s infinite cubic-bezier(.62, .28, .23, .99) both;
+}
 .acceder-boton:hover {
     animation: gradient 3s infinite;
     transform: scale(1.05);
@@ -648,4 +662,7 @@ table{
     100% {
     background-position: 0% 50%;
     }
+}
+.tabla-checkout{
+    border: 1px solid white;
 }

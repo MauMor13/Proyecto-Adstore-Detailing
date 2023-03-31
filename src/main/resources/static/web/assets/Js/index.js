@@ -41,9 +41,14 @@ createApp({
     methods: {
         logout() {
             axios.post('/api/logout')
-            .then(res =>{
-                window.location.reload()
-            })
+                .then(res => {
+                    this.sesion = JSON.stringify(localStorage.getItem("sesion"))
+                    this.sesion = "0"
+                    localStorage.setItem("sesion", this.sesion)
+                    window.location.reload
+                    window.location.href = "/web/index.html"
+                })
+                .catch(err => console.error(err.message));
         },
 
         //PARA LA CARGA DE DATOS
@@ -136,14 +141,7 @@ createApp({
                     })
                 });
         },
-        logOut(){
-            axios.post('/api/logout')
-            .then(() => {
-                this.sesion = JSON.stringify(localStorage.getItem("sesion"))
-                this.sesion = "0"
-                localStorage.setItem("sesion", this.sesion)
-                window.location.href="./index.html"})
-        },
+        
 
 
         loginRegistro: function (value) {

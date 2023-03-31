@@ -55,10 +55,16 @@ createApp({
     methods:{
         logout() {
             axios.post('/api/logout')
-            .then(res =>{
-                window.location.href = "/web/index.html"
-            })
+                .then(res => {
+                    this.sesion = JSON.stringify(localStorage.getItem("sesion"))
+                    this.sesion = "0"
+                    localStorage.setItem("sesion", this.sesion)
+                    window.location.reload
+                    window.location.href = "/web/index.html"
+                })
+                .catch(err => console.error(err.message));
         },
+        
         cargarDatosCliente: function(){
             axios.get('/api/cliente')
                 .then(respuesta => {
@@ -285,15 +291,7 @@ createApp({
                     this.errorEncontrado = true;
                 });
         },
-        logOut(){
-            axios.post('/api/logout')
-            .then(() => {
-                this.sesion = JSON.stringify(localStorage.getItem("sesion"))
-                this.sesion = "0"
-                localStorage.setItem("sesion", this.sesion)
-                window.location.reload
-            })
-        },
+
         verificar(){
             
         },
