@@ -98,50 +98,50 @@
     </header>
 
     <main class="overflow-x-hidden main-index d-flex flex-column gap-3 justify-content-center align-items-center main-servicios">
-      <!--datos cliente-->
+       <!--datos cliente-->
       
-     <div v-if="cliente" class="accordion dato_cliente border border-dark accordion-flush btn btn-warning position-fixed bottom-0 end-0 me-3 mt-3" id="accordionFlushExample">
-      <div class="accordion-item">
-        <div id="flush-collapseOne" class="accordion-collapse bg-warning collapse" data-bs-parent="#accordionFlushExample">
-          <div class="accordion-body  text-bg-warning">
-            <table class="table">
-              <tbody >
-                <tr>
-                  <td class="fuente-poppin columna text-dark" v-cloak><strong>Cuenta</strong> </td>
-                  <td class="fuente-poppin"  v-cloak>{{cliente.cuenta.numeroCuenta}}</td>
-                </tr>
-                <tr>
-                  <td class="fuente-poppin columna text-dark"  v-cloak> <strong>Saldo</strong> </td>
-                  <td class="fuente-poppin"  v-cloak>{{saldo}}</td>
-                </tr>
-                <tr>
-                  <td class="fuente-poppin columna text-dark"  v-cloak> <strong>Tarjeta</strong> </td>
-                  <td class="fuente-poppin"  v-cloak>{{numTarjeta}}</td>
-                </tr>
-                <tr>
-                  <td class="fuente-poppins columna text-dark"  v-cloak> <strong>Direccion</strong> </td>
-                  <td class="fuente-poppin"  v-cloak>{{direccion}}</td>
-                </tr>
-                <tr>
-                  <td class="fuente-poppin columna text-dark"  v-cloak> <strong>Telefono</strong></td>
-                  <td class="fuente-poppin"  v-cloak>{{telefono}}</td>
-                </tr>
-                <div>
-                  <a href="./index.html" type="submit"  @click="logout()" class="text-decoration-none d-flex justify-content-center text-dark"><img class="img-logout pb-3" src="./assets/Imagenes/logout.png" alt=""><p class="fuente-poppin ps-2"> <strong>LOGOUT</strong></p></a>
-                </div>
-              </tbody>
-            </table>
+       <div v-if="cliente" class="accordion datos_cliente border border-dark acceder-boton accordion-flush btn  position-fixed bottom-0 p-2 end-0 me-3 mt-3" id="accordionFlushExample">
+        <div class="accordion-item">
+          <div id="flush-collapseOne" class="accordion-collapse bg-warning collapse" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body  text-bg-warning">
+              <table class="table">
+                <tbody >
+                  <tr>
+                    <td class="fuente-poppin columna text-dark" v-cloak><strong>Cuenta</strong> </td>
+                    <td class="fuente-poppin"  v-cloak>{{cliente.cuenta.numeroCuenta}}</td>
+                  </tr>
+                  <tr>
+                    <td class="fuente-poppin columna text-dark"  v-cloak> <strong>Saldo</strong> </td>
+                    <td class="fuente-poppin"  v-cloak>{{saldo.toLocaleString('en-US', {style:"currency", currency:"USD"})}}</td>
+                  </tr>
+                  <tr>
+                    <td class="fuente-poppin columna text-dark"  v-cloak> <strong>Tarjeta</strong> </td>
+                    <td class="fuente-poppin"  v-cloak>{{numTarjeta}}</td>
+                  </tr>
+                  <tr>
+                    <td class="fuente-poppins columna text-dark"  v-cloak> <strong>Direccion</strong> </td>
+                    <td class="fuente-poppin"  v-cloak>{{direccion}}</td>
+                  </tr>
+                  <tr>
+                    <td class="fuente-poppin columna text-dark"  v-cloak> <strong>Telefono</strong></td>
+                    <td class="fuente-poppin"  v-cloak>{{telefono}}</td>
+                  </tr>
+                  <div>
+                    <a href="./index.html" type="submit"  @click="logout()" class="text-decoration-none d-flex justify-content-center text-dark"><img class="img-logout pb-3" src="./assets/Imagenes/logout.png" alt=""><p class="fuente-poppin ps-2"> <strong>LOGOUT</strong></p></a>
+                  </div>
+                </tbody>
+              </table>
 
+            </div>
           </div>
+          <h2 class="accordion-header acceder-boton1 w-100 text-center  m-0 p-0">
+            <button class="accordion-button collapsed acceder-boton1 w-100 text-light fuente-poppin border-0 p-0 " type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+              <img src="./assets/Imagenes/usuario.png"  class="m-0 p-0 me-2" alt="">
+              <strong>{{cliente.nombre + " "+ cliente.apellido}} </strong> 
+            </button>
+          </h2>
         </div>
-        <h2 class="accordion-header m-0 p-0">
-          <button class="accordion-button collapsed fuente-poppin p-0 text-dark bg-warning" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-            <img src="./assets/Imagenes/usuario.png"  class="m-0 p-0 me-2" alt="">
-            <strong>{{cliente.nombre + " "+ cliente.apellido}} </strong> 
-          </button>
-        </h2>
       </div>
-    </div>
 
       <div class="fondo-experiencia w-100 d-flex justify-content-center">
         <h1 class="fondo-experiencia fuente-audiowide font2-color"> SERVICIOS</h1>
@@ -150,7 +150,7 @@
 
       <!--inicio carrito-->
 
-      <div class="carrito-flotante" data-bs-toggle="modal" data-bs-target="#modalCarrito">
+      <div v-if="compra.productos.length || compra.servicios.length" class="carrito-flotante" data-bs-toggle="modal" data-bs-target="#modalCarrito">
         <img class="flexDesde768 w-100" src="./assets/Imagenes/carritoRedondo.png" alt="carrito">
       </div>    
 
@@ -166,38 +166,39 @@
                 <div class="p-2 form-1">
                     <table class="text-center w-100">
                       <tbody>
-                        <template v-if="servicioNombre && compra.servicios.length"> 
+                        <template v-if="compra.servicios && compra.servicios.length"> 
                           <tr>
                             <th colspan="2" class="text-start">Servicios</th>
                             <th colspan="1" class="">Valor Unitario</th> 
                             <th colspan="1" class="">Valor total </th>  
                           </tr>
-                          <tr v-for="servicio of compra.servicios " class="w-100">
-                            <td class="col-5 text-start"><span class="mx-2">{{(servicioNombre.find(serv=> serv.id == servicio.id )).nombre}} </span></td>
+                          <tr v-if="servicios.length" v-for="servicio of compra.servicios " class="w-100">
+                            <td class="col-5 text-start"><span class="mx-2">{{(servicios.find(serv=> serv.id == servicio.id )).nombre}} </span></td>
                             <td class="col-2">
-                              <i class="fa-solid fa-minus me-2" @click="restarUnidad(servicio.id, 1)" style="color: #000000;"></i>
-                              <i class="fa-solid fa-plus ms-2" @click="sumarUnidad(servicio.id, 1)" style="color: #000000;"></i>
+                              <i class="fa-solid fa-minus me-2" @click="restarUnidadServicio(servicio.id, 1)" style="color: #000000;"></i>
+                              {{servicio.cantidad}}
+                              <i class="fa-solid fa-plus ms-2" @click="sumarUnidadServicio(servicio.id, 1)" style="color: #000000;"></i>
                             </td>
-                            <td class="col-2">{{(servicioNombre.find(serv => serv.id == servicio.id )).precio.toLocaleString('en-US', {style:"currency", currency:"USD"})}}</td>
-                            <td class="col-3">{{(((servicioNombre.find(serv => serv.id == servicio.id )).precio)*servicio.cantidad).toLocaleString('en-US', {style:"currency", currency:"USD"})}}   </td>
+                            <td class="col-2">{{(servicios.find(serv => serv.id == servicio.id )).precio.toLocaleString('es-AR', {style:"currency", currency:"ARS"})}}</td>
+                            <td class="col-3">{{(((servicios.find(serv => serv.id == servicio.id )).precio)*servicio.cantidad).toLocaleString('es-AR', {style:"currency", currency:"ARS"})}}   </td>
                           </tr>
                         </template>
 
-                        <template v-if="productoNombre && compra.productos.length"> 
+                        <template v-if="productos.length && compra.productos.length"> 
                           <tr>
                             <th colspan="2" class="text-start">Productos</th>
                             <th colspan="1" class="text-start">Valor Unitario</th> 
                             <th colspan="1" class="text-start">Valor total </th>  
                           </tr>
-                          <tr class="w-100" v-for="producto of compra.productos">
-                            <td class="col-6 text-start"><span class="mx-1">{{(productoNombre.find(prod=> prod.id == producto.id )).nombre}} </span></td>
+                          <tr class="w-100" v-if="productos.length" v-for="producto of compra.productos">
+                            <td class="col-6 text-start"><span class="mx-1">{{(productos.find(prod=> prod.id == producto.id )).nombre}} </span></td>
                             <td class="col-3">
-                              <i class="fa-solid fa-minus me-2" @click="restarUnidad(producto.id, 1)" style="color: #000000;"></i> 
+                              <i class="fa-solid fa-minus me-2" @click="restarUnidadProducto(producto.id, 1)" style="color: #000000;"></i> 
                               {{producto.cantidad}} 
-                              <i class="fa-solid fa-plus ms-2" @click="sumarUnidad(producto.id, 1)" style="color: #000000;"></i> 
+                              <i class="fa-solid fa-plus ms-2" @click="sumarUnidadProducto(producto.id, 1)" style="color: #000000;"></i> 
                             </td>
-                            <td class="col-3">{{(productoNombre.find(prod=> prod.id == producto.id )).precio.toLocaleString('en-US', {style:"currency", currency:"USD"})}}</td>
-                            <td class="col-3">{{(((productoNombre.find(prod=> prod.id == producto.id )).precio)*producto.cantidad).toLocaleString('en-US', {style:"currency", currency:"USD"})}}   </td>
+                            <td class="col-3">{{(productos.find(prod=> prod.id == producto.id )).precio.toLocaleString('es-AR', {style:"currency", currency:"ARS"})}}</td>
+                            <td class="col-3">{{(((productos.find(prod=> prod.id == producto.id )).precio)*producto.cantidad).toLocaleString('es-AR', {style:"currency", currency:"ARS"})}}   </td>
                           </tr>
                         </template>
                       </tbody>
@@ -207,7 +208,7 @@
                             <span>Total</span>
                           </th>
                           <th>
-                            <span class=""> Suma total</span>
+                            <span class="">{{compra.total.toLocaleString('es-AR', {style:"currency", currency:"ARS"})}}</span>
                           </th>
                           <th class="text-start d-flex justify-content-between w-100 row" colspan="3">
                           </th>
@@ -230,7 +231,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button  type="button" class="btn btn-secondary bg-black"  href="./checkout.html">Proceder al Pago</button>
+                <a  type="button" class="btn btn-secondary bg-black"  href="./checkout.html">Proceder al Pago</a>
                 <button type="button" class="btn btn-secondary bg-black" data-bs-dismiss="modal">Cerrar</button>
             </div>
           </div>
@@ -244,42 +245,58 @@
 
         <template v-if="servicios.length" v-for="servicio of servicios">
 
-          <div v-if="servicio.nombre.toLowerCase().includes('basico')" class="grid__item mb-xl-5 servicios-individual pt-4 p-lg-0" @click="hacerEfectoPagina(servicio)" >
+          <div v-if="servicio.nombre.toLowerCase().includes('basico')" class="grid__item mb-xl-5 servicios-individual pt-4 p-lg-0 d-flex flex-wrap" @click="hacerEfectoPagina(servicio)" >
             <div class="box">
               <div class="box__shadow"></div>
               <img class="box__img" :src="servicio.imagenURL" alt="Some image"/>
-              <h3 class="box__title"><span class="box__title-inner" :data-hover="servicio.nombre.split(' ')[0]">{{servicio.nombre.split(' ')[0]}}</span></h3>
+              <h3 class="box__title"><span class="box__title-inner palabra-servicio" :data-hover="servicio.nombre.split(' ')[0]">{{servicio.nombre.split(' ')[0]}}</span></h3>
               <h4 class="box__text box__text--bottomcloser"><span class="box__text-inner">{{servicio.nombre.split(' ')[1]}}</span></h4>
             </div>
+            <div class="ms-2 z-1 justify-content-center flexHasta768 mt-5">
+              <img class="icono-card-prod1" src="./assets/Imagenes/carrito1.png" alt="">
+              <button class="btn1 p-2 font1-color" @click="agregarACarrito(servicio.id, 1)">Agregar a carrito</button>
+            </div> 
           </div>
           
-          <div v-if="servicio.nombre.toLowerCase().includes('premium')" class="grid__item servicios-individual pt-4 p-lg-0" @click="hacerEfectoPagina(servicio)" >
+          <div v-if="servicio.nombre.toLowerCase().includes('premium')" class="grid__item servicios-individual pt-4 p-lg-0 d-flex flex-wrap" @click="hacerEfectoPagina(servicio)" >
             <div class="box">
               <div class="box__shadow"></div>
               <img class="box__img" :src="servicio.imagenURL" alt="Some image"/>
-              <h3 class="box__title"><span class="box__title-inner" :data-hover="servicio.nombre.split(' ')[0]">{{servicio.nombre.split(' ')[0]}}</span></h3>
+              <h3 class="box__title"><span class="box__title-inner palabra-servicio" :data-hover="servicio.nombre.split(' ')[0]">{{servicio.nombre.split(' ')[0]}}</span></h3>
               <h4 class="box__text box__text--bottom box__text--right"><span class="box__text-inner box__text-inner--rotated3">{{servicio.nombre.split(' ')[1]}}</span></h4>
             </div>
+            <div class="ms-2 z-1 justify-content-center flexHasta768 mt-5">
+              <img class="icono-card-prod1" src="./assets/Imagenes/carrito1.png" alt="">
+              <button class="btn1 p-2 font1-color " @click="agregarACarrito(servicio.id, 1)">Agregar a carrito</button>
+            </div> 
           </div>
           
-          <div v-if="servicio.nombre.toLowerCase().includes('ceramico')" class="grid__item servicios-individual pt-4 p-lg-0" @click="hacerEfectoPagina(servicio)">
+          <div v-if="servicio.nombre.toLowerCase().includes('ceramico')" class="grid__item servicios-individual pt-4 p-lg-0 d-flex flex-wrap" @click="hacerEfectoPagina(servicio)">
             <div class="box">
               <div class="box__shadow"></div>
               <img class="box__img" :src="servicio.imagenURL" alt="Some image"/>
-              <h3 class="box__title"><span class="box__title-inner" :data-hover="servicio.nombre.split(' ')[0]">{{servicio.nombre.split(' ')[0]}}</span></h3>
+              <h3 class="box__title"><span class="box__title-inner palabra-servicio" :data-hover="servicio.nombre.split(' ')[0]">{{servicio.nombre.split(' ')[0]}}</span></h3>
               <h4 class="box__text"><span class="box__text-inner">{{servicio.nombre.split(' ')[1]}}</span></h4>
               <p class="box__content">"Un año de duración"</p>
             </div>
+            <div class="ms-2 z-1 justify-content-center flexHasta768 mt-5">
+              <img class="icono-card-prod1" src="./assets/Imagenes/carrito1.png" alt="">
+              <button class="btn1 p-2 font1-color" @click="agregarACarrito(servicio.id, 1)">Agregar a carrito</button>
+            </div> 
           </div>
           
-          <div v-if="servicio.nombre.toLowerCase().includes('acrilico')" class="grid__item servicios-individual pt-4 p-lg-0" @click="hacerEfectoPagina(servicio)">
+          <div v-if="servicio.nombre.toLowerCase().includes('acrilico')" class="grid__item servicios-individual pt-4 p-lg-0 d-flex flex-wrap" @click="hacerEfectoPagina(servicio)">
             <div class="box">
               <div class="box__shadow"></div>
               <img class="box__img" :src="servicio.imagenURL" alt="Some image"/>
-              <h3 class="box__title box__title--bottom"><span class="box__title-inner" :data-hover="servicio.nombre.split(' ')[0]">{{servicio.nombre.split(' ')[0]}}</span></h3>
+              <h3 class="box__title box__title--bottom"><span class="box__title-inner palabra-servicio" :data-hover="servicio.nombre.split(' ')[0]">{{servicio.nombre.split(' ')[0]}}</span></h3>
               <h4 class="box__text"><span class="box__text-inner box__text-inner--rotated2">{{servicio.nombre.split(' ')[1]}}</span></h4>
               <p class="box__content">"Tres años de duración"</p>
             </div>
+            <div class="ms-2 z-1 justify-content-center flexHasta768 mt-5">
+              <img class="icono-card-prod1" src="./assets/Imagenes/carrito1.png" alt="">
+              <button class="btn1 p-2 font1-color" @click="agregarACarrito(servicio.id, 1)">Agregar a carrito</button>
+            </div> 
           </div>
         </template>
         
@@ -482,11 +499,11 @@
       <div class="d-flex flex-md-row flex-column ms-md-5 flex-lg-row ">
       <div class="d-md-flex  justify-content-between align-content-center align-items-center ms-4 col-lg-6 col-md-6">
         <div class="d-md-flex flex-md-column">
-          <h4 id="contacto" class="text-center text-lg-start text-md-start text-warning ">CONTACTANOS</h4>
+          <h4 id="contacto" class="text-center text-lg-start text-md-start fuente-poppin text-warning ">CONTACTANOS</h4>
           <div class="contacto container-fluid d-md-flex flex-lg-column p-lg-0 container-fluid justify-content-md-around">
             <div class="text-center d-flex flex-column justify-content-center">
-              <p class="contact text-md-start fw-bold"><i class="fa  text-warning fa-envelope-o fa-fw" aria-hidden="true"></i>&nbsp; EMAIL: <a class="link-light link-white-hover  link-contacto text-decoration-none" href="mailto:adstore@boxes.com">adstore@boxes.com</a></p>
-              <p class="contact text-md-start fw-bold"><i class="fa  text-warning fa-phone fa-fw" aria-hidden="true"></i>&nbsp; TEL: <a class="link-light link-white-hover text-decoration-none link-contacto" href="tel:+54 9 51 2435-0965">+54 9 51 2435-0965</a></p>
+              <p class="contact fuente-poppin text-md-start fw-bold"><i class="fa  text-warning fa-envelope-o fa-fw" aria-hidden="true"></i>&nbsp; EMAIL: <a class="link-light link-white-hover  link-contacto text-decoration-none" href="mailto:adstore@boxes.com">adstore@boxes.com</a></p>
+              <p class="contact text-md-start fuente-poppin fw-bold"><i class="fa  text-warning fa-phone fa-fw" aria-hidden="true"></i>&nbsp; TEL: <a class="link-light link-white-hover text-decoration-none link-contacto" href="tel:+54 9 51 2435-0965">+54 9 51 2435-0965</a></p>
             </div>
           </div>
         </div>
@@ -495,21 +512,21 @@
       <div class="d-md-flex  justify-content-between align-content-center align-items-center  col-lg-6 col-md-5">
         <div class="mt-4 d-flex flex-column justify-content-lg-around  justify-content-center mt-lg-0">
           <div>
-            <h4 class="text-center text-warning">NUESTRA TIENDA</h4>
+            <h4 class="text-center fuente-poppin text-warning">NUESTRA TIENDA</h4>
           </div>
           <ul class="nav  d-flex  justify-content-center align-items-center flex-column">
             <li class=" mx-md-auto mt-1 justify-content-center align-content-center">
               <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3403.874212597411!2d-64.19005708560763!3d-31.445129704787824!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9432a2f0a0739eb5%3A0xbf15a4a3ef77c7ee!2sPedro%20Carta%20Molina%20650%2C%20X5016%20C%C3%B3rdoba%2C%20Argentina!5e0!3m2!1ses-419!2scl!4v1679672670025!5m2!1ses-419!2scl" width="150" height="100" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </li>
             <div>
-              <li class="text-center"><i class="fa fa-map-marker text-warning fa-fw" aria-hidden="true"></i>&nbsp; Pedro Carta Molina 650, Cordoba</li>
+              <li class="text-center fuente-poppin"><i class="fa fa-map-marker text-warning fa-fw" aria-hidden="true"></i>&nbsp; Pedro Carta Molina 650, Cordoba</li>
             </div>
             </ul>
         </div>
       </div> 
       </div>
       <div class="mt-5 col-lg-3 align-items-center">
-          <h4 class="text-center text-warning">NUESTRAS REDES</h4>
+          <h4 class="text-center fuente-poppin text-warning">NUESTRAS REDES</h4>
           <ul class="list-unstyled d-flex justify-content-around mb-0 mt-3 mx-auto redes">
             <li ><a class="link-dark-hover text-muted" href="https://www.instagram.com/adstoreboxes/?hl=en"><i class="fa-brands fa-instagram fa-2x redes text-warning"></i></a></li>
             <li ><a class="link-dark-hover text-muted" href="https://www.facebook.com/adstoreboxes/"><i class="fa-brands fa-facebook fa-2x redes text-warning"> </i></a></li>
