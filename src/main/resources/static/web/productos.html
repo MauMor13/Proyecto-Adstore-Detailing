@@ -97,7 +97,7 @@
 
     <main class="main-index d-flex flex-column gap-3 justify-content-center align-items-center">
 
-      <div v-if="compra.productos || compra.servicios" class="carrito-flotante" data-bs-toggle="modal" data-bs-target="#modalCarrito">
+      <div v-if="compra.productos.length || compra.servicios.length" class="carrito-flotante" data-bs-toggle="modal" data-bs-target="#modalCarrito">
         <img class="inlineDesde768 w-100" src="./assets/Imagenes/carritoRedondo.png" alt="carrito">
       </div>
       <!-- CARRITO -->

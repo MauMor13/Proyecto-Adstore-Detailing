@@ -78,6 +78,7 @@ createApp({
             axios.post("/api/compra", {"productos": {"id": this.idProducto,"cantidad": this.cantidadProducto},
             "servicios":{"id": this.idServicio},"fechaDelServicio":this.fechaServicio,
             "numeroTarjetaPago": this.numTarjetaPago, "cvv": this.cvv, "pagarCuentaCliente":this.cuentaCliente})
+            .then()
         },
         
         cargarDatosCliente: function(){

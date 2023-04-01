@@ -100,7 +100,7 @@
     <main class="overflow-x-hidden main-index d-flex flex-column gap-3 justify-content-center align-items-center main-servicios">
        <!--datos cliente-->
       
-       <div v-if="cliente" class="accordion  border border-dark acceder-boton accordion-flush btn  position-fixed bottom-0 p-2 end-0 me-3 mt-3" id="accordionFlushExample">
+       <div v-if="cliente" class="accordion datos_cliente border border-dark acceder-boton accordion-flush btn  position-fixed bottom-0 p-2 end-0 me-3 mt-3" id="accordionFlushExample">
         <div class="accordion-item">
           <div id="flush-collapseOne" class="accordion-collapse bg-warning collapse" data-bs-parent="#accordionFlushExample">
             <div class="accordion-body  text-bg-warning">
@@ -150,7 +150,7 @@
 
       <!--inicio carrito-->
 
-      <div v-if="compra.productos || compra.servicios" class="carrito-flotante" data-bs-toggle="modal" data-bs-target="#modalCarrito">
+      <div v-if="compra.productos.length || compra.servicios.length" class="carrito-flotante" data-bs-toggle="modal" data-bs-target="#modalCarrito">
         <img class="flexDesde768 w-100" src="./assets/Imagenes/carritoRedondo.png" alt="carrito">
       </div>    
 
@@ -253,7 +253,7 @@
             </div>
             <div class="ms-2 z-1 justify-content-center flexHasta768 mt-5">
               <img class="icono-card-prod1" src="./assets/Imagenes/carrito1.png" alt="">
-              <button class="btn btn1 p-2 font1-color" @click="agregarACarrito(servicio.id, 1)">Agregar a carrito</button>
+              <button class="btn1 p-2 font1-color" @click="agregarACarrito(servicio.id, 1)">Agregar a carrito</button>
             </div> 
           </div>
           
@@ -266,7 +266,7 @@
             </div>
             <div class="ms-2 z-1 justify-content-center flexHasta768 mt-5">
               <img class="icono-card-prod1" src="./assets/Imagenes/carrito1.png" alt="">
-              <button class="btn btn1 p-2 font1-color " @click="agregarACarrito(servicio.id, 1)">Agregar a carrito</button>
+              <button class="btn1 p-2 font1-color " @click="agregarACarrito(servicio.id, 1)">Agregar a carrito</button>
             </div> 
           </div>
           
@@ -280,7 +280,7 @@
             </div>
             <div class="ms-2 z-1 justify-content-center flexHasta768 mt-5">
               <img class="icono-card-prod1" src="./assets/Imagenes/carrito1.png" alt="">
-              <button class="btn btn1 p-2 font1-color" @click="agregarACarrito(servicio.id, 1)">Agregar a carrito</button>
+              <button class="btn1 p-2 font1-color" @click="agregarACarrito(servicio.id, 1)">Agregar a carrito</button>
             </div> 
           </div>
           
@@ -294,7 +294,7 @@
             </div>
             <div class="ms-2 z-1 justify-content-center flexHasta768 mt-5">
               <img class="icono-card-prod1" src="./assets/Imagenes/carrito1.png" alt="">
-              <button class="btn btn1 p-2 font1-color" @click="agregarACarrito(servicio.id, 1)">Agregar a carrito</button>
+              <button class="btn1 p-2 font1-color" @click="agregarACarrito(servicio.id, 1)">Agregar a carrito</button>
             </div> 
           </div>
         </template>
