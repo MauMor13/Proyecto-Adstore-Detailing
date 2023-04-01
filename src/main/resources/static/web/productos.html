@@ -112,28 +112,25 @@
             </div>
             <div class="modal-body">
               <div class="p-2 form-1">
-                <table class="text-center w-100" v-if="servicioNombre">
+                <table class="text-center w-100" v-if="servicios">
                   <tbody>
                     <template v-if="compra.servicios && compra.servicios.length > 0 ">
                       <tr>
                         <th colspan="2" class="text-start">Servicios</th>
-                        <th colspan="1" class="text-start">Valor Unitario</th>
-                        <th colspan="1" class="text-start">Valor total</th>
+                        <th colspan="1" class="">Valor Unitario</th>
+                        <th colspan="1" class="">Valor total</th>
                       </tr>
-                      <tr v-for="servicio of compra.servicios " class="w-100">
-                        <td class="col-6 text-start"><span class="mx-2">{{(servicioNombre.find(serv=>serv.id
-                            ==servicio.id )).nombre}} </span></td>
+                      <tr v-if="servicios.length" v-for="servicio of compra.servicios " class="w-100">
+                        <td class="col-6 text-start"><span class="mx-2">{{(servicios.find(serv => serv.id == servicio.id )).nombre}} </span> </td>
                         <td class="col-3">
-                          <i class="fa-solid fa-minus me-2" @click="restarUnidad(servicio.id, 1)"
+                          <i class="fa-solid fa-minus me-2" @click="restarUnidadServicio(servicio.id, 1)"
                             style="color: #000000;"></i>
                           {{servicio.cantidad}}
-                          <i class="fa-solid fa-plus ms-2" @click="sumarUnidad(servicio.id, 1)"
+                          <i class="fa-solid fa-plus ms-2" @click="sumarUnidadServicio(servicio.id, 1)"
                             style="color: #000000;"></i>
                         </td>
-                        <td class="col-3">{{(servicioNombre.find(serv=>serv.id ==servicio.id
-                          )).precio.toLocaleString('en-US', {style:"currency", currency:"USD"})}}</td>
-                        <td class="col-3">{{(((servicioNombre.find(serv=>serv.id ==servicio.id
-                          )).precio)*servicio.cantidad).toLocaleString('en-US', {style:"currency", currency:"USD"})}}
+                        <td class="col-3">{{(servicios.find(serv => serv.id == servicio.id)).precio.toLocaleString('es-AR', {style:"currency", currency:"ARS"})}}</td>
+                        <td class="col-3">{{(((servicios.find(serv => serv.id == servicio.id)).precio)*servicio.cantidad).toLocaleString('es-AR', {style:"currency", currency:"ARS"})}}
                         </td>
                       </tr>
                     </template>
@@ -143,20 +140,20 @@
                         <th colspan="1" class="">Valor Unitario</th>
                         <th colspan="1" class="">Valor total </th>
                       </tr>
-                      <tr class="w-100" v-for="producto of compra.productos">
-                        <td class="col-5 text-start"><span class="mx-1">{{(productoNombre.find(prod=>prod.id
+                      <tr v-if="productos.length" class="w-100" v-for="producto of compra.productos">
+                        <td class="col-5 text-start"><span class="mx-1">{{(productos.find(prod=>prod.id
                             ==producto.id )).nombre}} </span></td>
                         <td class="col-2">
-                          <i class="fa-solid fa-minus me-2" @click="restarUnidad(producto.id, 1)"
+                          <i class="fa-solid fa-minus me-2" @click="restarUnidadProducto(producto.id, 1)"
                             style="color: #000000;"></i>
                           {{producto.cantidad}}
-                          <i class="fa-solid fa-plus ms-2" @click="sumarUnidad(producto.id, 1)"
+                          <i class="fa-solid fa-plus ms-2" @click="sumarUnidadProducto(producto.id, 1)"
                             style="color: #000000;"></i>
                         </td>
-                        <td class="col-2">{{(productoNombre.find(prod=>prod.id ==producto.id
-                          )).precio.toLocaleString('en-US', {style:"currency", currency:"USD"})}}</td>
-                        <td class="col-3">{{(((productoNombre.find(prod=>prod.id ==producto.id
-                          )).precio)*producto.cantidad).toLocaleString('en-US', {style:"currency", currency:"USD"})}}
+                        <td class="col-2">{{(productos.find(prod=>prod.id ==producto.id
+                          )).precio.toLocaleString('es-AR', {style:"currency", currency:"ARS"})}}</td>
+                        <td class="col-3">{{(((productos.find(prod=>prod.id ==producto.id
+                          )).precio)*producto.cantidad).toLocaleString('es-AR', {style:"currency", currency:"ARS"})}}
                         </td>
                       </tr>
                     </template>
@@ -167,7 +164,7 @@
                         <span>Total</span>
                       </th>
                       <th>
-                        <span class=""> Suma total</span>
+                        <span class="">{{compra.total.toLocaleString('es-AR', {style:"currency", currency:"ARS"})}}</span>
                       </th>
                       <th class="text-start d-flex justify-content-between w-100 row" colspan="3">
                       </th>
@@ -283,6 +280,8 @@
         </nav>
       </div>
 
+      <!-- TARJETAS -->
+
       <div class="fondo-categorias pb-2  mb-2 d-flex justify-content-evenly flex-wrap">
         <template v-for="(producto, i) in productosFiltrados">
           <div
@@ -294,8 +293,7 @@
             <div class="d-flex flex-column align-items-center justify-content-around w-100 flex-wrap">
               <p class="card-text p-0 mx-2 mb-1"><strong>{{producto.nombre.toUpperCase()}} </strong> </p>
               <div class="d-flex align-items-between flex-wrap flex-column my-2">
-                <p class="card-text p-0 mx-2 mb-1"><strong>Precio: </strong>{{producto.precio.toLocaleString('en-US',
-                  {style:"currency", currency:"USD"})}} </p>
+                <p class="card-text p-0 mx-2 mb-1"><strong>Precio: </strong>{{producto.precio.toLocaleString('es-AR', {style:"currency", currency:"ARS"})}} </p>
                 <p class="p-0 mx-2 mb-0" :class="producto.stock > 5? 'card-text': 'colorRojo'"> <strong>Unidades
                     disponibles:</strong> {{producto.stock}}</p>
                 <p class="p-0 mx-2 mb-0" :class="producto.stock > 5? 'card-text': 'colorRojo'" v-show="!producto.stock">
@@ -326,7 +324,7 @@
 
       <button v-if="!cliente" @click="loginRegistro('login')" type="button" data-bs-target="#modalSign"
         class="btn btn-warning z-2  acceder-boton  bigger fuente-poppin position-fixed bottom-0 end-0 me-3 mt-3"
-        data-bs-toggle="modal" data-bs-target="#exampleModal">
+        data-bs-toggle="modal">
 
       <img src="./assets/Imagenes/usuario.png" alt="">
       Accede como cliente
