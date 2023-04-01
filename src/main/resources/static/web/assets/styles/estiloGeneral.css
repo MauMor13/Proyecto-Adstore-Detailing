@@ -4,6 +4,10 @@
     margin: 0;
 }
 
+.datos_cliente{
+ z-index: 160 !important;
+}
+
 
 [v-cloak] {
     display: none;
@@ -312,7 +316,7 @@ transform: rotateY(180deg);
     z-index: 150;
     cursor: pointer;
     border-radius: 50%;
-    box-shadow: -9px 6px 11px 0.5px rgba(247,186,36,0.82);
+    box-shadow: -3px 6px 6px 0.5px rgba(247,186,36,0.82);
 }
 
 .modales-fondo{

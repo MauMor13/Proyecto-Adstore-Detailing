@@ -5,13 +5,13 @@ createApp({
         return {
             cliente: undefined,
             categorias: [],
-            productos: [],
             productosFiltrados: [],
             checked: [],
             inputBusqueda: "",
             compra: {
                 productos: [],
-                servicios: []
+                servicios: [],
+                total: 0,
             },
             cantidad: [],
             errorEncontrado: false,
@@ -28,41 +28,70 @@ createApp({
             contraInicioSesion: undefined,
             productos: [],
             servicios: [],
-            productosNombre: "",
-            servicioNombre: "",
             servicio: "",
             sesion: "0"
         }
     },
     created() {
+
+        this.administrarCargaDatos();
         this.sesion = localStorage.getItem("sesion")
         if (this.sesion == "1") {
             this.cargarDatosCliente()
         }
-        this.guardarLocalStorage()
-        this.cargarDatos()
-        this.cargarDatosServicios()
+        
+        
     },
     mounted() {
         this.compra = JSON.parse(localStorage.getItem("compra"))
     },
     methods: {
-        logout() {
-            axios.post('/api/logout')
-                .then(res => {
-                    this.sesion = JSON.stringify(localStorage.getItem("sesion"))
-                    this.sesion = "0"
-                    localStorage.setItem("sesion", this.sesion)
-                    window.location.reload
 
-                })
-                .catch(err => console.error(err.message));
+        //CARGA DE DATOS PARA RENDERIZAR
+        administrarCargaDatos(){
+
+            this.cargarDatosProductos();
+            this.cargarDatosServicios();
+            //this.cargarDatosCliente();
+            this.guardarLocalStorage()
         },
+
+        guardarLocalStorage() {
+            if (localStorage.getItem("compra") == null) {
+                localStorage.setItem("compra", JSON.stringify(this.compra))
+            }
+        },
+
+        cargarDatosProductos: function () {
+            axios.get('/api/productos-activos')
+                .then(respuesta => {
+                    this.productos = respuesta.data.map(producto => ({ ...producto }));
+                    this.productosFiltrados = respuesta.data.map(producto => ({ ...producto }));
+                    this.categorias = [... new Set(this.productos.map(producto => producto.categoria))];
+                })
+        },
+
+        cargarDatosServicios: function () {
+            axios.get('/api/servicios-activos')
+                .then(respuesta => {
+                    this.servicios = respuesta.data.map(servicio => ({ ...servicio }));
+                })
+        },
+
+        busquedaCruzada: function () {
+            let filtroInput = this.productos.filter(producto => producto.nombre.toLowerCase().includes(this.inputBusqueda.toLowerCase()))
+            if (this.checked.length === 0) {
+                this.productosFiltrados = filtroInput
+            } else {
+                let filtroCheck = filtroInput.filter(categoria => this.checked.includes(categoria.categoria))
+                this.productosFiltrados = filtroCheck
+            }
+        },
+
         cargarDatosCliente: function () {
             axios.get('/api/cliente')
                 .then(respuesta => {
                     this.cliente = respuesta.data;
-                    console.log(this.cliente)
                     this.direccion = this.cliente.direccion
                     this.telefono = this.cliente.telefono
                     this.numTarjeta = this.cliente.cuenta.tarjetaAd.numeroTarjeta
@@ -70,22 +99,165 @@ createApp({
                 })
                 .catch(err => console.error(err.message));
         },
-        cargarDatos: function () {
-            axios.get('/api/productos')
-                .then(respuesta => {
-                    this.productos = respuesta.data.map(producto => ({ ...producto }));
-                    this.productoNombre = this.productos.filter(producto => producto.nombre)
-                    this.productosFiltrados = respuesta.data;
-                    this.categorias = [... new Set(this.productos.map(producto => producto.categoria))];
+
+
+        //MOVIMIENTOS CARRITO
+
+        agregarACarrito(idSeleccion, cantidad) {
+
+            this.compra = JSON.parse(localStorage.getItem("compra"))
+            if(!this.compra){
+                this.compra = {
+                    productos: [],
+                    servicios: [],
+                    total: 0,
+                }
+            }
+            let productoEnCarro = this.compra.productos.find(element => element.id == idSeleccion)
+            let productoStockDisponible = this.productosFiltrados.find(element => element.id == idSeleccion).stock;
+            
+            if(productoEnCarro && productoEnCarro.cantidad >= productoStockDisponible || !productoEnCarro && productoStockDisponible <= 0){
+
+                Swal.fire({
+                    customClass: 'modal-sweet-alert',
+                    title: 'Lo sentimos',
+                    text: "Has excedido la cantidad de productos que tenemos en stock, si quieres puedes agregar algun otro producto a tu compra.",
+                    icon: 'warning',
+                    confirmButtonColor: '#f7ba24',
+                    confirmButtonText: 'Aceptar'
                 })
-        },
-        cargarDatosServicios: function () {
-            axios.get('/api/servicios')
-                .then(respuesta => {
-                    this.servicios = respuesta.data.map(servicio => ({ ...servicio }));
-                    this.servicioNombre = this.servicios.filter(servicio => servicio.nombre)
+            }
+            else {
+                if(productoEnCarro){
+                    productoEnCarro.cantidad += cantidad;
+                }
+                else{
+                    let objeto = { id: 0, cantidad: 0 };
+                    objeto.id = idSeleccion
+                    objeto.cantidad = cantidad
+                    this.compra.productos.push(objeto)
+                }
+                this.compra.total += this.productos.find(element => element.id == idSeleccion).precio;
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
                 })
+                Toast.fire({
+                    customClass: 'modal-sweet-alert',
+                    icon: 'success',
+                    title: 'Has agregado un producto!'
+                })
+
+                localStorage.setItem("compra", JSON.stringify(this.compra))
+            }
         },
+
+        sumarUnidadProducto(productoId, cantidad) {
+            this.compra = JSON.parse(localStorage.getItem("compra"))
+            let productoEnCarro = this.compra.productos.find(element => element.id == productoId)
+            let productoStockDisponible = this.productosFiltrados.find(element => element.id == productoId).stock;
+
+            if(productoEnCarro.cantidad >= productoStockDisponible){
+                Swal.fire({
+                    customClass: 'modal-sweet-alert',
+                    title: 'Lo sentimos',
+                    text: "No hay más stock disponible",
+                    icon: 'warning',
+                    confirmButtonColor: '#f7ba24',
+                    confirmButtonText: 'Aceptar'
+                })
+            }
+            else {
+                productoEnCarro.cantidad += cantidad;
+                this.compra.total += this.productos.find(producto => producto.id == productoId).precio;
+                localStorage.setItem("compra", JSON.stringify(this.compra))
+            }
+            
+        },
+
+        restarUnidadProducto(productoId, cantidad) {
+            this.compra = JSON.parse(localStorage.getItem("compra"))
+            let productoEnCarro = this.compra.productos.find(element => element.id == productoId)
+            if (productoEnCarro.cantidad <= 1) {
+                this.compra.productos.splice(this.compra.productos.indexOf(productoEnCarro), 1);
+            } else {
+                productoEnCarro.cantidad -= cantidad
+            }
+            this.compra.total -= this.productos.find(producto => producto.id == productoId).precio;
+            localStorage.setItem("compra", JSON.stringify(this.compra))
+        },
+
+        sumarUnidadServicio(servicioID, cantidad) {
+            
+            Swal.fire({
+                customClass: 'modal-sweet-alert',
+                title: 'Lo sentimos',
+                text: "Solo se permite agregar una vez a cada servicio. Si quieres puedes combinar con otro tipo de tratamiento para tu vehículo",
+                icon: 'warning',
+                confirmButtonColor: '#f7ba24',
+                confirmButtonText: 'Aceptar'
+            })
+        },
+
+        restarUnidadServicio(servicioID, cantidad) {
+            this.compra = JSON.parse(localStorage.getItem("compra"))
+            let servicioEnCarro = this.compra.servicios.find(element => element.id == servicioID)
+            this.compra.servicios.splice(this.compra.servicios.indexOf(servicioEnCarro), 1);
+            
+            this.compra.total -= this.servicios.find(servicio => servicio.id == servicioID).precio;
+            localStorage.setItem("compra", JSON.stringify(this.compra))
+        },
+
+        limpiarCarrito() {
+            localStorage.removeItem('compra')
+            this.compra = {
+                productos: [],
+                servicios: [],
+                total: 0,
+            }
+            localStorage.setItem("compra", JSON.stringify(this.compra))
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+            Toast.fire({
+                customClass: 'modal-sweet-alert',
+                icon: 'success',
+                title: 'Has vaciado el carro de compras'
+            })
+        },
+
+
+        logout() {
+            axios.post('/api/logout')
+                .then(res => {
+                    console.log("hola");
+                    this.sesion = JSON.stringify(localStorage.getItem("sesion"))
+                    this.sesion = "0"
+                    localStorage.setItem("sesion", this.sesion)
+
+                    window.location.reload
+
+                })
+                .catch(err => console.error(err.message));
+        },
+        
+        
+        
         verDetallesProducto: function (id) {
             let foto = document.getElementById(id + "Foto");
             let telon = document.getElementById(id + "Telon");
@@ -112,117 +284,10 @@ createApp({
                 boton.style.color = "black"
             }
         },
-        busquedaCruzada: function () {
-            let filtroInput = this.productos.filter(producto => producto.nombre.toLowerCase().includes(this.inputBusqueda.toLowerCase()))
-            if (this.checked.length === 0) {
-                this.productosFiltrados = filtroInput
-            } else {
-                let filtroCheck = filtroInput.filter(categoria => this.checked.includes(categoria.categoria))
-                this.productosFiltrados = filtroCheck
-            }
-        },
-        limpiarCarrito() {
-            localStorage.clear()
-            this.compra = {
-                productos: [],
-                servicios: []
-            }
-            localStorage.setItem("compra", JSON.stringify(this.compra))
-            const Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.addEventListener('mouseenter', Swal.stopTimer)
-                    toast.addEventListener('mouseleave', Swal.resumeTimer)
-                }
-            })
-            Toast.fire({
-                customClass: 'modal-sweet-alert',
-                icon: 'success',
-                title: 'Has vaciado el carro de compras'
-            })
-        },
-        guardarLocalStorage() {
-            if (localStorage.getItem("compra") == null) {
-                localStorage.setItem("compra", JSON.stringify(this.compra))
-            }
-        },
-        sumarUnidad(productoId, cantidad) {
-            this.compra = JSON.parse(localStorage.getItem("compra"))
-            let productoEnCarro = this.compra.productos.find(element => element.id == productoId)
-            if (productoEnCarro != null) {
-                if (productoEnCarro.cantidad == this.compra.productos.find(element => element.id == productoEnCarro.id).stock) {
-                    Swal.fire({
-                        customClass: 'modal-sweet-alert',
-                        title: 'Lo sentimos',
-                        text: "No hay más stock disponible",
-                        icon: 'warning',
-                        confirmButtonColor: '#f7ba24',
-                        confirmButtonText: 'Aceptar'
-                    })
-                }
-                else {
-                    productoEnCarro.cantidad += cantidad
-                }
-            }
-            localStorage.setItem("compra", JSON.stringify(this.compra))
-        },
-        restarUnidad(productoId, cantidad) {
-            this.compra = JSON.parse(localStorage.getItem("compra"))
-            let productoEnCarro = this.compra.productos.find(element => element.id == productoId)
-            if (productoEnCarro.cantidad == 0) {
-                this.compra.productos.splice(this.compra.productos.indexOf(productoEnCarro), 1)
-            } else {
-                productoEnCarro.cantidad -= cantidad
-            }
-            localStorage.setItem("compra", JSON.stringify(this.compra))
-        },
-        agregarACarrito(idSeleccion, cantidad) {
-            this.compra = JSON.parse(localStorage.getItem("compra"))
-            console.log(this.compra.productos);
-            let productoEnCarro = this.compra.productos.find(element => element.id == idSeleccion)
-            if (productoEnCarro != null) {
-                if (productoEnCarro.cantidad == this.productosFiltrados.find(element => element.id == productoEnCarro.id).stock) {
-                    Swal.fire({
-                        customClass: 'modal-sweet-alert',
-                        title: 'Lo sentimos',
-                        text: "Has excedido la cantidad de productos que tenemos en stock, si quieres puedes agregar algun otro producto a tu compra.",
-                        icon: 'warning',
-                        confirmButtonColor: '#f7ba24',
-                        confirmButtonText: 'Aceptar'
-                    })
-                }
-                else {
-                    productoEnCarro.cantidad += cantidad
-                }
-            }
-            else {
-                let objeto = { id: 0, cantidad: 0 };
-                objeto.id = idSeleccion
-                objeto.cantidad = cantidad
-                this.compra.productos.push(objeto)
-            }
-            localStorage.setItem("compra", JSON.stringify(this.compra))
-            const Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.addEventListener('mouseenter', Swal.stopTimer)
-                    toast.addEventListener('mouseleave', Swal.resumeTimer)
-                }
-            })
-            Toast.fire({
-                customClass: 'modal-sweet-alert',
-                icon: 'success',
-                title: 'Has agregado un producto!'
-            })
-        },
+        
+        
+        
+
         //Generar registro
         realizarRegistro: function () {
             axios.post('/api/registrar', { nombre: this.nombre, apellido: this.apellido, email: this.email, claveIngreso: this.contra, direccion: this.direccion, telefono: this.telefono, })
@@ -264,7 +329,7 @@ createApp({
                 .then(response => {
                     this.sesion = "1"
                     localStorage.setItem("sesion", this.sesion)
-                    this.cargarDatos();
+                    this.cargarDatosProductos();
                     this.cargarDatosCliente();
 
                     const Toast = Swal.mixin({

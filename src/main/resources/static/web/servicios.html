@@ -100,7 +100,7 @@
     <main class="overflow-x-hidden main-index d-flex flex-column gap-3 justify-content-center align-items-center main-servicios">
        <!--datos cliente-->
       
-       <div v-if="cliente" class="accordion  border border-dark acceder-boton accordion-flush btn  position-fixed bottom-0 p-2 end-0 me-3 mt-3" id="accordionFlushExample">
+       <div v-if="cliente" class="accordion datos_cliente border border-dark acceder-boton accordion-flush btn  position-fixed bottom-0 p-2 end-0 me-3 mt-3" id="accordionFlushExample">
         <div class="accordion-item">
           <div id="flush-collapseOne" class="accordion-collapse bg-warning collapse" data-bs-parent="#accordionFlushExample">
             <div class="accordion-body  text-bg-warning">
@@ -150,7 +150,7 @@
 
       <!--inicio carrito-->
 
-      <div class="carrito-flotante" data-bs-toggle="modal" data-bs-target="#modalCarrito">
+      <div v-if="compra.productos.length || compra.servicios.length" class="carrito-flotante" data-bs-toggle="modal" data-bs-target="#modalCarrito">
         <img class="flexDesde768 w-100" src="./assets/Imagenes/carritoRedondo.png" alt="carrito">
       </div>    
 
@@ -166,38 +166,39 @@
                 <div class="p-2 form-1">
                     <table class="text-center w-100">
                       <tbody>
-                        <template v-if="servicioNombre && compra.servicios.length"> 
+                        <template v-if="compra.servicios && compra.servicios.length"> 
                           <tr>
                             <th colspan="2" class="text-start">Servicios</th>
                             <th colspan="1" class="">Valor Unitario</th> 
                             <th colspan="1" class="">Valor total </th>  
                           </tr>
-                          <tr v-for="servicio of compra.servicios " class="w-100">
-                            <td class="col-5 text-start"><span class="mx-2">{{(servicioNombre.find(serv=> serv.id == servicio.id )).nombre}} </span></td>
+                          <tr v-if="servicios.length" v-for="servicio of compra.servicios " class="w-100">
+                            <td class="col-5 text-start"><span class="mx-2">{{(servicios.find(serv=> serv.id == servicio.id )).nombre}} </span></td>
                             <td class="col-2">
-                              <i class="fa-solid fa-minus me-2" @click="restarUnidad(servicio.id, 1)" style="color: #000000;"></i>
-                              <i class="fa-solid fa-plus ms-2" @click="sumarUnidad(servicio.id, 1)" style="color: #000000;"></i>
+                              <i class="fa-solid fa-minus me-2" @click="restarUnidadServicio(servicio.id, 1)" style="color: #000000;"></i>
+                              {{servicio.cantidad}}
+                              <i class="fa-solid fa-plus ms-2" @click="sumarUnidadServicio(servicio.id, 1)" style="color: #000000;"></i>
                             </td>
-                            <td class="col-2">{{(servicioNombre.find(serv => serv.id == servicio.id )).precio.toLocaleString('en-US', {style:"currency", currency:"USD"})}}</td>
-                            <td class="col-3">{{(((servicioNombre.find(serv => serv.id == servicio.id )).precio)*servicio.cantidad).toLocaleString('en-US', {style:"currency", currency:"USD"})}}   </td>
+                            <td class="col-2">{{(servicios.find(serv => serv.id == servicio.id )).precio.toLocaleString('es-AR', {style:"currency", currency:"ARS"})}}</td>
+                            <td class="col-3">{{(((servicios.find(serv => serv.id == servicio.id )).precio)*servicio.cantidad).toLocaleString('es-AR', {style:"currency", currency:"ARS"})}}   </td>
                           </tr>
                         </template>
 
-                        <template v-if="productoNombre && compra.productos.length"> 
+                        <template v-if="productos.length && compra.productos.length"> 
                           <tr>
                             <th colspan="2" class="text-start">Productos</th>
                             <th colspan="1" class="text-start">Valor Unitario</th> 
                             <th colspan="1" class="text-start">Valor total </th>  
                           </tr>
-                          <tr class="w-100" v-for="producto of compra.productos">
-                            <td class="col-6 text-start"><span class="mx-1">{{(productoNombre.find(prod=> prod.id == producto.id )).nombre}} </span></td>
+                          <tr class="w-100" v-if="productos.length" v-for="producto of compra.productos">
+                            <td class="col-6 text-start"><span class="mx-1">{{(productos.find(prod=> prod.id == producto.id )).nombre}} </span></td>
                             <td class="col-3">
-                              <i class="fa-solid fa-minus me-2" @click="restarUnidad(producto.id, 1)" style="color: #000000;"></i> 
+                              <i class="fa-solid fa-minus me-2" @click="restarUnidadProducto(producto.id, 1)" style="color: #000000;"></i> 
                               {{producto.cantidad}} 
-                              <i class="fa-solid fa-plus ms-2" @click="sumarUnidad(producto.id, 1)" style="color: #000000;"></i> 
+                              <i class="fa-solid fa-plus ms-2" @click="sumarUnidadProducto(producto.id, 1)" style="color: #000000;"></i> 
                             </td>
-                            <td class="col-3">{{(productoNombre.find(prod=> prod.id == producto.id )).precio.toLocaleString('en-US', {style:"currency", currency:"USD"})}}</td>
-                            <td class="col-3">{{(((productoNombre.find(prod=> prod.id == producto.id )).precio)*producto.cantidad).toLocaleString('en-US', {style:"currency", currency:"USD"})}}   </td>
+                            <td class="col-3">{{(productos.find(prod=> prod.id == producto.id )).precio.toLocaleString('es-AR', {style:"currency", currency:"ARS"})}}</td>
+                            <td class="col-3">{{(((productos.find(prod=> prod.id == producto.id )).precio)*producto.cantidad).toLocaleString('es-AR', {style:"currency", currency:"ARS"})}}   </td>
                           </tr>
                         </template>
                       </tbody>
@@ -207,7 +208,7 @@
                             <span>Total</span>
                           </th>
                           <th>
-                            <span class=""> Suma total</span>
+                            <span class="">{{compra.total.toLocaleString('es-AR', {style:"currency", currency:"ARS"})}}</span>
                           </th>
                           <th class="text-start d-flex justify-content-between w-100 row" colspan="3">
                           </th>
@@ -230,7 +231,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button  type="button" class="btn btn-secondary bg-black"  href="./checkout.html">Proceder al Pago</button>
+                <a  type="button" class="btn btn-secondary bg-black"  href="./checkout.html">Proceder al Pago</a>
                 <button type="button" class="btn btn-secondary bg-black" data-bs-dismiss="modal">Cerrar</button>
             </div>
           </div>
@@ -253,7 +254,7 @@
             </div>
             <div class="ms-2 z-1 justify-content-center flexHasta768 mt-5">
               <img class="icono-card-prod1" src="./assets/Imagenes/carrito1.png" alt="">
-              <button class="btn btn1 p-2 font1-color" @click="agregarACarrito(servicio.id, 1)">Agregar a carrito</button>
+              <button class="btn1 p-2 font1-color" @click="agregarACarrito(servicio.id, 1)">Agregar a carrito</button>
             </div> 
           </div>
           
@@ -266,7 +267,7 @@
             </div>
             <div class="ms-2 z-1 justify-content-center flexHasta768 mt-5">
               <img class="icono-card-prod1" src="./assets/Imagenes/carrito1.png" alt="">
-              <button class="btn btn1 p-2 font1-color " @click="agregarACarrito(servicio.id, 1)">Agregar a carrito</button>
+              <button class="btn1 p-2 font1-color " @click="agregarACarrito(servicio.id, 1)">Agregar a carrito</button>
             </div> 
           </div>
           
@@ -280,7 +281,7 @@
             </div>
             <div class="ms-2 z-1 justify-content-center flexHasta768 mt-5">
               <img class="icono-card-prod1" src="./assets/Imagenes/carrito1.png" alt="">
-              <button class="btn btn1 p-2 font1-color" @click="agregarACarrito(servicio.id, 1)">Agregar a carrito</button>
+              <button class="btn1 p-2 font1-color" @click="agregarACarrito(servicio.id, 1)">Agregar a carrito</button>
             </div> 
           </div>
           
@@ -294,7 +295,7 @@
             </div>
             <div class="ms-2 z-1 justify-content-center flexHasta768 mt-5">
               <img class="icono-card-prod1" src="./assets/Imagenes/carrito1.png" alt="">
-              <button class="btn btn1 p-2 font1-color" @click="agregarACarrito(servicio.id, 1)">Agregar a carrito</button>
+              <button class="btn1 p-2 font1-color" @click="agregarACarrito(servicio.id, 1)">Agregar a carrito</button>
             </div> 
           </div>
         </template>
@@ -350,7 +351,7 @@
             </div>
             <div class="ms-2 d-flex z-1 justify-content-center">
               <img class="icono-card-prod1" src="./assets/Imagenes/carrito1.png" alt="">
-              <button class="btn btn1 p-2 font1-color" @click="agregarACarrito(servicioElegido.id, 1)">Agregar a carrito</button>
+              <button class="btn1 p-2 font1-color" @click="agregarACarrito(servicioElegido.id, 1)">Agregar a carrito</button>
             </div>         
             <img class="w-75" src="./assets/Imagenes/PNG2.png" alt="">
           </div>
