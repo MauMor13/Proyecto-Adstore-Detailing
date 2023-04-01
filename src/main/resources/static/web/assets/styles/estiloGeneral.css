@@ -3,7 +3,9 @@
     padding: 0;
     margin: 0;
 }
-
+.dato_cliente{
+    z-index: 160 !important;
+}
 
 [v-cloak] {
     display: none;

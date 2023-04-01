@@ -100,7 +100,7 @@
     <main class="overflow-x-hidden main-index d-flex flex-column gap-3 justify-content-center align-items-center main-servicios">
       <!--datos cliente-->
       
-     <div v-if="cliente" class="accordion  border border-dark accordion-flush btn btn-warning position-fixed bottom-0 end-0 me-3 mt-3" id="accordionFlushExample">
+     <div v-if="cliente" class="accordion dato_cliente border border-dark accordion-flush btn btn-warning position-fixed bottom-0 end-0 me-3 mt-3" id="accordionFlushExample">
       <div class="accordion-item">
         <div id="flush-collapseOne" class="accordion-collapse bg-warning collapse" data-bs-parent="#accordionFlushExample">
           <div class="accordion-body  text-bg-warning">
@@ -334,12 +334,11 @@
             </div>
             <div class="ms-2 d-flex z-1 justify-content-center">
               <img class="icono-card-prod1" src="./assets/Imagenes/carrito1.png" alt="">
-              <button class="btn btn1 p-2 font1-color" @click="agregarACarrito(servicioElegido.id, 1)">Agregar a carrito</button>
+              <button class="btn1 p-2 font1-color" @click="agregarACarrito(servicioElegido.id, 1)">Agregar a carrito</button>
             </div>         
             <img class="w-75" src="./assets/Imagenes/PNG2.png" alt="">
           </div>
           
-         
 
         </div>
         
