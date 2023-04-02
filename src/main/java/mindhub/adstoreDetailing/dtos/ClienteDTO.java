@@ -17,6 +17,7 @@ public class ClienteDTO {
     private String direccion;
     private String email;
     private String telefono;
+    public boolean activo;
     CuentaDTO cuenta;
 
     public ClienteDTO(Cliente cliente) {
@@ -27,5 +28,6 @@ public class ClienteDTO {
         this.email = cliente.getEmail();
         this.telefono = cliente.getTelefono();
         this.cuenta = new CuentaDTO(cliente.getCuenta());
+        this.activo = cliente.isActivo();
     }
 }

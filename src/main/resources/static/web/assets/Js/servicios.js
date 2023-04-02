@@ -1,9 +1,9 @@
-const {createApp} = Vue;
+const { createApp } = Vue;
 
 createApp({
-    
-    data(){
-        return{
+
+    data() {
+        return {
             cliente: undefined,
             errorEncontrado: false,
             registrado: false,
@@ -15,37 +15,65 @@ createApp({
             telefono: "",
             emailInicioSesion: undefined,
             contraInicioSesion: undefined,
-            compra:{
-                productos:[],
-                servicios:[]
+            compra: {
+                productos: [],
+                servicios: [],
+                total: 0,
             },
-            productos:[],
-            servicios:[],
+            productos: [],
+            servicios: [],
             servicioElegido: undefined,
+            sesion: "0",
         }
     },
 
-    created(){
+    created() {
 
-        this.cargarDatos();
-        this.guardarLocalStorage();
-        this.cargarDatosServicios();
-
-
+        this.administrarCargaDatos()
+        this.sesion = localStorage.getItem("sesion")
+        if (this.sesion == "1") {
+            this.cargarDatosCliente()
+        }
+        this.compra = JSON.parse(localStorage.getItem("compra"))
     },
 
-    mounted(){
+    mounted() {
         
     },
 
     methods: {
-        logout() {
-            axios.post('/api/logout')
-            .then(res =>{
-                window.location.href = "/web/index.html"
-            })
+
+        //CARGA DE DATOS PARA RENDERIZAR
+        administrarCargaDatos(){
+
+            this.cargarDatosProductos();
+            this.cargarDatosServicios();
+            //this.cargarDatosCliente();
+            this.guardarLocalStorage()
         },
-        cargarDatosCliente: function(){
+
+        guardarLocalStorage() {
+            if (localStorage.getItem("compra") == null) {
+                localStorage.setItem("compra", JSON.stringify(this.compra))
+            }
+        },
+
+        cargarDatosProductos: function () {
+            axios.get('/api/productos-activos')
+                .then(respuesta => {
+                    this.productos = respuesta.data.map(producto => ({ ...producto }));
+                })
+                .catch(err => console.error(err.message));
+        },
+
+        cargarDatosServicios: function () {
+            axios.get('/api/servicios-activos')
+                .then(respuesta => {
+                    this.servicios = respuesta.data.map(servicio => ({ ...servicio }));
+                })
+        },
+
+        cargarDatosCliente: function () {
             axios.get('/api/cliente')
                 .then(respuesta => {
                     this.cliente = respuesta.data;
@@ -57,108 +85,162 @@ createApp({
                 .catch(err => console.error(err.message));
         },
 
-        cargarDatos: function(){
-            axios.get('/api/productos')
-                .then(respuesta => {
-                    this.productos = respuesta.data.map(producto => ({... producto}));
-                    this.productoNombre=this.productos.filter(producto => producto.nombre)
-                    this.productosFiltrados = respuesta.data;
-                    this.categorias =[... new Set(this.productos.map(producto => producto.categoria))];
-                })
-        },
-        cargarDatosServicios: function(){
-            axios.get('/api/servicios')
-                .then(respuesta => {
-                    this.servicios = respuesta.data.map(servicio => ({... servicio}));
-                    this.servicioNombre=this.servicios.filter(servicio => servicio.nombre)
-                })
-        },
-        limpiarCarrito(){
-            localStorage.clear()
-            this.compra={
-                productos:[],
-                servicios:[]
-            }
-        },
 
-        guardarLocalStorage(){
-            if(localStorage.getItem("compra") == null){
+        //MOVIMIENTOS CARRITO
+
+        agregarACarrito(idSeleccion, cantidad) {
+
+            this.compra = JSON.parse(localStorage.getItem("compra"))
+            console.log(this.compra);
+            if(!this.compra){
+                this.compra = {
+                    productos: [],
+                    servicios: [],
+                    total: 0,
+                }
+            }
+            let servicioEnCarro = this.compra.servicios.find(element => element.id == idSeleccion)
+            
+            if(servicioEnCarro){
+
+                Swal.fire({
+                    customClass: 'modal-sweet-alert',
+                    title: 'Lo sentimos',
+                    text: "Solo se permite agregar una vez a cada servicio. Si quieres puedes combinar con otro tipo de tratamiento para tu vehículo",
+                    icon: 'warning',
+                    confirmButtonColor: '#f7ba24',
+                    confirmButtonText: 'Aceptar'
+                })
+            }
+            else {
+                
+                let objeto = { id: 0, cantidad: 0 };
+                objeto.id = idSeleccion
+                objeto.cantidad = cantidad
+                console.log(objeto);
+                this.compra.servicios.push(objeto)
+                console.log(this.compra);
+                this.compra.total += this.servicios.find(element => element.id == idSeleccion).precio;
+                
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                })
+                Toast.fire({
+                    customClass: 'modal-sweet-alert',
+                    icon: 'success',
+                    title: 'Has agregado un producto!'
+                })
+
                 localStorage.setItem("compra", JSON.stringify(this.compra))
             }
         },
-        sumarUnidad(productoId,cantidad){
+
+        sumarUnidadServicio(servicioID, cantidad) {
+            
+            Swal.fire({
+                customClass: 'modal-sweet-alert',
+                title: 'Lo sentimos',
+                text: "Solo se permite agregar una vez a cada servicio. Si quieres puedes combinar con otro tipo de tratamiento para tu vehículo",
+                icon: 'warning',
+                confirmButtonColor: '#f7ba24',
+                confirmButtonText: 'Aceptar'
+            })
+        },
+
+        restarUnidadServicio(servicioID, cantidad) {
+            this.compra = JSON.parse(localStorage.getItem("compra"))
+            let servicioEnCarro = this.compra.servicios.find(element => element.id == servicioID)
+            this.compra.servicios.splice(this.compra.servicios.indexOf(servicioEnCarro), 1);
+            
+            this.compra.total -= this.servicios.find(servicio => servicio.id == servicioID).precio;
+            localStorage.setItem("compra", JSON.stringify(this.compra))
+        },
+
+        sumarUnidadProducto(productoId, cantidad) {
             this.compra = JSON.parse(localStorage.getItem("compra"))
             let productoEnCarro = this.compra.productos.find(element => element.id == productoId)
-            if(productoEnCarro != null){
-                if(productoEnCarro.cantidad == this.compra.productos.find(element => element.id == productoEnCarro.id).stock){
-                    Swal.fire({
-                        customClass: 'modal-sweet-alert',
-                        title: 'Lo sentimos',
-                        text: "No hay más stock disponible",
-                        icon: 'warning',
-                        confirmButtonColor: '#f7ba24',
-                        confirmButtonText: 'Aceptar'
-                    })
-                }
-                else{
-                productoEnCarro.cantidad += cantidad
-            }}
-            this.productos = this.compra.productos
-            localStorage.setItem("compra",JSON.stringify(this.compra))
-        },
-        restarUnidad(productoId, cantidad){
-            this.compra = JSON.parse(localStorage.getItem("compra"))
-            let productoEnCarro = this.compra.productos.find(element => element.id == productoId)
-            if( productoEnCarro == 0){
-                productoEnCarro == 0
-                }else{
-                    productoEnCarro.cantidad -= cantidad  
-                }
-            this.productos = this.compra.productos
-            localStorage.setItem("compra",JSON.stringify(this.compra))
-        },
-        agregarACarrito(idSeleccion, cantidad){
-            this.compra = JSON.parse(localStorage.getItem("compra"))
-            let productoEnCarro = this.compra.productos.find(element => element.id == idSeleccion)
-            if(productoEnCarro != null){
-                if(productoEnCarro.cantidad == this.compra.productos.find(element => element.id == productoEnCarro.id).stock){
-                    Swal.fire({
-                        customClass: 'modal-sweet-alert',
-                        title: 'Lo sentimos',
-                        text: "Has excedido la cantidad de productos que tenemos en stock, si quieres puedes agregar algun otro producto a tu compra.",
-                        icon: 'warning',
-                        confirmButtonColor: '#f7ba24',
-                        confirmButtonText: 'Aceptar'
-                    })
-                }
-                else{
-                productoEnCarro.cantidad += cantidad
-            }}
-            else{
-                let objeto = {id: 0, cantidad: 0};
-                objeto.id = idSeleccion
-                objeto.cantidad = cantidad
-                this.compra.productos.push(objeto)
+            let productoStockDisponible = this.productos.find(element => element.id == productoId).stock;
+
+            if(productoEnCarro.cantidad >= productoStockDisponible){
+                Swal.fire({
+                    customClass: 'modal-sweet-alert',
+                    title: 'Lo sentimos',
+                    text: "No hay más stock disponible",
+                    icon: 'warning',
+                    confirmButtonColor: '#f7ba24',
+                    confirmButtonText: 'Aceptar'
+                })
             }
-            this.productos = this.compra.productos
-            localStorage.setItem("compra",JSON.stringify(this.compra))
+            else {
+                productoEnCarro.cantidad += cantidad;
+                this.compra.total += this.productos.find(producto => producto.id == productoId).precio;
+                localStorage.setItem("compra", JSON.stringify(this.compra))
+            }
+            
         },
 
+        restarUnidadProducto(productoId, cantidad) {
+            this.compra = JSON.parse(localStorage.getItem("compra"))
+            let productoEnCarro = this.compra.productos.find(element => element.id == productoId)
+            if (productoEnCarro.cantidad <= 1) {
+                this.compra.productos.splice(this.compra.productos.indexOf(productoEnCarro), 1);
+            } else {
+                productoEnCarro.cantidad -= cantidad
+            }
+            this.compra.total -= this.productos.find(producto => producto.id == productoId).precio;
+            localStorage.setItem("compra", JSON.stringify(this.compra))
         },
 
-        cargarServicios:function(){
-            axios.get('/api/servicios-activos')
-                .then(respuesta => {
-                    this.servicios = respuesta.data;
-                    console.log(this.servicios);
+        limpiarCarrito() {
+            localStorage.removeItem('compra')
+            this.compra = {
+                productos: [],
+                servicios: [],
+                total: 0,
+            }
+            localStorage.setItem("compra", JSON.stringify(this.compra))
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+            Toast.fire({
+                customClass: 'modal-sweet-alert',
+                icon: 'success',
+                title: 'Has vaciado el carro de compras'
+            })
+        },
+
+
+        logout() {
+            axios.post('/api/logout')
+                .then(res => {
+                    this.sesion = JSON.stringify(localStorage.getItem("sesion"))
+                    this.sesion = "0"
+                    localStorage.setItem("sesion", this.sesion)
+                    window.location.reload
                 })
                 .catch(err => console.error(err.message));
-
         },
+   
 
         //Generar registro
-        realizarRegistro: function(){
-            axios.post('/api/registrar', {nombre: this.nombre, apellido: this.apellido, email: this.email, claveIngreso: this.contra, direccion: this.direccion, telefono: this.telefono,})
+        realizarRegistro: function () {
+            axios.post('/api/registrar', { nombre: this.nombre, apellido: this.apellido, email: this.email, claveIngreso: this.contra, direccion: this.direccion, telefono: this.telefono, })
                 .then(response => {
                     console.log('registrado');
 
@@ -171,36 +253,68 @@ createApp({
                     this.email = "";
                     this.contra = "";
                     this.direccion = "",
-                    this.registro = "",
+                        this.registro = "",
+                    Swal.fire({
+                        customClass: 'modal-sweet-alert',
+                        title: 'Cliente regisrado!',
+                        text: "Para poder acceder a la cuenta debes verificar tu E-mail. Por favor, revisa tu correo y verificalo",
+                        icon: 'success',
+                        confirmButtonColor: '#f7ba24',
+                        confirmButtonText: 'Aceptar'
+                    })
 
-                    this.iniciarSesion();
                 })
                 .catch(err => {
                     this.errorEncontrado = true;
                     console.error([err]);
                     let spanError = document.querySelector('.mensaje-error-registro');
                     spanError.innerHTML = err.response.data;
-                    
-                    if(err.response.data.includes('Email ya registrado')){
+
+                    if (err.response.data.includes('Email ya registrado')) {
                         this.email = "";
                         this.contra = "";
-                    }                    
+                    }
                 })
-            
+
         },
-        iniciarSesion: function(){
-            axios.post('/api/login',`email=${this.emailInicioSesion}&claveIngreso=${this.contraInicioSesion}`,{headers:{'content-type':'application/x-www-form-urlencoded'}})
+        iniciarSesion: function () {
+            axios.post('/api/login', `email=${this.emailInicioSesion}&claveIngreso=${this.contraInicioSesion}`, { headers: { 'content-type': 'application/x-www-form-urlencoded' } })
                 .then(response => {
-                    console.log('inicio sesion!');
-                    this.cargarDatos();
+                    this.sesion = "1"
+                    localStorage.setItem("sesion", this.sesion)
+                    this.cargarDatosServicios();
+                    this.cargarDatosCliente();
+
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                    })
+
+                    Toast.fire({
+                        customClass: 'modal-sweet-alert',
+                        icon: 'success',
+                        title: 'Has iniciado sesión con exito!'
+                    })
                 })
                 .catch(err => {
-                    console.error(err.message);
-                    console.error(err.response);
-                    this.errorEncontrado = true;
+                    console.log(err);
+                    Swal.fire({
+                        customClass: 'modal-sweet-alert',
+                        title: 'Usuario no encontrado',
+                        text: "Por favor verifica tus credenciales",
+                        icon: 'warning',
+                        confirmButtonColor: '#f7ba24',
+                        confirmButtonText: 'Aceptar'
+                    })
                 });
         },
-
 
         loginRegistro: function (value) {
             let form = document.querySelector('.card-3d-wrapper');
@@ -252,16 +366,16 @@ createApp({
 
         //efecto paginado
 
-        hacerEfectoPagina: function(servicio){
-            this.servicioElegido = {... servicio};
+        hacerEfectoPagina: function (servicio) {
+            this.servicioElegido = { ...servicio };
             let vistaPrincipal = document.querySelector('.card-principal')
             let todosServicios = document.querySelectorAll('.servicios')
 
             vistaPrincipal.style.left = '0';
-            
+
         },
 
-        volverPagina: function(){
+        volverPagina: function () {
             let vistaPrincipal = document.querySelector('.card-principal');
             let todosServicios = document.querySelectorAll('.servicios')
             vistaPrincipal.style.left = '-100vw';
@@ -270,5 +384,5 @@ createApp({
 
     },
 
- 
+
 }).mount("#app")

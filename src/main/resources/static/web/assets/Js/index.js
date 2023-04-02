@@ -1,9 +1,9 @@
-const {createApp} = Vue;
+const { createApp } = Vue;
 
 createApp({
-    
-    data(){
-        return{
+
+    data() {
+        return {
             cliente: undefined,
             mensajes: [" UN SERVICIO DE CALIDAD...", "VOS Y TU VEHICULO LO MERECEN...", " VIVI LA EXPERCIENCIA ! !"],
             textoDinamico: "",
@@ -15,8 +15,8 @@ createApp({
             contra: "",
             direccion: "",
             telefono: "",
-            numTarjeta:undefined,
-            saldo:undefined,
+            numTarjeta: undefined,
+            saldo: undefined,
             emailInicioSesion: undefined,
             contraInicioSesion: undefined,
             sesion: "0"
@@ -24,15 +24,14 @@ createApp({
         }
     },
 
-    created(){
-
+    created() {
         this.sesion = localStorage.getItem("sesion")
-        if(this.sesion == "1"){
+        if (this.sesion == "1") {
             this.cargarDatos()
         }
     },
 
-    mounted(){
+    mounted() {
         window.addEventListener('scroll', this.scrollFunction);
         this.controlCarrusel();
         this.administraAsincronas();
@@ -41,13 +40,30 @@ createApp({
     methods: {
         logout() {
             axios.post('/api/logout')
-            .then(res =>{
-                window.location.reload()
-            })
+                .then(res => {
+                    this.sesion = JSON.stringify(localStorage.getItem("sesion"))
+                    this.sesion = "0"
+                    localStorage.setItem("sesion", this.sesion)
+                    window.location.reload
+                })
+                .catch(err => console.error(err.message));
+        },
+        cargarDatosCliente: function () {
+            axios.get('/api/cliente')
+                .then(respuesta => {
+                    this.cliente = respuesta.data;
+                    console.log(this.cliente)
+                    this.direccion = this.cliente.direccion
+                    this.telefono = this.cliente.telefono
+                    this.numTarjeta = this.cliente.cuenta.tarjetaAd.numeroTarjeta
+                    this.saldo = this.cliente.cuenta.saldo
+
+                })
+                .catch(err => console.error(err.message));
         },
 
         //PARA LA CARGA DE DATOS
-        cargarDatos: function(){
+        cargarDatos: function () {
             axios.get('/api/cliente')
                 .then(respuesta => {
                     this.cliente = respuesta.data;
@@ -55,25 +71,22 @@ createApp({
                     this.telefono = this.cliente.telefono
                     this.numTarjeta = this.cliente.cuenta.tarjetaAd.numeroTarjeta
                     this.saldo = this.cliente.cuenta.saldo
-                    this.cargarDatos()
+
                 })
                 .catch(err => console.error(err.message));
         },
-        verificarSesion: function(){
+        verificarSesion: function () {
             let sesion = localStorage.getItem("sesion")
-            if (sesion == "1"){
+            if (sesion == "1") {
                 this.cargarDatosCliente
             }
         },
         //Generar registro
-        realizarRegistro: function(){
-            axios.post('/api/registrar', {nombre: this.nombre, apellido: this.apellido, email: this.email, claveIngreso: this.contra, direccion: this.direccion, telefono: this.telefono,})
+        realizarRegistro: function () {
+            axios.post('/api/registrar', { nombre: this.nombre, apellido: this.apellido, email: this.email, claveIngreso: this.contra, direccion: this.direccion, telefono: this.telefono, })
                 .then(response => {
-                    console.log('registrado');
-
                     this.emailInicioSesion = this.email;
                     this.contraInicioSesion = this.contra;
-
                     this.errorEncontrado = false;
                     this.nombre = "";
                     this.apellido = "";
@@ -82,28 +95,53 @@ createApp({
                     this.direccion = "",
                     this.registro = "",
 
-                    this.iniciarSesion();
+                    Swal.fire({
+                        customClass: 'modal-sweet-alert',
+                        title: 'Cliente regisrado!',
+                        text: "Para poder acceder a la cuenta debes verificar tu E-mail. Por favor, revisa tu correo y verificalo",
+                        icon: 'success',
+                        confirmButtonColor: '#f7ba24',
+                        confirmButtonText: 'Aceptar'
+                    })
+
                 })
                 .catch(err => {
                     this.errorEncontrado = true;
                     console.error([err]);
                     let spanError = document.querySelector('.mensaje-error-registro');
                     spanError.innerHTML = err.response.data;
-                    
-                    if(err.response.data.includes('Email ya registrado')){
+                    if (err.response.data.includes('Email ya registrado')) {
                         this.email = "";
                         this.contra = "";
-                    }                    
+                    }
                 })
-            
         },
 
-        iniciarSesion: function(){
-            axios.post('/api/login',`email=${this.emailInicioSesion}&claveIngreso=${this.contraInicioSesion}`,{headers:{'content-type':'application/x-www-form-urlencoded'}})
+        iniciarSesion: function () {
+            axios.post('/api/login', `email=${this.emailInicioSesion}&claveIngreso=${this.contraInicioSesion}`, { headers: { 'content-type': 'application/x-www-form-urlencoded' } })
                 .then(response => {
                     this.sesion = "1"
                     localStorage.setItem("sesion", this.sesion)
                     this.cargarDatos();
+
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                    })
+
+                    Toast.fire({
+                        customClass: 'modal-sweet-alert',
+                        icon: 'success',
+                        title: 'Has iniciado sesión con exito!'
+                    })
+
                     // window.location.href("/index.html")
                 })
                 .catch(err => {
@@ -117,15 +155,6 @@ createApp({
                     })
                 });
         },
-        logOut(){
-            axios.post('/api/logout')
-            .then(() => {
-                this.sesion = JSON.stringify(localStorage.getItem("sesion"))
-                this.sesion = "0"
-                localStorage.setItem("sesion", this.sesion)
-                window.location.href="./index.html"})
-        },
-
 
         loginRegistro: function (value) {
             let form = document.querySelector('.card-3d-wrapper');
@@ -143,8 +172,8 @@ createApp({
             let fotos = document.querySelector(".fotos-landing");
             let icono = document.querySelector(".icono-landing");
 
-            if (document.body.scrollTop > fotos.clientHeight - nav.clientHeight / 2 || document.documentElement.scrollTop > fotos.clientHeight - nav.clientHeight / 2|| window.pageYOffset > fotos.clientHeight - nav.clientHeight / 2) {
-                nav.style.backgroundColor = "black";  
+            if (document.body.scrollTop > fotos.clientHeight - nav.clientHeight / 2 || document.documentElement.scrollTop > fotos.clientHeight - nav.clientHeight / 2 || window.pageYOffset > fotos.clientHeight - nav.clientHeight / 2) {
+                nav.style.backgroundColor = "black";
                 icono.style.height = "5rem";
                 icono.src = "../web/assets/Imagenes/iconoFondoNegroPNG.png"
             } else {
@@ -153,17 +182,17 @@ createApp({
                 icono.src = "../web/assets/Imagenes/PNG9.png"
             }
 
-            if(icono.scrollTop == nav.scrollTop){
+            if (icono.scrollTop == nav.scrollTop) {
                 icono.position = "static";
             }
         },
 
-        administraAsincronas: function(){
+        administraAsincronas: function () {
             this.manejaAutoTyping();
             this.cambioDeFotos();
         },
 
-        controlCarrusel: function(){
+        controlCarrusel: function () {
             const miCarrusel = document.getElementById('carouselExampleSlidesOnly');
             /*const botonesDireccion = [... document.querySelectorAll('.btn-carousel')];
 
@@ -185,42 +214,42 @@ createApp({
 
         //autotyping
 
-        async manejaAutoTyping(){
+        async manejaAutoTyping() {
 
             let i = 0;
             let actual = 0;
-            while(true) {
+            while (true) {
                 actual = await this.escribeOracion(actual);
                 await this.esperaPorMs(1500);
                 actual = await this.borraOracion(actual);
                 await this.esperaPorMs(1500);
                 i++
-                if(i >= this.mensajes.length) {i = 0;}
+                if (i >= this.mensajes.length) { i = 0; }
             }
         },
 
-        async escribeOracion(actual) { 
+        async escribeOracion(actual) {
 
             let i = 0;
-            while(i < this.mensajes[actual].length) {
+            while (i < this.mensajes[actual].length) {
                 await this.esperaPorMs(100);
                 this.textoDinamico += this.mensajes[actual].charAt(i);
                 i++
             }
-            actual ++;
-            return actual;                
+            actual++;
+            return actual;
         },
 
-        async borraOracion(actual){
+        async borraOracion(actual) {
 
-            while(this.textoDinamico.length > 0) {
+            while (this.textoDinamico.length > 0) {
                 await this.esperaPorMs(100);
-                this.textoDinamico = this.textoDinamico.slice(0,-1);
+                this.textoDinamico = this.textoDinamico.slice(0, -1);
             }
-            if(actual > 2){
+            if (actual > 2) {
                 actual = 0;
             }
-            
+
             return actual;
         },
 
@@ -230,13 +259,12 @@ createApp({
 
         //cambio de foto
 
-        async cambioDeFotos (){
+        async cambioDeFotos() {
             let i = 1;
             let fotos = document.querySelector(".fotos-landing");
-            console.log([fotos]);
-            while(i <= 5){
-                await this.esperaPorMs(10000);
-                for(let j = 1; j > 0; j -= 0.1){
+            while (i <= 5) {
+                await this.esperaPorMs(3000);
+                for (let j = 1; j > 0; j -= 0.1) {
                     await this.esperaPorMs(25);
                     fotos.style.opacity = `${j}`;
                 }
@@ -247,20 +275,20 @@ createApp({
                 // else{
                 //     fotos.style.backgroundImage = `url(../web/assets/Imagenes/foto${i}.jpeg)`
                 // }
-                for(let j = 0; j < 1; j += 0.1){
+                for (let j = 0; j < 1; j += 0.1) {
                     fotos.style.opacity = `${j}`;
                     await this.esperaPorMs(25);
                 }
-                i ++;
-                if(i == 6){
+                i++;
+                if (i == 6) {
                     i = 0;
                 }
             }
-        } 
+        }
 
 
 
     },
 
-    
+
 }).mount("#app")

@@ -39,7 +39,10 @@
                 <a class="nav-link text-light" aria-current="page" href="#aboutUs">QUIENES SOMOS</a>
               </li>
               <li class="nav-item btn1">
-                <a class="nav-link text-light" href="">CONTACTO</a>
+
+
+                <a class="nav-link text-light" href="#contacto">CONTACTO</a>
+
               </li>
               <li>
                 <!-- <a class="navbar-brand ms-3 col-6" href="#">
@@ -77,13 +80,61 @@
                     <a class="nav-link" aria-current="page" href="#aboutUs">QUIENES SOMOS</a>
                   </li>
                   <li class="nav-item btn1">
-                    <a class="nav-link" href="">CONTACTO</a>
+                    <a class="nav-link" href="#contactanos">CONTACTO</a>
                   </li>
                   <li class="nav-item btn1">
                     <a class="nav-link" href="./servicios.html">SERVICIOS</a>
                   </li>
                   <li class="nav-item btn1">
                     <a class="nav-link" href="./productos.html">PRODUCTOS</a>
+                  </li>
+                  <button v-if="!cliente" @click="loginRegistro('login')" type="button" data-bs-target="#modalSign" class="btn z-2 bigger  me-3 mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <img src="./assets/Imagenes/usuario.png" alt="">
+                    ACCEDE COMO CLIENTE
+                  </button>
+                  <div v-if="cliente" class="accordion fuente-poppin  accordion-flush btn  p-2 " id="accordionFlushExample">
+                    <div class="accordion-item">
+                      <h2 class="accordion-header bg-warning w-100 text-center  m-0 p-0">
+                        <button class="accordion-button  bg-warning collapsed  w-100   border-0 p-0 " type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                          <img src="./assets/Imagenes/usuario.png"  class="m-0 p-0 me-2" alt="">
+                          {{cliente.nombre.toUpperCase() + " "+ cliente.apellido.toUpperCase()}} 
+                        </button>
+                      </h2>
+                      <div id="flush-collapseOne" class="accordion-collapse bg-warning collapse" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body  text-bg-warning">
+                          <table class="table">
+                            <tbody >
+                              <tr>
+                                <td class="fuente-poppin columna text-dark" v-cloak><strong>Cuenta</strong> </td>
+                                <td class="fuente-poppin"  v-cloak>{{cliente.cuenta.numeroCuenta}}</td>
+                              </tr>
+                              <tr>
+                                <td class="fuente-poppin columna text-dark"  v-cloak> <strong>Saldo</strong> </td>
+                                <td class="fuente-poppin"  v-cloak>{{saldo.toLocaleString('en-US', {style:"currency", currency:"USD"})}}</td>
+                              </tr>
+                              <tr>
+                                <td class="fuente-poppin columna text-dark"  v-cloak> <strong>Tarjeta</strong> </td>
+                                <td class="fuente-poppin"  v-cloak>{{numTarjeta}}</td>
+                              </tr>
+                              <tr>
+                                <td class="fuente-poppins columna text-dark"  v-cloak> <strong>Direccion</strong> </td>
+                                <td class="fuente-poppin"  v-cloak>{{direccion}}</td>
+                              </tr>
+                              <tr>
+                                <td class=" columna text-dark"  v-cloak> <strong>Telefono</strong></td>
+                                <td class=""  v-cloak>{{telefono}}</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                      
+                    </div>
+                  </div>
+                  <li v-if="cliente" class="nav-item btn1">
+                    <div class="d-flex">
+                      <a href="./index.html" type="submit"  @click="logout()" class="text-decoration-none text-dark d-flex justify-content-center"><img class="img-logout pb-3" src="./assets/Imagenes/logout.png" alt=""><p class="fuente-poppin ps-2"> LOGOUT</p></a>
+                    </div>
                   </li>
                 </ul>    
               </div>
@@ -116,8 +167,7 @@
 
       
       <!--datos cliente-->
-      
-      <div v-if="cliente" class="accordion  border border-dark accordion-flush btn btn-warning position-fixed bottom-0 end-0 me-3 mt-3" id="accordionFlushExample">
+      <div v-if="cliente" class="accordion accordion-cliente border border-dark acceder-boton accordion-flush btn  position-fixed bottom-0 p-2 end-0 me-3 mt-3" id="accordionFlushExample">
         <div class="accordion-item">
           <div id="flush-collapseOne" class="accordion-collapse bg-warning collapse" data-bs-parent="#accordionFlushExample">
             <div class="accordion-body  text-bg-warning">
@@ -125,34 +175,33 @@
                 <tbody >
                   <tr>
                     <td class="fuente-poppin columna text-dark" v-cloak><strong>Cuenta</strong> </td>
-                    <td class="fuente-poppin"  v-cloak>{{cliente.cuenta.numeroCuenta}}</td>
+                    <td class="fuente-poppin text-start"  v-cloak>{{cliente.cuenta.numeroCuenta}}</td>
                   </tr>
                   <tr>
                     <td class="fuente-poppin columna text-dark"  v-cloak> <strong>Saldo</strong> </td>
-                    <td class="fuente-poppin"  v-cloak>{{saldo.toLocaleString('en-US', {style:"currency", currency:"USD"})}}</td>
+                    <td class="fuente-poppin text-start"  v-cloak>{{saldo.toLocaleString('en-US', {style:"currency", currency:"USD"})}}</td>
                   </tr>
                   <tr>
                     <td class="fuente-poppin columna text-dark"  v-cloak> <strong>Tarjeta</strong> </td>
-                    <td class="fuente-poppin"  v-cloak>{{numTarjeta}}</td>
+                    <td class="fuente-poppin text-start"  v-cloak>{{numTarjeta}}</td>
                   </tr>
                   <tr>
                     <td class="fuente-poppins columna text-dark"  v-cloak> <strong>Direccion</strong> </td>
-                    <td class="fuente-poppin"  v-cloak>{{direccion}}</td>
+                    <td class="fuente-poppin text-start"  v-cloak>{{direccion}}</td>
                   </tr>
                   <tr>
                     <td class="fuente-poppin columna text-dark"  v-cloak> <strong>Telefono</strong></td>
-                    <td class="fuente-poppin"  v-cloak>{{telefono}}</td>
+                    <td class="fuente-poppin text-start"  v-cloak>{{telefono}}</td>
                   </tr>
-                  <div>
+                  <div class="d-flex">
                     <a href="./index.html" type="submit"  @click="logout()" class="text-decoration-none d-flex justify-content-center text-dark"><img class="img-logout pb-3" src="./assets/Imagenes/logout.png" alt=""><p class="fuente-poppin ps-2"> <strong>LOGOUT</strong></p></a>
                   </div>
                 </tbody>
               </table>
-
             </div>
           </div>
-          <h2 class="accordion-header m-0 p-0">
-            <button class="accordion-button collapsed fuente-poppin p-0 text-dark bg-warning" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+          <h2 class="accordion-header acceder-boton1 w-100 text-center  m-0 p-0">
+            <button class="accordion-button collapsed acceder-boton1 w-100 text-light fuente-poppin border-0 p-0 " type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
               <img src="./assets/Imagenes/usuario.png"  class="m-0 p-0 me-2" alt="">
               <strong>{{cliente.nombre + " "+ cliente.apellido}} </strong> 
             </button>
@@ -162,7 +211,6 @@
 
 
       <button v-if="!cliente" @click="loginRegistro('login')" type="button" data-bs-target="#modalSign" class="btn btn-warning z-2  acceder-boton  bigger fuente-poppin position-fixed bottom-0 end-0 me-3 mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
-
         <img src="./assets/Imagenes/usuario.png" alt="">
         Accede como cliente
       </button>
@@ -175,7 +223,7 @@
       </div>
 
       <!--  Inicio contenedor ser cliente -->
-      <section class="se-cliente d-flex flex-column justify-content-between align-items-center font1-color my-lg-5 py-5">
+      <section class="se-cliente d-flex flex-column justify-content-between align-items-center font1-color mb-lg-5 py-5">
         <h3 class="fuente-audiowide my-lg-4 text-center">¡Resgistrate como cliente!</h3>
         <div class="w-100 d-flex justify-content-center flex-wrap row">
           <div class="col-10 col-lg-6 d-flex flex-column justify-content-between h-100">
@@ -213,7 +261,7 @@
       <!--  Fin contenedor ser cliente -->
 
       <!--  Inicio contenedor productos -->
-      <div class="d-flex justify-content-evenly productos align-items-center p-lg-3 row">
+      <div class="d-flex justify-content-evenly productos align-items-center mb-lg-5 p-lg-3 row">
         <div class="col-12 col-lg-6 col-xl-4 pt-3">
           <img class="w-100" src="./assets/Imagenes/PNG3.png" alt="logo">
           <p class=" fuente-audiowide texto-intro ">Sabemos que vos solo queres lo mejor de lo mejor para tu vehículo. Es por eso que te brindamos los productos de más alta calidad, de modod que puedas mantener en las mejores condiciones ese automovil que tanto queres...</p>
@@ -250,26 +298,26 @@
             <p class="font1-color"  style="font-family: 'Poppins', sans-serif;" >Tu vehículo merece estar en las mejores manos, con personal altamente capacitado, con los materiales de mejor calidad y a la valocidad que siempre soñaste.
             </p>
             
-            <div class="d-flex flex-md-row flex-column justify-content-between justify-content-md-around align-content-end align-items-md-end mt-4">
-              <div class="d-flex flex-md-column flex-row m-2 justify-content-center align-content-center align-items-center">
+            <div class="d-flex flex-md-row flex-column justify-content-between justify-content-md-around align-content-end align-items-md-end mt-2">
+              <div class="d-flex flex-md-column flex-row m-2 mb-lg-3 justify-content-center align-content-center align-items-center">
                 <h2 class="up-title">LAVADO</h2>
                 <h2 class="down-title">Premium</h2>
               </div>
-              <div class="d-flex flex-md-column flex-row m-2 justify-content-center align-content-center align-items-center">
+              <div class="d-flex flex-md-column flex-row m-2  mb-lg-3 justify-content-center align-content-center align-items-center">
                 <h2 class="up-title">LAVADO</h2>
                 <h2 class="down-title">Básico</h2>
               </div>
-              <div class="d-flex flex-md-column flex-row m-2 justify-content-center align-content-center align-items-center">
+              <div class="d-flex flex-md-column flex-row m-2 mb-lg-3 justify-content-center align-content-center align-items-center">
                 <h2 class="up-title">TRATAMIENTO</h2>
                 <h2 class="down-title">Cerámico</h2>
               </div>
-              <div class="d-flex flex-md-column flex-row m-2 justify-content-center align-content-center align-items-center">
+              <div class="d-flex flex-md-column flex-row m-2 mb-lg-3 justify-content-center align-content-center align-items-center">
                 <h2 class="up-title">TRATAMIENTO</h2>
                 <h2 class="down-title">Acrilico</h2>
               </div>
             </div>
           </div>
-          <div>
+          <div class="d-flex justify-content-end">
             <img src="./assets/Imagenes/servicios.png" class="img-servicio" alt="">
           </div>
         </div>
@@ -279,7 +327,7 @@
       </div>
 
       <!--  Inicio div marcas -->
-      <section class="z-0 d-flex flex-column justify-content-center align-items-center flex-wrap marcas-index my-lg-5 p-2">
+      <section class="z-0 d-flex flex-column justify-content-center align-items-center flex-wrap marcas-index my-lg-4 p-2">
         <h2 class="font2-color fuente-audiowide text-uppercase">Nuestras marcas, satisfacción garantizada</h2>
         <p class="font1-color" style="font-family: 'Poppins', sans-serif;">Utilizamos solo los mejores productos para tu vehículo. Utilizamos marcas avaladas por una larga trayectoria y una intachable reputación.</p>
         <div class="w-100 justify-content-around d-flex align-items-center gap-3">
@@ -292,9 +340,8 @@
       <!--  Fin div marcas -->
 
 
-
       <!--  Inicio carrusel experiencias -->
-      <div class="carrusel-exp d-flex justify-content-center z-0 my-lg-5">
+      <div class="carrusel-exp d-flex justify-content-center z-0 mb-lg-5">
         <div id="carouselExampleSlidesOnly" class="carousel col-lg-10 slide w-100" data-bs-ride="carousel">
           <div class="carousel-inner">
 
@@ -463,7 +510,7 @@
       
     <!--Footer-->
     
-    <footer class="d-lg-flex container-fluid pt-3 pb-3 text-white justify-content-evenly pb-1 mt-5">
+    <footer id="contactanos" class="d-lg-flex container-fluid pt-3 pb-3 text-white justify-content-evenly pb-1 mt-5">
 
       <div class="d-sm-flex col-lg-3 logo-footer align-items-md-center">
         <img class="container-fluid me-lg-3" src="./assets/Imagenes/PNG1.png" alt="logo" >
@@ -472,7 +519,7 @@
       <div class="d-flex flex-md-row flex-column ms-md-5 flex-lg-row ">
       <div class="d-md-flex  justify-content-between align-content-center align-items-center ms-4 col-lg-6 col-md-6">
         <div class="d-md-flex flex-md-column">
-          <h4 class="text-center text-lg-start text-md-start text-warning ">CONTACTANOS</h4>
+          <h4 id="contacto" class="text-center text-lg-start text-md-start text-warning ">CONTACTANOS</h4>
           <div class="contacto container-fluid d-md-flex flex-lg-column p-lg-0 container-fluid justify-content-md-around">
             <div class="text-center d-flex flex-column justify-content-center">
               <p class="contact text-md-start fw-bold"><i class="fa  text-warning fa-envelope-o fa-fw" aria-hidden="true"></i>&nbsp; EMAIL: <a class="link-light link-white-hover  link-contacto text-decoration-none" href="mailto:adstore@boxes.com">adstore@boxes.com</a></p>
@@ -509,7 +556,7 @@
 
     </footer>
     <section class=" d-flex justify-content-center copyright mb-0">
-      <p class="fuente-poppins"><i class="fas align-items-center mt-3 fa-copyright"></i> <strong>&nbsp;2023-Copyright Adstore-Cohorte 41</strong></p>
+      <p class="fuente-poppin"><i class="fas align-items-center mt-3 fa-copyright"></i> <strong>&nbsp;2023-Copyright Adstore-Cohorte 41</strong></p>
     </section>
   </div>
 

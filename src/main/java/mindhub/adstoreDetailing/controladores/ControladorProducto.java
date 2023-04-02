@@ -32,7 +32,7 @@ public class ControladorProducto {
     }
 
     @PatchMapping("/modificar-producto")
-    public ResponseEntity<Object> modificarProducto(@RequestBody ProductoDTO producto) {
+    public ResponseEntity<Object> modificarProducto(@RequestBody(required = false) ProductoDTO producto) {
 
         Optional<Producto> productoAModificar = this.servicioProducto.findById(producto.getId());
 
@@ -60,6 +60,10 @@ public class ControladorProducto {
         if (producto.getStock() >= 0) {
             productoAModificar.get().setStock(producto.getStock());
             modificadosSb.append("stock, ");
+        }
+        if(producto.isActivo()){
+            productoAModificar.get().setActivo(true);
+            modificadosSb.append("producto activo, ");
         }
         modificadosSb.delete(modificadosSb.length() - 2, modificadosSb.length());
         modificadosSb.append(".");
