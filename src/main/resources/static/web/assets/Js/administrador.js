@@ -393,7 +393,7 @@ createApp({
             }).then((result) => {
                 if (result.isConfirmed) {
                     cliente.activo = false;
-                    axios.patch('/api/eliminar-cliente',`email=${cliente.email}`,{headers:{'content-type':'application/x-www-form-urlencoded'}})
+                    axios.patch('/api/modificar-cliente',{id: this.clienteFinal.id,nombre: this.clienteFinal.nombre, apellido: this.clienteFinal.apellido, direccion: this.clienteFinal.direccion, email: this.clienteFinal.email, telefono: this.clienteFinal.telefono})
                     .then(response => {
                         Swal.fire({
                             customClass: 'modal-sweet-alert',
@@ -496,7 +496,83 @@ createApp({
               })
         },
 
+        aactivarCliente(cliente){
+            Swal.fire({
+                customClass: 'modal-sweet-alert',
+                title: 'Por favor confirmar la activación del cliente',
+                text: `Si acepta, el cliente ${cliente.nombre + cliente.apellido} será activado. El cliente volverá acceder a su usario y sus recursos. Si desea cancelar la petición, solo haga clic en el boton 'Cerrar'.`,
+                icon: 'warning',
+                showCancelButton: true,          
+                cancelButtonColor: '#d33',
+                confirmButtonColor: '#f7ba24',
+                cancelButtonText: 'Cerrar',
+                confirmButtonText: 'Aceptar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    cliente.activo = true;
+                    axios.patch('/api/modificar-cliente',{id: this.clienteFinal.id,nombre: this.clienteFinal.nombre, apellido: this.clienteFinal.apellido, direccion: this.clienteFinal.direccion, email: this.clienteFinal.email, telefono: this.clienteFinal.telefono})
+                    .then(response => {
+                        Swal.fire({
+                            customClass: 'modal-sweet-alert',
+                            text: "Cliente activado",
+                            icon: 'success',
+                            confirmButtonText: 'Aceptar'
+                        }).then((result) => {
+                            location.reload(); 
+                        })
+                    })
+                    .catch(err =>{
+                       console.log([err])
+           
+                       Swal.fire({
+                           customClass: 'modal-sweet-alert',
+                           icon: 'error',
+                           title: 'Ups...',
+                           text: err.message.includes('403')? err.response.data: "Ha surgido un error imprevisto.",
+                       })
+                    })
+                }
+              })
+        },
 
+        activarProducto(producto){
+            Swal.fire({
+                customClass: 'modal-sweet-alert',
+                title: 'Por favor confirmar la activación del producto',
+                text: `Si acepta, el producto ${producto.nombre} será activado. El mismo volverá a ser accedido en futuras transacciones. Si desea cancelar la petición, solo haga clic en el boton 'Cerrar'.`,
+                icon: 'warning',
+                showCancelButton: true,          
+                cancelButtonColor: '#d33',
+                confirmButtonColor: '#f7ba24',
+                cancelButtonText: 'Cerrar',
+                confirmButtonText: 'Aceptar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    producto.activo = false;
+                    axios.patch('/api/deshabilitar-producto',`id=${producto.id}`,{headers:{'content-type':'application/x-www-form-urlencoded'}})
+                    .then(response => {
+                        Swal.fire({
+                            customClass: 'modal-sweet-alert',
+                            text: "Producto activado",
+                            icon: 'success',
+                            confirmButtonText: 'Aceptar'
+                        }).then((result) => {
+                            location.reload(); 
+                        })
+                    })
+                    .catch(err =>{
+                       console.log([err])
+           
+                       Swal.fire({
+                           customClass: 'modal-sweet-alert',
+                           icon: 'error',
+                           title: 'Ups...',
+                           text: err.message.includes('403')? err.response.data: "Ha surgido un error imprevisto.",
+                       })
+                    })
+                }
+              })
+        },
 
         renderClientes: function(){
 

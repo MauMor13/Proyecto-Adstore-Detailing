@@ -106,9 +106,10 @@
                                                             <th>Id</th>
                                                             <th>Nombre</th>
                                                             <th>Apellido</th>
+                                                            <th>Activo</th>
                                                             <th>Email</th>
                                                             <th>Modificar</th>
-                                                            <th>Elminar</th>
+                                                            <th>Elminar/Activar</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -116,14 +117,18 @@
                                                             <td>{{cliente.id}}</td>
                                                             <td>{{cliente.nombre}}</td>
                                                             <td>{{cliente.apellido}}</td>
+                                                            <td>{{cliente.activo? 'activo': 'inactivo'}}</td>
                                                             <td>{{cliente.email}}</td>
                                                             <td><i class="fa-sharp fa-solid fa-file-pen icono-modal"
                                                                     style="color: #000000;" data-bs-toggle="modal"
                                                                     data-bs-target="#modalCliente"
                                                                     @click="clienteModif = cliente"></i></td>
-                                                            <td><i class="fa-solid fa-trash-can icono-modal"
+                                                            <td>
+                                                                <i v-if="cliente.activo" class="fa-solid fa-trash-can icono-modal"
                                                                     style="color: #000000;"
-                                                                    @click="borrarCliente(cliente)"></i></td>
+                                                                    @click="borrarCliente(cliente)"></i>
+                                                                <i v-else class="fa-solid fa-plus" style="color: #000000;"  @click="borrarCliente(cliente)"></i>
+                                                            </td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -219,16 +224,18 @@
                                                         <tr class="titulo">
                                                             <th>Id</th>
                                                             <th>Nombre</th>
+                                                            <th>Activo</th>
                                                             <th>Precio</th>
                                                             <th>Stock</th>
                                                             <th>Modificar</th>
-                                                            <th>Elminar</th>
+                                                            <th>Elminar/Activar</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <tr v-for="producto of productosVisibles" class="renglon-info">
                                                             <td>{{producto.id}}</td>
                                                             <td>{{producto.nombre}}</td>
+                                                            <td>{{producto.activo? 'activo': 'inactivo'}}</td>
                                                             <td>{{producto.precio}}</td>
                                                             <td>{{producto.stock}}</td>
                                                             <td><i class="fa-sharp fa-solid fa-file-pen icono-modal"
@@ -333,16 +340,18 @@
                                                         <tr class="titulo">
                                                             <th>Id</th>
                                                             <th>Nombre</th>
+                                                            <th>Activo</th>
                                                             <th>Precio</th>
                                                             <th>Duracion</th>
                                                             <th>Modificar</th>
-                                                            <th>Elminar</th>
+                                                            <th>Elminar/Activar</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <tr v-for="servicio of serviciosVisibles" class="renglon-info">
                                                             <td>{{servicio.id}}</td>
                                                             <td>{{servicio.nombre}}</td>
+                                                            <td>{{servicio.activo? 'activo': 'inactivo'}}</td>
                                                             <td>{{servicio.precio}}</td>
                                                             <td>{{servicio.duracion}}</td>
                                                             <td><i class="fa-sharp fa-solid fa-file-pen icono-modal"
