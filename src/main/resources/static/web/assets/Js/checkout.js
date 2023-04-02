@@ -9,6 +9,7 @@ createApp({
                 productos:[],
                 servicios:[]
             },
+            cuentaCliente:false,
             errorEncontrado: false,
             registrado: false,
             nombre: "",
@@ -27,16 +28,11 @@ createApp({
             sesion: "0",
             nombreCliente:"",
             numcuenta:"",
-            tipopago:"",
             compraProducto:[],
             compraServicio:[],
-            idProducto:undefined,
-            cantidadProducto:"",
-            idServicio:undefined,
-            numTarjetaPago:undefined,
-            cvv:undefined,
-            cuentaCliente:false,
-
+            turnoDeServicio:null,
+            numTarjetaPago:null,
+            cvv:null,
         }
     },
 
@@ -54,9 +50,24 @@ createApp({
 
     mounted(){
         this.compra = JSON.parse(localStorage.getItem("compra"))
+        console.log(this.compra);
     },
 
     methods:{
+        generarCompra(){
+            axios.post("/api/compra", 
+            {
+                "productos": this.compra.productos,
+                "servicios":this.compra.productos,
+                "fechaDelServicio":this.turnoDeServicio,
+                "numeroTarjetaPago": this.numTarjetaPago,
+                "cvv": this.cvv, 
+                "pagarCuentaCliente":this.cuentaCliente
+            })
+            .then(res=>{
+                console.log(res);
+            })
+        },
         logout() {
             axios.post('/api/logout')
                 .then(res => {
@@ -72,14 +83,9 @@ createApp({
         cargarDatosLocalStorage(){
             this.compra = JSON.parse(localStorage.getItem("compra"))
             this.compraProducto= this.compra.productos
-            this.compraServicio= this.compra.servicio
+            this.compraServicio= this.compra.servicios
         },
-        generarCompra(){
-            axios.post("/api/compra", {"productos": {"id": this.idProducto,"cantidad": this.cantidadProducto},
-            "servicios":{"id": this.idServicio},"fechaDelServicio":this.fechaServicio,
-            "numeroTarjetaPago": this.numTarjetaPago, "cvv": this.cvv, "pagarCuentaCliente":this.cuentaCliente})
-            .then()
-        },
+
         
         cargarDatosCliente: function(){
             axios.get('/api/cliente')
@@ -167,11 +173,6 @@ createApp({
                     this.errorEncontrado = true;
                 });
         },
-        
-        verificar(){
-            
-        },
-
 
         loginRegistro: function (value) {
             let form = document.querySelector('.card-3d-wrapper');
