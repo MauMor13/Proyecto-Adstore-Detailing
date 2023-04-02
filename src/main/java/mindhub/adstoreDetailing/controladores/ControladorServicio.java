@@ -55,6 +55,10 @@ public class ControladorServicio {
             servicioAModificar.get().setDuracion(servicio.getDuracion());
             modificadosSb.append("duración, ");
         }
+        if(servicio.isActivo()){
+            servicioAModificar.get().setActivo(true);
+            modificadosSb.append("producto activo, ");
+        }
 
         this.servicioServicio.guardar(servicioAModificar.get());
 

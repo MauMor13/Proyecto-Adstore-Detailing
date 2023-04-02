@@ -61,6 +61,10 @@ public class ControladorProducto {
             productoAModificar.get().setStock(producto.getStock());
             modificadosSb.append("stock, ");
         }
+        if(producto.isActivo()){
+            productoAModificar.get().setActivo(true);
+            modificadosSb.append("producto activo, ");
+        }
         modificadosSb.delete(modificadosSb.length() - 2, modificadosSb.length());
         modificadosSb.append(".");
         String modificaciones = modificadosSb.toString();

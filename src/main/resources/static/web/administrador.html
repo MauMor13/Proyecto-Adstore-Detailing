@@ -127,7 +127,7 @@
                                                                 <i v-if="cliente.activo" class="fa-solid fa-trash-can icono-modal"
                                                                     style="color: #000000;"
                                                                     @click="borrarCliente(cliente)"></i>
-                                                                <i v-else class="fa-solid fa-plus" style="color: #000000;"  @click="borrarCliente(cliente)"></i>
+                                                                <i v-else class="fa-solid fa-plus" style="color: #000000;"  @click="activarCliente(cliente)"></i>
                                                             </td>
                                                         </tr>
                                                     </tbody>
@@ -242,9 +242,13 @@
                                                                     style="color: #000000;" data-bs-toggle="modal"
                                                                     data-bs-target="#modalProducto"
                                                                     @click="productoModif = producto"></i></td>
-                                                            <td><i class="fa-solid fa-trash-can icono-modal"
+                                                            <td>
+                                                                <i v-if="producto.activo" class="fa-solid fa-trash-can icono-modal"
                                                                     style="color: #000000;"
-                                                                    @click="borrarProducto(producto)"></i></td>
+                                                                    @click="borrarProducto(producto)">
+                                                                </i>
+                                                                <i v-else class="fa-solid fa-plus" style="color: #000000;"  @click="activarProducto(producto)"></i>
+                                                            </td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -358,9 +362,12 @@
                                                                     style="color: #000000;" data-bs-toggle="modal"
                                                                     data-bs-target="#modalServicio"
                                                                     @click="servicioModif = servicio"></i></td>
-                                                            <td><i class="fa-solid fa-trash-can icono-modal"
+                                                            <td><i v-if="servicio.activo" class="fa-solid fa-trash-can icono-modal"
                                                                     style="color: #000000;"
-                                                                    @click="borrarServicio(servicio)"></i></td>
+                                                                    @click="borrarServicio(servicio)">
+                                                                </i>
+                                                                <i v-else class="fa-solid fa-plus" style="color: #000000;"  @click="activarServicio(servicio)"></i>
+                                                            </td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
