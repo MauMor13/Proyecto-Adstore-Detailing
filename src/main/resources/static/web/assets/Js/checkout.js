@@ -60,7 +60,7 @@ createApp({
             axios.post("/api/compra", 
             {
                 "productos": this.compra.productos,
-                "servicios":this.compra.productos,
+                "servicios":this.compra.servicios,
                 "fechaDelServicio":this.turnoDeServicio,
                 "numeroTarjetaPago": this.numTarjetaPago,
                 "cvv": this.cvv, 
