@@ -461,7 +461,7 @@ createApp({
             Swal.fire({
                 customClass: 'modal-sweet-alert',
                 title: 'Por favor confirmar la cancelación del servicio',
-                text: `Si acepta, el servicio ${servicios.nombre} será cancelado. El servicio no podrá ser accedido en futuras transacciones. Si desea cancelar la petición, solo haga clic en el boton 'Cerrar'.`,
+                text: `Si acepta, el servicio ${servicio.nombre} será cancelado. El servicio no podrá ser accedido en futuras transacciones. Si desea cancelar la petición, solo haga clic en el boton 'Cerrar'.`,
                 icon: 'warning',
                 showCancelButton: true,          
                 cancelButtonColor: '#d33',
@@ -574,11 +574,11 @@ createApp({
               })
         },
 
-        activarServicio:function(){
+        activarServicio:function(servicio){
             Swal.fire({
                 customClass: 'modal-sweet-alert',
                 title: 'Por favor confirmar la activación del servicio',
-                text: `Si acepta, el servicio ${servicios.nombre} será activado. El servicio volverá a ser accedido en futuras transacciones. Si desea cancelar la petición, solo haga clic en el boton 'Cerrar'.`,
+                text: `Si acepta, el servicio ${servicio.nombre} será activado. El servicio volverá a ser accedido en futuras transacciones. Si desea cancelar la petición, solo haga clic en el boton 'Cerrar'.`,
                 icon: 'warning',
                 showCancelButton: true,          
                 cancelButtonColor: '#d33',
