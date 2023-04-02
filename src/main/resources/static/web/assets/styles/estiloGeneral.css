@@ -313,15 +313,6 @@ footer {
     backface-visibility: hidden;
 }
 
-.flip-card-front {
-    color: black;
-}
-
-.flip-card-back {
-    color: white;
-    transform: rotateY(180deg);
-}
-
 .accordion {
     z-index: 2;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.349);
@@ -749,5 +740,8 @@ tbody {
 
 .table {
     background-color: var(--color3);
-    max-width: 35rem;
+}
+
+.main-checkout{
+    min-height: 60vh;
 }
