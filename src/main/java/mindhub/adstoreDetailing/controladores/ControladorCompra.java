@@ -83,28 +83,33 @@ public class ControladorCompra {
                 }
             }
             if(montoDeCompra > 0){
-                //realizar el pago por tarjeta
-                servicioCompra.conectarHomebanking("http://localhost:8080/api/pay", "number="+realizarCompraDTO.getNumeroTarjetaPago()+"&cvv="+realizarCompraDTO.getCvv()+"&amount="+montoDeCompra+"&description=Pago de compra AD-Store Detailing");
+                try{
+                    //realizar el pago por tarjeta
+                    servicioCompra.conectarHomebanking("http://localhost:8090/api/pay", "number="+realizarCompraDTO.getNumeroTarjetaPago()+"&cvv="+realizarCompraDTO.getCvv()+"&amount="+montoDeCompra+"&description=Pago de compra AD-Store Detailing");
+                    compra.setFecha(LocalDateTime.now());
+                    this.servicioCompra.guardar(compra);
+                    cliente.getCuenta().sumarCompra(compra);
+
+                    if (!realizarCompraDTO.getServicios().isEmpty())
+                        this.servicioCompra.agregarServicios(realizarCompraDTO.getServicios(),compra,realizarCompraDTO.getFechaDelServicio());
+                    if (!realizarCompraDTO.getProductos().isEmpty())
+                        this.servicioCompra.agregarProductos(realizarCompraDTO.getProductos(),compra);
+
+                    compra.setMontoFinal(compra.calcularPrecioTotal());
+
+                    this.emailSenderService.enviarFactura(
+                            "Factura de compra #"+compra.getId()+ " -Adstore",
+                            "Gracias por confiar en nosotros! Adjunta se encuentra su factura.",
+                            authentication.getName(),
+                            compra);
+                    this.servicioCompra.guardar(compra);
+
+                }
+                catch (Exception e){
+                    return new ResponseEntity<>("Error",HttpStatus.FORBIDDEN );
+                }
+
             }
-            compra.setFecha(LocalDateTime.now());
-            this.servicioCompra.guardar(compra);
-            cliente.getCuenta().sumarCompra(compra);
-
-            if (!realizarCompraDTO.getServicios().isEmpty())
-            this.servicioCompra.agregarServicios(realizarCompraDTO.getServicios(),compra,realizarCompraDTO.getFechaDelServicio());
-            if (!realizarCompraDTO.getProductos().isEmpty())
-            this.servicioCompra.agregarProductos(realizarCompraDTO.getProductos(),compra);
-
-            compra.setMontoFinal(compra.calcularPrecioTotal());
-
-            this.emailSenderService.enviarFactura(
-                    "Factura de compra #"+compra.getId()+ " -Adstore",
-                    "Gracias por confiar en nosotros! Adjunta se encuentra su factura.",
-                    authentication.getName(),
-                    compra);
-            this.servicioCompra.guardar(compra);
-
             return new ResponseEntity<>(new CompraDTO(compra),HttpStatus.CREATED );
-
         }
 }

@@ -45,6 +45,8 @@ public class WebAuthorization {
         // if logout is successful, just send a success response *** si el cierre de sesión es exitoso, simplemente envíe una respuesta exitosa
         http.logout().logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler());
 
+        http.cors().disable();
+
         return http.build();
     }
     private void clearAuthenticationAttributes(HttpServletRequest request) {

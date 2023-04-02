@@ -6,6 +6,7 @@ import mindhub.adstoreDetailing.servicios.ServicioTurnoServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,5 +17,11 @@ public class ServicioTurnoServicioImpl implements ServicioTurnoServicio {
     @Override
     public List<TurnoServicioDTO> findAllTurnoServicioDTO() {
         return repositorioTurnoServicio.findAll().stream().map(turnoServicio -> new TurnoServicioDTO(turnoServicio)).collect(Collectors.toList());
+    }
+    @Override
+    public List<LocalDateTime> fechasOcupadas(){
+        return this.repositorioTurnoServicio.findAll().stream()
+                .map(TurnoServicio::getFechaHoraIngreso)
+                .collect(Collectors.toList());
     }
 }
