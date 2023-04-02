@@ -5,7 +5,13 @@ import mindhub.adstoreDetailing.models.*;
 import mindhub.adstoreDetailing.repositorios.*;
 import mindhub.adstoreDetailing.servicios.ServicioCompra;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.RestTemplate;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -66,46 +72,28 @@ public class ServicioCompraImpl implements ServicioCompra {
         repositorioTurnoServicio.save(nuevoTurnoServicio);
     }
     @Override
-    public String conectarHomebanking(String URLobjetivo, String parametros){
-        HttpURLConnection connection = null;
+    public String conectarHomebanking(@RequestParam String number, @RequestParam String cvv, @RequestParam Double amount, @RequestParam String description) {
+        String cuerpoRespuesta;
+        RestTemplate restTemplate = new RestTemplate();
+        HttpHeaders httpHeaders = new HttpHeaders();
+        MultiValueMap<Object, Object> cuerpo = new LinkedMultiValueMap<>();
+        cuerpo.add("number", number);
+        cuerpo.add("cvv", cvv);
+        cuerpo.add("amount", amount);
+        cuerpo.add("description", description);
+        String url = "http://localhost:8090/api/pay";
+        httpHeaders.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        HttpEntity solicitud = new HttpEntity<>(cuerpo, httpHeaders);
         try {
-
-            //Crear conexión
-
-            URL url = new URL(URLobjetivo);
-            connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("POST");
-            connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-            connection.setRequestProperty("Content-Length", Integer.toString(parametros.getBytes().length));
-            connection.setUseCaches(false);
-            connection.setDoOutput(true);
-
-            //Envio de solicitud
-
-            DataOutputStream envio = new DataOutputStream(connection.getOutputStream());
-            envio.writeBytes(parametros);
-            System.out.println(connection);
-            envio.close();
-
-            //Obtener respuesta
-
-            InputStream inputStream = connection.getInputStream();
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-            StringBuffer respuesta = new StringBuffer();
-            String linea;
-            while ((linea = bufferedReader.readLine()) != null){
-                respuesta.append(linea);
-                respuesta.append('\r');
+            ResponseEntity<String> responseEntity = restTemplate.postForEntity(url, solicitud, String.class);
+            if (responseEntity.getStatusCode() == HttpStatus.ACCEPTED) {
+                return cuerpoRespuesta = responseEntity.getBody();
+            } else {
+                return cuerpoRespuesta = "Pago no realizado " + responseEntity.getStatusCode();
             }
-            bufferedReader.close();
-            return respuesta.toString();
-        } catch (Exception exception){
-            exception.printStackTrace();
-            return null;
-        } finally {
-            if (connection != null){{
-                connection.disconnect();
-            }}
+        } catch (HttpClientErrorException.Forbidden e) {
+            return cuerpoRespuesta = "Pago no realizado";
         }
     }
 }
+

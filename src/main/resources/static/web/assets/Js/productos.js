@@ -71,7 +71,10 @@ createApp({
                 })
                 .catch(err => console.error(err.message));
         },
-    
+        obtenerCarrito(){
+            this.compra = JSON.parse(localStorage.getItem("compra"))
+            this.productos = compra.productos
+        },
         cargarDatos: function(){
             axios.get('/api/productos')
                 .then(respuesta => {

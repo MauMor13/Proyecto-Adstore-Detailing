@@ -53,12 +53,7 @@ createApp({
     },
 
     methods:{
-        logout() {
-            axios.post('/api/logout')
-            .then(res =>{
-                window.location.href = "/web/index.html"
-            })
-        },
+        
         cargarDatosCliente: function(){
             axios.get('/api/cliente')
                 .then(respuesta => {
