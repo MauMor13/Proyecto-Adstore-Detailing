@@ -192,7 +192,7 @@
       </div>
 
       <div class="fondo-experiencia w-100 d-flex justify-content-center">
-        <h1 class="fondo-experiencia fuente-audiowide font2-color"> SERVICIOS</h1>
+        <h1 class="me-5 fondo-experiencia fuente-audiowide font2-color"> SERVICIOS</h1>
       </div>
 
 
@@ -279,11 +279,11 @@
                 </div>
             </div>
             <div class="modal-footer">
-              <div v-if="sesion != '1'" class="d-flex justify-content-center align-items-center">{{sesion}}
+              <div v-if="!cliente" class="d-flex justify-content-center align-items-center">{{sesion}}
                 <p class="pe-3 m-0">Para proceder al Pago tiene que registrarse</p>
                 <button class="btn btn-secondary bg-black" data-bs-target="#modalSign" data-bs-toggle="modal">Click aqui!</button>
               </div>
-              <a v-if="sesion == '1'" class="btn btn-secondary bg-black text-decoration-none" href="./checkout.html">Proceder al Pago</a>
+              <a v-if="cliente" class="btn btn-secondary bg-black text-decoration-none" href="./checkout.html">Proceder al Pago</a>
               <button type="button" class="btn btn-secondary bg-black" data-bs-dismiss="modal">Cerrar</button>
             </div>
           </div>
