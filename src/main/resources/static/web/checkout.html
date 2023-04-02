@@ -146,36 +146,44 @@
 
     <main class="main-index d-flex flex-column gap-3 justify-content-center align-items-center">
 
-       <!--datos cliente-->
-      
-       <div v-if="cliente" class="accordion  border border-dark acceder-boton accordion-flush btn  position-fixed bottom-0 p-2 end-0 me-3 mt-3" id="accordionFlushExample">
+      <!--datos cliente-->
+
+      <div v-if="cliente"
+        class="accordion  border border-dark acceder-boton accordion-flush btn  position-fixed bottom-0 p-2 end-0 me-3 mt-3"
+        id="accordionFlushExample">
         <div class="accordion-item">
-          <div id="flush-collapseOne" class="accordion-collapse bg-warning collapse" data-bs-parent="#accordionFlushExample">
+          <div id="flush-collapseOne" class="accordion-collapse bg-warning collapse"
+            data-bs-parent="#accordionFlushExample">
             <div class="accordion-body  text-bg-warning">
               <table class="table">
-                <tbody >
+                <tbody>
                   <tr>
                     <td class="fuente-poppin columna text-dark" v-cloak><strong>Cuenta</strong> </td>
-                    <td class="fuente-poppin"  v-cloak>{{cliente.cuenta.numeroCuenta}}</td>
+                    <td class="fuente-poppin" v-cloak>{{cliente.cuenta.numeroCuenta}}</td>
                   </tr>
                   <tr>
-                    <td class="fuente-poppin columna text-dark"  v-cloak> <strong>Saldo</strong> </td>
-                    <td class="fuente-poppin"  v-cloak>{{saldo.toLocaleString('en-US', {style:"currency", currency:"USD"})}}</td>
+                    <td class="fuente-poppin columna text-dark" v-cloak> <strong>Saldo</strong> </td>
+                    <td class="fuente-poppin" v-cloak>{{saldo.toLocaleString('en-US', {style:"currency",
+                      currency:"USD"})}}</td>
                   </tr>
                   <tr>
-                    <td class="fuente-poppin columna text-dark"  v-cloak> <strong>Tarjeta</strong> </td>
-                    <td class="fuente-poppin"  v-cloak>{{numTarjeta}}</td>
+                    <td class="fuente-poppin columna text-dark" v-cloak> <strong>Tarjeta</strong> </td>
+                    <td class="fuente-poppin" v-cloak>{{numTarjeta}}</td>
                   </tr>
                   <tr>
-                    <td class="fuente-poppins columna text-dark"  v-cloak> <strong>Direccion</strong> </td>
-                    <td class="fuente-poppin"  v-cloak>{{direccion}}</td>
+                    <td class="fuente-poppins columna text-dark" v-cloak> <strong>Direccion</strong> </td>
+                    <td class="fuente-poppin" v-cloak>{{direccion}}</td>
                   </tr>
                   <tr>
-                    <td class="fuente-poppin columna text-dark"  v-cloak> <strong>Telefono</strong></td>
-                    <td class="fuente-poppin"  v-cloak>{{telefono}}</td>
+                    <td class="fuente-poppin columna text-dark" v-cloak> <strong>Telefono</strong></td>
+                    <td class="fuente-poppin" v-cloak>{{telefono}}</td>
                   </tr>
                   <div>
-                    <a href="./index.html" type="submit"  @click="logout()" class="text-decoration-none d-flex justify-content-center text-dark"><img class="img-logout pb-3" src="./assets/Imagenes/logout.png" alt=""><p class="fuente-poppin ps-2"> <strong>LOGOUT</strong></p></a>
+                    <a href="./index.html" type="submit" @click="logout()"
+                      class="text-decoration-none d-flex justify-content-center text-dark"><img class="img-logout pb-3"
+                        src="./assets/Imagenes/logout.png" alt="">
+                      <p class="fuente-poppin ps-2"> <strong>LOGOUT</strong></p>
+                    </a>
                   </div>
                 </tbody>
               </table>
@@ -183,9 +191,11 @@
             </div>
           </div>
           <h2 class="accordion-header acceder-boton1 w-100 text-center  m-0 p-0">
-            <button class="accordion-button collapsed acceder-boton1 w-100 text-light fuente-poppin border-0 p-0 " type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-              <img src="./assets/Imagenes/usuario.png"  class="m-0 p-0 me-2" alt="">
-              <strong>{{cliente.nombre + " "+ cliente.apellido}} </strong> 
+            <button class="accordion-button collapsed acceder-boton1 w-100 text-light fuente-poppin border-0 p-0 "
+              type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false"
+              aria-controls="flush-collapseOne">
+              <img src="./assets/Imagenes/usuario.png" class="m-0 p-0 me-2" alt="">
+              <strong>{{cliente.nombre + " "+ cliente.apellido}} </strong>
             </button>
           </h2>
         </div>
@@ -194,7 +204,7 @@
         <h1 class="fondo-experiencia  fuente-audiowide font2-color"> PAGOS </h1>
       </div>
 
-      <div class="d-flex flex-wrap justify-content-center pago fondo-categorias pt-3 mt-0 w-100" >
+      <div class="d-flex flex-wrap justify-content-center pago fondo-categorias p-3 mt-0 w-100">
         <div class="fuente-poppins d-flex flex-column  align-items-center col-lg-4 flex-wrap">
           <div>
             <div class="d-flex justify-content-center">
@@ -216,56 +226,59 @@
               </table>
             </div>
           </div>
-          <!--inicio card-->  
+          <!--inicio card-->
           <div class="flip-card m-0">
             <div class="flip-card-inner">
-              <div class=" card flip-card-front" >
+              <div class=" card flip-card-front">
                 <div class="d-flex justify-content-between">
-                  <img src="./assets/Imagenes/PNG2.png"class="logo-card" alt="">
+                  <img src="./assets/Imagenes/PNG2.png" class="logo-card" alt="">
                 </div>
                 <div class="d-flex text-light mt-3 flex-column justify-content-start align-items-end">
-                  <p class="me-2">TARJETA  {{numTarjeta}}</p>
+                  <p class="me-2">TARJETA {{numTarjeta}}</p>
                   <p class="me-2">SALDO $ {{(saldo)}}</p>
                 </div>
               </div>
-              <div class=" card flip-card-back" >
+              <div class=" card flip-card-back">
                 <div class="d-flex justify-content-center align-content-center mt-2 align-items-center">
-                  <img src="./assets/Imagenes/codigo-QR.png"class="codigo" alt="">
+                  <img src="./assets/Imagenes/codigo-QR.png" class="codigo" alt="">
                 </div>
               </div>
             </div>
           </div>
-          <!--fin card-->  
-        </div> 
-        <!--formulario de pago--> 
+          <!--fin card-->
+        </div>
+        <!--formulario de pago-->
         <div class="col-lg-4 ">
           <div class="">
             <div>
               <table class="table tabla-checkout">
-                <thead >
+                <thead>
                   <tr>
-                    <th scope="col" class="fuente-audiowide text-warning bg-black text-center" colspan="4"><img src="./assets/Imagenes/carrito.png" class="carrito" alt=""> CARRITO DE COMPRAS</th>
+                    <th scope="col" class="fuente-audiowide text-warning bg-black text-center" colspan="4"><img
+                        src="./assets/Imagenes/carrito.png" class="carrito" alt=""> CARRITO DE COMPRAS</th>
                   </tr>
                   <tr>
-                    <th scope="col" class="fuente-audiowide text-warning bg-black" colspan="2"> Nombre Producto/ Servicio</th>
+                    <th scope="col" class="fuente-audiowide text-warning bg-black" colspan="2"> Nombre Producto/
+                      Servicio</th>
                     <th scope="col" class="fuente-audiowide text-warning bg-black" colspan="1"> Cantidad</th>
                     <th scope="col" class="fuente-audiowide text-warning bg-black" colspan="1"> Valor</th>
                   </tr>
                 </thead>
-                <tbody class="text-light" >
-                  <tr  v-if="productos.length" v-for="compraProd of compraProducto">
+                <tbody class="text-light">
+                  <tr v-if="productos.length" v-for="compraProd of compraProducto">
                     <td colspan="2">{{(productos.find(prod=>prod.id ==compraProd.id )).nombre}} </td>
                     <td class="text-center">{{compraProd.cantidad}} </td>
-                    <td>{{((productos.find(prod=>prod.id ==compraProd.id )).precio).toLocaleString('en-US', {style:"currency", currency:"USD"}) }} </td>
+                    <td>{{((productos.find(prod=>prod.id ==compraProd.id )).precio).toLocaleString('en-US',
+                      {style:"currency", currency:"USD"}) }} </td>
                   </tr>
-
                   <tr v-if="servicios.length" v-for="compraServ of compraServicio">
                     <td colspan="3">{{(servicios.find(serv=>serv.id ==compraServ.id )).nombre}} </td>
-                    <td colspan="3">{{((servicios.find(serv=>serv.id ==compraServ.id )).precio).toLocaleString('en-US', {style:"currency", currency:"USD"}) }} </td>
+                    <td colspan="3">{{((servicios.find(serv=>serv.id ==compraServ.id )).precio).toLocaleString('en-US',
+                      {style:"currency", currency:"USD"}) }} </td>
                   </tr>
                 </tbody>
               </table>
-              <h3 class="text-light">TOTAL A PAGAR:  </h3>
+              <h3 class="text-light">TOTAL A PAGAR: {{compra.total.toLocaleString('es-AR', {style:"currency", currency:"ARS"})}} </h3>
             </div>
           </div>
         </div>
@@ -273,150 +286,169 @@
           <div class="w-75">
             <h5>SELECCIONA TU MEDIO DE PAGO</h5>
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="flexRadioDefault" v-model="cuentaCliente" value="true" id="flexRadioDefault1" checked>
+              <input class="form-check-input" type="radio" name="flexRadioDefault" @click="cuentaCliente = false" 
+                id="flexRadioDefault1" checked>
               <label class="form-check-label" for="flexRadioDefault1">
-                Tarjeta Adstore
+                Tarjeta bancaria
               </label>
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="flexRadioDefault" v-model="cuentaCliente" value="false" id="flexRadioDefault2" >
+              <input class="form-check-input" type="radio" name="flexRadioDefault" @click="cuentaCliente = true" 
+                id="flexRadioDefault2">
               <label class="form-check-label" for="flexRadioDefault2">
-                Cuenta bancaria
+                Cuenta Adstore
               </label>
             </div>
-            <div v-if="compraServicio>0">
-              <input type="date" value="2017-06-01" v-model="" />
-
-            </div>
-            <div v-if="cuentaCliente == false ">
+            <!-- <template v-show="compraServicio>0">
+              <input type="date" value="2017-06-01" v-model="turnoDeServicio" />
+            </template> -->
+            <div v-show="!cuentaCliente">
               <h6 class="mt-2">NUMERO DE CUENTA</h6>
-              <div class="form-trans box-shadow " >
-                <input type="text " placeholder="0000 0000" v-model="numTarjetaPago"  class="form-control" >
+              <div class="form-trans box-shadow ">
+                <input type="text " placeholder="0000 0000" v-model="numTarjetaPago" class="form-control">
               </div>
               <h6 class="mt-2">NUMERO DE CVV</h6>
-              <div class="form-trans box-shadow " >
-                <input type="text " placeholder="cvv" v-model="cvv" class="form-control" >
+              <div class="form-trans box-shadow ">
+                <input type="text " placeholder="cvv" v-model="cvv" class="form-control">
               </div>
-              <form >
-                <button type="button" class="btn boton mt-2 text-bg-warning" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            </div>
+              <div>
+                <button type="button" class="btn boton mt-2 text-bg-warning" data-bs-toggle="modal"
+                  data-bs-target="#staticBackdrop">
                   PAGAR
                 </button>
-            </div>
-            <!-- Modal -->
-              <div class="modal text-dark fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                  <div class="modal-dialog">
-                      <div class="modal-content">
-                          <div class="modal-header">
-                              <h5 class="modal-title" id="staticBackdropLabel">PAGO EN PROCESO</h5>
-                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                          </div>
-                          <div class="modal-body">
-                            ¿ESTÁS SEGURO DE HACER EL PAGO?
-                          </div>
-                          <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CERRAR</button>
-                              <button type="button" class="btn btn-warning " @click="" >PAGAR</button>
-                          </div>
-                      </div>
-                  </div>
               </div>
-          </form>
+            <!-- Modal -->
+            <div class="modal text-dark fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+              tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">PAGO EN PROCESO</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    ¿ESTÁS SEGURO DE HACER EL PAGO?
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CERRAR</button>
+                    <button type="button" class="btn btn-warning " @click="generarCompra">PAGAR</button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-                
-          </div>
-          
         </div>
-
       </div>
       <!-- <button v-if="!cliente" @click="loginRegistro('login')" type="button" data-bs-target="#modalSign" class="btn btn-warning z-2  acceder-boton  bigger fuente-poppin position-fixed bottom-0 end-0 me-3 mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
 
         <img src="./assets/Imagenes/usuario.png" alt="">
         Accede como cliente
-      </button> -->
+      </button>  -->
 
       <!-- Inicio formulario de login-->
       <div div class="modal fade" id="modalSign" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content modal-login">
             <div class="modal-header header-login font2-color">
-                <h2 class="fuente-audiowide text-uppercase">Bienvenido</h2>
-                <button type="button" class="btn-close close-modal" data-bs-dismiss="modal" aria-label="Close"></button>
+              <h2 class="fuente-audiowide text-uppercase">Bienvenido</h2>
+              <button type="button" class="btn-close close-modal" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body d-flex align-items-center justify-content-center flex-column">
               <div class="d-flex align-items-center justify-content-center font2-color">
                 <div class="section mb-3">
-                    <div class="container">
-                        <div class="row full-height justify-content-center">
-                            <div class="col-12 text-center align-self-center">
-                                <div class="section pt-sm-2 text-center">
-                                    <p class="font1-color m-0">Si aún no eres cliente registrate. De lo contrario inicia sesión.</p>
-                                    <div class="d-flex justify-content-evenly w-100 flex-wrap">
-                                      <button @click="loginRegistro('registro')" class="btn btn1 p-2">Ver formulario de Registro</button>
-                                      <button @click="loginRegistro('login')" class="btn btn1 p-2">Ver formulario de inicio de sesión</button> 
+                  <div class="container">
+                    <div class="row full-height justify-content-center">
+                      <div class="col-12 text-center align-self-center">
+                        <div class="section pt-sm-2 text-center">
+                          <p class="font1-color m-0">Si aún no eres cliente registrate. De lo contrario inicia sesión.
+                          </p>
+                          <div class="d-flex justify-content-evenly w-100 flex-wrap">
+                            <button @click="loginRegistro('registro')" class="btn btn1 p-2">Ver formulario de
+                              Registro</button>
+                            <button @click="loginRegistro('login')" class="btn btn1 p-2">Ver formulario de inicio de
+                              sesión</button>
+                          </div>
+                          <div class="card-3d-wrap mx-auto">
+                            <div class="card-3d-wrapper">
+                              <div class="card-frente">
+                                <div class="center-wrap">
+                                  <div class="section text-center">
+                                    <h4 class="mb-2 pb-3 titulo-log-in fuente-audiowide">Inicio de Sesión</h4>
+                                    <div class="form-group form">
+                                      <input type="email" name="logemail" class="form-style" placeholder="Email"
+                                        id="logemail" autocomplete="off" v-model="emailInicioSesion" required>
+                                      <i class="input-icon uil uil-at"></i>
                                     </div>
-                                    <div class="card-3d-wrap mx-auto">
-                                        <div class="card-3d-wrapper">
-                                            <div class="card-frente">
-                                                <div class="center-wrap">
-                                                    <div class="section text-center">
-                                                        <h4 class="mb-2 pb-3 titulo-log-in fuente-audiowide">Inicio de Sesión</h4>
-                                                        <div class="form-group form">
-                                                            <input type="email" name="logemail" class="form-style" placeholder="Email" id="logemail" autocomplete="off" v-model="emailInicioSesion" required>
-                                                            <i class="input-icon uil uil-at"></i>
-                                                        </div>	
-                                                        <div class="form-group mt-2">
-                                                            <input type="password" name="logpass" class="form-style" placeholder="Contraseña" id="logpass" autocomplete="off" v-model="contraInicioSesion" @keyup.enter="loginWithEnter()" required>
-                                                            <i class="input-icon uil uil-lock-alt"></i>
-                                                        </div>
-                                                        <span @click="iniciarSesion()" class="submit btn mt-4 categoria font1-color" data-bs-dismiss="modal">Enviar</span>
-                                                        <p v-if="errorEncontrado" class="mb-0 mt-4 text-center red-color">⋆ El email o la contraseña no son correctos</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div v-if="!registrado" class="card-dorso">
-                                                <div class="center-wrap">
-                                                    <div class="section text-center">
-                                                        <h4 class="mb-2 pb-3 titulo-log-in fuente-audiowide">Registro</h4>
-                                                        <div class="form-group form">
-                                                            <input type="text" name="logfirstname" class="form-style form-style-signup" placeholder="Nombre" id="logfirstname" autocomplete="off" v-model="nombre" required>
-                                                            <i class="input-icon uil uil-user"></i>
-                                                        </div>	
-                                                        <div class="form-group mt-2">
-                                                            <input type="text" name="loglastname" class="form-style form-style-signup" placeholder="Apellido" id="loglastname" autocomplete="off" v-model="apellido" required>
-                                                            <i class="input-icon uil uil-user"></i>
-                                                        </div>	
-                                                        <div class="form-group mt-2">
-                                                            <input type="email" name="logemail" class="form-style form-style-signup" placeholder="Email" id="signmail" autocomplete="off" v-model="email" required>
-                                                            <i class="input-icon uil uil-at"></i>
-                                                        </div>	
-                                                        <div class="form-group mt-2">
-                                                            <input type="password" name="logpass" class="form-style form-style-signup" placeholder="Contraseña" id="signpass" autocomplete="off" v-model="contra" required>
-                                                            <i class="input-icon uil uil-lock-alt"></i>
-                                                        </div>
-                                                        <div class="form-group mt-2">
-                                                          <input type="text" name="logpass" class="form-style form-style-signup" placeholder="Dirección" id="signDirecc" autocomplete="off" v-model="direccion" required>
-                                                          <i class="input-icon uil uil-lock-alt"></i>
-                                                        </div>
-                                                        <div class="form-group mt-2">
-                                                          <input type="text" name="logpass" class="form-style form-style-signup" placeholder="Teléfono" id="signtel" autocomplete="off" v-model="telefono" required>
-                                                          <i class="input-icon uil uil-lock-alt"></i>
-                                                        </div>
-                                                        <p @click="realizarRegistro()" class="submit btn categoria mt-4">Enviar</p>
-                                                        <p v-show="errorEncontrado" class="mb-0 mt-2 text-center red-color mensaje-error-registro"></p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div v-else class="card-dorso d-flex justify-content-center align-items-center">
-                                                <div class="registered-view">
-                                                    <h2 class="font2-color">¡Cliente registrado!</h2>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <div class="form-group mt-2">
+                                      <input type="password" name="logpass" class="form-style" placeholder="Contraseña"
+                                        id="logpass" autocomplete="off" v-model="contraInicioSesion"
+                                        @keyup.enter="loginWithEnter()" required>
+                                      <i class="input-icon uil uil-lock-alt"></i>
                                     </div>
+                                    <span @click="iniciarSesion()" class="submit btn mt-4 categoria font1-color"
+                                      data-bs-dismiss="modal">Enviar</span>
+                                    <p v-if="errorEncontrado" class="mb-0 mt-4 text-center red-color">⋆ El email o la
+                                      contraseña no son correctos</p>
+                                  </div>
                                 </div>
+                              </div>
+                              <div v-if="!registrado" class="card-dorso">
+                                <div class="center-wrap">
+                                  <div class="section text-center">
+                                    <h4 class="mb-2 pb-3 titulo-log-in fuente-audiowide">Registro</h4>
+                                    <div class="form-group form">
+                                      <input type="text" name="logfirstname" class="form-style form-style-signup"
+                                        placeholder="Nombre" id="logfirstname" autocomplete="off" v-model="nombre"
+                                        required>
+                                      <i class="input-icon uil uil-user"></i>
+                                    </div>
+                                    <div class="form-group mt-2">
+                                      <input type="text" name="loglastname" class="form-style form-style-signup"
+                                        placeholder="Apellido" id="loglastname" autocomplete="off" v-model="apellido"
+                                        required>
+                                      <i class="input-icon uil uil-user"></i>
+                                    </div>
+                                    <div class="form-group mt-2">
+                                      <input type="email" name="logemail" class="form-style form-style-signup"
+                                        placeholder="Email" id="signmail" autocomplete="off" v-model="email" required>
+                                      <i class="input-icon uil uil-at"></i>
+                                    </div>
+                                    <div class="form-group mt-2">
+                                      <input type="password" name="logpass" class="form-style form-style-signup"
+                                        placeholder="Contraseña" id="signpass" autocomplete="off" v-model="contra"
+                                        required>
+                                      <i class="input-icon uil uil-lock-alt"></i>
+                                    </div>
+                                    <div class="form-group mt-2">
+                                      <input type="text" name="logpass" class="form-style form-style-signup"
+                                        placeholder="Dirección" id="signDirecc" autocomplete="off" v-model="direccion"
+                                        required>
+                                      <i class="input-icon uil uil-lock-alt"></i>
+                                    </div>
+                                    <div class="form-group mt-2">
+                                      <input type="text" name="logpass" class="form-style form-style-signup"
+                                        placeholder="Teléfono" id="signtel" autocomplete="off" v-model="telefono"
+                                        required>
+                                      <i class="input-icon uil uil-lock-alt"></i>
+                                    </div>
+                                    <p @click="realizarRegistro()" class="submit btn categoria mt-4">Enviar</p>
+                                    <p v-show="errorEncontrado"
+                                      class="mb-0 mt-2 text-center red-color mensaje-error-registro"></p>
+                                  </div>
+                                </div>
+                              </div>
+                              <div v-else class="card-dorso d-flex justify-content-center align-items-center">
+                                <div class="registered-view">
+                                  <h2 class="font2-color">¡Cliente registrado!</h2>
+                                </div>
+                              </div>
                             </div>
+                          </div>
                         </div>
+                      </div>
                     </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -425,9 +457,9 @@
       </div>
       <!-- Fin formulario de login-->
 
-      
-      
-      
+
+
+
     </main>
 
     <!--Footer-->

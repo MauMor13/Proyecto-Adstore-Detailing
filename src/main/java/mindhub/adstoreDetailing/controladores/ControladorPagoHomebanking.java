@@ -1,6 +1,7 @@
 package mindhub.adstoreDetailing.controladores;
 
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.BufferedReader;
@@ -11,11 +12,12 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 @RestController
+@RequestMapping("/api")
 public class ControladorPagoHomebanking {
 
     @PostMapping("/pay")
     public String pago(){
-        return conectarHomebanking("http://localhost:8080/api/pay", "number=5390-8314-4013-8600&cvv=383&amount=5000&description=lautaro");
+        return conectarHomebanking("https://diamond-bank.up.railway.app/api/pay", "number=4639-5566-7856-1398&cvv=410&amount=5000&description=lautaro");
     }
     public static String conectarHomebanking(String URLobjetivo, String parametros){
         HttpURLConnection connection = null;

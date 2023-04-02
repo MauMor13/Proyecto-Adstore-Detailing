@@ -84,7 +84,8 @@ public class ControladorCompra {
             }
             if(montoDeCompra > 0){
                 //realizar el pago por tarjeta
-                servicioCompra.conectarHomebanking("http://localhost:8080/api/pay", "number="+realizarCompraDTO.getNumeroTarjetaPago()+"&cvv="+realizarCompraDTO.getCvv()+"&amount="+montoDeCompra+"&description=Pago de compra AD-Store Detailing");
+               String respuesta =  servicioCompra.conectarHomebanking("https://diamond-bank.up.railway.app/api/pay", "number="+realizarCompraDTO.getNumeroTarjetaPago()+"&cvv="+realizarCompraDTO.getCvv()+"&amount="+montoDeCompra+"&description=Pago de compra AD-Store Detailing");
+                System.out.println(respuesta);
             }
             compra.setFecha(LocalDateTime.now());
             this.servicioCompra.guardar(compra);

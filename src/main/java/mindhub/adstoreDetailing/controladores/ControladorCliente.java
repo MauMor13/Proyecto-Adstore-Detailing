@@ -141,6 +141,10 @@ public class ControladorCliente {
             cliente.get().setTelefono(clienteDTO.getTelefono());
             modificadosSb.append("teléfono, ");
         }
+        if(!clienteDTO.isActivo()){
+            cliente.get().setActivo(false);
+            modificadosSb.append("cliente inactivo, ");
+        }
 
         this.servicioCliente.guardar(cliente.get());
 
