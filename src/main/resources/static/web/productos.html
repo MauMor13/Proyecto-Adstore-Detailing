@@ -86,7 +86,56 @@
                   <li class="nav-item btn1">
                     <a class="nav-link" href="#">PRODUCTOS</a>
                   </li>
-                </ul>
+                  <button v-if="!cliente" @click="loginRegistro('login')" type="button" data-bs-target="#modalSign" class="btn z-2 bigger  me-3 mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <img src="./assets/Imagenes/usuario.png" alt="">
+                    ACCEDE COMO CLIENTE
+                  </button>
+
+                  <div v-if="cliente" class="accordion fuente-poppin  accordion-flush btn  p-2 " id="accordionFlushExample">
+                    <div class="accordion-item">
+                      <h2 class="accordion-header bg-warning w-100 text-center  m-0 p-0">
+                        <button class="accordion-button  bg-warning collapsed  w-100   border-0 p-0 " type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                          <img src="./assets/Imagenes/usuario.png"  class="m-0 p-0 me-2" alt="">
+                          {{cliente.nombre.toUpperCase() + " "+ cliente.apellido.toUpperCase()}} 
+                        </button>
+                      </h2>
+                      <div id="flush-collapseOne" class="accordion-collapse bg-warning collapse" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body  text-bg-warning">
+                          <table class="table">
+                            <tbody >
+                              <tr>
+                                <td class="fuente-poppin columna text-dark" v-cloak><strong>Cuenta</strong> </td>
+                                <td class="fuente-poppin"  v-cloak>{{cliente.cuenta.numeroCuenta}}</td>
+                              </tr>
+                              <tr>
+                                <td class="fuente-poppin columna text-dark"  v-cloak> <strong>Saldo</strong> </td>
+                                <td class="fuente-poppin"  v-cloak>{{saldo.toLocaleString('en-US', {style:"currency", currency:"USD"})}}</td>
+                              </tr>
+                              <tr>
+                                <td class="fuente-poppin columna text-dark"  v-cloak> <strong>Tarjeta</strong> </td>
+                                <td class="fuente-poppin"  v-cloak>{{numTarjeta}}</td>
+                              </tr>
+                              <tr>
+                                <td class="fuente-poppins columna text-dark"  v-cloak> <strong>Direccion</strong> </td>
+                                <td class="fuente-poppin"  v-cloak>{{direccion}}</td>
+                              </tr>
+                              <tr>
+                                <td class=" columna text-dark"  v-cloak> <strong>Telefono</strong></td>
+                                <td class=""  v-cloak>{{telefono}}</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                      
+                    </div>
+                  </div>
+                  <li class="nav-item btn1">
+                    <div class="d-flex">
+                      <a href="./index.html" type="submit"  @click="logout()" class="text-decoration-none text-dark d-flex justify-content-center"><img class="img-logout pb-3" src="./assets/Imagenes/logout.png" alt=""><p class="fuente-poppin ps-2"> LOGOUT</p></a>
+                    </div>
+                  </li>
+                </ul>    
               </div>
             </div>
           </div>
@@ -197,55 +246,44 @@
       <!-- FIN CARRITO -->
 
       <!--datos cliente-->
-
       
-      <div v-if="cliente" class="accordion  border border-dark acceder-boton accordion-flush btn  position-fixed bottom-0 p-2 end-0 me-3 mt-3" id="accordionFlushExample">
-
+      <div v-if="cliente" class="accordion accordion-cliente border border-dark acceder-boton accordion-flush btn  position-fixed bottom-0 p-2 end-0 me-3 mt-3" id="accordionFlushExample">
         <div class="accordion-item">
-          <div id="flush-collapseOne" class="accordion-collapse bg-warning collapse"
-            data-bs-parent="#accordionFlushExample">
+          <div id="flush-collapseOne" class="accordion-collapse bg-warning collapse" data-bs-parent="#accordionFlushExample">
             <div class="accordion-body  text-bg-warning">
               <table class="table">
-                <tbody>
+                <tbody >
                   <tr>
                     <td class="fuente-poppin columna text-dark" v-cloak><strong>Cuenta</strong> </td>
-                    <td class="fuente-poppin" v-cloak>{{cliente.cuenta.numeroCuenta}}</td>
+                    <td class="fuente-poppin text-start"  v-cloak>{{cliente.cuenta.numeroCuenta}}</td>
                   </tr>
                   <tr>
-                    <td class="fuente-poppin columna text-dark" v-cloak> <strong>Saldo</strong> </td>
-                    <td class="fuente-poppin" v-cloak>{{saldo.toLocaleString('en-US', {style:"currency",
-                      currency:"USD"})}}</td>
+                    <td class="fuente-poppin columna text-dark"  v-cloak> <strong>Saldo</strong> </td>
+                    <td class="fuente-poppin text-start"  v-cloak>{{saldo.toLocaleString('en-US', {style:"currency", currency:"USD"})}}</td>
                   </tr>
                   <tr>
-                    <td class="fuente-poppin columna text-dark" v-cloak> <strong>Tarjeta</strong> </td>
-                    <td class="fuente-poppin" v-cloak>{{numTarjeta}}</td>
+                    <td class="fuente-poppin columna text-dark"  v-cloak> <strong>Tarjeta</strong> </td>
+                    <td class="fuente-poppin text-start"  v-cloak>{{numTarjeta}}</td>
                   </tr>
                   <tr>
-                    <td class="fuente-poppins columna text-dark" v-cloak> <strong>Direccion</strong> </td>
-                    <td class="fuente-poppin" v-cloak>{{direccion}}</td>
+                    <td class="fuente-poppins columna text-dark"  v-cloak> <strong>Direccion</strong> </td>
+                    <td class="fuente-poppin text-start"  v-cloak>{{direccion}}</td>
                   </tr>
                   <tr>
-                    <td class="fuente-poppin columna text-dark" v-cloak> <strong>Telefono</strong></td>
-                    <td class="fuente-poppin" v-cloak>{{telefono}}</td>
+                    <td class="fuente-poppin columna text-dark"  v-cloak> <strong>Telefono</strong></td>
+                    <td class="fuente-poppin text-start"  v-cloak>{{telefono}}</td>
                   </tr>
-                  <div>
-                    <a href="./index.html" type="submit" @click="logout()"
-                      class="text-decoration-none d-flex justify-content-center text-dark"><img class="img-logout pb-3"
-                        src="./assets/Imagenes/logout.png" alt="">
-                      <p class="fuente-poppin ps-2"> <strong>LOGOUT</strong></p>
-                    </a>
+                  <div class="d-flex">
+                    <a href="./index.html" type="submit"  @click="logout()" class="text-decoration-none d-flex justify-content-center text-dark"><img class="img-logout pb-3" src="./assets/Imagenes/logout.png" alt=""><p class="fuente-poppin ps-2"> <strong>LOGOUT</strong></p></a>
                   </div>
                 </tbody>
               </table>
-
             </div>
           </div>
-
           <h2 class="accordion-header acceder-boton1 w-100 text-center  m-0 p-0">
             <button class="accordion-button collapsed acceder-boton1 w-100 text-light fuente-poppin border-0 p-0 " type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
               <img src="./assets/Imagenes/usuario.png"  class="m-0 p-0 me-2" alt="">
               <strong>{{cliente.nombre + " "+ cliente.apellido}} </strong> 
-
             </button>
           </h2>
         </div>
@@ -325,9 +363,8 @@
       <button v-if="!cliente" @click="loginRegistro('login')" type="button" data-bs-target="#modalSign"
         class="btn btn-warning z-2  acceder-boton  bigger fuente-poppin position-fixed bottom-0 end-0 me-3 mt-3"
         data-bs-toggle="modal">
-
-      <img src="./assets/Imagenes/usuario.png" alt="">
-      Accede como cliente
+        <img src="./assets/Imagenes/usuario.png" alt="">
+        Accede como cliente
       </button>
       <!-- Inicio formulario de login-->
       <div div class="modal fade" id="modalSign" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
