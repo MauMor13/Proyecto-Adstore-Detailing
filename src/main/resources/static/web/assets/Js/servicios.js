@@ -23,7 +23,7 @@ createApp({
             productos: [],
             servicios: [],
             servicioElegido: undefined,
-            sesion: "0"
+            sesion: "0",
         }
     },
 
@@ -304,6 +304,7 @@ createApp({
                     })
                 })
                 .catch(err => {
+                    console.log(err);
                     Swal.fire({
                         customClass: 'modal-sweet-alert',
                         title: 'Usuario no encontrado',
