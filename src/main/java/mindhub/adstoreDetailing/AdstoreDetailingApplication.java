@@ -115,6 +115,24 @@ public class AdstoreDetailingApplication {
             repositorioTarjetaAd.save(tarjetaCliente1);
             repositorioCliente.save(cliente1);
             repositorioCompra.save(compraCliente1);
+
+            Cliente admin = new Cliente("admin", "admin", "admin", "admin@storage.com", "5555", "5555");
+            admin.setActivo(true);
+            Cuenta cuentaAdmin = new Cuenta(generarNumeroCuenta(repositorioCuenta), 0);
+            TarjetaAd tarjetaAdmin = new TarjetaAd(generarNumeroTarjetaAd(repositorioTarjetaAd));
+            repositorioCuenta.save(cuentaAdmin);
+            repositorioTarjetaAd.save(tarjetaAdmin);
+            repositorioCliente.save(admin);
+            // establecer la relación entre Cliente y Cuenta
+            admin.setCuenta(cuentaAdmin);
+            cuentaAdmin.setCliente(admin);
+
+            // establecer la relación entre Cuenta y TarjetaAd
+            cuentaAdmin.setTarjetaAd(tarjetaAdmin);
+            tarjetaAdmin.setCuenta(cuentaAdmin);
+            repositorioCuenta.save(cuentaAdmin);
+            repositorioTarjetaAd.save(tarjetaAdmin);
+            repositorioCliente.save(admin);
         };
     }
 }

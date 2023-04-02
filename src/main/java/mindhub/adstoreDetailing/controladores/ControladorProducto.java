@@ -32,7 +32,7 @@ public class ControladorProducto {
     }
 
     @PatchMapping("/modificar-producto")
-    public ResponseEntity<Object> modificarProducto(@RequestBody ProductoDTO producto) {
+    public ResponseEntity<Object> modificarProducto(@RequestBody(required = false) ProductoDTO producto) {
 
         Optional<Producto> productoAModificar = this.servicioProducto.findById(producto.getId());
 
