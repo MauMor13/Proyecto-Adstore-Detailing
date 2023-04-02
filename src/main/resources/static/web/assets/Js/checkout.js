@@ -33,6 +33,8 @@ createApp({
             turnoDeServicio:null,
             numTarjetaPago:null,
             cvv:null,
+            opcionPago:"",
+            descontarAdstore:"",
         }
     },
 

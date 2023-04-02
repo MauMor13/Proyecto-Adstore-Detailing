@@ -316,7 +316,6 @@ createApp({
                 });
         },
 
-
         loginRegistro: function (value) {
             let form = document.querySelector('.card-3d-wrapper');
             if (value == 'registro') {
