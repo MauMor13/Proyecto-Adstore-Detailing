@@ -36,7 +36,6 @@
                 <a class="nav-link text-light" aria-current="page" href="./index.html">INICIO</a>
               </li>
               <li class="nav-item btn1">
-
                 <a class="nav-link text-light" href="#contacto">CONTACTO</a>
               </li>
               <li>
@@ -87,6 +86,65 @@
                   <li class="nav-item btn1">
                     <a class="nav-link" href="#">PRODUCTOS</a>
                   </li>
+                  <button v-if="!cliente" @click="loginRegistro('login')" type="button" data-bs-target="#modalSign"
+                    class="btn z-2 bigger  me-3 mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <img src="./assets/Imagenes/usuario.png" alt="">
+                    ACCEDE COMO CLIENTE
+                  </button>
+
+                  <div v-if="cliente" class="accordion fuente-poppin  accordion-flush btn  p-2 "
+                    id="accordionFlushExample">
+                    <div class="accordion-item">
+                      <h2 class="accordion-header bg-warning w-100 text-center  m-0 p-0">
+                        <button class="accordion-button  bg-warning collapsed  w-100   border-0 p-0 " type="button"
+                          data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false"
+                          aria-controls="flush-collapseOne">
+                          <img src="./assets/Imagenes/usuario.png" class="m-0 p-0 me-2" alt="">
+                          {{cliente.nombre.toUpperCase() + " "+ cliente.apellido.toUpperCase()}}
+                        </button>
+                      </h2>
+                      <div id="flush-collapseOne" class="accordion-collapse bg-warning collapse"
+                        data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body  text-bg-warning">
+                          <table class="table">
+                            <tbody>
+                              <tr>
+                                <td class="fuente-poppin columna text-dark" v-cloak><strong>Cuenta</strong> </td>
+                                <td class="fuente-poppin" v-cloak>{{cliente.cuenta.numeroCuenta}}</td>
+                              </tr>
+                              <tr>
+                                <td class="fuente-poppin columna text-dark" v-cloak> <strong>Saldo</strong> </td>
+                                <td class="fuente-poppin" v-cloak>{{saldo.toLocaleString('en-US', {style:"currency",
+                                  currency:"USD"})}}</td>
+                              </tr>
+                              <tr>
+                                <td class="fuente-poppin columna text-dark" v-cloak> <strong>Tarjeta</strong> </td>
+                                <td class="fuente-poppin" v-cloak>{{numTarjeta}}</td>
+                              </tr>
+                              <tr>
+                                <td class="fuente-poppins columna text-dark" v-cloak> <strong>Direccion</strong> </td>
+                                <td class="fuente-poppin" v-cloak>{{direccion}}</td>
+                              </tr>
+                              <tr>
+                                <td class=" columna text-dark" v-cloak> <strong>Telefono</strong></td>
+                                <td class="" v-cloak>{{telefono}}</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                  <li class="nav-item btn1">
+                    <div class="d-flex">
+                      <a href="./index.html" type="submit" @click="logout()"
+                        class="text-decoration-none text-dark d-flex justify-content-center"><img
+                          class="img-logout pb-3" src="./assets/Imagenes/logout.png" alt="">
+                        <p class="fuente-poppin ps-2"> LOGOUT</p>
+                      </a>
+                    </div>
+                  </li>
                 </ul>
               </div>
             </div>
@@ -98,13 +156,13 @@
 
     <main class="main-index d-flex flex-column gap-3 justify-content-center align-items-center">
 
-      <div class="carrito-flotante" data-bs-toggle="modal" data-bs-target="#modalCarrito">
+      <div v-if="compra.productos.length || compra.servicios.length" class="carrito-flotante" data-bs-toggle="modal"
+        data-bs-target="#modalCarrito">
         <img class="inlineDesde768 w-100" src="./assets/Imagenes/carritoRedondo.png" alt="carrito">
-      </div>    
-
+      </div>
       <!-- CARRITO -->
-
-      <div class="modal fade" id="modalCarrito" tabindex="-1" data-bs-backdrop="static" aria-labelledby="modalCliente" aria-hidden="true" style="display: none;">
+      <div class="modal fade" id="modalCarrito" tabindex="-1" data-bs-backdrop="static" aria-labelledby="modalCliente"
+        aria-hidden="true" style="display: none;">
         <div class="modal-dialog modal-lg">
           <div class="modal-content modales-fondo">
             <div class="modal-header">
@@ -113,77 +171,93 @@
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="p-2 form-1">
-                    <table class="text-center w-100" v-if="servicioNombre">
-                      <tbody>
-                        <template v-if="compra.servicios.length > 0 "   > 
-                          <tr>
-                            <th colspan="2" class="text-start">Servicios</th>
-                            <th colspan="1" class="text-start">Valor Unitario</th> 
-                            <th colspan="1" class="text-start">Valor total</th>  
-                          </tr>
-                          <tr v-for="servicio of compra.servicios " class="w-100">
-                            <td class="col-6 text-start"><span class="mx-2">{{(servicioNombre.find(serv=>serv.id ==servicio.id )).nombre}} </span></td>
-                            <td class="col-3">
-                              <i class="fa-solid fa-minus me-2" @click="restarUnidad(servicio.id, 1)" style="color: #000000;"></i>
-                              {{servicio.cantidad}} 
-                              <i class="fa-solid fa-plus ms-2" @click="sumarUnidad(servicio.id, 1)" style="color: #000000;"></i>
-                            </td>
-                            <td class="col-3">{{(servicioNombre.find(serv=>serv.id ==servicio.id )).precio.toLocaleString('en-US', {style:"currency", currency:"USD"})}}</td>
-                            <td class="col-3">{{(((servicioNombre.find(serv=>serv.id ==servicio.id )).precio)*servicio.cantidad).toLocaleString('en-US', {style:"currency", currency:"USD"})}}   </td>
-                          </tr>
-                        </template>
-
-                        <template v-if="compra.productos.length > 0"> 
-                          <tr>
-                            <th colspan="2" class="text-start">Productos</th>
-                            <th colspan="1" class="">Valor Unitario</th> 
-                            <th colspan="1" class="">Valor total </th>  
-                          </tr>
-                          <tr class="w-100" v-for="producto of compra.productos">
-                            <td class="col-5 text-start"><span class="mx-1">{{(productoNombre.find(prod=>prod.id ==producto.id )).nombre}} </span></td>
-                            <td class="col-2">
-                              <i class="fa-solid fa-minus me-2" @click="restarUnidad(producto.id, 1)" style="color: #000000;"></i> 
-                              {{producto.cantidad}} 
-                              <i class="fa-solid fa-plus ms-2" @click="sumarUnidad(producto.id, 1)" style="color: #000000;"></i> 
-                            </td>
-                            <td class="col-2">{{(productoNombre.find(prod=>prod.id ==producto.id )).precio.toLocaleString('en-US', {style:"currency", currency:"USD"})}}</td>
-                            <td class="col-3">{{(((productoNombre.find(prod=>prod.id ==producto.id )).precio)*producto.cantidad).toLocaleString('en-US', {style:"currency", currency:"USD"})}}   </td>
-                          </tr>
-                        </template>
-                      </tbody>
-                      <tfoot>
-                        <tr>
-                          <th colspan="3" class="text-start border-1 border-light">
-                            <span>Total</span>
-                          </th>
-                          <th>
-                            <span class=""> Suma total</span>
-                          </th>
-                          <th class="text-start d-flex justify-content-between w-100 row" colspan="3">
-                          </th>
-                        </tr>
-                        <tr>
-                          <th colspan="2" class="text-start">
-                            <span>
-                             Vaciar carrito
-                            </span>
-                          </th>
-                          
-                          <th colspan="2"> 
-                            <span class=""> <a type="submit" @click="limpiarCarrito" > <img src="./assets/Imagenes/eliminar.png" alt=""></a></span>
-                          </th>
-                          <th class="text-start d-flex justify-content-between w-100 row" colspan="3">
-                          </th>
-                        </tr>
-                      </tfoot>
-                    </table>
-                    
-                </div>
+              <div class="p-2 form-1">
+                <table class="text-center w-100" v-if="servicios">
+                  <tbody>
+                    <template v-if="compra.servicios && compra.servicios.length > 0 ">
+                      <tr>
+                        <th colspan="2" class="text-start">Servicios</th>
+                        <th colspan="1" class="">Valor Unitario</th>
+                        <th colspan="1" class="">Valor total</th>
+                      </tr>
+                      <tr v-if="servicios.length" v-for="servicio of compra.servicios " class="w-100">
+                        <td class="col-6 text-start"><span class="mx-2">{{(servicios.find(serv => serv.id == servicio.id
+                            )).nombre}} </span> </td>
+                        <td class="col-3">
+                          <i class="fa-solid fa-minus me-2" @click="restarUnidadServicio(servicio.id, 1)"
+                            style="color: #000000;"></i>
+                          {{servicio.cantidad}}
+                          <i class="fa-solid fa-plus ms-2" @click="sumarUnidadServicio(servicio.id, 1)"
+                            style="color: #000000;"></i>
+                        </td>
+                        <td class="col-3">{{(servicios.find(serv => serv.id ==
+                          servicio.id)).precio.toLocaleString('es-AR', {style:"currency", currency:"ARS"})}}</td>
+                        <td class="col-3">{{(((servicios.find(serv => serv.id ==
+                          servicio.id)).precio)*servicio.cantidad).toLocaleString('es-AR', {style:"currency",
+                          currency:"ARS"})}}
+                        </td>
+                      </tr>
+                    </template>
+                    <template v-if="compra.productos && compra.productos.length > 0">
+                      <tr>
+                        <th colspan="2" class="text-start">Productos</th>
+                        <th colspan="1" class="">Valor Unitario</th>
+                        <th colspan="1" class="">Valor total </th>
+                      </tr>
+                      <tr v-if="productos.length" class="w-100" v-for="producto of compra.productos">
+                        <td class="col-5 text-start"><span class="mx-1">{{(productos.find(prod=>prod.id
+                            ==producto.id )).nombre}} </span></td>
+                        <td class="col-2">
+                          <i class="fa-solid fa-minus me-2" @click="restarUnidadProducto(producto.id, 1)"
+                            style="color: #000000;"></i>
+                          {{producto.cantidad}}
+                          <i class="fa-solid fa-plus ms-2" @click="sumarUnidadProducto(producto.id, 1)"
+                            style="color: #000000;"></i>
+                        </td>
+                        <td class="col-2">{{(productos.find(prod=>prod.id ==producto.id
+                          )).precio.toLocaleString('es-AR', {style:"currency", currency:"ARS"})}}</td>
+                        <td class="col-3">{{(((productos.find(prod=>prod.id ==producto.id
+                          )).precio)*producto.cantidad).toLocaleString('es-AR', {style:"currency", currency:"ARS"})}}
+                        </td>
+                      </tr>
+                    </template>
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <th colspan="3" class="text-start border-1 border-light">
+                        <span>Total</span>
+                      </th>
+                      <th>
+                        <span class="">{{compra.total.toLocaleString('es-AR', {style:"currency",
+                          currency:"ARS"})}}</span>
+                      </th>
+                      <th class="text-start d-flex justify-content-between w-100 row" colspan="3">
+                      </th>
+                    </tr>
+                    <tr>
+                      <th colspan="3" class="text-start">
+                        <span>
+                          <p>Vaciar carrito</p>
+                        </span>
+                      </th>
+                      <th>
+                        <span class=""> <a type="submit" @click="limpiarCarrito" > <img src="./assets/Imagenes/eliminar.png" alt=""></a></span>
+                      </th>
+                      <th class="text-start d-flex justify-content-between w-100 row" colspan="3">
+                      </th>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
             </div>
             <div class="modal-footer">
-                <a class="btn btn-secondary bg-black text-decoration-none"  href="./checkout.html">Proceder al Pago</a>
-                <button type="button" class="btn btn-secondary bg-black" data-bs-dismiss="modal">Cerrar</button>
+              <div v-if="sesion != '1'" class="d-flex justify-content-center align-items-center">
+                <p class="pe-3 m-0">Para proceder al Pago tiene que registrarse</p>
+                <button class="btn btn-secondary bg-black" data-bs-target="#modalSign" data-bs-toggle="modal">Click aqui!</button>
+              </div>
+              <a v-if="sesion == '1'" class="btn btn-secondary bg-black text-decoration-none"
+                href="./checkout.html">Proceder al Pago</a>
+              <button type="button" class="btn btn-secondary bg-black" data-bs-dismiss="modal">Cerrar</button>
             </div>
           </div>
         </div>
@@ -192,45 +266,54 @@
       <!-- FIN CARRITO -->
 
       <!--datos cliente-->
-      
-      <div v-if="cliente" class="accordion  border border-dark accordion-flush btn btn-warning position-fixed bottom-0 end-0 me-3 mt-3" id="accordionFlushExample">
+
+      <div v-if="cliente"
+        class="accordion accordion-cliente border border-dark acceder-boton accordion-flush btn  position-fixed bottom-0 p-2 end-0 me-3 mt-3"
+        id="accordionFlushExample">
         <div class="accordion-item">
-          <div id="flush-collapseOne" class="accordion-collapse bg-warning collapse" data-bs-parent="#accordionFlushExample">
+          <div id="flush-collapseOne" class="accordion-collapse bg-warning collapse"
+            data-bs-parent="#accordionFlushExample">
             <div class="accordion-body  text-bg-warning">
               <table class="table">
-                <tbody >
+                <tbody>
                   <tr>
                     <td class="fuente-poppin columna text-dark" v-cloak><strong>Cuenta</strong> </td>
-                    <td class="fuente-poppin"  v-cloak>{{cliente.cuenta.numeroCuenta}}</td>
+                    <td class="fuente-poppin text-start" v-cloak>{{cliente.cuenta.numeroCuenta}}</td>
                   </tr>
                   <tr>
-                    <td class="fuente-poppin columna text-dark"  v-cloak> <strong>Saldo</strong> </td>
-                    <td class="fuente-poppin"  v-cloak>{{saldo.toLocaleString('en-US', {style:"currency", currency:"USD"})}}</td>
+                    <td class="fuente-poppin columna text-dark" v-cloak> <strong>Saldo</strong> </td>
+                    <td class="fuente-poppin text-start" v-cloak>{{saldo.toLocaleString('en-US', {style:"currency",
+                      currency:"USD"})}}</td>
                   </tr>
                   <tr>
-                    <td class="fuente-poppin columna text-dark"  v-cloak> <strong>Tarjeta</strong> </td>
-                    <td class="fuente-poppin"  v-cloak>{{numTarjeta}}</td>
+                    <td class="fuente-poppin columna text-dark" v-cloak> <strong>Tarjeta</strong> </td>
+                    <td class="fuente-poppin text-start" v-cloak>{{numTarjeta}}</td>
                   </tr>
                   <tr>
-                    <td class="fuente-poppins columna text-dark"  v-cloak> <strong>Direccion</strong> </td>
-                    <td class="fuente-poppin"  v-cloak>{{direccion}}</td>
+                    <td class="fuente-poppins columna text-dark" v-cloak> <strong>Direccion</strong> </td>
+                    <td class="fuente-poppin text-start" v-cloak>{{direccion}}</td>
                   </tr>
                   <tr>
-                    <td class="fuente-poppin columna text-dark"  v-cloak> <strong>Telefono</strong></td>
-                    <td class="fuente-poppin"  v-cloak>{{telefono}}</td>
+                    <td class="fuente-poppin columna text-dark" v-cloak> <strong>Telefono</strong></td>
+                    <td class="fuente-poppin text-start" v-cloak>{{telefono}}</td>
                   </tr>
-                  <div>
-                    <a href="./index.html" type="submit"  @click="logout()" class="text-decoration-none d-flex justify-content-center text-dark"><img class="img-logout pb-3" src="./assets/Imagenes/logout.png" alt=""><p class="fuente-poppin ps-2"> <strong>LOGOUT</strong></p></a>
+                  <div class="d-flex">
+                    <a href="./index.html" type="submit" @click="logout()"
+                      class="text-decoration-none d-flex justify-content-center text-dark"><img class="img-logout pb-3"
+                        src="./assets/Imagenes/logout.png" alt="">
+                      <p class="fuente-poppin ps-2"> <strong>LOGOUT</strong></p>
+                    </a>
                   </div>
                 </tbody>
               </table>
-
             </div>
           </div>
-          <h2 class="accordion-header m-0 p-0">
-            <button class="accordion-button collapsed fuente-poppin p-0 text-dark bg-warning" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-              <img src="./assets/Imagenes/usuario.png"  class="m-0 p-0 me-2" alt="">
-              <strong>{{cliente.nombre + " "+ cliente.apellido}} </strong> 
+          <h2 class="accordion-header acceder-boton1 w-100 text-center  m-0 p-0">
+            <button class="accordion-button collapsed acceder-boton1 w-100 text-light fuente-poppin border-0 p-0 "
+              type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false"
+              aria-controls="flush-collapseOne">
+              <img src="./assets/Imagenes/usuario.png" class="m-0 p-0 me-2" alt="">
+              <strong>{{cliente.nombre + " "+ cliente.apellido}} </strong>
             </button>
           </h2>
         </div>
@@ -240,51 +323,63 @@
         <h1 class="fondo-experiencia fuente-audiowide font2-color"> PRODUCTOS </h1>
       </div>
 
-      
+
 
       <!--filtro categorias Productos-->
       <div class="filtro-productos fuente-poppins d-flex justify-content-around align-content-center flex-wrap">
-        <div class="d-flex align-content-center flex-wrap align-items-center m-0 my-3 p-0 gap-3 categorias justify-content-center">
-          <div class="check m-3"  id="checkCategory">
+        <div
+          class="d-flex align-content-center flex-wrap align-items-center m-0 my-3 p-0 gap-3 categorias justify-content-center">
+          <div class="check m-3" id="checkCategory">
 
-            <template v-if="categorias"  v-for="categoria of categorias">
-              <input v-model="checked" @change="busquedaCruzada" type="checkbox" class="btn-check" :id="categoria" :value="categoria" autocomplete="off" checked>
+            <template v-if="categorias" v-for="categoria of categorias">
+              <input v-model="checked" @change="busquedaCruzada" type="checkbox" class="btn-check" :id="categoria"
+                :value="categoria" autocomplete="off" checked>
               <label class="btn btn-primary ms-3 me-2" :for="categoria">{{categoria}}</label>
             </template>
 
           </div>
         </div>
         <nav class="navbar d-flex align-items-center">
-            <form class="d-flex justify-content-around align-items-center" role="search">
-              <input class="form-control " type="search" v-model="inputBusqueda" @input="busquedaCruzada" placeholder="Nombre Producto" aria-label="Search">
-              <button class="btn btn-outline-warning ms-2"  type="submit">Buscar</button>
-            </form>
+          <form class="d-flex justify-content-around align-items-center" role="search">
+            <input class="form-control " type="search" v-model="inputBusqueda" @input="busquedaCruzada"
+              placeholder="Nombre Producto" aria-label="Search">
+            <button class="btn btn-outline-warning ms-2" type="submit">Buscar</button>
+          </form>
         </nav>
       </div>
 
-      <div  class="fondo-categorias pb-2  mb-2 d-flex justify-content-evenly flex-wrap">
+      <!-- TARJETAS -->
+
+      <div class="fondo-categorias pb-2  mb-2 d-flex justify-content-evenly flex-wrap">
         <template v-for="(producto, i) in productosFiltrados">
-          <div class="my-3 mx-2 col-10 col-md-5 col-lg-4 col-xl-3 d-flex align-items-center justify-content-between flex-column prod-index py-4 px-2 ">
+          <div
+            class="my-3 mx-2 col-10 col-md-5 col-lg-4 col-xl-3 d-flex align-items-center justify-content-between flex-column prod-index py-4 px-2 ">
             <div class="fondo-producto d-flex justify-content-center align-items-center m-0 p-0 mb-2">
-              <img :src="producto.imagenUrl" :id="producto.id+'Foto'" class="card-img-top m-0 img-producto" alt="producto.nombre">
+              <img :src="producto.imagenUrl" :id="producto.id+'Foto'" class="card-img-top m-0 img-producto"
+                alt="producto.nombre">
             </div>
             <div class="d-flex flex-column align-items-center justify-content-around w-100 flex-wrap">
               <p class="card-text p-0 mx-2 mb-1"><strong>{{producto.nombre.toUpperCase()}} </strong> </p>
               <div class="d-flex align-items-between flex-wrap flex-column my-2">
-                <p class="card-text p-0 mx-2 mb-1"><strong>Precio: </strong>{{producto.precio.toLocaleString('en-US', {style:"currency", currency:"USD"})}}  </p>
-                <p class="p-0 mx-2 mb-0" :class="producto.stock > 5? 'card-text': 'colorRojo'"> <strong>Unidades disponibles:</strong> {{producto.stock}}</p>
-                <p class="p-0 mx-2 mb-0" :class="producto.stock > 5? 'card-text': 'colorRojo'" v-show="!producto.stock"><strong>Sin Stock</strong> </p>
+                <p class="card-text p-0 mx-2 mb-1"><strong>Precio: </strong>{{producto.precio.toLocaleString('es-AR',
+                  {style:"currency", currency:"ARS"})}} </p>
+                <p class="p-0 mx-2 mb-0" :class="producto.stock > 5? 'card-text': 'colorRojo'"> <strong>Unidades
+                    disponibles:</strong> {{producto.stock}}</p>
+                <p class="p-0 mx-2 mb-0" :class="producto.stock > 5? 'card-text': 'colorRojo'" v-show="!producto.stock">
+                  <strong>Sin Stock</strong>
+                </p>
               </div>
             </div>
             <div class="d-flex justify-content-between flex-wrap">
-              <div @click="verDetallesProducto(producto.id)" class="ms-2 d-flex z-1 hover-det"  >
+              <div @click="verDetallesProducto(producto.id)" class="ms-2 d-flex z-1 hover-det">
                 <img class="icono-card-prod" src="./assets/Imagenes/detalle.png" alt="">
                 <button class="card-text btn btn1 p-2" :id="producto.id+'Bot'">Ver detalles</button>
               </div>
 
               <div class="ms-2 d-flex z-1">
                 <img class="icono-card-prod1" src="./assets/Imagenes/carrito1.png" alt="">
-                <button class="card-text btn btn1 p-2" @click="agregarACarrito(producto.id, 1)">Agregar a carrito</button>
+                <button class="card-text btn btn1 p-2" @click="agregarACarrito(producto.id, 1)">Agregar a
+                  carrito</button>
               </div>
             </div>
             <p :id="producto.id+'Desc'" class="prod-comprar">{{producto.descripcion}}</p>
@@ -294,10 +389,11 @@
           </div>
         </template>
 
-      </div> 
+      </div>
 
-      <button v-if="!cliente" @click="loginRegistro('login')" type="button" data-bs-target="#modalSign" class="btn btn-warning z-2  acceder-boton  bigger fuente-poppin position-fixed bottom-0 end-0 me-3 mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
-
+      <button v-if="!cliente" @click="loginRegistro('login')" type="button" data-bs-target="#modalSign"
+        class="btn btn-warning z-2  acceder-boton  bigger fuente-poppin position-fixed bottom-0 end-0 me-3 mt-3"
+        data-bs-toggle="modal">
         <img src="./assets/Imagenes/usuario.png" alt="">
         Accede como cliente
       </button>
@@ -306,84 +402,104 @@
         <div class="modal-dialog">
           <div class="modal-content modal-login">
             <div class="modal-header header-login font2-color">
-                <h2 class="fuente-audiowide text-uppercase">Bienvenido</h2>
-                <button type="button" class="btn-close close-modal" data-bs-dismiss="modal" aria-label="Close"></button>
+              <h2 class="fuente-audiowide text-uppercase">Bienvenido</h2>
+              <button type="button" class="btn-close close-modal" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body d-flex align-items-center justify-content-center flex-column">
               <div class="d-flex align-items-center justify-content-center font2-color">
                 <div class="section mb-3">
-                    <div class="container">
-                        <div class="row full-height justify-content-center">
-                            <div class="col-12 text-center align-self-center">
-                                <div class="section pt-sm-2 text-center">
-                                    <p class="font1-color m-0">Si aún no eres cliente registrate. De lo contrario inicia sesión.</p>
-                                    <div class="d-flex justify-content-evenly w-100 flex-wrap">
-                                      <button @click="loginRegistro('registro')" class="btn btn1 p-2">Ver formulario de Registro</button>
-                                      <button @click="loginRegistro('login')" class="btn btn1 p-2">Ver formulario de inicio de sesión</button> 
+                  <div class="container">
+                    <div class="row full-height justify-content-center">
+                      <div class="col-12 text-center align-self-center">
+                        <div class="section pt-sm-2 text-center">
+                          <p class="font1-color m-0">Si aún no eres cliente registrate. De lo contrario inicia sesión.
+                          </p>
+                          <div class="d-flex justify-content-evenly w-100 flex-wrap">
+                            <button @click="loginRegistro('registro')" class="btn btn1 p-2">Ver formulario de
+                              Registro</button>
+                            <button @click="loginRegistro('login')" class="btn btn1 p-2">Ver formulario de inicio de
+                              sesión</button>
+                          </div>
+                          <div class="card-3d-wrap mx-auto">
+                            <div class="card-3d-wrapper">
+                              <div class="card-frente">
+                                <div class="center-wrap">
+                                  <div class="section text-center">
+                                    <h4 class="mb-2 pb-3 titulo-log-in fuente-audiowide">Inicio de Sesión</h4>
+                                    <div class="form-group form">
+                                      <input type="email" name="logemail" class="form-style" placeholder="Email"
+                                        id="logemail" autocomplete="off" v-model="emailInicioSesion" required>
+                                      <i class="input-icon uil uil-at"></i>
                                     </div>
-                                    <div class="card-3d-wrap mx-auto">
-                                        <div class="card-3d-wrapper">
-                                            <div class="card-frente">
-                                                <div class="center-wrap">
-                                                    <div class="section text-center">
-                                                        <h4 class="mb-2 pb-3 titulo-log-in fuente-audiowide">Inicio de Sesión</h4>
-                                                        <div class="form-group form">
-                                                            <input type="email" name="logemail" class="form-style" placeholder="Email" id="logemail" autocomplete="off" v-model="emailInicioSesion" required>
-                                                            <i class="input-icon uil uil-at"></i>
-                                                        </div>	
-                                                        <div class="form-group mt-2">
-                                                            <input type="password" name="logpass" class="form-style" placeholder="Contraseña" id="logpass" autocomplete="off" v-model="contraInicioSesion" @keyup.enter="loginWithEnter()" required>
-                                                            <i class="input-icon uil uil-lock-alt"></i>
-                                                        </div>
-                                                        <span @click="iniciarSesion()" class="submit btn mt-4 categoria font1-color" data-bs-dismiss="modal">Enviar</span>
-                                                        <p v-if="errorEncontrado" class="mb-0 mt-4 text-center red-color">⋆ El email o la contraseña no son correctos</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div v-if="!registrado" class="card-dorso">
-                                                <div class="center-wrap">
-                                                    <div class="section text-center">
-                                                        <h4 class="mb-2 pb-3 titulo-log-in fuente-audiowide">Registro</h4>
-                                                        <div class="form-group form">
-                                                            <input type="text" name="logfirstname" class="form-style form-style-signup" placeholder="Nombre" id="logfirstname" autocomplete="off" v-model="nombre" required>
-                                                            <i class="input-icon uil uil-user"></i>
-                                                        </div>	
-                                                        <div class="form-group mt-2">
-                                                            <input type="text" name="loglastname" class="form-style form-style-signup" placeholder="Apellido" id="loglastname" autocomplete="off" v-model="apellido" required>
-                                                            <i class="input-icon uil uil-user"></i>
-                                                        </div>	
-                                                        <div class="form-group mt-2">
-                                                            <input type="email" name="logemail" class="form-style form-style-signup" placeholder="Email" id="signmail" autocomplete="off" v-model="email" required>
-                                                            <i class="input-icon uil uil-at"></i>
-                                                        </div>	
-                                                        <div class="form-group mt-2">
-                                                            <input type="password" name="logpass" class="form-style form-style-signup" placeholder="Contraseña" id="signpass" autocomplete="off" v-model="contra" required>
-                                                            <i class="input-icon uil uil-lock-alt"></i>
-                                                        </div>
-                                                        <div class="form-group mt-2">
-                                                          <input type="text" name="logpass" class="form-style form-style-signup" placeholder="Dirección" id="signDirecc" autocomplete="off" v-model="direccion" required>
-                                                          <i class="input-icon uil uil-lock-alt"></i>
-                                                        </div>
-                                                        <div class="form-group mt-2">
-                                                          <input type="text" name="logpass" class="form-style form-style-signup" placeholder="Teléfono" id="signtel" autocomplete="off" v-model="telefono" required>
-                                                          <i class="input-icon uil uil-lock-alt"></i>
-                                                        </div>
-                                                        <p @click="realizarRegistro()" class="submit btn categoria mt-4">Enviar</p>
-                                                        <p v-show="errorEncontrado" class="mb-0 mt-2 text-center red-color mensaje-error-registro"></p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div v-else class="card-dorso d-flex justify-content-center align-items-center">
-                                                <div class="registered-view">
-                                                    <h2 class="font2-color">¡Cliente registrado!</h2>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <div class="form-group mt-2">
+                                      <input type="password" name="logpass" class="form-style" placeholder="Contraseña"
+                                        id="logpass" autocomplete="off" v-model="contraInicioSesion"
+                                        @keyup.enter="loginWithEnter()" required>
+                                      <i class="input-icon uil uil-lock-alt"></i>
                                     </div>
+                                    <span @click="iniciarSesion()" class="submit btn mt-4 categoria font1-color"
+                                      data-bs-dismiss="modal">Enviar</span>
+                                    <p v-if="errorEncontrado" class="mb-0 mt-4 text-center red-color">⋆ El email o la
+                                      contraseña no son correctos</p>
+                                  </div>
                                 </div>
+                              </div>
+                              <div v-if="!registrado" class="card-dorso">
+                                <div class="center-wrap">
+                                  <div class="section text-center">
+                                    <h4 class="mb-2 pb-3 titulo-log-in fuente-audiowide">Registro</h4>
+                                    <div class="form-group form">
+                                      <input type="text" name="logfirstname" class="form-style form-style-signup"
+                                        placeholder="Nombre" id="logfirstname" autocomplete="off" v-model="nombre"
+                                        required>
+                                      <i class="input-icon uil uil-user"></i>
+                                    </div>
+                                    <div class="form-group mt-2">
+                                      <input type="text" name="loglastname" class="form-style form-style-signup"
+                                        placeholder="Apellido" id="loglastname" autocomplete="off" v-model="apellido"
+                                        required>
+                                      <i class="input-icon uil uil-user"></i>
+                                    </div>
+                                    <div class="form-group mt-2">
+                                      <input type="email" name="logemail" class="form-style form-style-signup"
+                                        placeholder="Email" id="signmail" autocomplete="off" v-model="email" required>
+                                      <i class="input-icon uil uil-at"></i>
+                                    </div>
+                                    <div class="form-group mt-2">
+                                      <input type="password" name="logpass" class="form-style form-style-signup"
+                                        placeholder="Contraseña" id="signpass" autocomplete="off" v-model="contra"
+                                        required>
+                                      <i class="input-icon uil uil-lock-alt"></i>
+                                    </div>
+                                    <div class="form-group mt-2">
+                                      <input type="text" name="logpass" class="form-style form-style-signup"
+                                        placeholder="Dirección" id="signDirecc" autocomplete="off" v-model="direccion"
+                                        required>
+                                      <i class="input-icon uil uil-lock-alt"></i>
+                                    </div>
+                                    <div class="form-group mt-2">
+                                      <input type="text" name="logpass" class="form-style form-style-signup"
+                                        placeholder="Teléfono" id="signtel" autocomplete="off" v-model="telefono"
+                                        required>
+                                      <i class="input-icon uil uil-lock-alt"></i>
+                                    </div>
+                                    <p @click="realizarRegistro()" class="submit btn categoria mt-4">Enviar</p>
+                                    <p v-show="errorEncontrado"
+                                      class="mb-0 mt-2 text-center red-color mensaje-error-registro"></p>
+                                  </div>
+                                </div>
+                              </div>
+                              <div v-else class="card-dorso d-flex justify-content-center align-items-center">
+                                <div class="registered-view">
+                                  <h2 class="font2-color">¡Cliente registrado!</h2>
+                                </div>
+                              </div>
                             </div>
+                          </div>
                         </div>
+                      </div>
                     </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -392,9 +508,6 @@
       </div>
       <!-- Fin formulario de login-->
 
-      
-      {{compra}}    
-      </div>     
     </main>
 
     <!--Footer-->

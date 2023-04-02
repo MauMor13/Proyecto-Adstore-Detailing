@@ -95,5 +95,49 @@ public class ServicioCompraImpl implements ServicioCompra {
             return cuerpoRespuesta = "Pago no realizado";
         }
     }
+//    @Override
+//    public String conectarHomebanking(String URLobjetivo, String parametros) {
+//        HttpURLConnection connection = null;
+//        try {
+//            // Crear conexión
+//            URL url = new URL(URLobjetivo);
+//            connection = (HttpURLConnection) url.openConnection();
+//            connection.setRequestMethod("POST");
+//            connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+//            connection.setRequestProperty("Content-Length", Integer.toString(parametros.getBytes().length));
+//            connection.setUseCaches(false);
+//            connection.setDoOutput(true);
+//
+//            // Envío de solicitud
+//            DataOutputStream envio = new DataOutputStream(connection.getOutputStream());
+//            envio.writeBytes(parametros);
+//            envio.close();
+//
+//            // Obtener respuesta
+//            int codigoRespuesta = connection.getResponseCode();
+//            InputStream inputStream;
+//            if (codigoRespuesta >= 200 && codigoRespuesta <= 299) {
+//                inputStream = connection.getInputStream();
+//            } else {
+//                inputStream = connection.getErrorStream();
+//            }
+//            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+//            StringBuffer respuesta = new StringBuffer();
+//            String linea;
+//            while ((linea = bufferedReader.readLine()) != null){
+//                respuesta.append(linea);
+//                respuesta.append('\r');
+//            }
+//            bufferedReader.close();
+//            return respuesta.toString();
+//        } catch (Exception exception){
+//            exception.printStackTrace();
+//            return null;
+//        } finally {
+//            if (connection != null){{
+//                connection.disconnect();}
+//            }
+//        }
+//    }
 }
 

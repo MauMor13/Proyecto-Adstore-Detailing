@@ -4,16 +4,12 @@ createApp({
     data(){
         return{
             cliente: undefined,
-            categorias: [],
             productos: [],
-            productosFiltrados: [],
-            checked:[],
-            inputBusqueda:"",
             compra:{
                 productos:[],
                 servicios:[]
             },
-            cantidad:[],
+            cuentaCliente:false,
             errorEncontrado: false,
             registrado: false,
             nombre: "",
@@ -28,11 +24,17 @@ createApp({
             contraInicioSesion: undefined,
             productos:[],
             servicios:[],
-            productosNombre:"",
-            servicioNombre:"",
             servicio:"",
-            sesion: "0"
-
+            sesion: "0",
+            nombreCliente:"",
+            numcuenta:"",
+            compraProducto:[],
+            compraServicio:[],
+            turnoDeServicio:null,
+            numTarjetaPago:null,
+            cvv:null,
+            opcionPago:"",
+            descontarAdstore:"",
         }
     },
 
@@ -42,27 +44,62 @@ createApp({
         if(this.sesion == "1"){
             this.cargarDatosCliente()
         }
-        this.guardarLocalStorage()
         this.cargarDatos()
         this.cargarDatosServicios()
+        this.cargarDatosLocalStorage()
 
     },
 
     mounted(){
         this.compra = JSON.parse(localStorage.getItem("compra"))
+        console.log(this.compra);
     },
 
     methods:{
+        generarCompra(){
+            axios.post("/api/compra", 
+            {
+                "productos": this.compra.productos,
+                "servicios":this.compra.servicios,
+                "fechaDelServicio":this.turnoDeServicio,
+                "numeroTarjetaPago": this.numTarjetaPago,
+                "cvv": this.cvv, 
+                "pagarCuentaCliente":this.cuentaCliente
+            })
+            .then(res=>{
+                console.log(res);
+            })
+        },
+        logout() {
+            axios.post('/api/logout')
+                .then(res => {
+                    this.sesion = JSON.stringify(localStorage.getItem("sesion"))
+                    this.sesion = "0"
+                    localStorage.setItem("sesion", this.sesion)
+                    window.location.reload
+                    window.location.href = "/web/index.html"
+                })
+                .catch(err => console.error(err.message));
+        },
+
+        cargarDatosLocalStorage(){
+            this.compra = JSON.parse(localStorage.getItem("compra"))
+            this.compraProducto= this.compra.productos
+            this.compraServicio= this.compra.servicios
+        },
+
         
         cargarDatosCliente: function(){
             axios.get('/api/cliente')
                 .then(respuesta => {
                     this.cliente = respuesta.data;
-                    console.log(this.cliente)
                     this.direccion = this.cliente.direccion
                     this.telefono = this.cliente.telefono
                     this.numTarjeta = this.cliente.cuenta.tarjetaAd.numeroTarjeta
                     this.saldo = this.cliente.cuenta.saldo
+                    this.nombreCliente= this.cliente.nombre + " "+this.cliente.apellido 
+                    this.numcuenta =this.cliente.cuenta.numeroCuenta 
+                    console.log(this.nombreCliente + this.numcuenta )
                 })
                 .catch(err => console.error(err.message));
         },
@@ -71,9 +108,8 @@ createApp({
             axios.get('/api/productos')
                 .then(respuesta => {
                     this.productos = respuesta.data.map(producto => ({... producto}));
-                    this.productoNombre=this.productos.filter(producto => producto.nombre)
-                    this.productosFiltrados = respuesta.data;
-                    this.categorias =[... new Set(this.productos.map(producto => producto.categoria))];
+                    this.idServicio= (this.servicios.find(serv=>serv.id ==compraServicio.map(servicio=>servicio.id))).id
+                    this.idProducto= (this.productos.find(prod=>prod.id ==compraProducto.map(producto =>producto.id))).id
                 })
         },
         cargarDatosServicios: function(){
@@ -139,19 +175,6 @@ createApp({
                     this.errorEncontrado = true;
                 });
         },
-        logOut(){
-            axios.post('/api/logout')
-            .then(() => {
-                this.sesion = JSON.stringify(localStorage.getItem("sesion"))
-                this.sesion = "0"
-                localStorage.setItem("sesion", this.sesion)
-                window.location.reload
-            })
-        },
-        verificar(){
-            
-        },
-
 
         loginRegistro: function (value) {
             let form = document.querySelector('.card-3d-wrapper');
