@@ -1,0 +1,810 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="shortcut icon" href="./assets/Imagenes/FAVICON.png" type="image/x-icon">
+    <title>Vista Administrador | ADSTORE </title>
+    <script src="https://kit.fontawesome.com/e7963be4ed.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Work+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/styles/estiloGeneral.css">
+    <link rel="stylesheet" href="./assets/styles/estiloAdministrador.css">
+</head>
+
+<body>
+
+    <div id="app" v-cloak>
+        <header>
+            <!-- HEADER MOBILE -->
+            <section class="justify-content-around align-items-center bg-black d-flex flex-wrap w-100">
+                <img src="./assets/Imagenes/PNG1.png" alt="logoNombre" class="icono-header">
+                <h1 class="font1-color">Panel Administrador</h1>
+                <img src="./assets/Imagenes/PNG8.png" alt="logo" class="icono-header inlineDesde768">
+            </section>
+
+        </header>
+
+        <main class="main-index d-flex flex-column gap-3 justify-content-start align-items-center">
+            <!--datos cliente-->
+            <div class="fondoProductos datos-cliente d-flex justify-content-center ">
+                <div v-if="cliente">
+                    <p>Datos cliente</p>
+                </div>
+
+            </div>
+
+            <div class="fondo-experiencia w-100 d-flex justify-content-center">
+                <h2 class="fondo-experiencia fuente-audiowide font2-color"> Panel Principal </h2>
+            </div>
+
+            <div id="accordionExample"
+                class="accordion fondo-amarillo d-flex justify-content-between align-items-center flex-wrap">
+                <div class="d-flex justify-content-center align-items-center flex-column accordion-header">
+                    <h3 class="font1-color">Clientes</h3>
+                    <input value="clientes" @click="renderClientes()" type="checkbox" class="btn-check"
+                        id="check-clientes" autocomplete="off" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                        aria-expanded="true" aria-controls="collapseOne" checked>
+                    <label class="btn btn-primary" for="check-clientes">Administrar Clientes</label>
+                </div>
+
+                <div class="d-flex justify-content-center align-items-center flex-column accordion-header">
+                    <h3 class="font1-color">Productos</h3>
+                    <input value="productos" @click="renderProductos()" type="checkbox" class="btn-check"
+                        id="check-productos" autocomplete="off" data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+                        aria-expanded="true" aria-controls="collapseTwo" checked>
+                    <label class="btn btn-primary" for="check-productos">Administrar Productos</label>
+                </div>
+
+                <div class="d-flex justify-content-center align-items-center flex-column accordion-header">
+                    <h3 class="font1-color">Servicios</h3>
+                    <input value="servicios" @click="renderServicios()" type="checkbox" class="btn-check"
+                        id="check-lavado" autocomplete="off" data-bs-toggle="collapse" data-bs-target="#collapseThree"
+                        aria-expanded="true" aria-controls="collapseThree" checked>
+                    <label class="btn btn-primary" for="check-lavado">Administrar Servicios</label>
+                </div>
+            </div>
+            <div class="w-100 d-flex justify-content-center flex-wrap">
+                <!-- TABLAS -->
+                <div id="collapseOne" class="accordion-collapse collapse show w-100 mb-4"
+                    data-bs-parent="#accordionExample">
+                    <div class="accordion-body d-flex justify-content-center">
+                        <div class="d-flex justify-content-between align-items-start tree-and-loan"
+                            v-if="clientes.length">
+                            <div class="container table-loan">
+                                <div class="row d-flex justify-content-center">
+                                    <div class="col-12">
+                                        <div class="panel">
+                                            <div class="panel-encabezado">
+                                                <div class="row d-flex justify-content-center p-3">
+                                                    <div class="col col-sm-6 col-xs-12">
+                                                        <h4 class="title">Clientes <span>activos</span></h4>
+                                                    </div>
+                                                    <div class="col-sm-6 col-xs-12">
+                                                        <div class="btn_group">
+                                                            <!-- <button class="btn btn-default" data-bs-toggle="modal"
+                                                                data-bs-target="#modalNuevoCliente">Crear
+                                                                Cliente</button> -->
+                                                        </div>
+                                                    </div>
+                                                    <!-- <div class="col-sm-9 col-xs-12 text-end">
+                                                <div class="btn_group">
+                                                    <button class="btn btn-default" title="Pdf"><i class="fa fa-file-pdf fa-lg"></i></button>
+                                                </div>
+                                            </div> -->
+                                                </div>
+                                            </div>
+                                            <div class="panel-cuerpo table-responsive">
+                                                <table class="table" v-if="clientesVisibles && clientesVisibles.length">
+                                                    <thead>
+                                                        <tr class="titulo">
+                                                            <th>Id</th>
+                                                            <th>Nombre</th>
+                                                            <th>Apellido</th>
+                                                            <th>Activo</th>
+                                                            <th>Email</th>
+                                                            <th>Modificar</th>
+                                                            <th>Elminar/Activar</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr v-for="cliente of clientesVisibles" class="renglon-info">
+                                                            <td>{{cliente.id}}</td>
+                                                            <td>{{cliente.nombre}}</td>
+                                                            <td>{{cliente.apellido}}</td>
+                                                            <td>{{cliente.activo? 'activo': 'inactivo'}}</td>
+                                                            <td>{{cliente.email}}</td>
+                                                            <td><i class="fa-sharp fa-solid fa-file-pen icono-modal"
+                                                                    style="color: #000000;" data-bs-toggle="modal"
+                                                                    data-bs-target="#modalCliente"
+                                                                    @click="clienteModif = cliente"></i></td>
+                                                            <td>
+                                                                <i v-if="cliente.activo" class="fa-solid fa-trash-can icono-modal"
+                                                                    style="color: #000000;"
+                                                                    @click="borrarCliente(cliente)"></i>
+                                                                <i v-else class="fa-solid fa-plus" style="color: #000000;"  @click="activarCliente(cliente)"></i>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <div v-else class="d-flex align-items-center">
+                                                    <h2 class="w-75">Actualmente no hay clientes para mostrar.</h2>
+                                                </div>
+                                            </div>
+                                            <div class="panel-footer">
+                                                <div class="row">
+                                                    <div class="col-6 col-sm-6 col-xs-6 float-start">
+                                                        <span class="float-start">mostrando {{paginaNumeroCli}} de
+                                                            {{totalPaginasCli}} páginas</span>
+                                                    </div>
+                                                    <div class="col-6 col-sm-6 col-xs-6 float-end">
+                                                        <div class="flex-column align-items-end flexDesde768">
+                                                            <div
+                                                                class="d-flex justify-content-end align-items-center page-transactions">
+                                                                <i v-if="paginaNumeroCli > 1"
+                                                                    @click="cambiarPaginaCli(-1)"
+                                                                    class="fa-solid fa-chevron-left fa-white me-2 chevron-page-transaction"></i>
+                                                                <i v-else
+                                                                    class="fa-solid fa-chevron-left fa-grey me-2"></i>
+                                                                <ul class="pagination">
+                                                                    <template v-for="numero of numPaginasVisibleCli">
+                                                                        <li :class="paginaNumeroCli == numero? 'active': 'disabled'"
+                                                                            @click="irAPaginaCli(numero)"><a
+                                                                                href="#collapseOne">{{numero}}</a></li>
+                                                                    </template>
+                                                                </ul>
+                                                                <i v-if="totalPaginasCli > paginaNumeroCli"
+                                                                    @click="cambiarPaginaCli(1)"
+                                                                    class="fa-solid fa-chevron-right fa-white ms-2 chevron-page-transaction"></i>
+                                                                <i v-else
+                                                                    class="fa-solid fa-chevron-right fa-grey ms-2"></i>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="align-items-end justify-content-end flexHasta768">
+                                                            <i v-if="paginaNumeroCli > 1" @click="cambiarPaginaCli(-1)"
+                                                                class="fa-solid fa-chevron-left fa-white me-2 chevron-page-transaction"></i>
+                                                            <i v-else class="fa-solid fa-chevron-left fa-grey me-2"></i>
+
+                                                            <i v-if="totalPaginasCli > paginaNumeroCli"
+                                                                @click="cambiarPaginaCli(1)"
+                                                                class="fa-solid fa-chevron-right fa-white ms-2 chevron-page-transaction"></i>
+                                                            <i v-else
+                                                                class="fa-solid fa-chevron-right fa-grey ms-2"></i>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="collapseTwo" class="accordion-collapse collapse w-100 show mb-4"
+                    data-bs-parent="#accordionExample">
+                    <div class="accordion-body d-flex justify-content-center">
+                        <div class="d-flex justify-content-between align-items-start tree-and-loan"
+                            v-if="productos.length"><!-- v-if="clientes.length" -->
+                            <div class="container table-loan">
+                                <div class="row d-flex justify-content-center">
+                                    <div class="col-12">
+                                        <div class="panel">
+                                            <div class="panel-encabezado">
+                                                <div class="row d-flex justify-content-center p-3">
+                                                    <div class="col col-sm-6 col-xs-12">
+                                                        <h4 class="title">Productos <span>activos</span></h4>
+                                                    </div>
+                                                    <div class="col-sm-6 col-xs-12">
+                                                        <div class="btn_group">
+                                                            <button class="btn btn-default" data-bs-toggle="modal"
+                                                                data-bs-target="#modalNuevoProducto">Crear
+                                                                Producto</button>
+                                                        </div>
+                                                    </div>
+                                                    <!-- <div class="col-sm-9 col-xs-12 text-end">
+                                                <div class="btn_group">
+                                                    <button class="btn btn-default" title="Pdf"><i class="fa fa-file-pdf fa-lg"></i></button>
+                                                </div>
+                                            </div> -->
+                                                </div>
+                                            </div>
+                                            <div class="panel-cuerpo table-responsive">
+                                                <table class="table"
+                                                    v-if="productosVisibles && productosVisibles.length">
+                                                    <thead>
+                                                        <tr class="titulo">
+                                                            <th>Id</th>
+                                                            <th>Nombre</th>
+                                                            <th>Activo</th>
+                                                            <th>Precio</th>
+                                                            <th>Stock</th>
+                                                            <th>Modificar</th>
+                                                            <th>Elminar/Activar</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr v-for="producto of productosVisibles" class="renglon-info">
+                                                            <td>{{producto.id}}</td>
+                                                            <td>{{producto.nombre}}</td>
+                                                            <td>{{producto.activo? 'activo': 'inactivo'}}</td>
+                                                            <td>{{producto.precio}}</td>
+                                                            <td>{{producto.stock}}</td>
+                                                            <td><i class="fa-sharp fa-solid fa-file-pen icono-modal"
+                                                                    style="color: #000000;" data-bs-toggle="modal"
+                                                                    data-bs-target="#modalProducto"
+                                                                    @click="productoModif = producto"></i></td>
+                                                            <td>
+                                                                <i v-if="producto.activo" class="fa-solid fa-trash-can icono-modal"
+                                                                    style="color: #000000;"
+                                                                    @click="borrarProducto(producto)">
+                                                                </i>
+                                                                <i v-else class="fa-solid fa-plus" style="color: #000000;"  @click="activarProducto(producto)"></i>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <div v-else class="d-flex align-items-center">
+                                                    <h2 class="w-75">Actualmente no hay productos para mostrar.</h2>
+                                                </div>
+                                            </div>
+                                            <div class="panel-footer">
+                                                <div class="row">
+                                                    <div class="col-6 col-sm-6 col-xs-6 float-start">
+                                                        <span class="float-start">mostrando {{paginaNumeroPro}} de
+                                                            {{totalPaginasPro}} páginas</span>
+                                                    </div>
+                                                    <div class="col-6 col-sm-6 col-xs-6 float-end">
+                                                        <div class="flex-column align-items-end flexDesde768">
+                                                            <div
+                                                                class="d-flex justify-content-end align-items-center page-transactions">
+                                                                <i v-if="paginaNumeroPro > 1"
+                                                                    @click="cambiarPaginaPro(-1)"
+                                                                    class="fa-solid fa-chevron-left fa-white me-2 chevron-page-transaction"></i>
+                                                                <i v-else
+                                                                    class="fa-solid fa-chevron-left fa-grey me-2"></i>
+                                                                <ul class="pagination">
+                                                                    <template v-for="numero of numPaginasVisiblePro">
+                                                                        <li :class="paginaNumeroPro == numero? 'active': 'disabled'"
+                                                                            @click="irAPaginaPro(numero)"><a
+                                                                                href="#collapseTwo">{{numero}}</a></li>
+                                                                    </template>
+                                                                </ul>
+                                                                <i v-if="totalPaginasPro > paginaNumeroPro"
+                                                                    @click="cambiarPaginaPro(1)"
+                                                                    class="fa-solid fa-chevron-right fa-white ms-2 chevron-page-transaction"></i>
+                                                                <i v-else
+                                                                    class="fa-solid fa-chevron-right fa-grey ms-2"></i>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="align-items-end justify-content-end flexHasta768">
+                                                            <i v-if="paginaNumeroPro > 1" @click="cambiarPaginaPro(-1)"
+                                                                class="fa-solid fa-chevron-left fa-white me-2 chevron-page-transaction"></i>
+                                                            <i v-else class="fa-solid fa-chevron-left fa-grey me-2"></i>
+
+                                                            <i v-if="totalPaginasPro > paginaNumeroPro"
+                                                                @click="cambiarPaginaPro(1)"
+                                                                class="fa-solid fa-chevron-right fa-white ms-2 chevron-page-transaction"></i>
+                                                            <i v-else
+                                                                class="fa-solid fa-chevron-right fa-grey ms-2"></i>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="collapseThree" class="accordion-collapse collapse show w-100 mb-4"
+                    data-bs-parent="#accordionExample">
+                    <div class="accordion-body d-flex justify-content-center">
+                        <div class="d-flex justify-content-between align-items-start tree-and-loan"
+                            v-if="servicios.length">
+                            <div class="container table-loan">
+                                <div class="row d-flex justify-content-center">
+                                    <div class="col-12">
+                                        <div class="panel">
+                                            <div class="panel-encabezado">
+                                                <div class="row d-flex justify-content-center p-3">
+                                                    <div class="col col-sm-6 col-xs-12">
+                                                        <h4 class="title">Servicios <span>activos</span></h4>
+                                                    </div>
+                                                    <div class="col-sm-6 col-xs-12">
+                                                        <div class="btn_group">
+                                                            <button class="btn btn-default" data-bs-toggle="modal"
+                                                                data-bs-target="#modalNuevoServicio">Crear
+                                                                Servicio</button>
+                                                        </div>
+                                                    </div>
+                                                    <!-- <div class="col-sm-9 col-xs-12 text-end">
+                                                <div class="btn_group">
+                                                    <button class="btn btn-default" title="Pdf"><i class="fa fa-file-pdf fa-lg"></i></button>
+                                                </div>
+                                            </div> -->
+                                                </div>
+                                            </div>
+                                            <div class="panel-cuerpo table-responsive">
+                                                <table class="table"
+                                                    v-if="serviciosVisibles && serviciosVisibles.length">
+                                                    <thead>
+                                                        <tr class="titulo">
+                                                            <th>Id</th>
+                                                            <th>Nombre</th>
+                                                            <th>Activo</th>
+                                                            <th>Precio</th>
+                                                            <th>Duracion</th>
+                                                            <th>Modificar</th>
+                                                            <th>Elminar/Activar</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr v-for="servicio of serviciosVisibles" class="renglon-info">
+                                                            <td>{{servicio.id}}</td>
+                                                            <td>{{servicio.nombre}}</td>
+                                                            <td>{{servicio.activo? 'activo': 'inactivo'}}</td>
+                                                            <td>{{servicio.precio}}</td>
+                                                            <td>{{servicio.duracion}}</td>
+                                                            <td><i class="fa-sharp fa-solid fa-file-pen icono-modal"
+                                                                    style="color: #000000;" data-bs-toggle="modal"
+                                                                    data-bs-target="#modalServicio"
+                                                                    @click="servicioModif = servicio"></i></td>
+                                                            <td><i v-if="servicio.activo" class="fa-solid fa-trash-can icono-modal"
+                                                                    style="color: #000000;"
+                                                                    @click="borrarServicio(servicio)">
+                                                                </i>
+                                                                <i v-else class="fa-solid fa-plus" style="color: #000000;"  @click="activarServicio(servicio)"></i>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <div v-else class="d-flex align-items-center">
+                                                    <h2 class="w-75">Actualmente no hay servicios para mostrar.</h2>
+                                                </div>
+                                            </div>
+                                            <div class="panel-footer">
+                                                <div class="row">
+                                                    <div class="col-6 col-sm-6 col-xs-6 float-start">
+                                                        <span class="float-start">mostrando {{paginaNumeroSer}} de
+                                                            {{totalPaginasSer}} páginas</span>
+                                                    </div>
+                                                    <div class="col-6 col-sm-6 col-xs-6 float-end">
+                                                        <div class="flex-column align-items-end flexDesde768">
+                                                            <div
+                                                                class="d-flex justify-content-end align-items-center page-transactions">
+                                                                <i v-if="paginaNumeroSer > 1"
+                                                                    @click="cambiarPaginaSer(-1)"
+                                                                    class="fa-solid fa-chevron-left fa-white me-2 chevron-page-transaction"></i>
+                                                                <i v-else
+                                                                    class="fa-solid fa-chevron-left fa-grey me-2"></i>
+                                                                <ul class="pagination">
+                                                                    <template v-for="numero of numPaginasVisibleSer">
+                                                                        <li :class="paginaNumeroSer == numero? 'active': 'disabled'"
+                                                                            @click="irAPaginaSer(numero)"><a
+                                                                                href="#collapseThree">{{numero}}</a>
+                                                                        </li>
+                                                                    </template>
+                                                                </ul>
+                                                                <i v-if="totalPaginasSer > paginaNumeroSer"
+                                                                    @click="cambiarPaginaSer(1)"
+                                                                    class="fa-solid fa-chevron-right fa-white ms-2 chevron-page-transaction"></i>
+                                                                <i v-else
+                                                                    class="fa-solid fa-chevron-right fa-grey ms-2"></i>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="align-items-end justify-content-end flexHasta768">
+                                                            <i v-if="paginaNumeroSer > 1" @click="cambiarPaginaSer(-1)"
+                                                                class="fa-solid fa-chevron-left fa-white me-2 chevron-page-transaction"></i>
+                                                            <i v-else class="fa-solid fa-chevron-left fa-grey me-2"></i>
+
+                                                            <i v-if="totalPaginasSer > paginaNumeroSer"
+                                                                @click="cambiarPaginaSer(1)"
+                                                                class="fa-solid fa-chevron-right fa-white ms-2 chevron-page-transaction"></i>
+                                                            <i v-else
+                                                                class="fa-solid fa-chevron-right fa-grey ms-2"></i>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- FIN TABLAS -->
+            </div>
+
+            <div>
+                <img class="w-100" src="./assets/Imagenes/PNG1.png" alt="logo">
+            </div>
+        <!-- MODALES -->
+        <div>
+            <div class="modal fade" id="modalCliente" tabindex="-1" data-bs-backdrop="static" aria-labelledby="modalCliente" aria-hidden="true" style="display: none;">
+                <div class="modal-dialog">
+                  <div class="modal-content modales-fondo">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-4">Modificar Cliente</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div v-if="clienteModif" class="modal-body">
+                        <form class="p-2 form-1">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="nombreModi">Nombre</span>
+                                <input v-model="clienteModif.nombre" type="text" class="form-control"
+                                    aria-label="Sizing example input"
+                                    aria-describedby="inputGroup-sizing-default" placeholder="Campo Obligatorio"
+                                    required>
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="apellidModi">Apellido</span>
+                                <input v-model="clienteModif.apellido" type="text" class="form-control"
+                                    aria-label="Sizing example input"
+                                    aria-describedby="inputGroup-sizing-default" placeholder="Campo Obligatorio"
+                                    required>
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="direccionModi">Direccion</span>
+                                <input v-model="clienteModif.direccion" type="text" class="form-control"
+                                    aria-label="Sizing example input"
+                                    aria-describedby="inputGroup-sizing-default" placeholder="Campo Obligatorio"
+                                    required>
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="emailModi">E-mail</span>
+                                <input v-model="clienteModif.email" type="email" class="form-control"
+                                    aria-label="Sizing example input"
+                                    aria-describedby="inputGroup-sizing-default" placeholder="Campo Obligatorio"
+                                    required>
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="telefonoModi">Teléfono</span>
+                                <input v-model="clienteModif.telefono" type="number" class="form-control"
+                                    aria-label="Sizing example input"
+                                    aria-describedby="inputGroup-sizing-default" placeholder="Campo Obligatorio"
+                                    required>
+                            </div>
+                            <p v-if="!sinError" style="color: red;">Debe completar todos los campos para
+                                continuar.</p>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button @click="modifCliente()" type="button" class="btn btn-secondary">Modificar
+                            Cliente</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        
+            </div>
+            <div class="modal fade" id="modalProducto" tabindex="-1" data-bs-backdrop="static" aria-labelledby="modalProducto" aria-hidden="true" style="display: none;">
+                <div class="modal-dialog">
+                  <div class="modal-content modales-fondo">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-4">Modificar Producto</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" v-if="productoModif">
+                        <form class="p-2 form-1">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="nomPro">Nombre</span>
+                                <input v-model="productoModif.nombre" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="Campo Obligatorio" required>
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">Descripción</span>
+                                <textarea v-model="productoModif.descripcion" class="form-control"
+                                    aria-label="With textarea" placeholder="Campo Obligatorio"
+                                    required></textarea>
+                            </div>
+                            <div class="input-group mb-3">
+                                <label class="input-group-text" for="inputGroupSelect01">Categoria</label>
+                                <select v-model="productoModif.categoria" class="form-select"
+                                    aria-label="Floating label select example">
+                                    <option value="LAVADO">LAVADO</option>
+                                    <option value="PULIDO">PULIDO</option>
+                                    <option value="INTERIORES">INTERIORES</option>
+                                    <option value="ACCESORIOS">ACCESORIOS</option>
+                                </select>
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">Precio</span>
+                                <input v-model="productoModif.precio" type="number" class="form-control"
+                                    aria-label="Sizing example input"
+                                    aria-describedby="inputGroup-sizing-default" placeholder="Campo Obligatorio"
+                                    required>
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">Stock</span>
+                                <input v-model="productoModif.stock" type="number" class="form-control"
+                                    aria-label="Sizing example input"
+                                    aria-describedby="inputGroup-sizing-default" placeholder="Campo Obligatorio"
+                                    required>
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">URL imagen</span>
+                                <input v-model="productoModif.imagenUrl" type="text" class="form-control"
+                                    aria-label="Sizing example input"
+                                    aria-describedby="inputGroup-sizing-default" placeholder="Campo Obligatorio"
+                                    required>
+                            </div>
+                            <p v-if="!sinError" style="color: red;">Debe completar todos los campos para
+                                continuar.</p>
+                        </form>
+                        <div class="modal-footer">
+                            <button @click="modifProd()" type="button" class="btn btn-secondary">Modificar
+                                Producto</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <div class="modal fade" id="modalServicio" tabindex="-1" data-bs-backdrop="static" aria-labelledby="modalServicio" aria-hidden="true" style="display: none;">
+                <div class="modal-dialog">
+                  <div class="modal-content modales-fondo">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-4">Modificar Servicio</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" v-if="servicioModif">
+                        <form class="p-2 form-1">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="nomSer">Nombre</span>
+                                <input v-model="servicioModif.nombre" type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="Campo Obligatorio" required>
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="telSer">Descripción</span>
+                                <textarea v-model="servicioModif.descripcion" class="form-control"
+                                    aria-label="With textarea" placeholder="Campo Obligatorio"
+                                    required></textarea>
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="preSer">Precio</span>
+                                <input v-model="servicioModif.precio" type="number" class="form-control"
+                                    aria-label="Sizing example input"
+                                    aria-describedby="inputGroup-sizing-default" placeholder="Campo Obligatorio"
+                                    required>
+                            </div>
+                            <div class="input-group mb-3">
+                                <label class="input-group-text" for="inputGroupSelect01">Duracion</label>
+                                <select v-model="servicioModif.duracion" class="form-select" id="durSer"
+                                    aria-label="Floating label select example">
+                                    <option value="PT1H30M">PT1H30M</option>
+                                    <option value="PT2H">PT2H</option>
+                                    <option value="PT3H">PT3H</option>
+                                </select>
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="">URL imagen</span>
+                                <input v-model="servicioModif.imagenURL" type="text" class="form-control"
+                                    aria-label="Sizing example input"
+                                    aria-describedby="inputGroup-sizing-default" placeholder="Campo Obligatorio"
+                                    required>
+                            </div>
+                            <p v-if="!sinError" style="color: red;">Debe completar todos los campos para
+                                continuar.</p>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button @click="modifServicio()" type="button" class="btn btn-secondary">Modificar
+                            Servicio</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                  </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="modalNuevoCliente" tabindex="-1" data-bs-backdrop="static" aria-labelledby="modalCliente" aria-hidden="true" style="display: none;">
+                <div class="modal-dialog">
+                  <div class="modal-content modales-fondo">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-4">Crear Cliente</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="p-2 form-1">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">Nombre</span>
+                                <input v-model="clienteNuevo.nombre" type="text" class="form-control"
+                                    aria-label="Sizing example input"
+                                    aria-describedby="inputGroup-sizing-default" placeholder="Campo Obligatorio"
+                                    required>
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">Apellido</span>
+                                <input v-model="clienteNuevo.apellido" type="text" class="form-control"
+                                    aria-label="Sizing example input"
+                                    aria-describedby="inputGroup-sizing-default" placeholder="Campo Obligatorio"
+                                    required>
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">Direccion</span>
+                                <input v-model="clienteNuevo.direccion" type="text" class="form-control"
+                                    aria-label="Sizing example input"
+                                    aria-describedby="inputGroup-sizing-default" placeholder="Campo Obligatorio"
+                                    required>
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">E-mail</span>
+                                <input v-model="clienteNuevo.email" type="email" class="form-control"
+                                    aria-label="Sizing example input"
+                                    aria-describedby="inputGroup-sizing-default" placeholder="Campo Obligatorio"
+                                    required>
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">Teléfono</span>
+                                <input v-model="clienteNuevo.telefono" type="number" class="form-control"
+                                    aria-label="Sizing example input"
+                                    aria-describedby="inputGroup-sizing-default" placeholder="Campo Obligatorio"
+                                    required>
+                            </div>
+                            <p v-if="!sinError" style="color: red;">Debe completar todos los campos para
+                                continuar.</p>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button @click="crearCliente()" type="button" class="btn btn-secondary">Crear
+                            Cliente</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                   </div>
+                </div>
+            </div>
+            <div class="modal fade" id="modalNuevoProducto" tabindex="-1" data-bs-backdrop="static" aria-labelledby="modalProducto" aria-hidden="true" style="display: none;">
+                <div class="modal-dialog">
+                  <div class="modal-content modales-fondo">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-4">Crear Producto</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="p-2 form-1">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">Nombre</span>
+                                <input v-model="productoNuevo.nombre" type="text" class="form-control"
+                                    aria-label="Sizing example input"
+                                    aria-describedby="inputGroup-sizing-default" placeholder="Campo Obligatorio"
+                                    required>
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">Descripción</span>
+                                <textarea v-model="productoNuevo.descripcion" class="form-control"
+                                    aria-label="With textarea" placeholder="Campo Obligatorio"
+                                    required></textarea>
+                            </div>
+                            <div class="input-group mb-3">
+                                <label class="input-group-text" for="inputGroupSelect01">Categoria</label>
+                                <select v-model="productoNuevo.categoria" class="form-select"
+                                    aria-label="Floating label select example">
+                                    <option value="LAVADO">LAVADO</option>
+                                    <option value="PULIDO">PULIDO</option>
+                                    <option value="INTERIORES">INTERIORES</option>
+                                    <option value="ACCESORIOS">ACCESORIOS</option>
+                                </select>
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">Precio</span>
+                                <input v-model="productoNuevo.precio" type="number" class="form-control"
+                                    aria-label="Sizing example input"
+                                    aria-describedby="inputGroup-sizing-default" placeholder="Campo Obligatorio"
+                                    required>
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">Stock</span>
+                                <input v-model="productoNuevo.stock" type="number" class="form-control"
+                                    aria-label="Sizing example input"
+                                    aria-describedby="inputGroup-sizing-default" placeholder="Campo Obligatorio"
+                                    required>
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">URL imagen</span>
+                                <input v-model="productoNuevo.imagenUrl" type="text" class="form-control"
+                                    aria-label="Sizing example input"
+                                    aria-describedby="inputGroup-sizing-default" placeholder="Campo Obligatorio"
+                                    required>
+                            </div>
+                            <p v-if="!sinError" style="color: red;">Debe completar todos los campos para
+                                continuar.</p>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button @click="crearProducto()" type="button" class="btn btn-secondary">Crear
+                            Producto</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <div class="modal fade" id="modalNuevoServicio" tabindex="-1" data-bs-backdrop="static" aria-labelledby="modalServicio" aria-hidden="true" style="display: none;">
+                <div class="modal-dialog">
+                  <div class="modal-content modales-fondo">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-4">Crear Servicio</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="p-2 form-1">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">Nombre</span>
+                                <input v-model="servicioNuevo.nombre" type="text" class="form-control"
+                                    aria-label="Sizing example input"
+                                    aria-describedby="inputGroup-sizing-default" placeholder="Campo Obligatorio"
+                                    required>
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">Descripción</span>
+                                <textarea v-model="servicioNuevo.descripcion" class="form-control"
+                                    aria-label="With textarea" placeholder="Campo Obligatorio"
+                                    required></textarea>
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text">Precio</span>
+                                <input v-model="servicioNuevo.precio" type="number" class="form-control"
+                                    aria-label="Sizing example input"
+                                    aria-describedby="inputGroup-sizing-default" placeholder="Campo Obligatorio"
+                                    required>
+                            </div>
+                            <div class="input-group mb-3">
+                                <label class="input-group-text" for="inputGroupSelect01">Duracion</label>
+                                <select v-model="servicioNuevo.duracion" class="form-select"
+                                    aria-label="Floating label select example">
+                                    <option value="PT1H30M">PT1H30M</option>
+                                    <option value="PT2H">PT2H</option>
+                                    <option value="PT3H">PT3H</option>
+                                </select>
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="">URL imagen</span>
+                                <input v-model="servicioNuevo.imagenURL" type="text" class="form-control"
+                                    aria-label="Sizing example input"
+                                    aria-describedby="inputGroup-sizing-default" placeholder="Campo Obligatorio"
+                                    required>
+                            </div>
+                            <p v-if="!sinError" style="color: red;">Debe completar todos los campos para
+                                continuar.</p>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button @click="crearServicio()" type="button" class="btn btn-secondary">Crear
+                            Servicio</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+            <!-- FIN MODALES -->
+        </main>
+
+        <section class=" d-flex justify-content-center copyright mb-0">
+            <p class=""><i class="fas align-items-center mt-3 fa-copyright"></i> <strong>&nbsp;2023-Copyright
+                    Adstore-Cohorte 41</strong></p>
+        </section>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="./assets/Js/administrador.js"></script>
+</body>
+
+</html>

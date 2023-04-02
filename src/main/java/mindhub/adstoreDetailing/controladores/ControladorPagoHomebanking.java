@@ -1,5 +1,7 @@
 package mindhub.adstoreDetailing.controladores;
 
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.BufferedReader;
@@ -10,7 +12,13 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 @RestController
+@RequestMapping("/api")
 public class ControladorPagoHomebanking {
+
+    @PostMapping("/pay")
+    public String pago(){
+        return conectarHomebanking("https://diamond-bank.up.railway.app/api/pay", "number=4639-5566-7856-1398&cvv=410&amount=5000&description=lautaro");
+    }
     public static String conectarHomebanking(String URLobjetivo, String parametros){
         HttpURLConnection connection = null;
         try {
@@ -29,6 +37,7 @@ public class ControladorPagoHomebanking {
 
             DataOutputStream envio = new DataOutputStream(connection.getOutputStream());
             envio.writeBytes(parametros);
+            System.out.println(connection);
             envio.close();
 
             //Obtener respuesta

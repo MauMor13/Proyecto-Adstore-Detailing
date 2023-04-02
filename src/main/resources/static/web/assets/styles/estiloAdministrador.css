@@ -1,0 +1,264 @@
+body{
+    background: url(../Imagenes/blackBack1.jpg);
+}
+
+main{
+    min-height: 100vh;
+}
+
+
+.fondoProductos{
+    margin: 0;
+    background-image: linear-gradient(#f7bb24a8, #f7bb2487),url("../Imagenes/fondoAmarillo.jpg")!important;
+    background-size: 1300px 700px !important;
+    width: 100%;
+    padding: 0.5px;
+}
+
+.icono-header{
+    height: 4rem;
+}
+
+.categoria{
+    text-decoration: none;
+    border: 1px solid white;
+    padding: 4px 6px;
+    color: white;
+    margin: 0 1.7rem;
+}
+.categoria:hover{
+    text-decoration: none;
+    padding: 4px 6px;
+    color: black;
+    background-image: linear-gradient(#f7bb24a8, #f7bb2487),url("../Imagenes/fondoAmarillo.jpg")!important;
+    background-size: cover!important;
+    background-position: bottom;
+    margin: 0 2rem;
+}
+
+
+
+
+.table-loan{ 
+    font-family: var(--font2);
+}
+.panel{
+    background: #f7ba24;
+    text-align: center;
+    padding: 0;
+    border-radius: 10px;
+    border: none;
+    box-shadow: 0 0 0 5px rgba(0,0,0,0.05),0 0 0 10px rgba(0,0,0,0.05);
+}
+.panel-pdf{
+    background: var(--backgroundBars);
+}
+.panelAccounts{
+    min-height: auto;
+}
+.panel .panel-encabezadopanel-encabezado{
+    padding: 20px 15px;
+    border-radius: 10px 10px 0 0;
+    margin: 0;
+}
+.panel .panel-encabezado .title{
+    color: black;
+    font-size: 28px;
+    font-weight: 500;
+    text-transform: capitalize;
+    line-height: 40px;
+    margin: 0;
+}
+.panel .panel-encabezado .btn, .btn-loans{
+    color: black;
+    background: transparent;
+    font-size: 16px;
+    text-transform: capitalize;
+    border: 2px solid black;
+    border-radius: 50px;
+    transition: all 0.3s ease 0s;
+}
+.panel .panel-encabezado .btn:hover, .btn-loans:hover{
+    color: black;
+    text-shadow: 3px 3px rgba(255,255,255,0.2);
+}
+.btn-loans{
+    color: black !important;
+    border: 2px solid var(--font-color3) !important;
+    padding: 5px 30px;
+    border-radius: 4px; 
+    transition: all 0.3s ease 0s;
+}
+.btn-loans:hover{
+    text-shadow: none !important;
+    scale: 1.05 !important;
+}
+.btn-background{
+    background: linear-gradient(to right, #2980b9, #2c3e50);
+    color: black;
+    border: 2px solid var(--font-color2);
+    border-radius: 50px;
+    width: 160px;
+    margin-top: 1vh;
+    height: 50px;
+}
+
+
+.panel .panel-encabezado .form-control{
+    color: black;
+    background-color: transparent;
+    width: 35%;
+    height: 40px;
+    border: 2px solid #fff;
+    border-radius: 20px;
+    display: inline-block;
+    transition: all 0.3s ease 0s;
+}
+.panel .panel-encabezado .form-control:focus{
+    background-color: rgba(255,255,255,0.2);
+    box-shadow: none;
+    outline: none;
+}
+.panel .panel-encabezado .form-control::placeholder{
+    color: rgba(255,255,255,0.5);
+    font-size: 15px;
+    font-weight: 500;
+}
+.panel .panel-cuerpo{ padding: 0; }
+.panel .panel-cuerpo .table thead tr th{
+    color: black;
+    background-color: rgba(255, 255, 255, 0.2);
+    font-size: 16px;
+    font-weight: 500;
+    text-transform: uppercase;
+    padding: 12px;
+    border: none;
+}
+.panel .panel-cuerpo .table tbody tr td{
+    color: black;
+    font-size: 15px;
+    padding: 10px 12px;
+    vertical-align: middle;
+    border: none;
+}
+
+.panel .panel-cuerpo .table tbody tr:nth-child(even){ background-color: rgba(255,255,255,0.05); }
+.panel .panel-cuerpo .table tbody .action-list{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+.panel .panel-cuerpo .table tbody .action-list li{
+    display: inline-block;
+    margin: 0 5px;
+}
+.panel .panel-cuerpo .table tbody .action-list li a{
+    color: black;
+    font-size: 15px;
+    position: relative;
+    z-index: 1;
+    transition: all 0.3s ease 0s;
+}
+.panel .panel-cuerpo .table tbody .action-list li a:hover{ text-shadow: 3px 3px 0 rgba(255,255,255,0.3); }
+.panel .panel-cuerpo .table tbody .action-list li a:before,
+.panel .panel-cuerpo .table tbody .action-list li a:after{
+    content: attr(data-tip);
+    color: black;
+    background-color: #111;
+    font-size: 12px;
+    padding: 5px 7px;
+    border-radius: 4px;
+    text-transform: capitalize;
+    display: none;
+    transform: translateX(-50%);
+    position: absolute;
+    left: 50%;
+    top: -32px;
+    transition: all 0.3s ease 0s;
+}
+.panel .panel-cuerpo .table tbody .action-list li a:after{
+    content: '';
+    height: 15px;
+    width: 15px;
+    padding: 0;
+    border-radius: 0;
+    transform: translateX(-50%) rotate(45deg);
+    top: -18px;
+    z-index: -1;
+}
+.panel .panel-cuerpo .table tbody .action-list li a:hover:before,
+.panel .panel-cuerpo .table tbody .action-list li a:hover:after{
+    display: block;
+}
+.panel .panel-footer{
+    color: black;
+    background-color: transparent;
+    padding: 15px;
+    border: none;
+}
+.panel .panel-footer .col{ line-height: 35px; }
+.pagination{ margin: 0; }
+.pagination li a{
+    display: inline-block;
+    color: black;
+    background-color: transparent;
+    border: 2px solid transparent;
+    font-size: 18px;
+    font-weight: 500;
+    text-align: center;
+    line-height: 31px;
+    width: 35px;
+    height: 35px;
+    padding: 0;
+    margin: 0 3px;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: all 0.3s ease 0s;
+}
+.pagination li a:hover{
+    color: black;
+    background-color: transparent;
+    border-color: rgba(255,255,255,0.2);
+}
+.pagination li a:focus,
+.pagination li.active a,
+.pagination li.active a:hover{
+    color: black;
+    background-color: transparent;
+    border-color: #fff;
+}
+.pagination li:first-child a,
+.pagination li:last-child a{
+    border-radius: 50%;
+}
+.filter-loans{
+    flex-wrap: wrap;
+}
+.checks-loans{
+    flex-wrap: wrap;
+}
+.tree-and-loan{
+    gap: 3vw;
+    flex-wrap: wrap;
+    width: 90%;
+}
+.renglon-info{
+    overflow: hidden;
+}
+.btn-primary{
+    --bs-btn-bg: transparent;
+    --bs-btn-border-color: transparent;
+    --bs-btn-hover-color: none;
+    margin: 0 2rem !important;
+    text-decoration: none !important;
+    padding: 4px 6px !important;
+    --bs-btn-active-color: black;
+    --bs-btn-active-bg: #f7ba24;
+    --bs-btn-active-border-color: #f7ba24;
+    /* background-image: linear-gradient(#f7bb2471, #f7bb246f),url("../Imagenes/fondoAmarillo.jpg")!important;
+    background-size: cover!important;
+    background-position: top; */
+}
+.icono-modal:hover{
+    cursor: pointer;
+}
