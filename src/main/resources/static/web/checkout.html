@@ -201,7 +201,7 @@
         </div>
       </div>
       <div class="fondo-experiencia w-100 d-flex justify-content-center">
-        <h1 class="fondo-experiencia  fuente-audiowide font2-color"> PAGOS </h1>
+        <h1 class="fondo-experiencia  me-lg-5 fuente-audiowide font2-color"> PAGOS </h1>
       </div>
 
       <div class="d-flex flex-wrap justify-content-center pago fondo-categorias p-3 mt-0 w-100">
@@ -219,8 +219,8 @@
                     <td class="p-2 text-light">{{numcuenta}} </td>
                   </tr>
                   <tr class="text-center">
-                    <td class="p-2 bg-warning text-dark">TARJETA No</td>
-                    <td class="p-2 text-light">{{numTarjeta}}</td>
+                    <td class="p-2 bg-warning text-dark">SALDO</td>
+                    <td v-if="saldo"  class="p-2 text-light">{{(saldo).toLocaleString('es-AR', {style:"currency", currency:"ARS"})}}</td>
                   </tr>
                 </tbody>
               </table>
@@ -235,7 +235,7 @@
                 </div>
                 <div class="d-flex text-light mt-3 flex-column justify-content-start align-items-end">
                   <p class="me-2">TARJETA {{numTarjeta}}</p>
-                  <p class="me-2">SALDO $ {{(saldo)}}</p>
+                  <p v-if="saldo" class="me-2">SALDO {{saldo.toLocaleString('es-AR', {style:"currency", currency:"ARS"})}}</p>
                 </div>
               </div>
               <div class=" card flip-card-back">
@@ -251,7 +251,8 @@
         <div class="col-lg-4 ">
           <div class="">
             <div>
-              <table class="table tabla-checkout">
+              <div class="contain-table "> 
+              <table class="table tabla-checkout contain-table">
                 <thead>
                   <tr>
                     <th scope="col" class="fuente-audiowide text-warning bg-black text-center" colspan="4"><img
@@ -264,7 +265,7 @@
                     <th scope="col" class="fuente-audiowide text-warning bg-black" colspan="1"> Valor</th>
                   </tr>
                 </thead>
-                <tbody class="text-light">
+                <tbody class="text-light bg-dark">
                   <tr v-if="productos.length" v-for="compraProd of compraProducto">
                     <td colspan="2">{{(productos.find(prod=>prod.id ==compraProd.id )).nombre}} </td>
                     <td class="text-center">{{compraProd.cantidad}} </td>
@@ -278,46 +279,82 @@
                   </tr>
                 </tbody>
               </table>
-              <h3 class="text-light">TOTAL A PAGAR: {{compra.total.toLocaleString('es-AR', {style:"currency", currency:"ARS"})}} </h3>
             </div>
+              <h3 class="text-light mt-2">TOTAL A PAGAR: {{compra.total>25000?(compra.total-compra.total*0.05).toLocaleString
+                ('es-AR', {style:"currency", currency:"ARS"}):compra.total.toLocaleString('es-AR',
+                {style:"currency", currency:"ARS"})}} </h3>
+              <h6 v-if="compra.total>25000" class="text-warning fuente-poppin">¡Su compra supera los $ 25.000 pesos por ello tendra un descuento de %5 sobre:
+                {{compra.total.toLocaleString('es-AR', {style:"currency", currency:"ARS"})}}!</h6></div>
           </div>
         </div>
         <div class="col-lg-4 d-flex justify-content-center">
           <div class="w-75">
             <h5>SELECCIONA TU MEDIO DE PAGO</h5>
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="flexRadioDefault" @click="cuentaCliente = false" 
-                id="flexRadioDefault1" checked>
+              <input class="form-check-input" type="radio" name="flexRadioDefault" value="bancario" @click="cuentaCliente = false" 
+                id="flexRadioDefault1" checked v-model="opcionPago">
               <label class="form-check-label" for="flexRadioDefault1">
                 Tarjeta bancaria
               </label>
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="radio" name="flexRadioDefault" @click="cuentaCliente = true" 
+              <input class="form-check-input" type="radio" name="flexRadioDefault" value="adstore" v-model="opcionPago" @click="cuentaCliente = true" 
                 id="flexRadioDefault2">
               <label class="form-check-label" for="flexRadioDefault2">
                 Cuenta Adstore
               </label>
             </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="flexRadioDefault" value="ambas" v-model="opcionPago" @click="cuentaCliente= true" 
+                id="flexRadioDefault3" >
+              <label class="form-check-label" for="flexRadioDefault3">
+                Ambas opciones
+              </label>
+            </div>
             <!-- <template v-show="compraServicio>0">
               <input type="date" value="2017-06-01" v-model="turnoDeServicio" />
             </template> -->
-            <div v-show="!cuentaCliente">
-              <h6 class="mt-2">NUMERO DE CUENTA</h6>
+            <div v-show="!cuentaCliente  "  >
+              <h6 class="mt-2">NUMERO DE TARJETA BANCARIA</h6>
               <div class="form-trans box-shadow ">
-                <input type="text " placeholder="0000 0000" v-model="numTarjetaPago" class="form-control">
+                <input type="text " placeholder="0000 0000 0000 0000" v-model="numTarjetaPago" class="form-control">
               </div>
               <h6 class="mt-2">NUMERO DE CVV</h6>
               <div class="form-trans box-shadow ">
                 <input type="text " placeholder="cvv" v-model="cvv" class="form-control">
               </div>
             </div>
-              <div>
-                <button type="button" class="btn boton mt-2 text-bg-warning" data-bs-toggle="modal"
+            <div v-if="opcionPago=='ambas' ">
+              <h6 class="mt-2">MONTO A DESCONTAR CUENTA ADSTORE</h6>
+              <div class="form-trans box-shadow ">
+                <input type="text " placeholder="0000" v-model="descontarAdstore" class="form-control">
+              </div>
+              <h6 class="mt-2">NUMERO DE TARJETA BANCARIA</h6>
+              <div class="form-trans box-shadow ">
+                <input type="text " placeholder="0000 0000 0000 0000" v-model="numTarjetaPago" class="form-control">
+              </div>
+              <h6 class="mt-2">NUMERO DE CVV</h6>
+              <div class="form-trans box-shadow ">
+                <input type="text " placeholder="cvv" v-model="cvv" class="form-control">
+              </div>
+              <p class="fuente-poppin mt-2">Monto a descontar de tarjeta bancaria <span style="color:#f7ba24">
+                {{(compra.total-descontarAdstore).toLocaleString('es-AR',{style:"currency", currency:"ARS"})}}
+              </span>
+              </p>
+                
+              
+            </div>
+              <div class="m-0git ">
+                <button type="button" v-if="saldo > 0 && opcionPago !='adstore' "  class="btn boton mt-2 text-bg-warning" data-bs-toggle="modal"
+                  data-bs-target="#staticBackdrop">
+                  PAGAR
+                </button>
+                <button v-if="saldo < compra.total && opcionPago=='adstore' " disabled type="button" class="btn boton mt-2 text-bg-dark" data-bs-toggle="modal"
                   data-bs-target="#staticBackdrop">
                   PAGAR
                 </button>
               </div>
+
             <!-- Modal -->
             <div class="modal text-dark fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
               tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
