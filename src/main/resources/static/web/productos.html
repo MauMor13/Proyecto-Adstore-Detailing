@@ -86,56 +86,66 @@
                   <li class="nav-item btn1">
                     <a class="nav-link" href="#">PRODUCTOS</a>
                   </li>
-                  <button v-if="!cliente" @click="loginRegistro('login')" type="button" data-bs-target="#modalSign" class="btn z-2 bigger  me-3 mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                  <button v-if="!cliente" @click="loginRegistro('login')" type="button" data-bs-target="#modalSign"
+                    class="btn z-2 bigger  me-3 mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     <img src="./assets/Imagenes/usuario.png" alt="">
                     ACCEDE COMO CLIENTE
                   </button>
 
-                  <div v-if="cliente" class="accordion fuente-poppin  accordion-flush btn  p-2 " id="accordionFlushExample">
+                  <div v-if="cliente" class="accordion fuente-poppin  accordion-flush btn  p-2 "
+                    id="accordionFlushExample">
                     <div class="accordion-item">
                       <h2 class="accordion-header bg-warning w-100 text-center  m-0 p-0">
-                        <button class="accordion-button  bg-warning collapsed  w-100   border-0 p-0 " type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                          <img src="./assets/Imagenes/usuario.png"  class="m-0 p-0 me-2" alt="">
-                          {{cliente.nombre.toUpperCase() + " "+ cliente.apellido.toUpperCase()}} 
+                        <button class="accordion-button  bg-warning collapsed  w-100   border-0 p-0 " type="button"
+                          data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false"
+                          aria-controls="flush-collapseOne">
+                          <img src="./assets/Imagenes/usuario.png" class="m-0 p-0 me-2" alt="">
+                          {{cliente.nombre.toUpperCase() + " "+ cliente.apellido.toUpperCase()}}
                         </button>
                       </h2>
-                      <div id="flush-collapseOne" class="accordion-collapse bg-warning collapse" data-bs-parent="#accordionFlushExample">
+                      <div id="flush-collapseOne" class="accordion-collapse bg-warning collapse"
+                        data-bs-parent="#accordionFlushExample">
                         <div class="accordion-body  text-bg-warning">
                           <table class="table">
-                            <tbody >
+                            <tbody>
                               <tr>
                                 <td class="fuente-poppin columna text-dark" v-cloak><strong>Cuenta</strong> </td>
-                                <td class="fuente-poppin"  v-cloak>{{cliente.cuenta.numeroCuenta}}</td>
+                                <td class="fuente-poppin" v-cloak>{{cliente.cuenta.numeroCuenta}}</td>
                               </tr>
                               <tr>
-                                <td class="fuente-poppin columna text-dark"  v-cloak> <strong>Saldo</strong> </td>
-                                <td class="fuente-poppin"  v-cloak>{{saldo.toLocaleString('en-US', {style:"currency", currency:"USD"})}}</td>
+                                <td class="fuente-poppin columna text-dark" v-cloak> <strong>Saldo</strong> </td>
+                                <td class="fuente-poppin" v-cloak>{{saldo.toLocaleString('en-US', {style:"currency",
+                                  currency:"USD"})}}</td>
                               </tr>
                               <tr>
-                                <td class="fuente-poppin columna text-dark"  v-cloak> <strong>Tarjeta</strong> </td>
-                                <td class="fuente-poppin"  v-cloak>{{numTarjeta}}</td>
+                                <td class="fuente-poppin columna text-dark" v-cloak> <strong>Tarjeta</strong> </td>
+                                <td class="fuente-poppin" v-cloak>{{numTarjeta}}</td>
                               </tr>
                               <tr>
-                                <td class="fuente-poppins columna text-dark"  v-cloak> <strong>Direccion</strong> </td>
-                                <td class="fuente-poppin"  v-cloak>{{direccion}}</td>
+                                <td class="fuente-poppins columna text-dark" v-cloak> <strong>Direccion</strong> </td>
+                                <td class="fuente-poppin" v-cloak>{{direccion}}</td>
                               </tr>
                               <tr>
-                                <td class=" columna text-dark"  v-cloak> <strong>Telefono</strong></td>
-                                <td class=""  v-cloak>{{telefono}}</td>
+                                <td class=" columna text-dark" v-cloak> <strong>Telefono</strong></td>
+                                <td class="" v-cloak>{{telefono}}</td>
                               </tr>
                             </tbody>
                           </table>
                         </div>
                       </div>
-                      
+
                     </div>
                   </div>
                   <li class="nav-item btn1">
                     <div class="d-flex">
-                      <a href="./index.html" type="submit"  @click="logout()" class="text-decoration-none text-dark d-flex justify-content-center"><img class="img-logout pb-3" src="./assets/Imagenes/logout.png" alt=""><p class="fuente-poppin ps-2"> LOGOUT</p></a>
+                      <a href="./index.html" type="submit" @click="logout()"
+                        class="text-decoration-none text-dark d-flex justify-content-center"><img
+                          class="img-logout pb-3" src="./assets/Imagenes/logout.png" alt="">
+                        <p class="fuente-poppin ps-2"> LOGOUT</p>
+                      </a>
                     </div>
                   </li>
-                </ul>    
+                </ul>
               </div>
             </div>
           </div>
@@ -146,7 +156,8 @@
 
     <main class="main-index d-flex flex-column gap-3 justify-content-center align-items-center">
 
-      <div v-if="compra.productos.length || compra.servicios.length" class="carrito-flotante" data-bs-toggle="modal" data-bs-target="#modalCarrito">
+      <div v-if="compra.productos.length || compra.servicios.length" class="carrito-flotante" data-bs-toggle="modal"
+        data-bs-target="#modalCarrito">
         <img class="inlineDesde768 w-100" src="./assets/Imagenes/carritoRedondo.png" alt="carrito">
       </div>
       <!-- CARRITO -->
@@ -170,7 +181,8 @@
                         <th colspan="1" class="">Valor total</th>
                       </tr>
                       <tr v-if="servicios.length" v-for="servicio of compra.servicios " class="w-100">
-                        <td class="col-6 text-start"><span class="mx-2">{{(servicios.find(serv => serv.id == servicio.id )).nombre}} </span> </td>
+                        <td class="col-6 text-start"><span class="mx-2">{{(servicios.find(serv => serv.id == servicio.id
+                            )).nombre}} </span> </td>
                         <td class="col-3">
                           <i class="fa-solid fa-minus me-2" @click="restarUnidadServicio(servicio.id, 1)"
                             style="color: #000000;"></i>
@@ -178,8 +190,11 @@
                           <i class="fa-solid fa-plus ms-2" @click="sumarUnidadServicio(servicio.id, 1)"
                             style="color: #000000;"></i>
                         </td>
-                        <td class="col-3">{{(servicios.find(serv => serv.id == servicio.id)).precio.toLocaleString('es-AR', {style:"currency", currency:"ARS"})}}</td>
-                        <td class="col-3">{{(((servicios.find(serv => serv.id == servicio.id)).precio)*servicio.cantidad).toLocaleString('es-AR', {style:"currency", currency:"ARS"})}}
+                        <td class="col-3">{{(servicios.find(serv => serv.id ==
+                          servicio.id)).precio.toLocaleString('es-AR', {style:"currency", currency:"ARS"})}}</td>
+                        <td class="col-3">{{(((servicios.find(serv => serv.id ==
+                          servicio.id)).precio)*servicio.cantidad).toLocaleString('es-AR', {style:"currency",
+                          currency:"ARS"})}}
                         </td>
                       </tr>
                     </template>
@@ -213,20 +228,20 @@
                         <span>Total</span>
                       </th>
                       <th>
-                        <span class="">{{compra.total.toLocaleString('es-AR', {style:"currency", currency:"ARS"})}}</span>
+                        <span class="">{{compra.total.toLocaleString('es-AR', {style:"currency",
+                          currency:"ARS"})}}</span>
                       </th>
                       <th class="text-start d-flex justify-content-between w-100 row" colspan="3">
                       </th>
                     </tr>
                     <tr>
-                      <th colspan="2" class="text-start">
+                      <th colspan="3" class="text-start">
                         <span>
-                          Vaciar carrito
+                          <p>Vaciar carrito</p>
                         </span>
                       </th>
-                      <th colspan="2">
-                        <span class=""> <a type="submit" @click="limpiarCarrito"> <img
-                              src="./assets/Imagenes/eliminar.png" alt=""></a></span>
+                      <th>
+                        <span class=""> <a type="submit" @click="limpiarCarrito" > <img src="./assets/Imagenes/eliminar.png" alt=""></a></span>
                       </th>
                       <th class="text-start d-flex justify-content-between w-100 row" colspan="3">
                       </th>
@@ -236,7 +251,12 @@
               </div>
             </div>
             <div class="modal-footer">
-              <a class="btn btn-secondary bg-black text-decoration-none" href="./checkout.html">Proceder al Pago</a>
+              <div v-if="sesion != '1'" class="d-flex justify-content-center align-items-center">
+                <p class="pe-3 m-0">Para proceder al Pago tiene que registrarse</p>
+                <button class="btn btn-secondary bg-black" data-bs-target="#modalSign" data-bs-toggle="modal">Click aqui!</button>
+              </div>
+              <a v-if="sesion == '1'" class="btn btn-secondary bg-black text-decoration-none"
+                href="./checkout.html">Proceder al Pago</a>
               <button type="button" class="btn btn-secondary bg-black" data-bs-dismiss="modal">Cerrar</button>
             </div>
           </div>
@@ -246,44 +266,54 @@
       <!-- FIN CARRITO -->
 
       <!--datos cliente-->
-      
-      <div v-if="cliente" class="accordion accordion-cliente border border-dark acceder-boton accordion-flush btn  position-fixed bottom-0 p-2 end-0 me-3 mt-3" id="accordionFlushExample">
+
+      <div v-if="cliente"
+        class="accordion accordion-cliente border border-dark acceder-boton accordion-flush btn  position-fixed bottom-0 p-2 end-0 me-3 mt-3"
+        id="accordionFlushExample">
         <div class="accordion-item">
-          <div id="flush-collapseOne" class="accordion-collapse bg-warning collapse" data-bs-parent="#accordionFlushExample">
+          <div id="flush-collapseOne" class="accordion-collapse bg-warning collapse"
+            data-bs-parent="#accordionFlushExample">
             <div class="accordion-body  text-bg-warning">
               <table class="table">
-                <tbody >
+                <tbody>
                   <tr>
                     <td class="fuente-poppin columna text-dark" v-cloak><strong>Cuenta</strong> </td>
-                    <td class="fuente-poppin text-start"  v-cloak>{{cliente.cuenta.numeroCuenta}}</td>
+                    <td class="fuente-poppin text-start" v-cloak>{{cliente.cuenta.numeroCuenta}}</td>
                   </tr>
                   <tr>
-                    <td class="fuente-poppin columna text-dark"  v-cloak> <strong>Saldo</strong> </td>
-                    <td class="fuente-poppin text-start"  v-cloak>{{saldo.toLocaleString('en-US', {style:"currency", currency:"USD"})}}</td>
+                    <td class="fuente-poppin columna text-dark" v-cloak> <strong>Saldo</strong> </td>
+                    <td class="fuente-poppin text-start" v-cloak>{{saldo.toLocaleString('en-US', {style:"currency",
+                      currency:"USD"})}}</td>
                   </tr>
                   <tr>
-                    <td class="fuente-poppin columna text-dark"  v-cloak> <strong>Tarjeta</strong> </td>
-                    <td class="fuente-poppin text-start"  v-cloak>{{numTarjeta}}</td>
+                    <td class="fuente-poppin columna text-dark" v-cloak> <strong>Tarjeta</strong> </td>
+                    <td class="fuente-poppin text-start" v-cloak>{{numTarjeta}}</td>
                   </tr>
                   <tr>
-                    <td class="fuente-poppins columna text-dark"  v-cloak> <strong>Direccion</strong> </td>
-                    <td class="fuente-poppin text-start"  v-cloak>{{direccion}}</td>
+                    <td class="fuente-poppins columna text-dark" v-cloak> <strong>Direccion</strong> </td>
+                    <td class="fuente-poppin text-start" v-cloak>{{direccion}}</td>
                   </tr>
                   <tr>
-                    <td class="fuente-poppin columna text-dark"  v-cloak> <strong>Telefono</strong></td>
-                    <td class="fuente-poppin text-start"  v-cloak>{{telefono}}</td>
+                    <td class="fuente-poppin columna text-dark" v-cloak> <strong>Telefono</strong></td>
+                    <td class="fuente-poppin text-start" v-cloak>{{telefono}}</td>
                   </tr>
                   <div class="d-flex">
-                    <a href="./index.html" type="submit"  @click="logout()" class="text-decoration-none d-flex justify-content-center text-dark"><img class="img-logout pb-3" src="./assets/Imagenes/logout.png" alt=""><p class="fuente-poppin ps-2"> <strong>LOGOUT</strong></p></a>
+                    <a href="./index.html" type="submit" @click="logout()"
+                      class="text-decoration-none d-flex justify-content-center text-dark"><img class="img-logout pb-3"
+                        src="./assets/Imagenes/logout.png" alt="">
+                      <p class="fuente-poppin ps-2"> <strong>LOGOUT</strong></p>
+                    </a>
                   </div>
                 </tbody>
               </table>
             </div>
           </div>
           <h2 class="accordion-header acceder-boton1 w-100 text-center  m-0 p-0">
-            <button class="accordion-button collapsed acceder-boton1 w-100 text-light fuente-poppin border-0 p-0 " type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-              <img src="./assets/Imagenes/usuario.png"  class="m-0 p-0 me-2" alt="">
-              <strong>{{cliente.nombre + " "+ cliente.apellido}} </strong> 
+            <button class="accordion-button collapsed acceder-boton1 w-100 text-light fuente-poppin border-0 p-0 "
+              type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false"
+              aria-controls="flush-collapseOne">
+              <img src="./assets/Imagenes/usuario.png" class="m-0 p-0 me-2" alt="">
+              <strong>{{cliente.nombre + " "+ cliente.apellido}} </strong>
             </button>
           </h2>
         </div>
@@ -331,7 +361,8 @@
             <div class="d-flex flex-column align-items-center justify-content-around w-100 flex-wrap">
               <p class="card-text p-0 mx-2 mb-1"><strong>{{producto.nombre.toUpperCase()}} </strong> </p>
               <div class="d-flex align-items-between flex-wrap flex-column my-2">
-                <p class="card-text p-0 mx-2 mb-1"><strong>Precio: </strong>{{producto.precio.toLocaleString('es-AR', {style:"currency", currency:"ARS"})}} </p>
+                <p class="card-text p-0 mx-2 mb-1"><strong>Precio: </strong>{{producto.precio.toLocaleString('es-AR',
+                  {style:"currency", currency:"ARS"})}} </p>
                 <p class="p-0 mx-2 mb-0" :class="producto.stock > 5? 'card-text': 'colorRojo'"> <strong>Unidades
                     disponibles:</strong> {{producto.stock}}</p>
                 <p class="p-0 mx-2 mb-0" :class="producto.stock > 5? 'card-text': 'colorRojo'" v-show="!producto.stock">
