@@ -741,3 +741,7 @@ tbody {
 .table {
     background-color: var(--color3);
 }
+
+.main-checkout{
+    min-height: 60vh;
+}
