@@ -267,14 +267,14 @@
                 </thead>
                 <tbody class="text-light bg-dark">
                   <tr v-if="productos.length" v-for="compraProd of compraProducto">
-                    <td colspan="2">{{(productos.find(prod=>prod.id ==compraProd.id )).nombre}} </td>
+                    <td colspan="2">{{(productos.find(prod=> prod.id ==compraProd.id )).nombre}} </td>
                     <td class="text-center">{{compraProd.cantidad}} </td>
-                    <td>{{((productos.find(prod=>prod.id ==compraProd.id )).precio).toLocaleString('en-US',
+                    <td>{{((productos.find(prod=> prod.id ==compraProd.id )).precio).toLocaleString('en-US',
                       {style:"currency", currency:"USD"}) }} </td>
                   </tr>
                   <tr v-if="servicios.length" v-for="compraServ of compraServicio">
-                    <td colspan="3">{{(servicios.find(serv=>serv.id ==compraServ.id )).nombre}} </td>
-                    <td colspan="3">{{((servicios.find(serv=>serv.id ==compraServ.id )).precio).toLocaleString('en-US',
+                    <td colspan="3">{{(servicios.find(serv=> serv.id ==compraServ.id )).nombre}} </td>
+                    <td colspan="3">{{((servicios.find(serv=> serv.id ==compraServ.id )).precio).toLocaleString('en-US',
                       {style:"currency", currency:"USD"}) }} </td>
                   </tr>
                 </tbody>
@@ -314,7 +314,7 @@
             <!-- <template v-show="compraServicio>0">
               <input type="date" value="2017-06-01" v-model="turnoDeServicio" />
             </template> -->
-            <div v-show="!cuentaCliente  "  >
+            <div v-show="!cuentaCliente"  >
               <h6 class="mt-2">NUMERO DE TARJETA BANCARIA</h6>
               <div class="form-trans box-shadow ">
                 <input type="text " placeholder="0000 0000 0000 0000" v-model="numTarjetaPago" class="form-control">
@@ -345,12 +345,10 @@
               
             </div>
               <div class="m-0git ">
-                <button type="button" v-if="saldo > 0 && opcionPago !='adstore' "  class="btn boton mt-2 text-bg-warning" data-bs-toggle="modal"
-                  data-bs-target="#staticBackdrop">
+                <button type="button" v-if="opcionPago !='adstore' || saldo > compra.total" @click="generarPago()"  class="btn boton mt-2 text-bg-warning">
                   PAGAR
                 </button>
-                <button v-if="saldo < compra.total && opcionPago=='adstore' " disabled type="button" class="btn boton mt-2 text-bg-dark" data-bs-toggle="modal"
-                  data-bs-target="#staticBackdrop">
+                <button v-if="saldo < compra.total && opcionPago=='adstore' " disabled type="button" class="btn boton mt-2 text-bg-dark">
                   PAGAR
                 </button>
               </div>
@@ -369,7 +367,7 @@
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CERRAR</button>
-                    <button type="button" class="btn btn-warning " @click="generarCompra">PAGAR</button>
+                    <button type="button" class="btn btn-warning " @click="generarCompra()">PAGAR</button>
                   </div>
                 </div>
               </div>

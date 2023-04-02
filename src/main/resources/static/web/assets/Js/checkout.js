@@ -30,7 +30,7 @@ createApp({
             numcuenta:"",
             compraProducto:[],
             compraServicio:[],
-            turnoDeServicio:null,
+            turnoDeServicio:"2023-03-30T12:34:56.789Z",
             numTarjetaPago:null,
             cvv:null,
             opcionPago:"",
@@ -56,20 +56,7 @@ createApp({
     },
 
     methods:{
-        generarCompra(){
-            axios.post("/api/compra", 
-            {
-                "productos": this.compra.productos,
-                "servicios":this.compra.productos,
-                "fechaDelServicio":this.turnoDeServicio,
-                "numeroTarjetaPago": this.numTarjetaPago,
-                "cvv": this.cvv, 
-                "pagarCuentaCliente":this.cuentaCliente
-            })
-            .then(res=>{
-                console.log(res);
-            })
-        },
+  
         logout() {
             axios.post('/api/logout')
                 .then(res => {
@@ -108,8 +95,7 @@ createApp({
             axios.get('/api/productos')
                 .then(respuesta => {
                     this.productos = respuesta.data.map(producto => ({... producto}));
-                    this.idServicio= (this.servicios.find(serv=>serv.id ==compraServicio.map(servicio=>servicio.id))).id
-                    this.idProducto= (this.productos.find(prod=>prod.id ==compraProducto.map(producto =>producto.id))).id
+                   
                 })
         },
         cargarDatosServicios: function(){
@@ -184,6 +170,53 @@ createApp({
             else if (value == 'login') {
                 form.classList.remove('girarLogin');
             }
+        },
+
+        generarPago: function(){
+            Swal.fire({
+                customClass: 'modal-sweet-alert',
+                title: 'Por favor confirme la compra',
+                text: "Si acepta se procederá a la ejecución de la compra. Si desea anular la petición, solo haga clic en el boton 'Cerrar'.",
+                icon: 'warning',
+                showCancelButton: true,          
+                cancelButtonColor: '#d33',
+                confirmButtonColor: '#f7ba24',
+                cancelButtonText: 'Cerrar',
+                confirmButtonText: 'Aceptar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        axios.post("/api/compra", 
+                        {
+                            "productos": this.compra.productos,
+                            "servicios":this.compra.servicios,
+                            "fechaDelServicio":this.turnoDeServicio,
+                            "numeroTarjetaPago": this.numTarjetaPago,
+                            "cvv": this.cvv, 
+                            "pagarCuentaCliente":this.cuentaCliente
+                        })
+                        .then(res=>{
+                            Swal.fire({
+                                customClass: 'modal-sweet-alert',
+                                text: "Compra realizada!",
+                                icon: 'success',
+                                confirmButtonColor: '#f7ba24',
+                                confirmButtonText: 'Aceptar'
+                            }).then((result) => {
+                                window.location.href = "/web/index.html"
+                            })
+                        })
+                        .catch(err =>{
+                            console.log([err])
+                
+                            Swal.fire({
+                                customClass: 'modal-sweet-alert',
+                                icon: 'error',
+                                title: 'Ups...',
+                                text: err.message.includes('403')? err.response.data: "Hubo un error inesperado",
+                            })
+                        })
+                    }
+            })
         },
 
     },

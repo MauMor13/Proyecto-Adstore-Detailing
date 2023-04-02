@@ -301,32 +301,32 @@ createApp({
                     confirmButtonColor: '#f7ba24',
                     cancelButtonText: 'Cerrar',
                     confirmButtonText: 'Aceptar'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        axios.patch('/api/modificar-producto',{'id': this.productoFinal.id, 'nombre': this.productoFinal.nombre, 'descripcion': this.productoFinal.descripcion, 'precio': this.productoFinal.precio, 'stock': this.productoFinal.stock, 'categoria': this.productoFinal.categoria, 'ImagenUrl': this.productoFinal.ImagenUrl})
-                        .then(response => {
-                            
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            axios.patch('/api/modificar-producto',{'id': this.productoFinal.id, 'nombre': this.productoFinal.nombre, 'descripcion': this.productoFinal.descripcion, 'precio': this.productoFinal.precio, 'stock': this.productoFinal.stock, 'categoria': this.productoFinal.categoria, 'ImagenUrl': this.productoFinal.ImagenUrl})
+                            .then(response => {
+                                
+                                Swal.fire({
+                                    customClass: 'modal-sweet-alert',
+                                    text: "Producto modificado!",
+                                    icon: 'success',
+                                    confirmButtonText: 'Aceptar'
+                                }).then((result) => {
+                                    location.reload(); 
+                                })
+                            })
+                            .catch(err =>{
+                            console.log([err])
+                
                             Swal.fire({
                                 customClass: 'modal-sweet-alert',
-                                text: "Producto modificado!",
-                                icon: 'success',
-                                confirmButtonText: 'Aceptar'
-                            }).then((result) => {
-                                location.reload(); 
+                                icon: 'error',
+                                title: 'Ups...',
+                                text: err.message.includes('403')? err.response.data: "Hubo un error inesperado",
                             })
-                        })
-                        .catch(err =>{
-                           console.log([err])
-               
-                           Swal.fire({
-                               customClass: 'modal-sweet-alert',
-                               icon: 'error',
-                               title: 'Ups...',
-                               text: err.message.includes('403')? err.response.data: "Hubo un error inesperado",
-                           })
-                        })
-                    }
-                  })
+                            })
+                        }
+                })
             }
         },
 
