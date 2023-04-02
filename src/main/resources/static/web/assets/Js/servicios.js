@@ -23,6 +23,7 @@ createApp({
             productos: [],
             servicios: [],
             servicioElegido: undefined,
+            sesion: "0"
         }
     },
 
@@ -281,7 +282,7 @@ createApp({
                 .then(response => {
                     this.sesion = "1"
                     localStorage.setItem("sesion", this.sesion)
-                    this.cargarDatos();
+                    this.cargarDatosServicios();
                     this.cargarDatosCliente();
 
                     const Toast = Swal.mixin({

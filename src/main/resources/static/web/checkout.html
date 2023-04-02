@@ -251,34 +251,35 @@
         <div class="col-lg-4 ">
           <div class="">
             <div>
-              <table class="table tabla-checkout">
-                <thead>
-                  <tr>
-                    <th scope="col" class="fuente-audiowide text-warning bg-black text-center" colspan="4"><img
-                        src="./assets/Imagenes/carrito.png" class="carrito" alt=""> CARRITO DE COMPRAS</th>
-                  </tr>
-                  <tr>
-                    <th scope="col" class="fuente-audiowide text-warning bg-black" colspan="2"> Nombre Producto/
-                      Servicio</th>
-                    <th scope="col" class="fuente-audiowide text-warning bg-black" colspan="1"> Cantidad</th>
-                    <th scope="col" class="fuente-audiowide text-warning bg-black" colspan="1"> Valor</th>
-                  </tr>
-                </thead>
-                <tbody class="text-light">
-                  <tr v-if="productos.length" v-for="compraProd of compraProducto">
-                    <td colspan="2">{{(productos.find(prod=>prod.id ==compraProd.id )).nombre}} </td>
-                    <td class="text-center">{{compraProd.cantidad}} </td>
-                    <td>{{((productos.find(prod=>prod.id ==compraProd.id )).precio).toLocaleString('en-US',
-                      {style:"currency", currency:"USD"}) }} </td>
-                  </tr>
-                  <tr v-if="servicios.length" v-for="compraServ of compraServicio">
-                    <td colspan="3">{{(servicios.find(serv=>serv.id ==compraServ.id )).nombre}} </td>
-                    <td colspan="3">{{((servicios.find(serv=>serv.id ==compraServ.id )).precio).toLocaleString('en-US',
-                      {style:"currency", currency:"USD"}) }} </td>
-                  </tr>
-                </tbody>
-              </table>
-              <h3 class="text-light">TOTAL A PAGAR: {{compra.total.toLocaleString('es-AR', {style:"currency", currency:"ARS"})}} </h3>
+                <table class="table tabla-checkout ">
+                  <thead>
+                    <tr>
+                      <th scope="col" class="fuente-audiowide text-warning bg-black text-center" colspan="4"><img
+                          src="./assets/Imagenes/carrito.png" class="carrito" alt=""> CARRITO DE COMPRAS</th>
+                    </tr>
+                    <tr>
+                      <th scope="col" class="fuente-audiowide text-warning bg-black" colspan="2"> Nombre Producto/
+                        Servicio</th>
+                      <th scope="col" class="fuente-audiowide text-warning bg-black" colspan="1"> Cantidad</th>
+                      <th scope="col" class="fuente-audiowide text-warning bg-black" colspan="1"> Valor</th>
+                    </tr>
+                  </thead>
+                  <tbody class="text-light">
+                    <tr v-if="productos.length" v-for="compraProd of compraProducto">
+                      <td colspan="2">{{(productos.find(prod=>prod.id ==compraProd.id )).nombre}} </td>
+                      <td class="text-center">{{compraProd.cantidad}} </td>
+                      <td>{{((productos.find(prod=>prod.id ==compraProd.id )).precio).toLocaleString('en-US',
+                        {style:"currency", currency:"USD"}) }} </td>
+                    </tr>
+                    <tr v-if="servicios.length" v-for="compraServ of compraServicio">
+                      <td colspan="3">{{(servicios.find(serv=>serv.id ==compraServ.id )).nombre}} </td>
+                      <td colspan="3">{{((servicios.find(serv=>serv.id ==compraServ.id )).precio).toLocaleString('en-US',
+                        {style:"currency", currency:"USD"}) }} </td>
+                    </tr>
+                  </tbody>
+                </table>
+              <h3 class="text-light">TOTAL A PAGAR: {{compra.total>25000?(compra.total-compra.total*0.05).toLocaleString('es-AR', {style:"currency", currency:"ARS"}):compra.total.toLocaleString('es-AR', {style:"currency", currency:"ARS"})}} </h3>
+              <h4 v-if="compra.total>25000">!Su compra supera los 25.000 pesos por ello tendra un descuento de %5 sobre:  {{compra.total.toLocaleString('es-AR', {style:"currency", currency:"ARS"})}}¡</h4>
             </div>
           </div>
         </div>
