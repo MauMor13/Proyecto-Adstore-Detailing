@@ -393,7 +393,7 @@ createApp({
             }).then((result) => {
                 if (result.isConfirmed) {
                     cliente.activo = false;
-                    axios.patch('/api/modificar-cliente',{id: this.clienteFinal.id,nombre: this.clienteFinal.nombre, apellido: this.clienteFinal.apellido, direccion: this.clienteFinal.direccion, email: this.clienteFinal.email, telefono: this.clienteFinal.telefono})
+                    axios.patch('/api/modificar-cliente',{id: cliente.id,nombre: cliente.nombre, apellido: cliente.apellido, direccion: cliente.direccion, email: cliente.email, telefono: cliente.telefono})
                     .then(response => {
                         Swal.fire({
                             customClass: 'modal-sweet-alert',
@@ -496,7 +496,7 @@ createApp({
               })
         },
 
-        aactivarCliente(cliente){
+        activarCliente(cliente){
             Swal.fire({
                 customClass: 'modal-sweet-alert',
                 title: 'Por favor confirmar la activación del cliente',
@@ -510,7 +510,7 @@ createApp({
             }).then((result) => {
                 if (result.isConfirmed) {
                     cliente.activo = true;
-                    axios.patch('/api/modificar-cliente',{id: this.clienteFinal.id,nombre: this.clienteFinal.nombre, apellido: this.clienteFinal.apellido, direccion: this.clienteFinal.direccion, email: this.clienteFinal.email, telefono: this.clienteFinal.telefono})
+                    axios.patch('/api/modificar-cliente',{id: cliente.id,nombre: cliente.nombre, apellido: cliente.apellido, direccion: cliente.direccion, email: cliente.email, telefono: cliente.telefono, activo: cliente.activo})
                     .then(response => {
                         Swal.fire({
                             customClass: 'modal-sweet-alert',
@@ -548,12 +548,51 @@ createApp({
                 confirmButtonText: 'Aceptar'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    producto.activo = false;
-                    axios.patch('/api/deshabilitar-producto',`id=${producto.id}`,{headers:{'content-type':'application/x-www-form-urlencoded'}})
+                    producto.activo = true;
+                    axios.patch('/api/modificar-producto',{'id': producto.id, 'nombre': producto.nombre, 'descripcion': producto.descripcion, 'precio': producto.precio, 'stock': producto.stock, 'categoria': producto.categoria, 'ImagenUrl': producto.ImagenUrl, 'activo': producto.activo})
                     .then(response => {
                         Swal.fire({
                             customClass: 'modal-sweet-alert',
                             text: "Producto activado",
+                            icon: 'success',
+                            confirmButtonText: 'Aceptar'
+                        }).then((result) => {
+                            location.reload(); 
+                        })
+                    })
+                    .catch(err =>{
+                       console.log([err])
+           
+                       Swal.fire({
+                           customClass: 'modal-sweet-alert',
+                           icon: 'error',
+                           title: 'Ups...',
+                           text: err.message.includes('403')? err.response.data: "Ha surgido un error imprevisto.",
+                       })
+                    })
+                }
+              })
+        },
+
+        activarServicio:function(){
+            Swal.fire({
+                customClass: 'modal-sweet-alert',
+                title: 'Por favor confirmar la activación del servicio',
+                text: `Si acepta, el servicio ${servicios.nombre} será activado. El servicio volverá a ser accedido en futuras transacciones. Si desea cancelar la petición, solo haga clic en el boton 'Cerrar'.`,
+                icon: 'warning',
+                showCancelButton: true,          
+                cancelButtonColor: '#d33',
+                confirmButtonColor: '#f7ba24',
+                cancelButtonText: 'Cerrar',
+                confirmButtonText: 'Aceptar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    servicio.activo = true;
+                    axios.patch('/api/modificar-servicio',{id: servicio.id, nombre: servicio.nombre, precio: servicio.precio, descripcion: servicio.descripcion, duracion: servicio.duracion, imagenURL: servicio.imagenURL, activo: servicio.activo})
+                    .then(response => {
+                        Swal.fire({
+                            customClass: 'modal-sweet-alert',
+                            text: "Servicio activado",
                             icon: 'success',
                             confirmButtonText: 'Aceptar'
                         }).then((result) => {
