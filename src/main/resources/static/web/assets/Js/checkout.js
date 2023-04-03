@@ -37,11 +37,12 @@ createApp({
             opcionPago:"",
             descontarAdstore:"",
 
-            fechasOcupadas: null,
-            disabledDatesArray: null,
+            fechasOcupadas: [],
+            disabledDatesArray: [],
             selectedDate: null,
             selectedHour: null,
             isoString: null,
+            hoursToDisable: [],
         }
     },
 
@@ -54,32 +55,16 @@ createApp({
         this.cargarDatos()
         this.cargarDatosServicios()
         this.cargarDatosLocalStorage()
-       // this.traerFechasOcupadas();
+        this.traerFechasOcupadas();
     },
 
     mounted(){
         this.compra = JSON.parse(localStorage.getItem("compra"))
         console.log(this.compra);
+        this.traerFechasOcupadas();
 
         //FECHAS
-        //this.disabledDatesArray = this.fechasOcupadas.map((dateString) => new Date(dateString));
-        let picker = new AppointmentPicker(document.getElementById('time'), {
-            interval: 60,
-            mode: '12h',
-            minTime: 9,
-            maxTime: 20,
-            startTime: 9,
-            endTime: 21,
-            disabled: ['16:00', '17:00'],
-            title: 'Seleccione un horario',
-
-        });
-        const vm = this; // save reference to Vue instance
-
-        document.body.addEventListener('change.appo.picker', function (e) {
-            vm.selectedHour = e.displayTime;
-            vm.isoDate();
-        }, false);
+             
 
         config = {
             locale: "es",
@@ -238,7 +223,7 @@ createApp({
                         {
                             "productos": this.compra.productos,
                             "servicios":this.compra.servicios,
-                            "fechaDelServicio":this.turnoDeServicio,
+                            "fechaDelServicio":this.isoString,
                             "numeroTarjetaPago": this.numTarjetaPago,
                             "cvv": this.cvv, 
                             "pagarCuentaCliente":this.cuentaCliente
@@ -279,8 +264,28 @@ createApp({
         traerFechasOcupadas() {
             axios.get('/api/fechas-ocupadas')
                 .then(res => {
-                    this.fechasOcupadas = res
-                    console.log(this.fechasOcupadas)
+                    this.fechasOcupadas = res.data
+                    this.horasOcupadas()
+                    let picker = new AppointmentPicker(document.getElementById('time'), {
+                        interval: 60,
+                        mode: '12h',
+                        minTime: 9,
+                        maxTime: 20,
+                        startTime: 9,
+                        endTime: 21,
+                        disabled: this.hoursToDisable,
+                        title: 'Seleccione un horario',
+
+                    });
+                    const vm = this; // save reference to Vue instance
+
+                    document.body.addEventListener('change.appo.picker', function (e) {
+                        vm.selectedHour = e.displayTime;
+                        vm.isoDate();
+                        let picker = document.getElementById('time');
+                        picker.close();
+                    }, false);
+
                 })
         },
 
@@ -300,18 +305,18 @@ createApp({
         },
         isoDate() {
             let combinedStr = this.selectedDate + ' ' + this.selectedHour;
-            let datetime = new Date(combinedStr);
+            let datetime = new Date(new Date(combinedStr ).getTime() - (3 * 60 * 60 * 1000));
             this.isoString = datetime.toISOString();
             console.log(this.isoString)
         },
+        horasOcupadas(){
+            this.hoursToDisable = this.fechasOcupadas.map(date => {
+                let hour = date.slice(11, 16);
+                return hour;
+              });
+              console.log(this.hoursToDisable);
+        },
 
-    },
-
-    computed: {
-        flatpickrInstance() {
-            return flatpickr(this.$refs.datepicker)
-                .set('onChange', this.updateSelectedDate);
-        }
     },
 
 }).mount("#app")

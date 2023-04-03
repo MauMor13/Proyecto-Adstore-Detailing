@@ -346,11 +346,18 @@
                 
               
             </div>
+            <div class="w-100 d-flex flex-column align-items-center my-3 modales-fondo p-3" style="border-radius: 10px;">
+              <h5>Por favor seleccione la fecha de su turno.</h5>
+              <form v-if="compra.servicios.length" style="width: 90%;">
+                <input class="form-control mb-3" type="date" id="flatpickr" placeholder="Seleccione una fecha" @change="updateSelectedDate" ref="datepicker">
+                <input class="form-control" id="time" type="text" value="10:00">
+              </form>
+            </div>
               <div class="m-0git ">
-                <button type="button" v-if="opcionPago !='adstore' || saldo > compra.total" @click="generarPago()"  class="btn boton mt-2 text-bg-warning">
+                <button type="button" v-if="(opcionPago !='adstore' || saldo > compra.total) && isoString" @click="generarPago()"  class="btn boton mt-2 text-bg-warning">
                   PAGAR
                 </button>
-                <button v-if="saldo < compra.total && opcionPago=='adstore' " disabled type="button" class="btn boton mt-2 text-bg-dark">
+                <button v-else disabled type="button" class="btn boton mt-2 text-bg-dark">
                   PAGAR
                 </button>
               </div>
@@ -493,12 +500,8 @@
         </div>
       </div>
       <!-- Fin formulario de login-->
-      <form style="width: 80%;">
-
-        <input class="form-control" type="date" id="flatpickr" placeholder="Seleccione una fecha" @change="updateSelectedDate" ref="datepicker">
-        <input id="time" type="text" value="10:00">
-
-      </form>
+      
+      
 
 
 
