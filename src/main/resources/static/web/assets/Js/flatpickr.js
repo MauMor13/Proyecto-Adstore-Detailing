@@ -2,11 +2,12 @@ const { createApp } = Vue;
 createApp({
     data() {
         return {
-            fechasOcupadas: null,
-            disabledDatesArray: null,
+            fechasOcupadas: [],
+            disabledDatesArray: [],
             selectedDate: null,
             selectedHour: null,
             isoString: null,
+            hoursToDisable: [],
         }
     },
     computed: {
@@ -16,30 +17,11 @@ createApp({
         }
     },
     created() {
-
-        //   this.traerFechasOcupadas();
+        this.traerFechasOcupadas()
     },
 
     mounted() {
-        let picker = new AppointmentPicker(document.getElementById('time'), {
-            interval: 60,
-            mode: '12h',
-            minTime: 9,
-            maxTime: 20,
-            startTime: 9,
-            endTime: 21,
-            disabled: ['16:00', '17:00'],
-            title: 'Seleccione un horario',
-
-        });
-        const vm = this; // save reference to Vue instance
-
-        document.body.addEventListener('change.appo.picker', function (e) {
-            vm.selectedHour = e.displayTime;
-            vm.isoDate();
-        }, false);
-
-        //    this.disabledDatesArray = this.fechasOcupadas.map((dateString) => new Date(dateString));
+        this.traerFechasOcupadas()
 
     },
 
@@ -47,8 +29,26 @@ createApp({
         traerFechasOcupadas() {
             axios.get('/api/fechas-ocupadas')
                 .then(res => {
-                    this.fechasOcupadas = res
-                    console.log(this.fechasOcupadas)
+                    this.fechasOcupadas = res.data
+                    this.horasOcupadas()
+                    let picker = new AppointmentPicker(document.getElementById('time'), {
+                        interval: 60,
+                        mode: '12h',
+                        minTime: 9,
+                        maxTime: 20,
+                        startTime: 9,
+                        endTime: 21,
+                        disabled: this.hoursToDisable,
+                        title: 'Seleccione un horario',
+            
+                    });
+                    const vm = this; // save reference to Vue instance
+            
+                    document.body.addEventListener('change.appo.picker', function (e) {
+                        vm.selectedHour = e.displayTime;
+                        vm.isoDate();
+                    }, false);
+            
                 })
         },
 
@@ -71,6 +71,13 @@ createApp({
             let datetime = new Date(combinedStr);
             this.isoString = datetime.toISOString();
             console.log(this.isoString)
+        },
+        horasOcupadas(){
+            this.hoursToDisable = this.fechasOcupadas.map(date => {
+                let hour = date.slice(11, 16);
+                return hour;
+              });
+              console.log(this.hoursToDisable);
         }
     },
 
