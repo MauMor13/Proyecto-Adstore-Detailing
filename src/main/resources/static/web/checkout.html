@@ -13,6 +13,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Work+Sans&display=swap" rel="stylesheet">
+  <link rel=" stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <link rel="stylesheet" href="./assets/styles/appointment-picker.css">
   <link rel="stylesheet" href="./assets/styles/estiloGeneral.css">
   <link rel="stylesheet" href="./assets/styles/estiloLogin.css">
   <link rel="stylesheet" href="./assets/styles/estiloProductos.css" />
@@ -491,7 +493,12 @@
         </div>
       </div>
       <!-- Fin formulario de login-->
+      <form style="width: 80%;">
 
+        <input class="form-control" type="date" id="flatpickr" placeholder="Seleccione una fecha" @change="updateSelectedDate" ref="datepicker">
+        <input id="time" type="text" value="10:00">
+
+      </form>
 
 
 
@@ -568,9 +575,11 @@
     integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
     crossorigin="anonymous"></script>
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src=" https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="./assets/Js/appointment-picker.min.js"></script>
   <script src="./assets/Js/checkout.js"></script>
 </body>
 
