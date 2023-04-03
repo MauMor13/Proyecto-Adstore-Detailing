@@ -7,7 +7,8 @@ createApp({
             productos: [],
             compra:{
                 productos:[],
-                servicios:[]
+                servicios:[],
+                total: 0,
             },
             cuentaCliente:false,
             errorEncontrado: false,
@@ -30,11 +31,17 @@ createApp({
             numcuenta:"",
             compraProducto:[],
             compraServicio:[],
-            turnoDeServicio:null,
+            turnoDeServicio:"2023-03-30T12:34:56.789Z",
             numTarjetaPago:null,
             cvv:null,
             opcionPago:"",
             descontarAdstore:"",
+
+            fechasOcupadas: null,
+            disabledDatesArray: null,
+            selectedDate: null,
+            selectedHour: null,
+            isoString: null,
         }
     },
 
@@ -47,29 +54,58 @@ createApp({
         this.cargarDatos()
         this.cargarDatosServicios()
         this.cargarDatosLocalStorage()
-
+       // this.traerFechasOcupadas();
     },
 
     mounted(){
         this.compra = JSON.parse(localStorage.getItem("compra"))
         console.log(this.compra);
+
+        //FECHAS
+        //this.disabledDatesArray = this.fechasOcupadas.map((dateString) => new Date(dateString));
+        let picker = new AppointmentPicker(document.getElementById('time'), {
+            interval: 60,
+            mode: '12h',
+            minTime: 9,
+            maxTime: 20,
+            startTime: 9,
+            endTime: 21,
+            disabled: ['16:00', '17:00'],
+            title: 'Seleccione un horario',
+
+        });
+        const vm = this; // save reference to Vue instance
+
+        document.body.addEventListener('change.appo.picker', function (e) {
+            vm.selectedHour = e.displayTime;
+            vm.isoDate();
+        }, false);
+
+        config = {
+            locale: "es",
+            altInput: true,
+            altFormat: "F  j, Y  ",
+            minDate: "today",
+            maxDate: new Date().fp_incr(20),
+        }
+        flatpickr(document.getElementById('flatpickr'), config);
     },
 
+    updated(){
+        console.log("object");
+        config = {
+            locale: "es",
+            altInput: true,
+            altFormat: "F  j, Y  ",
+            minDate: "today",
+            maxDate: new Date().fp_incr(20),
+        }
+        flatpickr(document.getElementById('flatpickr'), config);
+    },
+
+
     methods:{
-        generarCompra(){
-            axios.post("/api/compra", 
-            {
-                "productos": this.compra.productos,
-                "servicios":this.compra.servicios,
-                "fechaDelServicio":this.turnoDeServicio,
-                "numeroTarjetaPago": this.numTarjetaPago,
-                "cvv": this.cvv, 
-                "pagarCuentaCliente":this.cuentaCliente
-            })
-            .then(res=>{
-                console.log(res);
-            })
-        },
+  
         logout() {
             axios.post('/api/logout')
                 .then(res => {
@@ -108,8 +144,7 @@ createApp({
             axios.get('/api/productos')
                 .then(respuesta => {
                     this.productos = respuesta.data.map(producto => ({... producto}));
-                    this.idServicio= (this.servicios.find(serv=>serv.id ==compraServicio.map(servicio=>servicio.id))).id
-                    this.idProducto= (this.productos.find(prod=>prod.id ==compraProducto.map(producto =>producto.id))).id
+                   
                 })
         },
         cargarDatosServicios: function(){
@@ -186,6 +221,97 @@ createApp({
             }
         },
 
+        generarPago: function(){
+            Swal.fire({
+                customClass: 'modal-sweet-alert',
+                title: 'Por favor confirme la compra',
+                text: "Si acepta se procederá a la ejecución de la compra. Si desea anular la petición, solo haga clic en el boton 'Cerrar'.",
+                icon: 'warning',
+                showCancelButton: true,          
+                cancelButtonColor: '#d33',
+                confirmButtonColor: '#f7ba24',
+                cancelButtonText: 'Cerrar',
+                confirmButtonText: 'Aceptar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        axios.post("/api/compra", 
+                        {
+                            "productos": this.compra.productos,
+                            "servicios":this.compra.servicios,
+                            "fechaDelServicio":this.turnoDeServicio,
+                            "numeroTarjetaPago": this.numTarjetaPago,
+                            "cvv": this.cvv, 
+                            "pagarCuentaCliente":this.cuentaCliente
+                        })
+                        .then(res=>{
+                            Swal.fire({
+                                customClass: 'modal-sweet-alert',
+                                text: "Compra realizada!",
+                                icon: 'success',
+                                confirmButtonColor: '#f7ba24',
+                                confirmButtonText: 'Aceptar'
+                            }).then((result) => {
+                                this.compra={
+                                    productos:[],
+                                    servicios:[],
+                                    total: 0,
+                                };
+                                localStorage.setItem("compra", JSON.stringify(this.compra))
+                                window.location.href = "/web/index.html"
+                            })
+                        })
+                        .catch(err =>{
+                            console.log([err])
+                
+                            Swal.fire({
+                                customClass: 'modal-sweet-alert',
+                                icon: 'error',
+                                title: 'Ups...',
+                                text: err.message.includes('403')? err.response.data: "Hubo un error inesperado",
+                            })
+                        })
+                    }
+            })
+        },
+
+
+        //FECHAS
+        traerFechasOcupadas() {
+            axios.get('/api/fechas-ocupadas')
+                .then(res => {
+                    this.fechasOcupadas = res
+                    console.log(this.fechasOcupadas)
+                })
+        },
+
+        log(event) {
+            console.log(event)
+            console.log(document.getElementById('time').addEventListener('change.appo.picker', function (e) { }),
+                document.getElementById('time').addEventListener('close.appo.picker', function (e) { }),
+                document.getElementById('time').addEventListener('open.appo.picker', function (e) { }))
+        },
+        updateSelectedDate(event) {
+            this.selectedDate = event.target.value;
+            console.log(this.selectedDate)
+        },
+        updateSelectedHour(event) {
+            this.selectedHour = event.target.value;
+            console.log(this.selectedHour)
+        },
+        isoDate() {
+            let combinedStr = this.selectedDate + ' ' + this.selectedHour;
+            let datetime = new Date(combinedStr);
+            this.isoString = datetime.toISOString();
+            console.log(this.isoString)
+        },
+
+    },
+
+    computed: {
+        flatpickrInstance() {
+            return flatpickr(this.$refs.datepicker)
+                .set('onChange', this.updateSelectedDate);
+        }
     },
 
 }).mount("#app")
