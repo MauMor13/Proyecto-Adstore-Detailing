@@ -20,3 +20,6 @@
 - [Sofia Ariza (Github)](https://github.com/sofiarizap)  ![DEV](https://img.shields.io/badge/FULLSTACK-JAVA-yellow)
 - [Ricardo Sanchez (Github)](https://github.com/RicardoSanchezOrtiz)  ![DEV](https://img.shields.io/badge/FULLSTACK-JAVA-yellow)
 - [Lautaro Santillán (Github)](https://github.com/LautaroNSantillan)  ![DEV](https://img.shields.io/badge/FULLSTACK-JAVA-yellow)
+
+
+### [Trello](https://trello.com/b/N9LaLM8G/back-end)
