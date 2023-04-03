@@ -10,6 +10,9 @@
 - [Instagram](https://www.instagram.com/adstoreboxes/?hl=es)
 - [Facebook](https://www.facebook.com/adstoreboxes/)
 
+# :wrench: Tecnologías usadas :wrench:
+![techs](https://github.com/MauMor13/Proyecto-Adstore-Detailing/blob/turnos-date-picker/src/main/resources/static/web/assets/Imagenes/techs.png)
+
 # :mage_man:Contribuidores:mage_man:
 
 - [Mauricio Mores (Github)](https://github.com/MauMor13)  ![DEV](https://img.shields.io/badge/FULLSTACK-JAVA-yellow)
