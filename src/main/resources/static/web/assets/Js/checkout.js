@@ -55,7 +55,6 @@ createApp({
         this.cargarDatos()
         this.cargarDatosServicios()
         this.cargarDatosLocalStorage()
-        this.traerFechasOcupadas();
     },
 
     mounted(){
@@ -275,17 +274,15 @@ createApp({
                         endTime: 21,
                         disabled: this.hoursToDisable,
                         title: 'Seleccione un horario',
-
+                        templateInner: '<li class="appo-picker-list-item {{disabled}}"><input type="button" tabindex="-1" value="{{time}}" {{disabled}}></li>',
+                        templateOuter: '<span class="appo-picker-title">{{title}}</span><ul class="appo-picker-list">{{innerHtml}}</ul>'
                     });
-                    const vm = this; // save reference to Vue instance
+                    const vm = this;
 
                     document.body.addEventListener('change.appo.picker', function (e) {
                         vm.selectedHour = e.displayTime;
-                        vm.isoDate();
-                        let picker = document.getElementById('time');
-                        picker.close();
+                        vm.isoDate()
                     }, false);
-
                 })
         },
 
