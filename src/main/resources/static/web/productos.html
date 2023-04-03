@@ -1,0 +1,590 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="shortcut icon" href="./assets/Imagenes/FAVICON.png" type="image/x-icon">
+  <title>Productos | ADSTORE </title>
+  <script src="https://kit.fontawesome.com/e7963be4ed.js" crossorigin="anonymous"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous" />
+  <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Work+Sans&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./assets/styles/estiloGeneral.css">
+  <link rel="stylesheet" href="./assets/styles/estiloLogin.css">
+  <link rel="stylesheet" href="./assets/styles/estiloProductos.css" />
+</head>
+
+<body>
+
+  <div id="app" v-cloak>
+    <header>
+      <!-- NAV-DESKTOP -->
+      <nav class="navbar navbar-expand-sm nav-landing-page container-fluid fuente-poppins flexDesde768">
+        <div class="container-fluid w-100 collapse-nav-lista">
+          <button class="navbar-toggler border-0  px-3 py-1" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="true"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav d-flex justify-content-between w-100 align-items-center">
+              <li class="nav-item btn1">
+                <a class="nav-link text-light" aria-current="page" href="./index.html">INICIO</a>
+              </li>
+              <li class="nav-item btn1">
+                <a class="nav-link text-light" href="#contacto">CONTACTO</a>
+              </li>
+              <li>
+                <a class="navbar-brand ms-3 col-6" href="#">
+                  <img src="./assets/Imagenes/BLANCO-A-N.png" alt="logo" class="icono-landing">
+                </a>
+              </li>
+              <li class="nav-item btn1">
+                <a class="nav-link text-light" href="./servicios.html">SERVICIOS</a>
+              </li>
+              <li class="nav-item btn1">
+                <a class="nav-link text-light" href="#">PRODUCTOS</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <!-- HEADER MOBILE -->
+      <section class="flexHasta768 justify-content-between align-items-center bg-black">
+        <img src="./assets/Imagenes/PNG8.png" alt="logo" class="icono-header ms-2">
+        <h3 class="font1-color">AdStore Detailing</h3>
+        <nav
+          class="navbar navbar-expand-md container-fluid fuente-poppins flexHasta768 justify-content-center nav-header-mb m-0">
+          <div>
+            <button class="backTransparente" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+              aria-controls="offcanvasNavbar">
+              <img class="boton-menu me-1" src="./assets/Imagenes/menuIcono.png" alt="menu">
+            </button>
+
+            <div class="offcanvas-lg offcanvas-end nav-offcanvas" tabindex="-1" id="offcanvasNavbar"
+              aria-labelledby="offcanvasNavbarLabel">
+              <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Bienvenido!</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasNavbar"
+                  aria-label="Close"></button>
+              </div>
+              <div class="offcanvas-body">
+                <ul class="navbar-nav d-flex justify-content-around w-100 align-items-center">
+                  <li class="nav-item btn1">
+                    <a class="nav-link" aria-current="page" href="./index.html">INICIO</a>
+                  </li>
+                  <li class="nav-item btn1">
+                    <a class="nav-link" href="./index.html">CONTACTO</a>
+                  </li>
+                  <li class="nav-item btn1">
+                    <a class="nav-link" href="./servicios.html">SERVICIOS</a>
+                  </li>
+                  <li class="nav-item btn1">
+                    <a class="nav-link" href="#">PRODUCTOS</a>
+                  </li>
+                  <button v-if="!cliente" @click="loginRegistro('login')" type="button" data-bs-target="#modalSign"
+                    class="btn z-2 bigger  me-3 mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <img src="./assets/Imagenes/usuario.png" alt="">
+                    ACCEDE COMO CLIENTE
+                  </button>
+
+                  <div v-if="cliente" class="accordion fuente-poppin  accordion-flush btn  p-2 "
+                    id="accordionFlushExample">
+                    <div class="accordion-item">
+                      <h2 class="accordion-header bg-warning w-100 text-center  m-0 p-0">
+                        <button class="accordion-button  bg-warning collapsed  w-100   border-0 p-0 " type="button"
+                          data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false"
+                          aria-controls="flush-collapseOne">
+                          <img src="./assets/Imagenes/usuario.png" class="m-0 p-0 me-2" alt="">
+                          {{cliente.nombre.toUpperCase() + " "+ cliente.apellido.toUpperCase()}}
+                        </button>
+                      </h2>
+                      <div id="flush-collapseOne" class="accordion-collapse bg-warning collapse"
+                        data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body  text-bg-warning">
+                          <table class="table">
+                            <tbody>
+                              <tr>
+                                <td class="fuente-poppin columna text-dark" v-cloak><strong>Cuenta</strong> </td>
+                                <td class="fuente-poppin" v-cloak>{{cliente.cuenta.numeroCuenta}}</td>
+                              </tr>
+                              <tr>
+                                <td class="fuente-poppin columna text-dark" v-cloak> <strong>Saldo</strong> </td>
+                                <td class="fuente-poppin" v-cloak>{{saldo.toLocaleString('en-US', {style:"currency",
+                                  currency:"USD"})}}</td>
+                              </tr>
+                              <tr>
+                                <td class="fuente-poppin columna text-dark" v-cloak> <strong>Tarjeta</strong> </td>
+                                <td class="fuente-poppin" v-cloak>{{numTarjeta}}</td>
+                              </tr>
+                              <tr>
+                                <td class="fuente-poppins columna text-dark" v-cloak> <strong>Direccion</strong> </td>
+                                <td class="fuente-poppin" v-cloak>{{direccion}}</td>
+                              </tr>
+                              <tr>
+                                <td class=" columna text-dark" v-cloak> <strong>Telefono</strong></td>
+                                <td class="" v-cloak>{{telefono}}</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                  <li class="nav-item btn1">
+                    <div class="d-flex">
+                      <a href="./index.html" type="submit" @click="logout()"
+                        class="text-decoration-none text-dark d-flex justify-content-center"><img
+                          class="img-logout pb-3" src="./assets/Imagenes/logout.png" alt="">
+                        <p class="fuente-poppin ps-2"> LOGOUT</p>
+                      </a>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </section>
+
+    </header>
+
+    <main class="main-index d-flex flex-column gap-3 justify-content-center align-items-center">
+
+      <div v-if="compra.productos.length || compra.servicios.length" class="carrito-flotante" data-bs-toggle="modal"
+        data-bs-target="#modalCarrito">
+        <img class="inlineDesde768 w-100" src="./assets/Imagenes/carritoRedondo.png" alt="carrito">
+      </div>
+      <!-- CARRITO -->
+      <div class="modal fade" id="modalCarrito" tabindex="-1" data-bs-backdrop="static" aria-labelledby="modalCliente"
+        aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content modales-fondo">
+            <div class="modal-header">
+              <h1 class="modal-title fs-4">Productos a facturar</h1>
+              <img class="ms-4 w-25" src="./assets/Imagenes/PNG3.png" alt="logo">
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="p-2 form-1">
+                <table class="text-center w-100" v-if="servicios">
+                  <tbody>
+                    <template v-if="compra.servicios && compra.servicios.length > 0 ">
+                      <tr>
+                        <th colspan="2" class="text-start">Servicios</th>
+                        <th colspan="1" class="">Valor Unitario</th>
+                        <th colspan="1" class="">Valor total</th>
+                      </tr>
+                      <tr v-if="servicios.length" v-for="servicio of compra.servicios " class="w-100">
+                        <td class="col-6 text-start"><span class="mx-2">{{(servicios.find(serv => serv.id == servicio.id
+                            )).nombre}} </span> </td>
+                        <td class="col-3">
+                          <i class="fa-solid fa-minus me-2" @click="restarUnidadServicio(servicio.id, 1)"
+                            style="color: #000000;"></i>
+                          {{servicio.cantidad}}
+                          <i class="fa-solid fa-plus ms-2" @click="sumarUnidadServicio(servicio.id, 1)"
+                            style="color: #000000;"></i>
+                        </td>
+                        <td class="col-3">{{(servicios.find(serv => serv.id ==
+                          servicio.id)).precio.toLocaleString('es-AR', {style:"currency", currency:"ARS"})}}</td>
+                        <td class="col-3">{{(((servicios.find(serv => serv.id ==
+                          servicio.id)).precio)*servicio.cantidad).toLocaleString('es-AR', {style:"currency",
+                          currency:"ARS"})}}
+                        </td>
+                      </tr>
+                    </template>
+                    <template v-if="compra.productos && compra.productos.length > 0">
+                      <tr>
+                        <th colspan="2" class="text-start">Productos</th>
+                        <th colspan="1" class="">Valor Unitario</th>
+                        <th colspan="1" class="">Valor total </th>
+                      </tr>
+                      <tr v-if="productos.length" class="w-100" v-for="producto of compra.productos">
+                        <td class="col-5 text-start"><span class="mx-1">{{(productos.find(prod=>prod.id
+                            ==producto.id )).nombre}} </span></td>
+                        <td class="col-2">
+                          <i class="fa-solid fa-minus me-2" @click="restarUnidadProducto(producto.id, 1)"
+                            style="color: #000000;"></i>
+                          {{producto.cantidad}}
+                          <i class="fa-solid fa-plus ms-2" @click="sumarUnidadProducto(producto.id, 1)"
+                            style="color: #000000;"></i>
+                        </td>
+                        <td class="col-2">{{(productos.find(prod=>prod.id ==producto.id
+                          )).precio.toLocaleString('es-AR', {style:"currency", currency:"ARS"})}}</td>
+                        <td class="col-3">{{(((productos.find(prod=>prod.id ==producto.id
+                          )).precio)*producto.cantidad).toLocaleString('es-AR', {style:"currency", currency:"ARS"})}}
+                        </td>
+                      </tr>
+                    </template>
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <th colspan="3" class="text-start border-1 border-light">
+                        <span>Total</span>
+                      </th>
+                      <th>
+                        <span class="">{{compra.total.toLocaleString('es-AR', {style:"currency",
+                          currency:"ARS"})}}</span>
+                      </th>
+                      <th class="text-start d-flex justify-content-between w-100 row" colspan="3">
+                      </th>
+                    </tr>
+                    <tr>
+                      <th colspan="3" class="text-start">
+                        <span>
+                          <p>Vaciar carrito</p>
+                        </span>
+                      </th>
+                      <th>
+                        <span class=""> <a type="submit" @click="limpiarCarrito" > <img src="./assets/Imagenes/eliminar.png" alt=""></a></span>
+                      </th>
+                      <th class="text-start d-flex justify-content-between w-100 row" colspan="3">
+                      </th>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <div v-if="!cliente" class="d-flex justify-content-center align-items-center">
+                <p class="pe-3 m-0">Para proceder al Pago tiene que registrarse</p>
+                <button class="btn btn-secondary bg-black" data-bs-target="#modalSign" data-bs-toggle="modal">Click aqui!</button>
+              </div>
+              <a v-if="cliente" class="btn btn-secondary bg-black text-decoration-none"
+                href="./checkout.html">Proceder al Pago</a>
+              <button type="button" class="btn btn-secondary bg-black" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FIN CARRITO -->
+
+      <!--datos cliente-->
+
+      <div v-if="cliente"
+        class="accordion accordion-cliente border border-dark acceder-boton accordion-flush btn  position-fixed bottom-0 p-2 end-0 me-3 mt-3"
+        id="accordionFlushExample">
+        <div class="accordion-item">
+          <div id="flush-collapseOne" class="accordion-collapse bg-warning collapse"
+            data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body  text-bg-warning">
+              <table class="table">
+                <tbody>
+                  <tr>
+                    <td class="fuente-poppin columna text-dark" v-cloak><strong>Cuenta</strong> </td>
+                    <td class="fuente-poppin text-start" v-cloak>{{cliente.cuenta.numeroCuenta}}</td>
+                  </tr>
+                  <tr>
+                    <td class="fuente-poppin columna text-dark" v-cloak> <strong>Saldo</strong> </td>
+                    <td class="fuente-poppin text-start" v-cloak>{{saldo.toLocaleString('en-US', {style:"currency",
+                      currency:"USD"})}}</td>
+                  </tr>
+                  <tr>
+                    <td class="fuente-poppin columna text-dark" v-cloak> <strong>Tarjeta</strong> </td>
+                    <td class="fuente-poppin text-start" v-cloak>{{numTarjeta}}</td>
+                  </tr>
+                  <tr>
+                    <td class="fuente-poppins columna text-dark" v-cloak> <strong>Direccion</strong> </td>
+                    <td class="fuente-poppin text-start" v-cloak>{{direccion}}</td>
+                  </tr>
+                  <tr>
+                    <td class="fuente-poppin columna text-dark" v-cloak> <strong>Telefono</strong></td>
+                    <td class="fuente-poppin text-start" v-cloak>{{telefono}}</td>
+                  </tr>
+                  <div class="d-flex">
+                    <a href="./index.html" type="submit" @click="logout()"
+                      class="text-decoration-none d-flex justify-content-center text-dark"><img class="img-logout pb-3"
+                        src="./assets/Imagenes/logout.png" alt="">
+                      <p class="fuente-poppin ps-2"> <strong>LOGOUT</strong></p>
+                    </a>
+                  </div>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <h2 class="accordion-header acceder-boton1 w-100 text-center  m-0 p-0">
+            <button class="accordion-button collapsed acceder-boton1 w-100 text-light fuente-poppin border-0 p-0 "
+              type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false"
+              aria-controls="flush-collapseOne">
+              <img src="./assets/Imagenes/usuario.png" class="m-0 p-0 me-2" alt="">
+              <strong>{{cliente.nombre + " "+ cliente.apellido}} </strong>
+            </button>
+          </h2>
+        </div>
+      </div>
+
+      <div class="fondo-experiencia w-100 d-flex justify-content-center">
+        <h1 class="me-5 fondo-experiencia fuente-audiowide font2-color"> PRODUCTOS </h1>
+      </div>
+
+
+
+      <!--filtro categorias Productos-->
+      <div class="filtro-productos fuente-poppins d-flex justify-content-around align-content-center flex-wrap">
+        <div
+          class="d-flex align-content-center flex-wrap align-items-center m-0 my-3 p-0 gap-3 categorias justify-content-center">
+          <div class="check m-3" id="checkCategory">
+
+            <template v-if="categorias" v-for="categoria of categorias">
+              <input v-model="checked" @change="busquedaCruzada" type="checkbox" class="btn-check" :id="categoria"
+                :value="categoria" autocomplete="off" checked>
+              <label class="btn btn-primary ms-3 me-2" :for="categoria">{{categoria}}</label>
+            </template>
+
+          </div>
+        </div>
+        <nav class="navbar d-flex align-items-center">
+          <form class="d-flex justify-content-around align-items-center" role="search">
+            <input class="form-control " type="search" v-model="inputBusqueda" @input="busquedaCruzada"
+              placeholder="Nombre Producto" aria-label="Search">
+            <button class="btn btn-outline-warning ms-2" type="submit">Buscar</button>
+          </form>
+        </nav>
+      </div>
+
+      <!-- TARJETAS -->
+
+      <div class="fondo-categorias pb-2  mb-2 d-flex justify-content-evenly flex-wrap">
+        <template v-for="(producto, i) in productosFiltrados">
+          <div
+            class="my-3 mx-2 col-10 col-md-5 col-lg-4 col-xl-3 d-flex align-items-center justify-content-between flex-column prod-index py-4 px-2 ">
+            <div class="fondo-producto d-flex justify-content-center align-items-center m-0 p-0 mb-2">
+              <img :src="producto.imagenUrl" :id="producto.id+'Foto'" class="card-img-top m-0 img-producto"
+                alt="producto.nombre">
+            </div>
+            <div class="d-flex flex-column align-items-center justify-content-around w-100 flex-wrap">
+              <p class="card-text p-0 mx-2 mb-1"><strong>{{producto.nombre.toUpperCase()}} </strong> </p>
+              <div class="d-flex align-items-between flex-wrap flex-column my-2">
+                <p class="card-text p-0 mx-2 mb-1"><strong>Precio: </strong>{{producto.precio.toLocaleString('es-AR',
+                  {style:"currency", currency:"ARS"})}} </p>
+                <p class="p-0 mx-2 mb-0" :class="producto.stock > 5? 'card-text': 'colorRojo'"> <strong>Unidades
+                    disponibles:</strong> {{producto.stock}}</p>
+                <p class="p-0 mx-2 mb-0" :class="producto.stock > 5? 'card-text': 'colorRojo'" v-show="!producto.stock">
+                  <strong>Sin Stock</strong>
+                </p>
+              </div>
+            </div>
+            <div class="d-flex justify-content-between flex-wrap">
+              <div @click="verDetallesProducto(producto.id)" class="ms-2 d-flex z-1 hover-det">
+                <img class="icono-card-prod" src="./assets/Imagenes/detalle.png" alt="">
+                <button class="card-text btn btn1 p-2" :id="producto.id+'Bot'">Ver detalles</button>
+              </div>
+
+              <div class="ms-2 d-flex z-1">
+                <img class="icono-card-prod1" src="./assets/Imagenes/carrito1.png" alt="">
+                <button class="card-text btn btn1 p-2" @click="agregarACarrito(producto.id, 1)">Agregar a
+                  carrito</button>
+              </div>
+            </div>
+            <p :id="producto.id+'Desc'" class="prod-comprar">{{producto.descripcion}}</p>
+            <div :id="producto.id+'Telon'" class="telon">
+
+            </div>
+          </div>
+        </template>
+
+      </div>
+
+      <button v-if="!cliente" @click="loginRegistro('login')" type="button" data-bs-target="#modalSign"
+        class="btn btn-warning z-2  acceder-boton  bigger fuente-poppin position-fixed bottom-0 end-0 me-3 mt-3"
+        data-bs-toggle="modal">
+        <img src="./assets/Imagenes/usuario.png" alt="">
+        Accede como cliente
+      </button>
+      <!-- Inicio formulario de login-->
+      <div div class="modal fade" id="modalSign" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content modal-login">
+            <div class="modal-header header-login font2-color">
+              <h2 class="fuente-audiowide text-uppercase">Bienvenido</h2>
+              <button type="button" class="btn-close close-modal" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body d-flex align-items-center justify-content-center flex-column">
+              <div class="d-flex align-items-center justify-content-center font2-color">
+                <div class="section mb-3">
+                  <div class="container">
+                    <div class="row full-height justify-content-center">
+                      <div class="col-12 text-center align-self-center">
+                        <div class="section pt-sm-2 text-center">
+                          <p class="font1-color m-0">Si aún no eres cliente registrate. De lo contrario inicia sesión.
+                          </p>
+                          <div class="d-flex justify-content-evenly w-100 flex-wrap">
+                            <button @click="loginRegistro('registro')" class="btn btn1 p-2">Ver formulario de
+                              Registro</button>
+                            <button @click="loginRegistro('login')" class="btn btn1 p-2">Ver formulario de inicio de
+                              sesión</button>
+                          </div>
+                          <div class="card-3d-wrap mx-auto">
+                            <div class="card-3d-wrapper">
+                              <div class="card-frente">
+                                <div class="center-wrap">
+                                  <div class="section text-center">
+                                    <h4 class="mb-2 pb-3 titulo-log-in fuente-audiowide">Inicio de Sesión</h4>
+                                    <div class="form-group form">
+                                      <input type="email" name="logemail" class="form-style" placeholder="Email"
+                                        id="logemail" autocomplete="off" v-model="emailInicioSesion" required>
+                                      <i class="input-icon uil uil-at"></i>
+                                    </div>
+                                    <div class="form-group mt-2">
+                                      <input type="password" name="logpass" class="form-style" placeholder="Contraseña"
+                                        id="logpass" autocomplete="off" v-model="contraInicioSesion"
+                                        @keyup.enter="loginWithEnter()" required>
+                                      <i class="input-icon uil uil-lock-alt"></i>
+                                    </div>
+                                    <span @click="iniciarSesion()" class="submit btn mt-4 categoria font1-color"
+                                      data-bs-dismiss="modal">Enviar</span>
+                                    <p v-if="errorEncontrado" class="mb-0 mt-4 text-center red-color">⋆ El email o la
+                                      contraseña no son correctos</p>
+                                  </div>
+                                </div>
+                              </div>
+                              <div v-if="!registrado" class="card-dorso">
+                                <div class="center-wrap">
+                                  <div class="section text-center">
+                                    <h4 class="mb-2 pb-3 titulo-log-in fuente-audiowide">Registro</h4>
+                                    <div class="form-group form">
+                                      <input type="text" name="logfirstname" class="form-style form-style-signup"
+                                        placeholder="Nombre" id="logfirstname" autocomplete="off" v-model="nombre"
+                                        required>
+                                      <i class="input-icon uil uil-user"></i>
+                                    </div>
+                                    <div class="form-group mt-2">
+                                      <input type="text" name="loglastname" class="form-style form-style-signup"
+                                        placeholder="Apellido" id="loglastname" autocomplete="off" v-model="apellido"
+                                        required>
+                                      <i class="input-icon uil uil-user"></i>
+                                    </div>
+                                    <div class="form-group mt-2">
+                                      <input type="email" name="logemail" class="form-style form-style-signup"
+                                        placeholder="Email" id="signmail" autocomplete="off" v-model="email" required>
+                                      <i class="input-icon uil uil-at"></i>
+                                    </div>
+                                    <div class="form-group mt-2">
+                                      <input type="password" name="logpass" class="form-style form-style-signup"
+                                        placeholder="Contraseña" id="signpass" autocomplete="off" v-model="contra"
+                                        required>
+                                      <i class="input-icon uil uil-lock-alt"></i>
+                                    </div>
+                                    <div class="form-group mt-2">
+                                      <input type="text" name="logpass" class="form-style form-style-signup"
+                                        placeholder="Dirección" id="signDirecc" autocomplete="off" v-model="direccion"
+                                        required>
+                                      <i class="input-icon uil uil-lock-alt"></i>
+                                    </div>
+                                    <div class="form-group mt-2">
+                                      <input type="text" name="logpass" class="form-style form-style-signup"
+                                        placeholder="Teléfono" id="signtel" autocomplete="off" v-model="telefono"
+                                        required>
+                                      <i class="input-icon uil uil-lock-alt"></i>
+                                    </div>
+                                    <p @click="realizarRegistro()" class="submit btn categoria mt-4">Enviar</p>
+                                    <p v-show="errorEncontrado"
+                                      class="mb-0 mt-2 text-center red-color mensaje-error-registro"></p>
+                                  </div>
+                                </div>
+                              </div>
+                              <div v-else class="card-dorso d-flex justify-content-center align-items-center">
+                                <div class="registered-view">
+                                  <h2 class="font2-color">¡Cliente registrado!</h2>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Fin formulario de login-->
+
+    </main>
+
+    <!--Footer-->
+
+    <footer class="d-lg-flex container-fluid pt-3 pb-3 text-white justify-content-evenly pb-1">
+
+      <div class="d-sm-flex col-lg-3 logo-footer align-items-md-center">
+        <img class="container-fluid me-lg-3" src="./assets/Imagenes/PNG1.png" alt="logo">
+      </div>
+
+      <div class="d-flex flex-md-row flex-column ms-md-5 flex-lg-row ">
+        <div class="d-md-flex  justify-content-between align-content-center align-items-center ms-4 col-lg-6 col-md-6">
+          <div class="d-md-flex flex-md-column">
+            <h4 id="contacto" class="text-center text-lg-start text-md-start text-warning ">CONTACTANOS</h4>
+            <div
+              class="contacto container-fluid d-md-flex flex-lg-column p-lg-0 container-fluid justify-content-md-around">
+              <div class="text-center d-flex flex-column justify-content-center">
+                <p class="contact text-md-start fw-bold"><i class="fa  text-warning fa-envelope-o fa-fw"
+                    aria-hidden="true"></i>&nbsp; EMAIL: <a
+                    class="link-light link-white-hover  link-contacto text-decoration-none"
+                    href="mailto:adstore@boxes.com">adstore@boxes.com</a></p>
+                <p class="contact text-md-start fw-bold"><i class="fa  text-warning fa-phone fa-fw"
+                    aria-hidden="true"></i>&nbsp; TEL: <a
+                    class="link-light link-white-hover text-decoration-none link-contacto"
+                    href="tel:+54 9 51 2435-0965">+54 9 51 2435-0965</a></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-md-flex  justify-content-between align-content-center align-items-center  col-lg-6 col-md-5">
+          <div class="mt-4 d-flex flex-column justify-content-lg-around  justify-content-center mt-lg-0">
+            <div>
+              <h4 class="text-center text-warning">NUESTRA TIENDA</h4>
+            </div>
+            <ul class="nav  d-flex  justify-content-center align-items-center flex-column">
+              <li class=" mx-md-auto mt-1 justify-content-center align-content-center">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3403.874212597411!2d-64.19005708560763!3d-31.445129704787824!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9432a2f0a0739eb5%3A0xbf15a4a3ef77c7ee!2sPedro%20Carta%20Molina%20650%2C%20X5016%20C%C3%B3rdoba%2C%20Argentina!5e0!3m2!1ses-419!2scl!4v1679672670025!5m2!1ses-419!2scl"
+                  width="150" height="100" style="border:0;" allowfullscreen="" loading="lazy"
+                  referrerpolicy="no-referrer-when-downgrade"></iframe>
+              </li>
+              <div>
+                <li class="text-center"><i class="fa fa-map-marker text-warning fa-fw" aria-hidden="true"></i>&nbsp;
+                  Pedro Carta Molina 650, Cordoba</li>
+              </div>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="mt-5 col-lg-3 align-items-center">
+        <h4 class="text-center text-warning">NUESTRAS REDES</h4>
+        <ul class="list-unstyled d-flex justify-content-around mb-0 mt-3 mx-auto redes">
+          <li><a class="link-dark-hover text-muted" href="https://www.instagram.com/adstoreboxes/?hl=en"><i
+                class="fa-brands fa-instagram fa-2x redes text-warning"></i></a></li>
+          <li><a class="link-dark-hover text-muted" href="https://www.facebook.com/adstoreboxes/"><i
+                class="fa-brands fa-facebook fa-2x redes text-warning"> </i></a></li>
+          <li><a class="link-dark-hover text-muted" href="https://web.whatsapp.com/"><i
+                class="fa-brands fa-whatsapp fa-2x text-warning redes"></i></a></li>
+        </ul>
+      </div>
+
+    </footer>
+    <section class=" d-flex justify-content-center copyright mb-0">
+      <p class="fuente-poppin"><i class="fas align-items-center mt-3 fa-copyright"></i> <strong>&nbsp;2023-Copyright
+          Adstore-Cohorte 41</strong></p>
+    </section>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+    crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="./assets/Js/productos.js"></script>
+</body>
+
+</html>

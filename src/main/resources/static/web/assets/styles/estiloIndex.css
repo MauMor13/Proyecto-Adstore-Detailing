@@ -1,0 +1,226 @@
+body{
+    background-color: black;
+}
+
+main{
+    background-image: linear-gradient(#00000061, #0000005b),url("../Imagenes/blackBack1.jpg")!important;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top;
+    z-index: -3;
+}
+
+.fuente-poppins {
+    font-family: 'Poppins', sans-serif;
+    min-height: 6rem;
+}
+
+.fuente-workSans {
+    font-family: 'Work Sans', sans-serif;
+    font-size: 2rem;
+    z-index: 2;
+    
+}
+
+.fuente-audiowide{
+    font-family: 'Audiowide', cursive;
+    font-size: 2rem;
+}
+
+.nav-landing-page, .collapse-nav-lista{
+    text-shadow: 2px 2px 0px rgba(0,0,0,0.83);
+    transition: background-color 0.3s linear;
+}
+
+.nav-landing-page{
+    position: fixed;
+    z-index: 1;
+}
+
+.nav-landing-page a {
+    color: white;
+}
+
+.fotos-landing {
+    background-image: url("../Imagenes/foto0.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    height: 30rem;
+    width: 100%;
+    z-index: 0;
+    position: relative;
+}
+
+.fotos-landing::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(0, 0, 0);
+    opacity: 0.4;
+}
+
+.typing-container{
+    position: absolute;
+    left: 40px;
+    top: 150px;
+}
+
+.input-cursor {
+    display: inline-block;
+    width: 4px;
+    height: 25px;
+    background-color: var(--font-color1);
+    margin-left: 8px;
+}
+
+@keyframes blink {
+    0% {opacity: 1;}
+    40% {opacity: 1;}
+    60% {opacity: 0;}
+    100% {opacity: 0;}
+}
+
+.input-cursor { 
+    animation: blink .6s linear infinite alternate;
+}
+
+.icono-landing {
+    top: -70px;
+    height: 10rem;
+    margin-left: auto;
+    margin-right: auto;
+    left: 39px;
+    right: 0;
+    text-align: center;
+    z-index: 10;
+    transition: all 1s;
+}
+
+.icono-header{
+    height: 4rem;
+}
+
+.div-icono {
+    position: sticky;
+    top: 5rem;
+    z-index: 10;
+}
+
+.aboutus{
+    background-image: linear-gradient(#f7bb24a8, #f7bb2487),url("../Imagenes/fondoAmarillo.jpg")!important;
+    background-size: 1300px 700px !important;
+    padding: 4rem 2rem 2rem 2rem;
+    width: 100%;
+}
+
+.se-cliente{
+    background-image: linear-gradient(#000000d5, #000000db),url("../Imagenes/fondoGris.jpg");
+    background-size: cover!important;
+    background-position: bottom;
+    width: 90%;
+    font-family: 'Poppins', sans-serif;
+    border-radius: 10px;
+}
+
+.productos{
+    background: linear-gradient(#ffc32a, #f7bb24f7);
+    width: 90%;
+    border-radius: 10px;
+    z-index: 0;
+}
+
+.prod-index{
+    border: 1px solid black;
+    border-radius: 15px;
+    overflow: hidden;
+    position: relative;
+    z-index: 0;
+    transition: all 1s;
+}
+
+.otros-elem-div{
+    transition: all .5s;
+}
+
+.otros-elem-div:hover{
+    scale: 0.9;
+    translate: 0 -10%;
+}
+
+
+.prod-index::before{
+    content: "";
+    position: absolute;
+    width: 700px;
+    height: 700px;
+    background-color: rgba(0, 0, 0, 0.505);
+    bottom: 0;
+    left: 0;
+    translate: 0% 100%;
+    clip-path: polygon(0% 25%, 100% 0%, 100% 100%, 0% 100%);
+    transition: all 1.2s;
+}
+
+
+.prod-comprar{
+    position: absolute;
+    font-size: 3rem;
+    margin-bottom: 2rem;
+    color: white;
+    font-family: 'Audiowave', cursive;
+    opacity: 0;
+    transition: opacity 1.5s, translate 1s;
+    translate: 0 150%;
+}
+
+.prod-index:hover::before{
+    translate: 0 0;
+}
+.prod-index:hover a{
+    opacity: 1;
+    translate: 0 0;
+}
+.prod-index:hover img, .prod-index:hover p {
+    scale: 0.8;
+    translate: 0 -13%;
+    color: white;
+}
+
+.texto-intro{
+    font-size: 1.4rem;
+}
+
+.carrusel-exp{
+    width: 90%;
+    z-index: 0;
+}
+
+.img-experiencia{
+    z-index: 0;
+    aspect-ratio: 1/0.85;
+    border-radius: 10px;
+    box-shadow: 2px 4px 5px rgba(0, 0, 0, 0.543); 
+}
+.fondo-experiencia{
+    background-image: linear-gradient(#000000d5, #000000db),url("../Imagenes/fondoGris.jpg")!important;
+    background-size: cover!important;
+    background-position: bottom;
+    color: white;
+    border-radius: 10px;
+}
+.usuario{
+    width: 30px;
+    margin: 0.5rem;
+}
+
+.marcas-index{
+    z-index: 0;
+    width: 90%;
+    border-radius: 10px;
+}

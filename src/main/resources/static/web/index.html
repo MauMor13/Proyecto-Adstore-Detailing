@@ -4,61 +4,570 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="shortcut icon" href="" type="image/x-icon">
-  <title>Inicio | </title>
+  <link rel="shortcut icon" href="./assets/Imagenes/FAVICON.png" type="image/x-icon">
+  <title>Inicio | ADSTORE </title>
   <script src="https://kit.fontawesome.com/e7963be4ed.js" crossorigin="anonymous"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous" />
-  <link rel="stylesheet" href="" />
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&family=Work+Sans&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/vue-cal/dist/vuecal.css" rel="stylesheet">
+  <link rel="stylesheet" href="./assets/styles/estiloGeneral.css">
+  <link rel="stylesheet" href="./assets/styles/estiloLogin.css">
+  <link rel="stylesheet" href="./assets/styles/estiloIndex.css" />
 </head>
 
 <body>
 
-  <header>
-    <nav class="navbar navbar-expand-lg  container-fluid">
-      <div class="container-fluid w-100">
-        <a class="navbar-brand ms-3 col-6" href="#">
-          <img src="./assets/Imagenes/PNG9.png" alt="logo" class=" " >
-        </a>
-        <button class="navbar-toggler border-0  px-3 py-1" type="button" data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="true"
-          aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse show" id="navbarSupportedContent">
-          <ul class="navbar-nav d-flex  ms-auto">
-              <li class="nav-item  nav-button">
-                <a class="nav-link  " aria-current="page" href="#">QUIENES SOMOS</a>
+  <div id="app" v-cloak>
+    <header>
+      <!-- NAV-DESKTOP -->
+      <nav class="navbar navbar-expand-sm nav-landing-page container-fluid fuente-poppins flexDesde768">
+        <div class="container-fluid w-100 collapse-nav-lista">
+          <button class="navbar-toggler border-0  px-3 py-1" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="true"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav d-flex justify-content-between w-100 align-items-center">
+              <li class="nav-item btn1">
+
+                <a class="nav-link text-light" aria-current="page" href="#aboutUs">QUIENES SOMOS</a>
               </li>
-              <li class="nav-item   nav-button">
-                <a class="nav-link " href="">CONTACTO</a>
+              <li class="nav-item btn1">
+
+
+                <a class="nav-link text-light" href="#contacto">CONTACTO</a>
+
               </li>
-              <li class="nav-item  nav-button">
-                <a class="nav-link " href="">SERVICIOS</a>
+              <li>
+                <!-- <a class="navbar-brand ms-3 col-6" href="#">
+                    <img src="./assets/Imagenes/iconoFondoNegro.jpg" alt="logo" class="icono-landing" >
+                  </a> -->
               </li>
-              <li class="nav-item nav-button">
-                <a class="nav-link" href="">PRODUCTO</a>
+              <li class="nav-item btn1">
+                <a class="nav-link text-light" href="./servicios.html">SERVICIOS</a>
+              </li>
+              <li class="nav-item btn1">
+                <a class="nav-link text-light" href="./productos.html">PRODUCTOS</a>
               </li>
             </ul>
+          </div>
+        </div>
+      </nav>
+      <!-- HEADER MOBILE -->
+      <section class="flexHasta768 justify-content-between align-items-center bg-black">
+        <img src="./assets/Imagenes/PNG8.png" alt="logo" class="icono-header ms-2">
+        <h3 class="font1-color">AdStore Detailing</h3>
+        <nav class="navbar navbar-expand-md container-fluid fuente-poppins flexHasta768 justify-content-center nav-header-mb m-0">
+          <div>
+            <button class="backTransparente me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+              <img class="boton-menu" src="./assets/Imagenes/menuIcono.png" alt="menu">
+            </button>
+  
+            <div class="offcanvas-lg offcanvas-end nav-offcanvas" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+              <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Bienvenido!</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasNavbar" aria-label="Close"></button>
+              </div>
+              <div class="offcanvas-body">
+                <ul class="navbar-nav d-flex justify-content-around w-100 align-items-center">
+                  <li class="nav-item btn1">
+                    <a class="nav-link" aria-current="page" href="#aboutUs">QUIENES SOMOS</a>
+                  </li>
+                  <li class="nav-item btn1">
+                    <a class="nav-link" href="#contactanos">CONTACTO</a>
+                  </li>
+                  <li class="nav-item btn1">
+                    <a class="nav-link" href="./servicios.html">SERVICIOS</a>
+                  </li>
+                  <li class="nav-item btn1">
+                    <a class="nav-link" href="./productos.html">PRODUCTOS</a>
+                  </li>
+                  <button v-if="!cliente" @click="loginRegistro('login')" type="button" data-bs-target="#modalSign" class="btn z-2 bigger  me-3 mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <img src="./assets/Imagenes/usuario.png" alt="">
+                    ACCEDE COMO CLIENTE
+                  </button>
+                  <div v-if="cliente" class="accordion fuente-poppin  accordion-flush btn  p-2 " id="accordionFlushExample">
+                    <div class="accordion-item">
+                      <h2 class="accordion-header bg-warning w-100 text-center  m-0 p-0">
+                        <button class="accordion-button  bg-warning collapsed  w-100   border-0 p-0 " type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                          <img src="./assets/Imagenes/usuario.png"  class="m-0 p-0 me-2" alt="">
+                          {{cliente.nombre.toUpperCase() + " "+ cliente.apellido.toUpperCase()}} 
+                        </button>
+                      </h2>
+                      <div id="flush-collapseOne" class="accordion-collapse bg-warning collapse" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body  text-bg-warning">
+                          <table class="table">
+                            <tbody >
+                              <tr>
+                                <td class="fuente-poppin columna text-dark" v-cloak><strong>Cuenta</strong> </td>
+                                <td class="fuente-poppin"  v-cloak>{{cliente.cuenta.numeroCuenta}}</td>
+                              </tr>
+                              <tr>
+                                <td class="fuente-poppin columna text-dark"  v-cloak> <strong>Saldo</strong> </td>
+                                <td class="fuente-poppin"  v-cloak>{{saldo.toLocaleString('en-US', {style:"currency", currency:"USD"})}}</td>
+                              </tr>
+                              <tr>
+                                <td class="fuente-poppin columna text-dark"  v-cloak> <strong>Tarjeta</strong> </td>
+                                <td class="fuente-poppin"  v-cloak>{{numTarjeta}}</td>
+                              </tr>
+                              <tr>
+                                <td class="fuente-poppins columna text-dark"  v-cloak> <strong>Direccion</strong> </td>
+                                <td class="fuente-poppin"  v-cloak>{{direccion}}</td>
+                              </tr>
+                              <tr>
+                                <td class=" columna text-dark"  v-cloak> <strong>Telefono</strong></td>
+                                <td class=""  v-cloak>{{telefono}}</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                      
+                    </div>
+                  </div>
+                  <li v-if="cliente" class="nav-item btn1">
+                    <div class="d-flex">
+                      <a href="./index.html" type="submit"  @click="logout()" class="text-decoration-none text-dark d-flex justify-content-center"><img class="img-logout pb-3" src="./assets/Imagenes/logout.png" alt=""><p class="fuente-poppin ps-2"> LOGOUT</p></a>
+                    </div>
+                  </li>
+                </ul>    
+              </div>
+            </div>
+          </div>
+        </nav>
+      </section>
+      
+    </header>
+
+
+    <main class="main-index d-flex flex-column gap-4 gap-md-2 justify-content-center align-items-center">
+      <!-- BANNER -->
+      <div  class="fotos-landing">
+
+        <div class="typing-container">
+          <span id="sentence" class="fuente-audiowide sentence font3-color">UN LUGAR DISTINTO... </span>
+          <div>
+              <span id="feature-text" class="fuente-audiowide font1-color">{{textoDinamico}}</span>
+              <span class="input-cursor font1-color"></span>
+          </div>
+        </div>
+        <!-- contenedor de imagenes entrada -->
+      </div>
+      <div id="aboutUs"></div>
+      <!-- ICONO -->
+      <div class="w-100 div-icono inlineDesde768">
+        <img src="./assets/Imagenes/PNG9.png" alt="logo" class="icono-landing position-absolute">
+      </div>
+
+      
+      <!--datos cliente-->
+      <div v-if="cliente" class="accordion accordion-cliente border border-dark acceder-boton accordion-flush btn  position-fixed bottom-0 p-2 end-0 me-3 mt-3" id="accordionFlushExample">
+        <div class="accordion-item">
+          <div id="flush-collapseOne" class="accordion-collapse bg-warning collapse" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body  text-bg-warning">
+              <table class="table">
+                <tbody >
+                  <tr>
+                    <td class="fuente-poppin columna text-dark" v-cloak><strong>Cuenta</strong> </td>
+                    <td class="fuente-poppin text-start"  v-cloak>{{cliente.cuenta.numeroCuenta}}</td>
+                  </tr>
+                  <tr>
+                    <td class="fuente-poppin columna text-dark"  v-cloak> <strong>Saldo</strong> </td>
+                    <td class="fuente-poppin text-start"  v-cloak>{{saldo.toLocaleString('en-US', {style:"currency", currency:"USD"})}}</td>
+                  </tr>
+                  <tr>
+                    <td class="fuente-poppin columna text-dark"  v-cloak> <strong>Tarjeta</strong> </td>
+                    <td class="fuente-poppin text-start"  v-cloak>{{numTarjeta}}</td>
+                  </tr>
+                  <tr>
+                    <td class="fuente-poppins columna text-dark"  v-cloak> <strong>Direccion</strong> </td>
+                    <td class="fuente-poppin text-start"  v-cloak>{{direccion}}</td>
+                  </tr>
+                  <tr>
+                    <td class="fuente-poppin columna text-dark"  v-cloak> <strong>Telefono</strong></td>
+                    <td class="fuente-poppin text-start"  v-cloak>{{telefono}}</td>
+                  </tr>
+                  <div class="d-flex">
+                    <a href="./index.html" type="submit"  @click="logout()" class="text-decoration-none d-flex justify-content-center text-dark"><img class="img-logout pb-3" src="./assets/Imagenes/logout.png" alt=""><p class="fuente-poppin ps-2"> <strong>LOGOUT</strong></p></a>
+                  </div>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <h2 class="accordion-header acceder-boton1 w-100 text-center  m-0 p-0">
+            <button class="accordion-button collapsed acceder-boton1 w-100 text-light fuente-poppin border-0 p-0 " type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+              <img src="./assets/Imagenes/usuario.png"  class="m-0 p-0 me-2" alt="">
+              <strong>{{cliente.nombre + " "+ cliente.apellido}} </strong> 
+            </button>
+          </h2>
         </div>
       </div>
-    </nav>
-  </header>
-  <main>
-    <img src="./assets/Imagenes/IMG7.jpg" alt="">
 
 
+      <button v-if="!cliente" @click="loginRegistro('login')" type="button" data-bs-target="#modalSign" class="btn btn-warning z-2  acceder-boton  bigger fuente-poppin position-fixed bottom-0 end-0 me-3 mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        <img src="./assets/Imagenes/usuario.png" alt="">
+        Accede como cliente
+      </button>
+
+      <!-- contenedor About US -->
+      <div  class="aboutus mb-lg-5 fuente-poppins">
+        <h3 class="fuente-audiowide">SOBRE NOSOTROS...</h3>
+        <p>AdStore Detailing nació de un grupo de amigos apasionados por los vehículos. Tenemos un firme convencimiento de que tu auto es más que un simple medio de transporte. Es una expresión de tu estilo personal y tu pasión por la conducción. Es por eso que ofrecemos servicios de primera categoría para mejorar la apariencia de tu vehículo y hacer que se vea como nuevo. Nos enorgullecemos de brindar los productos de más alta calidad necesarios para mantener en las mejores condiciones ese auto que tanto quieres.</p>
+        <p class="fuente-poppins">Somos mucho mas que un simple lavadero de autos. Somos AdStore Detailing y te invitamos a que... ¡Vivas la experiencia!</p>
+      </div>
+
+      <!--  Inicio contenedor ser cliente -->
+      <section class="se-cliente d-flex flex-column justify-content-between align-items-center font1-color mb-lg-5 py-5">
+        <h3 class="fuente-audiowide my-lg-4 text-center">¡Resgistrate como cliente!</h3>
+        <div class="w-100 d-flex justify-content-center flex-wrap row">
+          <div class="col-10 col-lg-6 d-flex flex-column justify-content-between h-100">
+            <ul class="m-0 p-0">
+              <li><p>Resgistrate y accede a los mejores productos y servicios para el embellecimiento de tu vehículo</p></li>
+              <li><p>Una vez registrado tendras una cuenta asociada con la cual podras realizar tus pagos.</p></li>
+              <li><p>Dicha cuenta contará con una tarjeta de tu propiedad para que puedas utilizar todo lo que te brindamos.</p></li>
+            </ul>
+
+            <div class="d-flex mb-2 ">
+              <div class="d-flex justify-content-between flex-column my-lg-4 w-100 flex-wrap">
+                <span class="me-5 mb-3 pb-0">¡Comienza a ser VIP! <i class="fa-solid fa-right-long fa-lg" style="color: #f7ba24;"></i></span>
+                <span class="me-5 mb-3 ">
+                  Clic en
+                  <button @click="loginRegistro('registro')" class="btn btn-warning bigger" type="button" data-bs-toggle="modal" data-bs-target="#modalSign"><strong>REGISTRATE</strong></button>
+                  si no eres cliente.
+                </span>
+                <span  class="me-5 mb-2 ">
+                  CLic en
+                  <button @click="loginRegistro('login')" class="btn ps-3 pe-3 btn-warning bigger" type="button" data-bs-toggle="modal" data-bs-target="#modalSign"><strong>LOGUEATE</strong></button>
+                  si ya lo eres y accede a tu perfil.
+                </span>
+              </div>
+            </div> 
+          </div>
+          
+          <img class="col-10 col-lg-4" style="border-radius: 20px;" src="./assets/Imagenes/tarjetAddStore.png" alt="tarjeta">
+        </div>
+        
+        
+        <div>
+
+        </div>
+      </section>
+      <!--  Fin contenedor ser cliente -->
+
+      <!--  Inicio contenedor productos -->
+      <div class="d-flex justify-content-evenly productos align-items-center mb-lg-5 p-lg-3 row">
+        <div class="col-12 col-lg-6 col-xl-4 pt-3">
+          <img class="w-100" src="./assets/Imagenes/PNG3.png" alt="logo">
+          <p class=" fuente-audiowide texto-intro ">Sabemos que vos solo queres lo mejor de lo mejor para tu vehículo. Es por eso que te brindamos los productos de más alta calidad, de modod que puedas mantener en las mejores condiciones ese automovil que tanto queres...</p>
+        </div>
+        <div class="d-flex flex-wrap col-12 col-lg-6 col-xl-7 justify-content-center p-3">
+          <div class="my-3 col-10 col-md-5 m-md-2 d-flex align-items-center justify-content-end flex-column prod-index">
+            <img class="w-100 otros-elem-div" src="./assets/Imagenes/otrosProd.png" alt="otros">
+            <p class="my-2 otros-elem-div">Otros productos</p>
+            <a class="prod-comprar" href="./productos.html"><button class="btn1 fuente-audiowide">Comprar</button></a>
+          </div>
+          <div class="my-3 col-10 col-md-5 m-md-2 d-flex align-items-center justify-content-end flex-column prod-index">
+            <img class="w-100 otros-elem-div" src="./assets/Imagenes/prodInterior.png" alt="interior">
+            <p class="my-2 otros-elem-div">Productos de interior</p>
+            <a class="prod-comprar" href="./productos.html"><button class="btn1 fuente-audiowide">Comprar</button></a>
+          </div>
+          <div class="my-3 col-10 col-md-5 m-md-2 d-flex align-items-center justify-content-end flex-column prod-index">
+            <img class="w-100 otros-elem-div" src="./assets/Imagenes/prodLavado.png" alt="lavado">
+            <p class="my-2 otros-elem-div">Productos de lavado</p>
+            <a class="prod-comprar" href="./productos.html"><button class="btn1 fuente-audiowide">Comprar</button></a>
+          </div>
+          <div class="my-3 col-10 col-md-5 m-md-2 d-flex align-items-center justify-content-end flex-column prod-index">
+            <img class="w-100 otros-elem-div" src="./assets/Imagenes/prodPulido.png" alt="pulido">
+            <p class="my-2 otros-elem-div">Pulido y sellado</p>
+            <a class="prod-comprar" href="./productos.html"><button class="btn1 fuente-audiowide">Comprar</button></a>
+          </div>
+        </div>
+      </div>
+      <!--  fin contenedor productos -->
+      <!--  inicio contenedor servicios -->
+      <div class="contenedor-servicios d-flex">
+        <div class="d-flex flex-column flex-lg-row">
+          <div>
+            <h1 class="titulo-servicio"> CONOCE NUESTROS SERVICIOS</h1>
+            <p class="font1-color"  style="font-family: 'Poppins', sans-serif;" >Tu vehículo merece estar en las mejores manos, con personal altamente capacitado, con los materiales de mejor calidad y a la valocidad que siempre soñaste.
+            </p>
+            
+            <div class="d-flex flex-md-row flex-column justify-content-between justify-content-md-around align-content-end align-items-md-end mt-2">
+              <div class="d-flex flex-md-column flex-row m-2 mb-lg-3 justify-content-center align-content-center align-items-center">
+                <h2 class="up-title">LAVADO</h2>
+                <h2 class="down-title">Premium</h2>
+              </div>
+              <div class="d-flex flex-md-column flex-row m-2  mb-lg-3 justify-content-center align-content-center align-items-center">
+                <h2 class="up-title">LAVADO</h2>
+                <h2 class="down-title">Básico</h2>
+              </div>
+              <div class="d-flex flex-md-column flex-row m-2 mb-lg-3 justify-content-center align-content-center align-items-center">
+                <h2 class="up-title">TRATAMIENTO</h2>
+                <h2 class="down-title">Cerámico</h2>
+              </div>
+              <div class="d-flex flex-md-column flex-row m-2 mb-lg-3 justify-content-center align-content-center align-items-center">
+                <h2 class="up-title">TRATAMIENTO</h2>
+                <h2 class="down-title">Acrilico</h2>
+              </div>
+            </div>
+          </div>
+          <div class="d-flex justify-content-end">
+            <img src="./assets/Imagenes/servicios.png" class="img-servicio" alt="">
+          </div>
+        </div>
+        
 
 
-  </main>
+      </div>
 
+      <!--  Inicio div marcas -->
+      <section class="z-0 d-flex flex-column justify-content-center align-items-center flex-wrap marcas-index my-lg-4 p-2">
+        <h2 class="font2-color fuente-audiowide text-uppercase">Nuestras marcas, satisfacción garantizada</h2>
+        <p class="font1-color" style="font-family: 'Poppins', sans-serif;">Utilizamos solo los mejores productos para tu vehículo. Utilizamos marcas avaladas por una larga trayectoria y una intachable reputación.</p>
+        <div class="w-100 justify-content-around d-flex align-items-center gap-3">
+          <img class="w-15" src="./assets/Imagenes/meguiarsLogo.png" alt="meguiars">
+          <img class="w-15" src="./assets/Imagenes/sonaxLogo.png" alt="sonax">
+          <img class="w-15" src="./assets/Imagenes/soft99Logo.png" alt="soft99">
+          <img  style="width: 8vw; aspect-ratio: 1.1/1;" src="./assets/Imagenes/ternnova.png" alt="ternnova">
+        </div>
+      </section>
+      <!--  Fin div marcas -->
+
+
+      <!--  Inicio carrusel experiencias -->
+      <div class="carrusel-exp d-flex justify-content-center z-0 mb-lg-5">
+        <div id="carouselExampleSlidesOnly" class="carousel col-lg-10 slide w-100" data-bs-ride="carousel">
+          <div class="carousel-inner">
+
+            <div class="carousel-item active">
+              <div class="d-flex justify-content-evenly fondo-experiencia flex-wrap">
+                <div class="col-10 col-md-4 p-2 d-flex justify-content-center align-content-center align-items-center">
+                  <img src="./assets/Imagenes/experiencia1.jpg" class="d-block img-experiencia w-100" alt="...">
+                </div>
+                <div class="d-flex p-2 col-11 col-md-6 flex-column">
+                  <a href="" class="link-contacto text-decoration-none"> <h4>TU EXPERIENCIA...</h4> </a>
+                  <div>
+                    <div class="d-flex align-items-center m-0 align-content-center">
+                      <img src="./assets/Imagenes/usuario.png" class="usuario" alt="">
+                      <p class="mt-2">@Pablo23</p>
+                    </div>
+                    <p class="m-0">
+                      Recientemente tuve la oportunidad de llevar mi coche al taller de autos local y debo decir que quedé muy impresionado con el servicio. Desde el momento en que ingresé al taller, me sentí bienvenido y bien atendido por el personal.
+                    </p>
+                    <img src="./assets/Imagenes/estrella.png" alt="">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="carousel-item">
+              <div class="d-flex justify-content-evenly fondo-experiencia flex-wrap">
+                <div class="col-10 col-md-4 p-2 d-flex justify-content-center align-content-center align-items-center">
+                  <img src="./assets/Imagenes/experiencia2.jpg" class="d-block img-experiencia w-100" alt="...">
+                </div>
+                <div class="d-flex p-2 col-11 col-md-6 flex-column">
+                  <a href="" class="link-contacto text-decoration-none"> <h4>TU EXPERIENCIA...</h4> </a>
+                  <div>
+                    <div class="d-flex align-items-center m-0 align-content-center">
+                      <img src="./assets/Imagenes/usuario.png" class="usuario" alt="">
+                      <p class="mt-2">@camila_r12</p>
+                    </div>
+                    <p class="m-0">
+                      Adstore ofrecía un ambiente limpio y ordenado, lo que me dio confianza de que el equipo se preocupaba por su trabajo y su entorno. Utilizan tecnología moderna y herramientas de alta calidad, estan muy bien equipados para embellecer mi coche.
+                    </p>
+                    <img src="./assets/Imagenes/estrella.png" alt="">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="carousel-item">
+              <div class="d-flex justify-content-evenly fondo-experiencia flex-wrap">
+                <div class="col-10 col-md-4 p-2 d-flex justify-content-center align-content-center align-items-center">
+                  <img src="./assets/Imagenes/experiencia3.jpeg" class="d-block img-experiencia w-100" alt="...">
+                </div>
+                <div class="d-flex p-2 col-11 col-md-6 flex-column">
+                  <a href="" class="link-contacto text-decoration-none"> <h4>TU EXPERIENCIA...</h4> </a>
+                  <div>
+                    <div class="d-flex align-items-center m-0 align-content-center">
+                      <img src="./assets/Imagenes/usuario.png" class="usuario" alt="">
+                      <p class="mt-2">@luispablo1</p>
+                    </div>
+                    <p class="m-0">
+                      La página web del Adstore fue muy útil para programar una cita, ofrecía una variedad de opciones de servicio y muchos productos. La información que brindan es completisima, lo que me permitió saber exactamente qué esperar. 100 % satisfecho.
+                    </p>
+                    <img src="./assets/Imagenes/estrella.png" alt="">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <!--  Fin carrusel experiencias -->
+
+      <!-- Inicio formulario de login-->
+      <div div class="modal fade" id="modalSign" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content modal-login">
+            <div class="modal-header header-login font2-color">
+                <h2 class="fuente-audiowide text-uppercase">Bienvenido</h2>
+                <button type="button" class="btn-close close-modal" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body d-flex align-items-center justify-content-center flex-column">
+              <div class="d-flex align-items-center justify-content-center font2-color">
+                <div class="section mb-3">
+                    <div class="container">
+                        <div class="row full-height justify-content-center">
+                            <div class="col-12 text-center align-self-center">
+                                <div class="section pt-sm-2 text-center">
+                                    <p class="font1-color m-0">Si aún no eres cliente registrate. De lo contrario inicia sesión.</p>
+                                    <div class="d-flex justify-content-evenly w-100 flex-wrap">
+                                      <button @click="loginRegistro('registro')" class="btn btn1 p-2">Ver formulario de Registro</button>
+                                      <button @click="loginRegistro('login')" class="btn btn1 p-2">Ver formulario de inicio de sesión</button> 
+                                    </div>
+                                    <div class="card-3d-wrap mx-auto">
+                                        <div class="card-3d-wrapper">
+                                            <div class="card-frente">
+                                                <div class="center-wrap">
+                                                    <div class="section text-center">
+                                                        <h4 class="mb-2 pb-3 titulo-log-in fuente-audiowide">Inicio de Sesión</h4>
+                                                        <div class="form-group form">
+                                                            <input type="email" name="logemail" class="form-style" placeholder="Email" id="logemail" autocomplete="off" v-model="emailInicioSesion" required>
+                                                            <i class="input-icon uil uil-at"></i>
+                                                        </div>	
+                                                        <div class="form-group mt-2">
+                                                            <input type="password" name="logpass" class="form-style" placeholder="Contraseña" id="logpass" autocomplete="off" v-model="contraInicioSesion" @keyup.enter="loginWithEnter()" required>
+                                                            <i class="input-icon uil uil-lock-alt"></i>
+                                                        </div>
+                                                        <span @click="iniciarSesion()" class="submit btn mt-4 categoria font1-color" data-bs-dismiss="modal">Enviar</span>
+                                                        <p v-if="errorEncontrado" class="mb-0 mt-4 text-center red-color">⋆ El email o la contraseña no son correctos</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div v-if="!registrado" class="card-dorso">
+                                                <div class="center-wrap">
+                                                    <div class="section text-center">
+                                                        <h4 class="mb-2 pb-3 titulo-log-in fuente-audiowide">Registro</h4>
+                                                        <div class="form-group form">
+                                                            <input type="text" name="logfirstname" class="form-style form-style-signup" placeholder="Nombre" id="logfirstname" autocomplete="off" v-model="nombre" required>
+                                                            <i class="input-icon uil uil-user"></i>
+                                                        </div>	
+                                                        <div class="form-group mt-2">
+                                                            <input type="text" name="loglastname" class="form-style form-style-signup" placeholder="Apellido" id="loglastname" autocomplete="off" v-model="apellido" required>
+                                                            <i class="input-icon uil uil-user"></i>
+                                                        </div>	
+                                                        <div class="form-group mt-2">
+                                                            <input type="email" name="logemail" class="form-style form-style-signup" placeholder="Email" id="signmail" autocomplete="off" v-model="email" required>
+                                                            <i class="input-icon uil uil-at"></i>
+                                                        </div>	
+                                                        <div class="form-group mt-2">
+                                                            <input type="password" name="logpass" class="form-style form-style-signup" placeholder="Contraseña" id="signpass" autocomplete="off" v-model="contra" required>
+                                                            <i class="input-icon uil uil-lock-alt"></i>
+                                                        </div>
+                                                        <div class="form-group mt-2">
+                                                          <input type="text" name="logpass" class="form-style form-style-signup" placeholder="Dirección" id="signDirecc" autocomplete="off" v-model="direccion" required>
+                                                          <i class="input-icon uil uil-lock-alt"></i>
+                                                        </div>
+                                                        <div class="form-group mt-2">
+                                                          <input type="text" name="logpass" class="form-style form-style-signup" placeholder="Teléfono" id="signtel" autocomplete="off" v-model="telefono" required>
+                                                          <i class="input-icon uil uil-lock-alt"></i>
+                                                        </div>
+                                                        <p @click="realizarRegistro()" class="submit btn categoria mt-4">Enviar</p>
+                                                        <p v-show="errorEncontrado" class="mb-0 mt-2 text-center red-color mensaje-error-registro"></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div v-else class="card-dorso d-flex justify-content-center align-items-center">
+                                                <div class="registered-view">
+                                                    <h2 class="font2-color">¡Cliente registrado!</h2>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Fin formulario de login-->
+
+
+      
+    </main>
+      
+    <!--Footer-->
+    
+    <footer id="contactanos" class="d-lg-flex container-fluid pt-3 pb-3 text-white justify-content-evenly pb-1 mt-5">
+
+      <div class="d-sm-flex col-lg-3 logo-footer align-items-md-center">
+        <img class="container-fluid me-lg-3" src="./assets/Imagenes/PNG1.png" alt="logo" >
+      </div>
+
+      <div class="d-flex flex-md-row flex-column ms-md-5 flex-lg-row ">
+      <div class="d-md-flex  justify-content-between align-content-center align-items-center ms-4 col-lg-6 col-md-6">
+        <div class="d-md-flex flex-md-column">
+          <h4 id="contacto" class="text-center text-lg-start text-md-start text-warning ">CONTACTANOS</h4>
+          <div class="contacto container-fluid d-md-flex flex-lg-column p-lg-0 container-fluid justify-content-md-around">
+            <div class="text-center d-flex flex-column justify-content-center">
+              <p class="contact text-md-start fw-bold"><i class="fa  text-warning fa-envelope-o fa-fw" aria-hidden="true"></i>&nbsp; EMAIL: <a class="link-light link-white-hover  link-contacto text-decoration-none" href="mailto:adstore@boxes.com">adstore@boxes.com</a></p>
+              <p class="contact text-md-start fw-bold"><i class="fa  text-warning fa-phone fa-fw" aria-hidden="true"></i>&nbsp; TEL: <a class="link-light link-white-hover text-decoration-none link-contacto" href="tel:+54 9 51 2435-0965">+54 9 51 2435-0965</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="d-md-flex  justify-content-between align-content-center align-items-center  col-lg-6 col-md-5">
+        <div class="mt-4 d-flex flex-column justify-content-lg-around  justify-content-center mt-lg-0">
+          <div>
+            <h4 class="text-center text-warning">NUESTRA TIENDA</h4>
+          </div>
+          <ul class="nav  d-flex  justify-content-center align-items-center flex-column">
+            <li class=" mx-md-auto mt-1 justify-content-center align-content-center">
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3403.874212597411!2d-64.19005708560763!3d-31.445129704787824!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9432a2f0a0739eb5%3A0xbf15a4a3ef77c7ee!2sPedro%20Carta%20Molina%20650%2C%20X5016%20C%C3%B3rdoba%2C%20Argentina!5e0!3m2!1ses-419!2scl!4v1679672670025!5m2!1ses-419!2scl" width="150" height="100" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </li>
+            <div>
+              <li class="text-center"><i class="fa fa-map-marker text-warning fa-fw" aria-hidden="true"></i>&nbsp; Pedro Carta Molina 650, Cordoba</li>
+            </div>
+            </ul>
+        </div>
+      </div> 
+      </div>
+      <div class="mt-5 col-lg-3 align-items-center">
+          <h4 class="text-center text-warning">NUESTRAS REDES</h4>
+          <ul class="list-unstyled d-flex justify-content-around mb-0 mt-3 mx-auto redes">
+            <li ><a class="link-dark-hover text-muted" href="https://www.instagram.com/adstoreboxes/?hl=en"><i class="fa-brands fa-instagram fa-2x redes text-warning"></i></a></li>
+            <li ><a class="link-dark-hover text-muted" href="https://www.facebook.com/adstoreboxes/"><i class="fa-brands fa-facebook fa-2x redes text-warning"> </i></a></li>
+            <li ><a class="link-dark-hover text-muted" href="https://web.whatsapp.com/"><i class="fa-brands fa-whatsapp fa-2x text-warning redes"></i></a></li>
+          </ul>
+      </div>
+
+    </footer>
+    <section class=" d-flex justify-content-center copyright mb-0">
+      <p class="fuente-poppin"><i class="fas align-items-center mt-3 fa-copyright"></i> <strong>&nbsp;2023-Copyright Adstore-Cohorte 41</strong></p>
+    </section>
+  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
     crossorigin="anonymous"></script>
   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-  <script src="./assets/scripts/index.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://unpkg.com/vue-cal"></script>
+  <script src="./assets/Js/index.js"></script>
 </body>
 
 </html>
-
