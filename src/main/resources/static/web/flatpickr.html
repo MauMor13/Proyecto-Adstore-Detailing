@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>Appointment Picker</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous" />
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous" />
     <link rel="stylesheet" href="./appointment-picker.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 </head>
@@ -13,8 +13,9 @@
 <body id="app">
     <form style="width: 80%;">
 
-        <input class="form-control" type="date" id="flatpickr" placeholder="Seleccione una fecha" v-model="selectedDate" @change="updateSelectedDate" ref="datepicker">
-        <input id="time" type="text" value="10:00" v-model="selectedHour">
+        <input class="form-control" type="date" id="flatpickr" placeholder="Seleccione una fecha"
+            @change="updateSelectedDate" ref="datepicker">
+        <input id="time" type="text" value="10:00">
 
     </form>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -37,9 +38,24 @@
         }
         flatpickr(document.getElementById('flatpickr'), config);
     </script>
-    <script>
-       
-    </script>
+    <!-- <script>
+        this.fechasOcupadas = res.data
+        this.horasOcupadas()
+        let picker = new AppointmentPicker(document.getElementById('time'), {
+            interval: 60,
+            mode: '12h',
+            minTime: 9,
+            maxTime: 20,
+            startTime: 9,
+            endTime: 21,
+            // disabled: this.hoursToDisable,
+            title: 'Seleccione un horario',
+            large: true,
+            templateInner: '<li class="appo-picker-list-item {{disabled}}"><input type="button" tabindex="-1" value="{{time}}" {{disabled}}></li>',
+            templateOuter: '<span class="appo-picker-title">{{title}}</span><ul class="appo-picker-list">{{innerHtml}}</ul>'
+
+        });
+    </script> -->
 </body>
 
 </html>
