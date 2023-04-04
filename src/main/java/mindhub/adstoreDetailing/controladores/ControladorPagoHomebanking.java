@@ -49,8 +49,8 @@ public class ControladorPagoHomebanking {
     }
 
 //    public static String conectarHomebanking(String URLobjetivo, String parametros)
-    {
-        HttpURLConnection connection = null;
+//    {
+//        HttpURLConnection connection = null;
 //        try {
 
             //Crear conexión
@@ -116,4 +116,5 @@ public class ControladorPagoHomebanking {
 //            }}
 //        }
 //    }
-        }}
+        //}
+}
